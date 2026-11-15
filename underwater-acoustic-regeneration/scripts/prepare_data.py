@@ -12,6 +12,7 @@ import hashlib
 import io
 import json
 import posixpath
+import threading
 import zipfile
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -29,10 +30,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def write_jsonl(path: Path, rows: list) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    opener = gzip.open if path.suffix == ".gz" else open
-    with opener(path, "wt") as stream:
-        for row in rows:
-            stream.write(json.dumps(row, sort_keys=True) + "\n")
+    payload = "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows).encode()
+    path.write_bytes(gzip.compress(payload, mtime=0) if path.suffix == ".gz" else payload)
 
 
 def metadata_rows(archive: zipfile.ZipFile) -> list:
@@ -95,9 +94,13 @@ def main() -> None:
             return
         # This source manifest exists before any decoded or resampled derivative.
         write_jsonl(manifests / "source_metadata.jsonl.gz", rows)
+        archive_read_lock = threading.Lock()
 
         def audit(row):
-            content = archive.read(row["archive_member"])  # ZIP CRC verified by zipfile.
+            # Keep each shared archive read atomic; decoding/hashing can proceed
+            # concurrently. Retain ZIP overlap and CRC checks without bypasses.
+            with archive_read_lock:
+                content = archive.read(row["archive_member"])
             with sf.SoundFile(io.BytesIO(content)) as audio:
                 rate, channels, frames, subtype = audio.samplerate, audio.channels, len(audio), audio.subtype
                 decoded = audio.read(dtype="float32", always_2d=True)

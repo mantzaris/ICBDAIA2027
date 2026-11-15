@@ -8,7 +8,7 @@ import torch
 from acoustic_regeneration.checkpoint import load_checkpoint, save_checkpoint
 from acoustic_regeneration.data.observation import Observation
 from acoustic_regeneration.models.diffwave import ModelConfig, WaveformModel
-from acoustic_regeneration.restoration.diffusion import cosine_schedule, ddim, masked_noise_loss, noisy_training_input
+from acoustic_regeneration.restoration.diffusion import cosine_schedule, ddim, ddim_batch, masked_noise_loss, noisy_training_input
 
 
 def test_architecture_receptive_field_and_projection_training_contract():
@@ -70,3 +70,17 @@ def test_resume_reproduces_next_random_batch_and_optimizer_update(tmp_path):
     assert restored["sampler"]["position"] == 4
     with pytest.raises(ValueError, match="metadata"):
         load_checkpoint(path, model, optimizer, expected_metadata=dict(metadata, manifest_hash="changed"))
+
+
+def test_batched_sampling_keeps_each_seed_and_observation_separate():
+    torch.manual_seed(17)
+    model = WaveformModel(ModelConfig(4, 2, 2, 16))
+    mask = np.ones(1024, dtype=bool)
+    mask[300:700] = False
+    observations = [Observation(np.sin(np.arange(1024) * value), mask) for value in (0.1, 0.2)]
+    first = ddim_batch(model, observations, [17, 29], steps=4, training_steps=16)
+    second = ddim_batch(model, observations, [17, 29], steps=4, training_steps=16)
+    for index in range(2):
+        np.testing.assert_array_equal(first[index].waveform, second[index].waveform)
+        np.testing.assert_array_equal(first[index].waveform[mask], observations[index].values[mask])
+        assert first[index].denoiser_calls == 4

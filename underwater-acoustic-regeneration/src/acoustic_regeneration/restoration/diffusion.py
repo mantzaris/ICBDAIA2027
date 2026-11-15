@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from contextlib import nullcontext
+from typing import Sequence
 
 import numpy as np
 import torch
@@ -63,7 +65,9 @@ def ddim(model: torch.nn.Module, observation: Observation, seed: int,
     model.eval()
     try:
         for index, time in enumerate(times):
-            prediction = model(state, torch.tensor([time], device=device), values, mask)
+            context = torch.autocast(device_type="cuda", dtype=torch.bfloat16) if device.type == "cuda" else nullcontext()
+            with context:
+                prediction = model(state, torch.tensor([time], device=device), values, mask)
             clean = (state - (1 - schedule[time]).sqrt() * prediction) / schedule[time].sqrt()
             next_time = times[index + 1] if index + 1 < len(times) else -1
             if next_time < 0:
@@ -76,3 +80,40 @@ def ddim(model: torch.nn.Module, observation: Observation, seed: int,
         model.train(previous_training)
     result = observation.project(state.squeeze(0).cpu().numpy())
     return Draw(result, len(times), seed)
+
+
+@torch.no_grad()
+def ddim_batch(model: torch.nn.Module, observations: Sequence[Observation], seeds: Sequence[int],
+               steps: int = 32, training_steps: int = 1000) -> list:
+    """Batch independent draws while retaining a separate initial RNG per draw.
+
+    A six-example batch still counts as six denoiser evaluations per reverse
+    level; batching does not change the matched scientific computation budget.
+    """
+    if not observations or len(observations) != len(seeds) or not 1 <= steps <= training_steps:
+        raise ValueError("Invalid batched sampler configuration")
+    if len({len(item.values) for item in observations}) != 1:
+        raise ValueError("Batched observations must have equal lengths")
+    device = next(model.parameters()).device
+    values = torch.tensor(np.stack([item.values for item in observations]), dtype=torch.float32, device=device)
+    mask = torch.tensor(np.stack([item.observed for item in observations]), device=device)
+    initial = torch.stack([torch.randn(values.shape[1:], generator=torch.Generator(device=device).manual_seed(seed), device=device)
+                           for seed in seeds])
+    state = torch.where(mask, values, initial)
+    schedule = cosine_schedule(training_steps).to(device)
+    times = np.linspace(training_steps - 1, 0, steps, dtype=int).tolist()
+    previous_training = model.training
+    model.eval()
+    try:
+        for index, time in enumerate(times):
+            context = torch.autocast(device_type="cuda", dtype=torch.bfloat16) if device.type == "cuda" else nullcontext()
+            with context:
+                predicted = model(state, torch.full((len(seeds),), time, device=device), values, mask)
+            clean = (state - (1 - schedule[time]).sqrt() * predicted) / schedule[time].sqrt()
+            following = times[index + 1] if index + 1 < len(times) else -1
+            state = clean if following < 0 else schedule[following].sqrt() * clean + (1 - schedule[following]).sqrt() * predicted
+            state = torch.where(mask, values, state)
+    finally:
+        model.train(previous_training)
+    return [Draw(observation.project(state[index].float().cpu().numpy()), steps, seed)
+            for index, (observation, seed) in enumerate(zip(observations, seeds))]
