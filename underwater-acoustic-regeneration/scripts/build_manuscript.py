@@ -202,7 +202,9 @@ def content(allow_pending=False):
         "tones, modulation, SNR, and short echoes; they are controlled signals, not validated ocean propagation. "
         "Each absent/present pair has exactly identical observed samples and uses the same random seeds. "
         + ("All 400 method–pair comparisons produce identical outputs. Each method must therefore make "
-           "either a false-event or missed-event decision at the fixed event-projection threshold. " if diagnostics else
+           "either a false-event or missed-event decision at the fixed event-projection threshold of 0.5. "
+           "Here all four methods miss all 100 inserted events and make no false-event decision on their "
+           "paired absent targets. " if diagnostics else
            "[LAYOUT PREVIEW: final paired-input check is pending.] ")
         + "This is an identifiability limit: fallback and uncertainty cannot reveal invisible content."
     )
@@ -240,8 +242,8 @@ def content(allow_pending=False):
         transfer_text = "[LAYOUT PREVIEW: the published general-audio checkpoint compatibility run is pending; no score is claimed.]"
     diagnostics_rows = []
     if diagnostics:
-        for key, name in [("gap_750ms", "750 ms gap"), ("gap_1000ms", "1,000 ms gap"),
-                          ("packet_4x50ms", "Four 50 ms gaps"), ("insufficient_context", "Short context"),
+        for key, name in [("750ms", "750 ms gap"), ("1000ms", "1,000 ms gap"),
+                          ("four_50ms_packets", "Four 50 ms gaps"), ("insufficient_context", "Short context"),
                           ("smooth_level_spectrum_shift", "Level/spectrum shift")]:
             # Preserve the exact logged mechanism identifiers in the evidence map.
             item = diagnostics["mechanisms"].get(key)

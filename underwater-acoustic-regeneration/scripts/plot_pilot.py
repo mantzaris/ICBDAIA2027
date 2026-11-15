@@ -55,7 +55,7 @@ def workflow():
 
 def ranking(directory):
     curves = json.loads((directory / "ranking_curves.json").read_text())["rows"]
-    fig, ax = plt.subplots(figsize=(4.7, 2.8))
+    fig, ax = plt.subplots(figsize=(4.7, 2.25))
     for name, label in (("full", "Full diagnostics"), ("no_probes", "No probes"),
                         ("duration_only", "Duration gate"), ("dispersion_only", "Dispersion gate")):
         rows = [row for row in curves if row["policy"] == name]
