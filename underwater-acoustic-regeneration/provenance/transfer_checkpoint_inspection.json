@@ -1,0 +1,295 @@
+{
+  "iteration": 850000,
+  "keys": [
+    "it",
+    "network",
+    "optimizer",
+    "ema",
+    "args"
+  ],
+  "ema_tensor_elements": 44498544,
+  "ema_first_keys": [
+    "embedding.RFF_freq",
+    "embedding.MLP.0.weight",
+    "embedding.MLP.0.bias",
+    "embedding.MLP.1.weight",
+    "embedding.MLP.1.bias",
+    "embedding.MLP.2.weight",
+    "embedding.MLP.2.bias",
+    "downsamplerT.kernel",
+    "upsamplerT.kernel",
+    "downs.0.0.res_conv.weight"
+  ],
+  "published_configuration": {
+    "dset": {
+      "name": "maestro_allyears",
+      "callable": "datasets.maestro_dataset.MaestroDataset_fs",
+      "type": "audio",
+      "path": "/scratch/shareddata/dldata/maestro/v3.0.0/maestro-v3.0.0",
+      "years": [
+        2015,
+        2017,
+        2018
+      ],
+      "years_test": [
+        2009
+      ],
+      "cache": true,
+      "load_len": 405000,
+      "test": {
+        "callable": "datasets.maestro_dataset_test.MaestroDatasetTestChunks",
+        "num_samples": 4,
+        "batch_size": 1
+      }
+    },
+    "network": {
+      "name": "unet_cqt_oct_with_attention",
+      "callable": "networks.unet_cqt_oct_with_projattention_adaLN_2.Unet_CQT_oct_with_attention",
+      "use_fencoding": false,
+      "use_norm": true,
+      "filter_out_cqt_DC_Nyq": true,
+      "depth": 7,
+      "emb_dim": 256,
+      "Ns": [
+        64,
+        96,
+        96,
+        128,
+        128,
+        256,
+        256
+      ],
+      "attention_layers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Ss": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "num_dils": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        7
+      ],
+      "cqt": {
+        "window": "kaiser",
+        "beta": 1,
+        "num_octs": 7,
+        "bins_per_oct": 64
+      },
+      "bottleneck_type": "res_dil_convs",
+      "num_bottleneck_layers": 1,
+      "attention_dict": {
+        "num_heads": 8,
+        "attn_dropout": 0.0,
+        "bias_qkv": false,
+        "N": 0,
+        "rel_pos_num_buckets": 32,
+        "rel_pos_max_distance": 64,
+        "use_rel_pos": true,
+        "Nproj": 8
+      }
+    },
+    "network_operator": {
+      "name": "none"
+    },
+    "diff_params": {
+      "callable": "diff_params.edm.EDM",
+      "sigma_data": 0.063,
+      "sigma_min": 1e-05,
+      "sigma_max": 10,
+      "P_mean": -1.2,
+      "P_std": 1.2,
+      "ro": 13,
+      "ro_train": 10,
+      "Schurn": 5,
+      "Snoise": 1,
+      "Stmin": 0,
+      "Stmax": 50,
+      "aweighting": {
+        "use_aweighting": false,
+        "ntaps": 101
+      }
+    },
+    "tester": {
+      "do_test": true,
+      "name": "edm_2ndorder_stochastic",
+      "callable": "testing.tester.Tester",
+      "sampler_callable": "testing.edm_sampler.Sampler",
+      "modes": [
+        "unconditional",
+        "bwe",
+        "inpainting"
+      ],
+      "T": 35,
+      "order": 2,
+      "filter_out_cqt_DC_Nyq": true,
+      "checkpoint": "None",
+      "unconditional": {
+        "num_samples": 4,
+        "audio_len": 184184
+      },
+      "posterior_sampling": {
+        "xi": 0.25,
+        "data_consistency": false
+      },
+      "diff_params": {
+        "same_as_training": false,
+        "sigma_data": 0.063,
+        "sigma_min": 0.0001,
+        "sigma_max": 1,
+        "P_mean": -1.2,
+        "P_std": 1.2,
+        "ro": 13,
+        "ro_train": 13,
+        "Schurn": 10,
+        "Snoise": 1,
+        "Stmin": 0,
+        "Stmax": 50
+      },
+      "autoregressive": {
+        "overlap": 0.25,
+        "num_samples": 4
+      },
+      "sampler": "stochastic",
+      "noise_in_observations_SNR": "None",
+      "bandwidth_extension": {
+        "decimate": {
+          "factor": 1
+        },
+        "filter": {
+          "type": "firwin",
+          "fc": 1000,
+          "order": 500,
+          "fir_order": 500,
+          "beta": 1,
+          "ripple": 0.05,
+          "resample": {
+            "fs": 2000
+          },
+          "biquad": {
+            "Q": 0.707
+          }
+        }
+      },
+      "inpainting": {
+        "gap_length": 1000,
+        "start_gap_idx": "None"
+      },
+      "comp_sens": {
+        "percentage": 5
+      },
+      "phase_retrieval": {
+        "win_size": 1024,
+        "hop_size": 256
+      },
+      "max_thresh_grads": 1,
+      "type_spec": "linear",
+      "declipping": {
+        "SDR": 3
+      }
+    },
+    "exp": {
+      "exp_name": "22k_8s",
+      "trainer_callable": "training.trainer.Trainer",
+      "wandb": {
+        "entity": "eloimoliner",
+        "project": "A-diffusion"
+      },
+      "model_dir": "/scratch/work/molinee2/projects/ddpm/diffusion_autumn_2022/A-diffusion/experiments/54",
+      "optimizer": {
+        "type": "adam",
+        "beta1": 0.9,
+        "beta2": 0.999,
+        "eps": 1e-08
+      },
+      "lr": 0.0002,
+      "lr_rampup_it": 10000,
+      "scheduler_step_size": 60000,
+      "scheduler_gamma": 0.8,
+      "batch": 4,
+      "batch_gpu": 4,
+      "num_accumulation_rounds": 1,
+      "use_fp16": false,
+      "ls": 1,
+      "bench": true,
+      "num_workers": 4,
+      "seed": 42,
+      "transfer": "None",
+      "resume": true,
+      "resume_checkpoint": "None",
+      "sample_rate": 22050,
+      "audio_len": 184184,
+      "resample_factor": 2,
+      "device": "cpu",
+      "use_cqt_DC_correction": false,
+      "ema_rate": 0.9999,
+      "ema_rampup": 10000,
+      "use_grad_clip": true,
+      "max_grad_norm": 1,
+      "restore": false,
+      "checkpoint_id": "None",
+      "augmentations": {
+        "rev_polarity": true,
+        "pitch_shift": {
+          "use": false,
+          "min_semitones": -6,
+          "max_semitones": 6
+        },
+        "gain": {
+          "use": false,
+          "min_db": -3,
+          "max_db": 3
+        }
+      }
+    },
+    "logging": {
+      "log": true,
+      "log_interval": 1000,
+      "heavy_log_interval": 10000,
+      "save_model": true,
+      "save_interval": 10000,
+      "remove_last_checkpoint": true,
+      "num_sigma_bins": 20,
+      "freq_cqt_logging": 100,
+      "print_model_summary": true,
+      "profiling": {
+        "enabled": true,
+        "wait": 5,
+        "warmup": 10,
+        "active": 2,
+        "repeat": 1
+      },
+      "stft": {
+        "win_size": 1024,
+        "hop_size": 256
+      },
+      "cqt": {
+        "hop_length": 1024,
+        "num_octs": 8,
+        "fmin": 32.7,
+        "bins_per_oct": 2
+      },
+      "log_feature_stats": false,
+      "log_feature_stats_interval": 1000000
+    },
+    "model_dir": "/scratch/work/molinee2/projects/ddpm/diffusion_autumn_2022/A-diffusion/experiments/54",
+    "dry_run": false
+  }
+}
