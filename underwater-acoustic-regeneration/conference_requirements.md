@@ -16,8 +16,15 @@ The [linked Springer template](https://drive.google.com/file/d/1X67baiOAmfXYsMWc
 was downloaded (115,357 bytes); its source SHA-256 is in
 `provenance/source_retrieval.json`. ZIP/XML inspection confirms a proceedings sample,
 150–250-word abstract guidance, numbered references, and embedded VBA parts.
-No macros were executed. A macro-free editable `.docx` and rendered PDF remain
-required; an unrendered draft is not the final submission package.
+No macros were executed. The user subsequently requested **LaTeX only**, with one
+`mainj.tex`, a separate `.bib`, and figures in the same directory. This supersedes
+the earlier Word-deliverable requirement.
+
+The provided Word sample identifies LNCS and uses its title, heading, and reference
+conventions. The corresponding [official Springer proceedings LaTeX package](https://link.springer.com/series/558/information-for-authors-and-editors)
+was retrieved; unmodified `llncs.cls` v2.25 (2026-09-03) and `splncs04.bst` are
+included beside the paper. Its standard 122 × 193 mm text area is retained without
+manual margin or line-spacing overrides. Provenance is in `provenance/latex_template.json`.
 
 Unsent organizer question: “Could you confirm whether the full-paper limit is
 eight or ten total pages, whether references count toward that limit, and which

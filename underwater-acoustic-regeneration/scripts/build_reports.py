@@ -248,7 +248,7 @@ def main():
         if item["cases"] == 20:
             for column, key in [("Cases", "cases"), ("Coverage", "coverage"), ("Q(P)", "mean_P_Q")]:
                 cells.append({"table": 3, "row": mechanism, "column": column, "value": item[key], "source": DIAG + "/summary.json", "json_pointer": "/mechanisms/" + mechanism + "/" + key})
-    save("manuscript/table_cells.json", cells)
+    save("reports/manuscript_audit/table_cells.json", cells)
     with (ROOT / "reports/experiment_ledger.csv").open("w", newline="") as stream:
         writer = csv.writer(stream, lineterminator="\n")
         writer.writerow(["run_id", "final_status", "completed_attempts", "measured_attempt_seconds", "recorded_failure_entries"])
@@ -260,7 +260,7 @@ def main():
                     "source_identity_note": "git_commit names base HEAD; script_sha256 identifies the exact executed postprocessing source",
                     "script_sha256": digest("scripts/build_reports.py"), "source_manifest_sha256": digest("manifests/sources.jsonl.gz"),
                     "artifacts_verified": len(checked), "source_rows_verified": len(source_manifest),
-                    "output_paths": ["reports/artifact_validation.json", "reports/claim_to_evidence.json", "manuscript/table_cells.json"],
+                    "output_paths": ["reports/artifact_validation.json", "reports/claim_to_evidence.json", "reports/manuscript_audit/table_cells.json"],
                     "scope": "Verification of existing artifacts and descriptive aggregation; no new model or independent sample"}
     with (ROOT / "results/local_run_registry.jsonl").open("a") as stream:
         stream.write(json.dumps(local_record, sort_keys=True) + "\n")

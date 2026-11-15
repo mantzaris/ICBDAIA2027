@@ -1,0 +1,242 @@
+% Canonical, editable manuscript. All prose, equations, and tables are in this file.
+% Build: latexmk -pdf -interaction=nonstopmode -halt-on-error mainj.tex
+% Anonymous development draft; main-study efficacy remains untested.
+\documentclass[runningheads,orivec]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={Anonymous},pdftitle={Selective Underwater Waveform Inpainting: A Development Feasibility Audit},pdfsubject={Anonymous development draft; main study incomplete}}
+
+\begin{document}
+\title{Selective Underwater Waveform Inpainting:\texorpdfstring{\\}{ }A Development Feasibility Audit}
+\titlerunning{Selective Underwater Waveform Inpainting}
+\author{Anonymous submission}
+\authorrunning{Anonymous}
+\institute{}
+\maketitle
+
+\begin{abstract}
+Waveform inpainting can produce plausible content without recovering the event that actually occurred. We examine whether observation-only probes and a separately calibrated gate can support selective completion of missing underwater acoustic samples. This paper reports a bounded development audit, not a completed held-out efficacy study. We audit 43,208 UniqueShip recordings, construct vessel/source partitions, and train a 2.72-million-parameter conditional diffusion model on approximately two hours of generator-training audio. Four candidate completions and two context probes feed a predictor of quality change relative to a validation-selected deterministic fallback. A numerical failure at the cosine schedule endpoint motivates a documented sampler amendment based only on G diagnostics. On 64 tuning groups, only five have a candidate improving the prespecified quality score by at least 0.02; both 32-step and 64-step sampling fail the 20\% feasibility trigger. Dry calibration on 64 separate development groups selects no accepting threshold. The resulting policy equals its fallback on all 64 dry-test groups. Paired hidden-event constructions additionally test the impossibility of identifying content absent from the observation. These findings support a no-go decision for this pilot configuration, while leaving generalization, downstream utility, and the selective-method hypothesis unresolved.
+\keywords{Underwater acoustics \and Waveform inpainting \and Selective prediction \and Negative results}
+\end{abstract}
+
+\section{Problem and scope}
+
+Known missing samples arise from acoustic acquisition or transmission failures. Filling them is distinct from denoising: an undeleted field recording is a reconstruction reference, not noise-free physical truth. Our question is whether diagnostics from observed context can identify useful generative completions at a fixed inference budget. The proposed decision mechanism is evaluated only as a feasibility pilot. A failed predeclared opportunity check stops the main study; it cannot establish that diffusion or selective restoration is ineffective in general.
+
+
+This anonymous development draft documents actual measurements, failure analysis, and reproducible artifacts. The real calibration and test outcomes remain unopened. The planned three-seed study, independent utility evaluation, and external archive experiment are not represented by pilot results.
+
+
+\clearpage
+
+\section{Related work and data audit}
+
+UniqueShip addresses leakage in acoustic ship classification \cite{uniqueship}. Underwater inpainting itself is already studied: Tembo et al. report mask-conditioned diffusion for underwater spectrograms \cite{tembo}. Its deposited bibliographic metadata were verified, but primary full text was unavailable; we make no detailed architectural comparison or priority claim. General-audio diffusion inpainting \cite{moliner}, DiffWave residual blocks \cite{diffwave}, and observed-value conditioning in CSDI \cite{csdi} provide established components. Inpainting uncertainty \cite{cohen}, risk calibration \cite{ltt}, and similarity-guided music inpainting \cite{simdps} further preclude claims that diagnostics, uncertainty, or context guidance are intrinsically new.
+
+
+The official UniqueShip v1 twelve-class, five-hours-per-class archive contains 43,208 mono PCM32 WAVs at 32 kHz, totaling 60.008 hours. Actual headers differ from the website's 20 kHz description. Twelve clips shorter than 4.096 s are ineligible for fixed-length evaluation. We preserve the first official test split, retain validation where feasible, and allocate remaining vessel/source groups to generator training G, diagnostic fitting D, and calibration C. Table~\ref{tab:1} reports the complete manifest.
+
+
+\begin{table}[H]
+\caption{Audited source partitions; counts describe available data, not evaluated outcomes.}
+\label{tab:1}
+\centering\small
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrr@{}}
+\toprule
+
+\textbf{Partition} & \textbf{Sources} & \textbf{Groups} & \textbf{Pilot use} \\
+
+\midrule
+
+G & 26,321 & 2,996 & 1,440 sources \\
+
+D & 3,962 & 467 & 200 groups \\
+
+V & 4,445 & 400 & 200 groups \\
+
+C & 4,003 & 547 & Unopened \\
+
+Test & 4,477 & 610 & Unopened \\
+
+\bottomrule
+\end{tabular*}
+\end{table}
+
+All descendants stay within a group; background uses hydrophone/date, pooling unknown devices by date. Decoded and normalized-quantized hashes found no duplicates. Timestamp checks found no cross-partition overlaps or intervals within 60 s, including unknown-device comparisons. However, 1,332 of 1,522 dates span partitions, and original session/parent identifiers are unavailable. Vessel separation therefore does not prove environmental independence; exhaustive time-shifted near-duplicate detection was not performed.
+
+
+Class support is uneven: V and D lack pilot-vessel examples; C also lacks dredger; test lacks dredger. The held-out taxonomy consequently has eleven supported classes, not twelve. No classification score is reported. Intact sources are resampled to 8 kHz before 32,768-sample crops and artificial masks; the reconstruction scope is restricted to frequencies below 4 kHz.
+
+
+\clearpage
+
+\section{Selective completion protocol}
+
+Let $m$ mark observed samples and $y=m\odot x$. The inference interface erases hidden coordinates before any normalization or feature computation. Mean and centered RMS use observed values only; an RMS floor is fixed on G. Every reverse step projects observed coordinates, and final inverse scaling copies original observations exactly:
+
+
+\begin{equation}
+\Pi_y(z)=m\odot y+(1-m)\odot z.\label{eq:projection}
+\end{equation}
+
+Primary gaps are 50, 100, 250, or 500 ms with at least 0.75 s context on each side. Training uses one gap 80\% of the time and two separated gaps otherwise. Four independently seeded completions and two same-duration context probes use 32 DDIM steps each \cite{ddim}: 192 denoiser evaluations. Each probe hides its samples before recomputing normalization. Reference waveforms and labels never enter inference.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{method.pdf}
+\caption{Development workflow. Dry calibration uses reserved V groups; actual C/test outcomes are unopened. Repaired locations remain explicitly flagged as imputed.}
+\label{fig:1}
+\end{figure}
+
+The deterministic fallback B minimizes tuning-V mean Q among learned restoration and bidirectional AR orders 16, 32, 64, and 128. A histogram gradient-boosting regressor learns candidate $\Delta Q$ from 18 observation-only features on 200 D groups, weighted equally. Features include candidate disagreement, differences from B, boundaries, and context-probe errors. Select the candidate with lowest predicted $\Delta Q$. Duration-only and dispersion-only gates retain this same candidate selector, so their comparisons isolate acceptance rather than candidate changes.
+
+
+The all-fallback output is a valid completion policy, but zero generative coverage supplies no evidence that the gate can identify useful generated content. The proof obligations for calibrated selection and waveform fidelity remain separate.
+
+
+\clearpage
+
+\section{Training, numerics, and decision rule}
+
+The conditional model adapts DiffWave \cite{diffwave} with 64 channels, 36 residual layers, dilations 1--2048 repeated three times, 2,717,697 parameters, and a 3.071 s receptive field. It predicts noise on missing samples using a 1,000-step cosine schedule \cite{nichol}. One seed (17), batch 16, and 5,000 updates use 1,440 G sources, approximately two hours of original audio. A same-backbone deterministic model uses masked MAE plus 0.5 times multiresolution spectral convergence for 2,500 updates. Training takes 29.3 and 17.9 minutes on one RTX 4090; peak allocated memory is 2.56 GiB for each.
+
+
+A 16-source, reduced-width learning diagnostic lowers finite noise-prediction loss, but 2,000 updates do not establish near-zero memorization. Under-optimization remains plausible. Checkpoint restoration does reproduce the next CUDA batch, RNG state, loss, and parameters exactly. The metric smoke test covers 200 G crops and six classical outputs per crop with finite metrics and zero observed drift.
+
+
+Unbounded DDIM from the last cosine timestep fails on four G-only cases: $\bar\alpha_{999}=2.43\times10^{-9}$ amplifies noise-prediction error, producing gap NMSE in the millions. Clipping clean predictions alone keeps all four Q values saturated at one. Before candidate-V outcomes, a recorded amendment fixes the start to $t=934$, the last timestep with $\bar\alpha\geq0.01$, and clips normalized clean predictions at $\pm5.897$, a G-derived bound. Noise is recomputed after clipping; observed coordinates are never clipped. All inference budgets use this same endpoint.
+
+
+This amendment is a numerical pilot adaptation. Gaussian initialization at a nonterminal marginal introduces a train--inference mismatch; it is not a principled zero-terminal-SNR or v-prediction solution and does not imply exact posterior sampling. Schedule-mismatch concerns \cite{lin} limit the interpretation. Original failures and the amendment are retained, rather than silently replacing them.
+
+
+\begin{equation}
+Q=\tfrac12\min\!\left(\frac{\mathrm{NMSE}_{\mathrm{gap}}}{4},1\right)+\tfrac12\min\!\left(\frac{\mathrm{SC}_{\mathrm{gap}}}{2},1\right).\label{eq:quality}
+\end{equation}
+
+SC averages gap-only spectral convergence at FFT sizes 64, 128, and 256, periodic Hann windows, quarter-window hops, and no centered padding. Smaller Q is better; harm means the candidate's Q exceeds B's Q by more than 0.02. V freezes at most nine nonpositive score thresholds. For n accepted calibration cases and e harms, a one-sided Clopper--Pearson upper bound uses level 1 $-$ 0.05/M across M thresholds. A threshold is eligible only if the bound is $\leq$0.10; n = 0 gives bound one. If none qualifies, use B everywhere. The interpretation requires independent, identically distributed group draws and a frozen policy \cite{ltt}, not arbitrary ocean or site shift.
+
+
+\clearpage
+
+\section{Development results and no-go decision}
+
+V assigns 64 groups each to tuning, dry calibration, and dry testing, with eight unused. The first 32 tuning groups also monitor training. Deterministic B wins tuning Q (0.218; AR128: 0.229). Only 5/64 cases (7.8\%) have a candidate improving Q by $\geq$0.02, below the 20\% feasibility trigger. At 64 steps, opportunity remains 5/64 and six-draw latency rises from 1.28 to 2.48 s. We retain 32 steps and stop the main study.
+
+
+\begin{table}[H]
+\caption{One case per dry-test V group (n = 64). Harm is an all-case rate relative to B. Calls count diffusion evaluations; B still has one learned restoration pass.}
+\label{tab:2}
+\centering\small
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
+\toprule
+
+\textbf{Method} & \textbf{Q} & \textbf{NMSE} & \textbf{Coverage} & \textbf{Harm} & \textbf{Calls} \\
+
+\midrule
+
+Zero fill & 0.375 & 1.000 & 0.00 & --- & 0 \\
+
+Linear interpolation & 0.314 & 1.021 & 0.00 & --- & 0 \\
+
+Deterministic B & 0.239 & 0.713 & 0.00 & --- & 0 \\
+
+One draw (C1) & 0.412 & 2.274 & 1.00 & 0.891 & 32 \\
+
+Four-draw medoid (C2) & 0.404 & 1.949 & 1.00 & 0.891 & 128 \\
+
+Select, always accept (C3) & 0.349 & 1.460 & 1.00 & 0.812 & 192 \\
+
+Calibrated policy P & 0.239 & 0.713 & 0.00 & 0.000 & 192 \\
+
+\bottomrule
+\end{tabular*}
+\end{table}
+
+All four gate variants freeze threshold zero, accept 0/64 dry-calibration cases, and fail the bound (U = 1). P equals B; conditional accepted-case harm is undefined. C3 harms 52/64 dry-test cases. P's zero harm is structural fallback, not a successful risk--coverage tradeoff.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{development_ranking.pdf}
+\caption{Descriptive dry-test score rankings at equal hypothetical coverage. These counterfactual positive-score acceptances were not used by the calibrated policy and supply no calibrated guarantee or confirmatory diagnostic comparison.}
+\label{fig:2}
+\end{figure}
+
+\clearpage
+
+\section{Failure examples and identifiability}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{development_examples.pdf}
+\caption{Explicitly selected extremes of C3-minus-B Q among the 64 dry-test cases, not representative averages. Gray marks the gap. Spectra use the missing interval only; B and P coincide because every generative completion is rejected.}
+\label{fig:3}
+\end{figure}
+
+Mean gap NMSE is 0.713 for B/P and 1.460 for C3; full-window NMSE falls to 0.038 and 0.074 because unchanged context dilutes error. C3's 99th-percentile gap NMSE is 6.944 versus 2.596 for B. All measured observed-sample drift is zero. A 2,000-draw paired group bootstrap gives descriptive P-minus-C3 mean Q $-$0.110 (95\% interval $-$0.130 to $-$0.089). A date-balanced sensitivity over 63 dates gives $-$0.112 ($-$0.132 to $-$0.091), a different estimand. Neither is a primary held-out test.
+
+
+The frozen policy is additionally evaluated on 100 realizations each of tonal continuation, chirp, onset, offset, colored background, and two paired hidden-event targets (700 cases). Mixtures vary tones, modulation, SNR, and short echoes; they are controlled signals, not validated ocean propagation. Each absent/present pair has exactly identical observed samples and uses the same random seeds. All 400 method--pair comparisons produce identical outputs. Each method must therefore make either a false-event or missed-event decision at the fixed event-projection threshold of 0.5. Here all four methods miss all 100 inserted events and make no false-event decision on their paired absent targets. This is an identifiability limit: fallback and uncertainty cannot reveal invisible content.
+
+
+\clearpage
+
+\section{Shift checks, transfer, and limitations}
+
+\begin{table}[H]
+\caption{Frozen-policy shifts on 20 V sources per condition. P = B; zero coverage does not validate a transferred risk bound.}
+\label{tab:3}
+\centering\small
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrr@{}}
+\toprule
+
+\textbf{Condition} & \textbf{Cases} & \textbf{Coverage} & \textbf{Q(P)} \\
+
+\midrule
+
+750 ms gap & 20 & 0.00 & 0.274 \\
+
+1,000 ms gap & 20 & 0.00 & 0.299 \\
+
+Four 50 ms gaps & 20 & 0.00 & 0.188 \\
+
+Short context & 20 & 0.00 & 0.254 \\
+
+Level/spectrum shift & 20 & 0.00 & 0.208 \\
+
+\bottomrule
+\end{tabular*}
+\end{table}
+
+Shift tests change gap duration, packet geometry, context, or smooth level/spectrum. Multi-gap and insufficient-probe-context inputs use a predetermined fallback. No model, score threshold, or normalization rule is adapted from these outcomes. A zero-acceptance policy is expected to fall back under every condition; this check establishes behavior, not useful out-of-distribution selection.
+
+
+A separately isolated compatibility run uses Moliner and Välimäki's published general-audio checkpoint \cite{moliner} on 8 frozen V groups without fine-tuning. The pinned implementation and EMA weights retain their 22.05 kHz, 184,184-sample configuration. Only already-masked observations are resampled; the mask expands by 12 input samples and unknown padding is excluded from guidance. Inverse resampling is followed by exact observed projection. The first completed run has mean Q 0.655 and gap SC 1.256. A fixed-seed artifact replay gives Q 0.654; this adapter is not bitwise reproducible on the recorded CUDA stack. This small domain check is neither an exact benchmark reproduction nor evidence of superiority. Fine-tuning was not allocated after the pilot no-go decision.
+
+
+The results concern one short training run and one seed. Learning remains incomplete, the amended sampler is approximate, the V subsets are small, and source grouping cannot establish independent ocean conditions. The planned six-draw medoid (C4), one 192-step draw (C5), waveform RePaint adaptation (C6) \cite{repaint}, independent classifier, and VLIZ external evaluation were not run. Their rows are not imputed. Tonal-track and onset structure metrics were not pre-frozen and are not claimed.
+
+
+Consequently the five main criteria---held-out coverage $\geq$25\%, relative harm reduction $\geq$25\%, better diagnostic ranking, Q/classifier noninferiority, and held-out observation consistency---remain untested as a conjunction. Zero drift passes the development implementation check only. Generic risk control, average-fidelity superiority, downstream benefit, and cross-archive generalization are unsupported. A future study needs a separately justified optimization plan and fresh frozen evaluation, rather than treating this pilot as a successful main experiment.
+
+
+\clearpage
+
+\section{Conclusion and reproducibility}
+
+This pilot does not support a selective underwater-regeneration claim: oracle opportunity is 7.8\%, and dry calibration yields zero acceptance. The practical result is a documented no-go decision, not a successful generator. Code, source/group hashes, frozen masks and seeds, failed numerical traces, checkpoints, recording-level metrics, and figure scripts are preserved. Data attribution and third-party licenses accompany the local artifact package. A single existing RTX 4090 was used within the user-authorized ten-hour run. No public repository or manuscript submission is asserted; release and a complete main study remain future work.
+
+
+\bibliographystyle{splncs04}
+\bibliography{references}
+
+\end{document}

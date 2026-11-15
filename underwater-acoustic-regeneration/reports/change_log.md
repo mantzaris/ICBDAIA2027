@@ -40,3 +40,9 @@ All research processes finished; the existing pod remains running per instructio
 The completed bounded pilot is not a completed main study or submission-ready
 efficacy paper. Dollar charges and the container image digest remain unavailable;
 neither is inferred. Local backups and the rendered anonymous draft are verified.
+
+The user subsequently requested LaTeX only: one `mainj.tex`, a separate `.bib`,
+and figures in that same directory. The active paper now uses the unmodified
+official LNCS class/style with its figures in `manuscript/`. Word output is retired
+from the working tree and retained in Git history. The scientific content and
+anonymous authorship are preserved; this conversion runs locally without GPU work.

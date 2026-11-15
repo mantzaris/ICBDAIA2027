@@ -64,6 +64,6 @@ eight total pages including references, and explicitly a development draft. The
 venue's exact eight-versus-ten-page maximum and deadline timezone remain unresolved.
 
 See `claim_to_evidence.json`, `experiment_ledger.json`, `compute_ledger.json`, and
-`../manuscript/table_cells.json` for machine-readable evidence. The exact original
+`manuscript_audit/table_cells.json` for machine-readable evidence. The exact original
 registries are retained, including the explicit launch-commit correction in
 `provenance_corrections.json`. No results were filled in for unrun experiments.

@@ -13,16 +13,17 @@ on `main`. Nothing is pushed; the user handles the push.
 
 ## Deliverables
 
-- [Anonymous editable manuscript](manuscript/underwater_feasibility_anonymous.docx)
-  and [rendered PDF](manuscript/underwater_feasibility_anonymous.pdf): a development
+- [Single LaTeX manuscript](manuscript/mainj.tex), [BibTeX references](manuscript/references.bib),
+  and [rendered PDF](manuscript/mainj.pdf): an anonymous development
   feasibility audit, not a submission-ready main-study paper.
 - [Pilot findings and limits](reports/pilot.md), [claim-to-evidence map](reports/claim_to_evidence.json),
-  [table-cell sources](manuscript/table_cells.json), [experiment ledger](reports/experiment_ledger.json),
+  [table-cell sources](reports/manuscript_audit/table_cells.json), [experiment ledger](reports/experiment_ledger.json),
   and [compute ledger](reports/compute_ledger.json).
 - [Frozen protocol](preregistration/protocol.json), [sampler amendment](preregistration/sampler_amendment.json),
   [raw run registry](results/run_registry.jsonl), and [source/data attribution](provenance/DATA_ATTRIBUTION.md).
-- Vector PDF/SVG and 450-dpi PNG figures in `figures/`; scripts rebuild every figure
-  and the Word document from completed results.
+- All three vector figures are beside `mainj.tex` in `manuscript/`. Additional
+  PDF/SVG and 450-dpi PNG exports remain in `figures/`. The figure script refreshes
+  both locations; the manuscript build script compiles the editable LaTeX directly.
 
 Completed work includes the 43,208-file UniqueShip audit, a 200-crop metric check,
 5,000-update conditional and 2,500-update deterministic pilots, exact CUDA checkpoint
@@ -45,30 +46,38 @@ PYTHONPATH=src python3 scripts/preflight.py
 PYTHONPATH=src python3 scripts/posthoc_pilot.py
 python3 scripts/build_reports.py
 python3 scripts/plot_pilot.py
-.venv/bin/python scripts/build_manuscript.py
+python3 scripts/build_manuscript.py
+python3 scripts/validate_manuscript.py
 ```
 
-`build_reports.py` requires the locally backed-up candidate and diagnostic arrays;
-they are deliberately excluded from Git. The Word builder uses `python-docx==1.1.2`
-in the local `.venv`. Export with LibreOffice using a project-local user profile:
+`build_reports.py` requires locally backed-up candidate and diagnostic arrays,
+deliberately excluded from Git. Paper compilation needs only the files in
+`manuscript/` and a TeX installation with `latexmk`, pdfLaTeX, BibTeX, NewTX,
+`booktabs`, `float`, `microtype`, and `hyperref`. The build script keeps
+auxiliary files under `.cache/latex/`; it never regenerates or overwrites the text
+in `mainj.tex`. You can also compile directly from the manuscript directory:
 
 ```bash
-libreoffice -env:UserInstallation="file://$PWD/.cache/libreoffice" --headless \
-  --convert-to pdf --outdir manuscript manuscript/underwater_feasibility_anonymous.docx
-pdftoppm -scale-to 1600 -png manuscript/underwater_feasibility_anonymous.pdf .cache/manuscript-page
+cd manuscript
+latexmk -pdf -interaction=nonstopmode -halt-on-error mainj.tex
 ```
 
-The original conference `.docm` is retained under ignored downloads. Template
-preparation manipulates ZIP/XML only and executes no macros. The manuscript removes
-sample authors, company/custom metadata, old chart links, and comments. Its core
-author and last modifier are `Anonymous` as instructed.
+`mainj.tex` contains all prose, tables, and equations; there are no separate section
+files. `references.bib` supplies citations. Unmodified publisher files `llncs.cls`
+and `splncs04.bst` are included for portability. The original Word sample establishes
+the LNCS template family; retrieval and comparison are recorded in
+`provenance/latex_template.json`. The user superseded the original Word-deliverable
+requirement with LaTeX only. Prior Word output remains in Git history at `a0e3a17`,
+and its audit records are in `reports/manuscript_audit/word_draft/`. PDF author
+metadata and the displayed author remain anonymous.
 
 ## Environments and GPU reproduction
 
 `requirements.lock` records the CPU verification environment;
 `requirements.gpu.lock` records Python 3.12 / PyTorch 2.8.0+cu128 on the RTX 4090;
 `requirements.transfer.lock` records the separate legacy general-audio environment;
-`requirements.manuscript.lock` records the Word/figure environment. Full freezes
+`reports/manuscript_audit/build_report.json` records the LaTeX engines and hashes;
+`provenance/word_environment.lock` retains the former Word/figure environment. Full freezes
 include inherited system packages and are environment inventories, not portable
 one-command installers. The container image digest was not exposed by SSH and is
 not invented. The host driver was not changed.

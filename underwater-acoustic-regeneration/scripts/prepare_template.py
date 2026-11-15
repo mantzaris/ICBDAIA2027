@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     source = ROOT / "provenance/downloads/conference_template.docm"
-    output = ROOT / "manuscript/template/conference_template_macro_free.docx"
+    output = ROOT / "provenance/conference_word_template/conference_template_macro_free.docx"
     output.parent.mkdir(parents=True, exist_ok=True)
     removed = []
     removed_external_links = []

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import shutil
 from pathlib import Path
 
 import matplotlib
@@ -27,6 +28,10 @@ def save(fig, name):
         fig.savefig(path, dpi=450, bbox_inches="tight", pad_inches=0.04)
         if extension == "svg":
             path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
+        elif extension == "pdf":
+            # The editable LaTeX paper is portable with figures beside mainj.tex.
+            (ROOT / "manuscript").mkdir(exist_ok=True)
+            shutil.copyfile(path, ROOT / "manuscript" / path.name)
     plt.close(fig)
 
 
