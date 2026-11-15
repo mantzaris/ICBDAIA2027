@@ -69,6 +69,10 @@ def main():
     network.load_state_dict(payload["ema"], strict=True)
     del payload
     sampler = Sampler(network, EDM(configuration), configuration)
+    from acoustic_regeneration.restoration.transfer import smooth_observation_mask
+    # The released helper assumes an initially observed mask and crashes on the
+    # deliberately unknown padding. Preserve its Hann ramps, bounded at edges.
+    sampler.prepare_smooth_mask = smooth_observation_mask
     with gzip.open(ROOT / "manifests/pilot_sources.jsonl.gz", "rt") as stream:
         rows = [row for row in map(json.loads, stream) if row["partition"] == "V"][:8]
     floor = json.loads((ROOT / "checkpoints/pilot_conditional_seed17/config.json").read_text())["rms_floor"]
@@ -159,6 +163,7 @@ def main():
                    "mean_gap_SC": float(np.mean([row["metrics"]["gap_spectral_convergence"] for row in results])) if results else None,
                    "adaptation": "none; observation-only RMS scaled to published sigma_data=0.063",
                    "input_rate_adapter": "zeroed 8k observation -> 22050 Hz; mask expanded 12 input samples; unknown padding excluded from guidance; inverse resampling then exact observation projection",
+                   "mask_adapter": "Published Hann smoothing bounded at signal edges; unknown padding stays excluded",
                    "claim_limit": "Compatibility/domain diagnostic on 8 V groups, not a reproduction score or evidence of superiority; AR128 is descriptive, not the selected B",
                    "git_commit": args.git_commit}
         (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
