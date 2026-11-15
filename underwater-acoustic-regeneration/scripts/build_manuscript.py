@@ -31,7 +31,7 @@ def content(allow_pending=False):
     assert pilot["stage"] == "development_only_pilot" and not pilot["actual_test_opened"]
     assert not pilot["oracle_feasibility_passed"]
     diagnostics_path = ROOT / "results/pilot_pools_clipped_seed17_diagnostics/summary.json"
-    transfer_path = ROOT / "results/transfer/summary.json"
+    transfer_path = ROOT / "results/transfer_with_waveforms/summary.json"
     diagnostics = json.loads(diagnostics_path.read_text()) if diagnostics_path.exists() else None
     transfer = json.loads(transfer_path.read_text()) if transfer_path.exists() else None
     if not allow_pending and (diagnostics is None or transfer is None):
@@ -57,7 +57,7 @@ def content(allow_pending=False):
         "partitions, and train a 2.72-million-parameter conditional diffusion model on approximately two hours "
         "of generator-training audio. Four candidate completions and two context probes feed a predictor of "
         "quality change relative to a validation-selected deterministic fallback. A numerical failure at the "
-        "cosine schedule endpoint motivates an explicitly documented, training-only sampler amendment. On "
+        "cosine schedule endpoint motivates a documented sampler amendment based only on G diagnostics. On "
         "64 tuning groups, only five have a candidate improving the prespecified quality score by at least "
         "0.02; both 32-step and 64-step sampling fail the 20% feasibility trigger. Dry calibration on 64 "
         "separate development groups selects no accepting threshold. The resulting policy equals its fallback "
@@ -324,6 +324,7 @@ def clear_template(document):
         if child.tag != qn("w:sectPr"):
             body.remove(child)
     for section in document.sections:
+        section.different_first_page_header_footer = False
         for tag in ("w:headerReference", "w:footerReference"):
             for child in list(section._sectPr.findall(qn(tag))):
                 section._sectPr.remove(child)
@@ -344,6 +345,7 @@ def clear_template(document):
     props.created = datetime(2026, 11, 15, tzinfo=timezone.utc)
     props.modified = datetime(2026, 11, 15, tzinfo=timezone.utc)
     props.revision = 1
+    document.settings.odd_and_even_pages_header_footer = False
 
 
 def build(pages, metadata):

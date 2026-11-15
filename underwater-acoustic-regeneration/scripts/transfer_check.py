@@ -34,6 +34,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--inspect-only", action="store_true")
     parser.add_argument("--git-commit", default="unrecorded")
+    parser.add_argument("--output-name", default="transfer")
+    parser.add_argument("--run-id", default="moliner_zero_shot_8V_release_config35")
     args = parser.parse_args()
     path = ROOT / "checkpoints/transfer/22k_8s-850000.pt"
     from acoustic_regeneration.registry import append_record, file_hash, remaining_seconds
@@ -77,9 +79,13 @@ def main():
         rows = [row for row in map(json.loads, stream) if row["partition"] == "V"][:8]
     floor = json.loads((ROOT / "checkpoints/pilot_conditional_seed17/config.json").read_text())["rms_floor"]
     authorization = json.loads((ROOT / "configs/run_authorization.json").read_text())
-    run_id = "moliner_zero_shot_8V_release_config35"
-    output = ROOT / "results/transfer"
+    run_id = args.run_id
+    if not args.output_name.replace("_", "").isalnum():
+        raise ValueError("Output name must be a simple alphanumeric identifier")
+    output = ROOT / "results" / args.output_name
     output.mkdir(exist_ok=True)
+    arrays = ROOT / "results/pools" / args.output_name
+    arrays.mkdir(exist_ok=True)
     if (output / "cases.jsonl").exists():
         raise ValueError("Preserve previous scored transfer cases; no implicit overwrite or duplicate append")
     case_manifest = [{"source_id": row["original_file_id"], "group_id": row["group_id"],
@@ -90,6 +96,8 @@ def main():
     append_record(ROOT / "results/run_registry.jsonl", {"run_id": run_id, "status": "running",
                   "git_commit": args.git_commit, "checkpoint_sha256": file_hash(path), "source_commit": REVISION,
                   "manifest_sha256": file_hash(case_path), "stage": "V_only_zero_shot_compatibility",
+                  "command": sys.argv, "hardware": torch.cuda.get_device_name(),
+                  "data_manifest_sha256": file_hash(ROOT / "manifests/pilot_sources.jsonl.gz"),
                   "configuration": OmegaConf.to_container(configuration.tester, resolve=False)})
     calls = 0
     def count(module, inputs):
@@ -104,6 +112,7 @@ def main():
             if remaining_seconds(authorization["stop_jobs_by_utc"]) < 300 or time.monotonic() - start > 2400:
                 status = "budget_stopped"
                 break
+            case_start = time.perf_counter()
             reference = crop_source(np.load(ROOT / row["processed_path"], allow_pickle=False))
             gap_samples = case["gap_ms"] * 8
             gap_start = (len(reference) - gap_samples) // 2
@@ -136,13 +145,23 @@ def main():
             raw = generated[0, offset:offset + len(upsampled)].cpu().numpy().astype(float) / sigma_data
             downsampled = resample_poly(raw, 160, 441)[:len(reference)]
             estimate = observation.project(downsampled)
+            restored = transform.restore(estimate, original)
+            if not np.array_equal(restored[mask], reference[mask]):
+                raise ValueError("Transfer observation projection changed known samples")
+            pipeline_seconds = time.perf_counter() - case_start
+            array_path = arrays / (str(index) + ".npz")
+            np.savez_compressed(array_path, reference=reference, observation=original.values,
+                                observed_mask=mask, repaired=restored, imputed_mask=~mask)
             target = transform.normalize_reference_for_scoring(reference)
             metrics = gap_metrics(estimate, target, observation.gaps, MetricFloors(floor / transform.scale))
             baseline = bidirectional_ar(observation, 128)
             baseline_metrics = gap_metrics(baseline, target, observation.gaps, MetricFloors(floor / transform.scale))
             record = dict(case, metrics=metrics, diagnostic_ar128_metrics=baseline_metrics,
                           denoiser_forward_evaluations=calls - initial_calls,
-                          backward_evaluations=calls - initial_calls, pipeline_seconds=seconds,
+                          backward_evaluations=calls - initial_calls, sampler_seconds=seconds,
+                          pipeline_seconds=pipeline_seconds,
+                          timing_scope="Pipeline includes source load, normalization, resampling, sampler, inverse resampling, and final projection; excludes scoring and artifact writing",
+                          artifact_path=str(array_path.relative_to(ROOT)), artifact_sha256=file_hash(array_path),
                           padding_samples_excluded_from_guidance=int((known_padded == 0).sum()) - int((~known).sum()),
                           before_projection_observation_drift=float(np.max(np.abs(downsampled[mask] - observation.values[mask]))))
             append_record(output / "cases.jsonl", record)
@@ -167,7 +186,7 @@ def main():
                    "claim_limit": "Compatibility/domain diagnostic on 8 V groups, not a reproduction score or evidence of superiority; AR128 is descriptive, not the selected B",
                    "git_commit": args.git_commit}
         (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-        append_record(ROOT / "results/run_registry.jsonl", dict(summary, run_id=run_id, output_path="results/transfer/summary.json"))
+        append_record(ROOT / "results/run_registry.jsonl", dict(summary, run_id=run_id, output_path=str((output / "summary.json").relative_to(ROOT))))
         print(json.dumps(summary, indent=2), flush=True)
 
 

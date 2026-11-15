@@ -65,7 +65,7 @@ def ranking(directory):
     ax.set(xlim=(0, 1), ylim=(0, 1.03), xlabel="Counterfactual acceptance fraction", ylabel="Harm among accepted cases")
     ax.text(.03, .19, "Calibrated policy:\nzero acceptance", fontsize=7, color="#555555")
     ax.grid(alpha=.18, linewidth=.5)
-    ax.legend(loc="lower right", frameon=False, ncol=2, columnspacing=1.0)
+    ax.legend(loc="lower right", bbox_to_anchor=(1, .12), frameon=False, ncol=2, columnspacing=1.0)
     ax.set_title("Development ranking only; these curves are not calibrated policies", fontsize=7.3, pad=8)
     fig.tight_layout(pad=.7)
     save(fig, "development_ranking")
@@ -82,7 +82,7 @@ def examples(directory):
     ordered = sorted(decisions, key=lambda row: (differences[row["case_id"]], row["case_id"]))
     chosen = [ordered[0], ordered[-1]]
     evidence = []
-    fig, axes = plt.subplots(2, 2, figsize=(4.7, 3.8), gridspec_kw={"width_ratios": [1.25, 1]})
+    fig, axes = plt.subplots(2, 2, figsize=(4.7, 3.5), gridspec_kw={"width_ratios": [1.25, 1]})
     for index, decision in enumerate(chosen):
         case = cases[decision["case_id"]]
         reference = np.load(ROOT / sources[case["source_id"]]["processed_path"], allow_pickle=False)[:32768].astype(float)
