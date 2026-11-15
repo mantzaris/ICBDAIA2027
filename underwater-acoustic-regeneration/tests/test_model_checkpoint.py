@@ -84,3 +84,18 @@ def test_batched_sampling_keeps_each_seed_and_observation_separate():
         np.testing.assert_array_equal(first[index].waveform, second[index].waveform)
         np.testing.assert_array_equal(first[index].waveform[mask], observations[index].values[mask])
         assert first[index].denoiser_calls == 4
+
+
+def test_frozen_amplitude_bound_controls_bad_denoising_without_clipping_observations():
+    torch.manual_seed(17)
+    model = WaveformModel(ModelConfig(4, 2, 2, 1000))
+    values = 20 * np.sin(np.arange(1024) * 0.1)
+    mask = np.ones(1024, dtype=bool)
+    mask[300:700] = False
+    observation = Observation(values, mask)
+    raw = ddim(model, observation, 17, steps=4)
+    bounded = ddim_batch(model, [observation], [17], steps=4, clean_clip=5.0)[0]
+    assert np.max(np.abs(raw.waveform[~mask])) > 5.0
+    assert np.max(np.abs(bounded.waveform[~mask])) <= 5.0
+    np.testing.assert_array_equal(bounded.waveform[mask], values[mask])
+    assert bounded.denoiser_calls == 4

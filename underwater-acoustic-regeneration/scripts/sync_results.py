@@ -25,8 +25,11 @@ def main() -> None:
         directories.append("data/processed")
     for directory in directories:
         remote_path = connection["project_directory"] + "/./" + directory + "/"
-        subprocess.run(["rsync", "-a", "--relative", "--partial", "-e", shlex.join(ssh),
+        subprocess.run(["rsync", "-a", "--relative", "--partial", "--exclude=source_retrieval.json",
+                        "--exclude=repositories.json", "--exclude=status.json", "-e", shlex.join(ssh),
                         destination + ":" + remote_path, str(ROOT) + "/"], check=True)
+    subprocess.run(["rsync", "-a", "-e", shlex.join(ssh), destination + ":" + connection["project_directory"] +
+                    "/requirements.gpu.lock", str(ROOT) + "/"], check=True)
     # Checkpoints are immutable within each completed phase. Hash every downloaded
     # checkpoint and compare with the remote copy; retry a changed active file later.
     paths = [str(path.relative_to(ROOT)) for path in (ROOT / "checkpoints").rglob("*.pt")]

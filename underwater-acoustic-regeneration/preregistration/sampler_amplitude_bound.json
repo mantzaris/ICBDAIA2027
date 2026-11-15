@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "phase": "pilot_numerical_correction_before_V_outcomes",
+  "clean_prediction_clip_abs": 5.896913617434104,
+  "definition": "max(4, 99.99th percentile of |G source centered/RMS-normalized audio| sampled every eighth sample)",
+  "source_partition": "G",
+  "source_files": 1440,
+  "samples_used": 7200000,
+  "recompute_epsilon_after_clipping": true,
+  "training_schedule_unchanged": true,
+  "training_architecture_unchanged": true,
+  "rationale": "Unbounded epsilon DDIM at alpha_bar[999]=2.4288e-9 produced G-only gap NMSE >2.8 million in FP32 and BF16. Preserve failed trace; bound x0 using only G, then recheck before V.",
+  "failed_evidence": "reports/sampler_numerics.json",
+  "no_heldout_outcomes_accessed": true
+}

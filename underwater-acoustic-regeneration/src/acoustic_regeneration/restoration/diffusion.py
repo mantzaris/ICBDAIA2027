@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from contextlib import nullcontext
-from typing import Sequence
+from typing import Optional, Sequence
 
 import numpy as np
 import torch
@@ -49,9 +49,13 @@ class Draw:
 
 @torch.no_grad()
 def ddim(model: torch.nn.Module, observation: Observation, seed: int,
-         steps: int = 32, training_steps: int = 1000) -> Draw:
-    if not 1 <= steps <= training_steps:
+         steps: int = 32, training_steps: int = 1000, clean_clip: Optional[float] = None,
+         initial_timestep: Optional[int] = None) -> Draw:
+    initial_timestep = training_steps - 1 if initial_timestep is None else initial_timestep
+    if not 0 <= initial_timestep < training_steps or not 1 <= steps <= initial_timestep + 1:
         raise ValueError("DDIM step count must fit the training schedule")
+    if clean_clip is not None and (not np.isfinite(clean_clip) or clean_clip <= 0):
+        raise ValueError("The G-frozen amplitude bound must be finite and positive")
     if not observation.gaps:
         return Draw(observation.values.copy(), 0, seed)
     device = next(model.parameters()).device
@@ -60,7 +64,7 @@ def ddim(model: torch.nn.Module, observation: Observation, seed: int,
     random = torch.Generator(device=device).manual_seed(seed)
     state = torch.where(mask, values, torch.randn(values.shape, generator=random, device=device))
     schedule = cosine_schedule(training_steps).to(device)
-    times = np.linspace(training_steps - 1, 0, steps, dtype=int).tolist()
+    times = np.linspace(initial_timestep, 0, steps, dtype=int).tolist()
     previous_training = model.training
     model.eval()
     try:
@@ -69,6 +73,9 @@ def ddim(model: torch.nn.Module, observation: Observation, seed: int,
             with context:
                 prediction = model(state, torch.tensor([time], device=device), values, mask)
             clean = (state - (1 - schedule[time]).sqrt() * prediction) / schedule[time].sqrt()
+            if clean_clip is not None:
+                clean = clean.clamp(-clean_clip, clean_clip)
+                prediction = (state - schedule[time].sqrt() * clean) / (1 - schedule[time]).sqrt()
             next_time = times[index + 1] if index + 1 < len(times) else -1
             if next_time < 0:
                 state = clean
@@ -84,14 +91,19 @@ def ddim(model: torch.nn.Module, observation: Observation, seed: int,
 
 @torch.no_grad()
 def ddim_batch(model: torch.nn.Module, observations: Sequence[Observation], seeds: Sequence[int],
-               steps: int = 32, training_steps: int = 1000) -> list:
+               steps: int = 32, training_steps: int = 1000, clean_clip: Optional[float] = None,
+               initial_timestep: Optional[int] = None) -> list:
     """Batch independent draws while retaining a separate initial RNG per draw.
 
     A six-example batch still counts as six denoiser evaluations per reverse
     level; batching does not change the matched scientific computation budget.
     """
-    if not observations or len(observations) != len(seeds) or not 1 <= steps <= training_steps:
+    initial_timestep = training_steps - 1 if initial_timestep is None else initial_timestep
+    if (not observations or len(observations) != len(seeds) or not 0 <= initial_timestep < training_steps
+            or not 1 <= steps <= initial_timestep + 1):
         raise ValueError("Invalid batched sampler configuration")
+    if clean_clip is not None and (not np.isfinite(clean_clip) or clean_clip <= 0):
+        raise ValueError("The G-frozen amplitude bound must be finite and positive")
     if len({len(item.values) for item in observations}) != 1:
         raise ValueError("Batched observations must have equal lengths")
     device = next(model.parameters()).device
@@ -101,7 +113,7 @@ def ddim_batch(model: torch.nn.Module, observations: Sequence[Observation], seed
                            for seed in seeds])
     state = torch.where(mask, values, initial)
     schedule = cosine_schedule(training_steps).to(device)
-    times = np.linspace(training_steps - 1, 0, steps, dtype=int).tolist()
+    times = np.linspace(initial_timestep, 0, steps, dtype=int).tolist()
     previous_training = model.training
     model.eval()
     try:
@@ -110,6 +122,9 @@ def ddim_batch(model: torch.nn.Module, observations: Sequence[Observation], seed
             with context:
                 predicted = model(state, torch.full((len(seeds),), time, device=device), values, mask)
             clean = (state - (1 - schedule[time]).sqrt() * predicted) / schedule[time].sqrt()
+            if clean_clip is not None:
+                clean = clean.clamp(-clean_clip, clean_clip)
+                predicted = (state - schedule[time].sqrt() * clean) / (1 - schedule[time]).sqrt()
             following = times[index + 1] if index + 1 < len(times) else -1
             state = clean if following < 0 else schedule[following].sqrt() * clean + (1 - schedule[following]).sqrt() * predicted
             state = torch.where(mask, values, state)

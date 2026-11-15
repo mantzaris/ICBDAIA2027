@@ -43,10 +43,14 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=17)
     parser.add_argument("--mask-seed", type=int, default=20261117)
     parser.add_argument("--steps", type=int, default=32)
+    parser.add_argument("--sampler-config", type=Path)
     parser.add_argument("--run-id", default="pilot_pools_seed17")
     parser.add_argument("--phase", choices=["fit", "calibration", "test"], default="fit")
     parser.add_argument("--git-commit", required=True)
     args = parser.parse_args()
+    sampler_config = json.loads(args.sampler_config.read_text()) if args.sampler_config else {}
+    clean_clip = sampler_config.get("clean_prediction_clip_abs")
+    initial_timestep = sampler_config.get("initial_timestep")
     torch.set_num_threads(4)
     model, config, model_metadata = load_ema_model(args.conditional)
     deterministic, deterministic_config, deterministic_metadata = load_ema_model(args.deterministic)
@@ -80,6 +84,9 @@ def main() -> None:
                      "deterministic_sha256": file_hash(args.deterministic),
                      "manifest_sha256": file_hash(manifest), "seed": args.seed,
                      "mask_seed": args.mask_seed, "steps_per_draw": args.steps,
+                     "clean_prediction_clip_abs": clean_clip,
+                     "initial_timestep": initial_timestep,
+                     "sampler_config_sha256": file_hash(args.sampler_config) if args.sampler_config else None,
                      "rms_floor": floor, "roles": {"D": 200, "V": 64, "dev_C": 64, "dev_test": 64}}
     config_path = output / "pool_config.json"
     if config_path.exists() and json.loads(config_path.read_text()) != frozen_config:
@@ -158,7 +165,8 @@ def main() -> None:
             seeds = tuple(case_seed * 10 + number for number in range(6))
             torch.cuda.synchronize()
             case_start = time.perf_counter()
-            pool = generate_batched_pool(original, model, fallback, floor, seeds[:4], seeds[4:], args.steps)
+            pool = generate_batched_pool(original, model, fallback, floor, seeds[:4], seeds[4:], args.steps,
+                                         clean_clip, initial_timestep)
             torch.cuda.synchronize()
             elapsed = time.perf_counter() - case_start
             if pool is None:

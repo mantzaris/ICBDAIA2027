@@ -59,7 +59,8 @@ def decide(observation: Observation, pool: CandidatePool, predictor: dict,
 
 def generate_batched_pool(observation: Observation, model, fallback: Callable,
                           rms_floor: float, candidate_seeds: tuple, probe_seeds: tuple,
-                          steps_per_draw: int = 32) -> Optional[CandidatePool]:
+                          steps_per_draw: int = 32, clean_clip: Optional[float] = None,
+                          initial_timestep: Optional[int] = None) -> Optional[CandidatePool]:
     from acoustic_regeneration.restoration.diffusion import ddim_batch
     if len(candidate_seeds) != 4 or len(probe_seeds) != 2 or len(set(candidate_seeds + probe_seeds)) != 6:
         raise ValueError("Four candidate and two probe seeds must be distinct")
@@ -69,7 +70,8 @@ def generate_batched_pool(observation: Observation, model, fallback: Callable,
     normalized, normalization = normalize_observation(observation, rms_floor)
     normalized_probes = [normalize_observation(probe.observation, rms_floor) for probe in probes]
     inputs = [normalized] * 4 + [item[0] for item in normalized_probes]
-    draws = ddim_batch(model, inputs, candidate_seeds + probe_seeds, steps_per_draw)
+    draws = ddim_batch(model, inputs, candidate_seeds + probe_seeds, steps_per_draw,
+                       clean_clip=clean_clip, initial_timestep=initial_timestep)
     candidates = np.stack([draw.waveform for draw in draws[:4]])
     baseline = normalized.project(fallback(normalized))
     deltas = []
@@ -87,7 +89,8 @@ def generate_batched_pool(observation: Observation, model, fallback: Callable,
 
 def selective_restore(observation: Observation, model, fallback: Callable, predictor: dict,
                       calibration: CalibrationResult, rms_floor: float, candidate_seeds: tuple,
-                      probe_seeds: tuple, steps_per_draw: int = 32) -> dict:
+                      probe_seeds: tuple, steps_per_draw: int = 32, clean_clip: Optional[float] = None,
+                      initial_timestep: Optional[int] = None) -> dict:
     """Total primary policy for missing probes or nonfinite generative output.
 
     Model hooks count actual per-example denoiser evaluations, including failed
@@ -101,7 +104,7 @@ def selective_restore(observation: Observation, model, fallback: Callable, predi
     reason = None
     try:
         pool = generate_batched_pool(observation, model, fallback, rms_floor,
-                                     candidate_seeds, probe_seeds, steps_per_draw)
+                                     candidate_seeds, probe_seeds, steps_per_draw, clean_clip, initial_timestep)
         if pool is None:
             reason = "insufficient_probe_context"
         else:

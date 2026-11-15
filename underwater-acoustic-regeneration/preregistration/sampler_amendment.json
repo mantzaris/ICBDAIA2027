@@ -1,0 +1,23 @@
+{
+  "version": 3,
+  "phase": "pilot_numerical_correction_before_V_outcomes",
+  "clean_prediction_clip_abs": 5.896913617434104,
+  "definition": "max(4, 99.99th percentile of |G source centered/RMS-normalized audio| sampled every eighth sample)",
+  "source_partition": "G",
+  "source_files": 1440,
+  "samples_used": 7200000,
+  "recompute_epsilon_after_clipping": true,
+  "training_schedule_unchanged": true,
+  "training_architecture_unchanged": true,
+  "rationale": "G-only traces show near-terminal epsilon errors of 0.0065-0.0092 divided by alpha_bar amplify x0 error. Clipping alone bounds amplitude but all four G samples still saturate Q=1. Use the latest cosine timestep with alpha_bar>=0.01, limiting squared-error amplification to about 100. This fixed numerical choice is not selected by a V-quality sweep; retain the same endpoint for all inference budgets.",
+  "failed_evidence": [
+    "reports/sampler_numerics.json",
+    "reports/sampler_numerics_bounded.json"
+  ],
+  "no_heldout_outcomes_accessed": true,
+  "initial_timestep": 934,
+  "initial_alpha_bar": 0.01022650208324194,
+  "minimum_initial_alpha_bar": 0.01,
+  "previous_amendment": "preregistration/sampler_amplitude_bound.json",
+  "limitation": "Pure-Gaussian initialization approximates the marginal at alpha_bar=0.01023; this is a documented truncated-schedule pilot adaptation, not exact sampling of the training endpoint. No claim of optimal sampler or unbiased posterior samples."
+}

@@ -60,7 +60,8 @@ def main():
         torch.cuda.synchronize()
         before = time.perf_counter()
         pool = generate_batched_pool(observation, model, fallback, training_config["rms_floor"],
-                                     tuple(case["candidate_seeds"]), tuple(case["probe_seeds"]), 64)
+                                     tuple(case["candidate_seeds"]), tuple(case["probe_seeds"]), 64,
+                                     config.get("clean_prediction_clip_abs"), config.get("initial_timestep"))
         torch.cuda.synchronize()
         elapsed = time.perf_counter() - before
         target = pool.normalization.normalize_reference_for_scoring(reference)
