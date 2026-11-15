@@ -16,6 +16,7 @@ def main():
     output = ROOT / "manuscript/template/conference_template_macro_free.docx"
     output.parent.mkdir(parents=True, exist_ok=True)
     removed = []
+    removed_external_links = []
     with ZipFile(source) as original, ZipFile(output, "w", ZIP_DEFLATED) as clean:
         excluded = {name for name in original.namelist() if "vba" in name.lower() or name.startswith("customUI/")}
         for entry in original.infolist():
@@ -37,6 +38,16 @@ def main():
                 for child in list(tree):
                     if any(term in (child.get("Type", "") + child.get("Target", "")).lower() for term in ("vba", "customui")):
                         tree.remove(child)
+                    elif child.get("TargetMode") == "External" and "oleObject" in child.get("Type", ""):
+                        removed_external_links.append({"part": entry.filename, "type": "external sample chart workbook"})
+                        tree.remove(child)
+                payload = ET.tostring(tree, encoding="utf-8", xml_declaration=True)
+            elif entry.filename.startswith("word/charts/") and entry.filename.endswith(".xml"):
+                tree = ET.fromstring(payload)
+                for parent in tree.iter():
+                    for child in list(parent):
+                        if child.tag.endswith("}externalData"):
+                            parent.remove(child)
                 payload = ET.tostring(tree, encoding="utf-8", xml_declaration=True)
             clean.writestr(entry.filename, payload)
     with ZipFile(output) as check:
@@ -44,6 +55,7 @@ def main():
         assert b"macroEnabled" not in check.read("[Content_Types].xml")
     report = {"source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
               "output_sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "removed_parts": removed,
+              "removed_external_links": removed_external_links,
               "macros_executed": False, "status": "template preparation only; not a manuscript"}
     (output.parent / "conversion.json").write_text(json.dumps(report, indent=2) + "\n")
     print(output.relative_to(ROOT))

@@ -61,7 +61,9 @@ def main():
     configuration = OmegaConf.create(details["published_configuration"])
     configuration.tester = OmegaConf.load(code / "conf/tester/inpainting_tester.yaml")
     assert configuration.exp.sample_rate == 22050 and configuration.exp.audio_len == 184184
-    assert configuration.tester.T == 70 and configuration.tester.order == 2
+    # Pinned inpainting_tester.yaml uses 35 second-order steps (69 forward
+    # evaluations), not the 70 steps assumed in the first startup attempt.
+    assert configuration.tester.T == 35 and configuration.tester.order == 2
     torch.manual_seed(20261115)
     network = Unet_CQT_oct_with_attention(configuration, torch.device("cuda")).cuda().eval().requires_grad_(False)
     network.load_state_dict(payload["ema"], strict=True)
@@ -71,9 +73,11 @@ def main():
         rows = [row for row in map(json.loads, stream) if row["partition"] == "V"][:8]
     floor = json.loads((ROOT / "checkpoints/pilot_conditional_seed17/config.json").read_text())["rms_floor"]
     authorization = json.loads((ROOT / "configs/run_authorization.json").read_text())
-    run_id = "moliner_zero_shot_8V"
+    run_id = "moliner_zero_shot_8V_release_config35"
     output = ROOT / "results/transfer"
     output.mkdir(exist_ok=True)
+    if (output / "cases.jsonl").exists():
+        raise ValueError("Preserve previous scored transfer cases; no implicit overwrite or duplicate append")
     case_manifest = [{"source_id": row["original_file_id"], "group_id": row["group_id"],
                       "gap_ms": (50, 100, 250, 500)[index % 4], "sampler_seed": 20261115 + index}
                      for index, row in enumerate(rows)]
@@ -167,6 +171,6 @@ if __name__ == "__main__":
         main()
     except Exception as error:
         from acoustic_regeneration.registry import append_record
-        append_record(ROOT / "results/run_registry.jsonl", {"run_id": "moliner_zero_shot_8V", "status": "failed",
+        append_record(ROOT / "results/run_registry.jsonl", {"run_id": "moliner_zero_shot_8V_release_config35", "status": "failed",
                       "stage": "startup_or_execution", "error": repr(error), "command": sys.argv})
         raise

@@ -4,6 +4,7 @@ from __future__ import annotations
 import gzip
 import json
 from collections import Counter, defaultdict
+from bisect import bisect_left, bisect_right
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -49,6 +50,35 @@ def main():
               "implication": "Vessel/source grouping does not establish environmental independence. Shared days require date-block sensitivity; no unconditional calibration guarantee follows from group counts.",
               "cross_partition_overlap_examples": cross_overlap[:20], "nearby_examples": close_pairs[:10]}
     (ROOT / "reports/temporal_audit.json").write_text(json.dumps(report, indent=2) + "\n")
+    # Unknown hydrophones cannot be treated as a physically distinct sensor.
+    # Compare their intervals with every identified device, conservatively.
+    unknown = by_device.get("unknown_device_grouped_across_devices", [])
+    identified = sorted((row for device, values in by_device.items()
+                         if device != "unknown_device_grouped_across_devices" for row in values),
+                        key=lambda row: row["start"])
+    starts = [row["start"] for row in identified]
+    longest = max((row["end"] - row["start"] for row in identified), default=0)
+    possible_overlap, possible_nearby = [], []
+    for row in unknown:
+        left = bisect_left(starts, row["start"] - longest - 60)
+        right = bisect_right(starts, row["end"] + 60)
+        for other in identified[left:right]:
+            if row["partition"] == other["partition"]:
+                continue
+            separation = max(row["start"], other["start"]) - min(row["end"], other["end"])
+            item = {"unknown_source": row["original_file_id"], "identified_source": other["original_file_id"],
+                    "separation_seconds": separation}
+            if separation < 0:
+                possible_overlap.append(item)
+            elif separation <= 60:
+                possible_nearby.append(item)
+    wildcard_report = {"unknown_device_sources": len(unknown),
+                       "possible_cross_partition_overlap_pairs": len(possible_overlap),
+                       "possible_cross_partition_pairs_within_60s": len(possible_nearby),
+                       "overlap_examples": possible_overlap[:20],
+                       "interpretation": "Unknown-device intervals compared conservatively to every identified hydrophone. Temporal coincidences would be possible dependencies, not proof of same sensor.",
+                       "status": "completed"}
+    (ROOT / "reports/temporal_unknown_device_audit.json").write_text(json.dumps(wildcard_report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 
