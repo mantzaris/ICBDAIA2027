@@ -1,56 +1,120 @@
 # Selective underwater waveform inpainting
 
-This project tests whether observation-only probes and separately calibrated
-acceptance reduce harmful generative gap completions. The task repairs known
-missing samples in field recordings; those recordings are not noise-free truth.
+The completed development pilot **failed its predeclared feasibility trigger**:
+only 5 of 64 tuning groups (7.8%) had a diffusion candidate improving Q by at least
+0.02, versus the required 20%. The calibrated development policy accepts no
+generated completions and equals its deterministic fallback. This is not evidence
+of a successful selective method. Actual calibration/test outcomes remain unopened;
+the full research study is incomplete.
 
-The authoritative specification is
-`ICBDAIA_2027_Codex_Execution_Prompt.txt`, with the accompanying research-plan PDF.
-All project code, data, documentation, and generated artifacts belong inside this
-directory. Work is committed only on `main`; the user performs all pushes.
+The user authorized an existing RunPod, requested a run under ten hours, and asked
+that the pod remain running. Work stays in this directory and is committed only
+on `main`. Nothing is pushed; the user handles the push.
 
-## Current state
+## Deliverables
 
-Preparation and dataset download are in progress. No real-data experiment,
-calibrated policy, or manuscript performance claim is complete. See
-`reports/status.json`. The user authorized up to ten hours for this run and asked
-that the pod remain running afterward. The connected RTX 4090 has 24 GB VRAM;
-`/workspace` is a 50 GB container overlay. Use staged data and verified local
-backups rather than assuming that mount survives stopping the pod.
+- [Anonymous editable manuscript](manuscript/underwater_feasibility_anonymous.docx)
+  and [rendered PDF](manuscript/underwater_feasibility_anonymous.pdf): a development
+  feasibility audit, not a submission-ready main-study paper.
+- [Pilot findings and limits](reports/pilot.md), [claim-to-evidence map](reports/claim_to_evidence.json),
+  [table-cell sources](manuscript/table_cells.json), [experiment ledger](reports/experiment_ledger.json),
+  and [compute ledger](reports/compute_ledger.json).
+- [Frozen protocol](preregistration/protocol.json), [sampler amendment](preregistration/sampler_amendment.json),
+  [raw run registry](results/run_registry.jsonl), and [source/data attribution](provenance/DATA_ATTRIBUTION.md).
+- Vector PDF/SVG and 450-dpi PNG figures in `figures/`; scripts rebuild every figure
+  and the Word document from completed results.
 
-## Local verification
+Completed work includes the 43,208-file UniqueShip audit, a 200-crop metric check,
+5,000-update conditional and 2,500-update deterministic pilots, exact CUDA checkpoint
+resumption, 392 saved candidate/probe pools, a paired 32/64-step comparison, dry
+calibration/testing, 800 synthetic/shift cases, and eight published-checkpoint transfer
+cases. The transfer cases were replayed to save complete waveform artifacts; they
+remain eight unique cases. Fixed seeds did not yield bitwise transfer reproducibility.
+
+The three-seed main matrix, C4/C5/C6 controls, independent classifier, VLIZ audio,
+and confirmatory statistical comparisons were not run after the no-go decision.
+The 16-source learning diagnostic does not establish near-zero memorization.
+
+## Inspect and rebuild locally
+
+From this directory:
 
 ```bash
-cd underwater-acoustic-regeneration
-python3 -m pytest
+python3 -m pytest -q
 PYTHONPATH=src python3 scripts/preflight.py
+PYTHONPATH=src python3 scripts/posthoc_pilot.py
+python3 scripts/build_reports.py
+python3 scripts/plot_pilot.py
+.venv/bin/python scripts/build_manuscript.py
 ```
 
-The recorded CPU environment in `requirements.lock` is for reproducibility of
-these checks. A separate compatible GPU lock must be captured and tested on the
-pod before training. Do not replace or upgrade its host driver.
+`build_reports.py` requires the locally backed-up candidate and diagnostic arrays;
+they are deliberately excluded from Git. The Word builder uses `python-docx==1.1.2`
+in the local `.venv`. Export with LibreOffice using a project-local user profile:
 
-## Research protocol
+```bash
+libreoffice -env:UserInstallation="file://$PWD/.cache/libreoffice" --headless \
+  --convert-to pdf --outdir manuscript manuscript/underwater_feasibility_anonymous.docx
+pdftoppm -scale-to 1600 -png manuscript/underwater_feasibility_anonymous.pdf .cache/manuscript-page
+```
 
-Use UniqueShip v1.0 (12 classes, five hours each) for the primary grouped study and
-VLIZ v1 only for external reconstruction assessment. Source manifests and connected
-vessel/recording groups precede resampling, crops, masks, or derived examples.
-Generator training G, diagnostic fitting D, validation V, calibration C, and test
-are distinct. Preserve the official test membership and purge conflicting sources.
+The original conference `.docm` is retained under ignored downloads. Template
+preparation manipulates ZIP/XML only and executes no macros. The manuscript removes
+sample authors, company/custom metadata, old chart links, and comments. Its core
+author and last modifier are `Anonymous` as instructed.
 
-Resample intact sources to 8 kHz, then crop 32,768 samples and simulate gaps.
-Normalize from observed samples only, repeating the calculation for each probe.
-The inference interface accepts an `Observation`, never a reference or class label.
-Persist repaired audio separately from the observation and imputation mask.
+## Environments and GPU reproduction
 
-Read `preregistration/protocol.json` before opening held-out outcomes. Calibration
-returns an all-fallback policy if none of the validation-frozen thresholds passes
-the multiplicity-corrected harm bound. Preserve that negative outcome.
+`requirements.lock` records the CPU verification environment;
+`requirements.gpu.lock` records Python 3.12 / PyTorch 2.8.0+cu128 on the RTX 4090;
+`requirements.transfer.lock` records the separate legacy general-audio environment;
+`requirements.manuscript.lock` records the Word/figure environment. Full freezes
+include inherited system packages and are environment inventories, not portable
+one-command installers. The container image digest was not exposed by SSH and is
+not invented. The host driver was not changed.
 
-## Outputs and limits
+Exact training and inference commands, hashes, seeds, and statuses are in the run
+registry. Training scripts are deliberately restricted to the development pilot;
+`configs/essential.yaml` specifies future work and is not an implemented main runner.
+The executed sequence was:
 
-Raw audio, environments, candidate pools, and checkpoints are ignored by Git.
-Keep checksums and retrieval manifests under version control; do not commit large
-archives. Every reported result must trace to a completed entry in the run registry.
-The final editable Word manuscript and rendered PDF depend on completed experiments,
-verified template handling, and the author's confirmed author list/affiliations.
+1. Download original split archives; join with `zip -s 0`; audit via
+   `prepare_data.py <joined.zip> --cache-pilot`. The full native archive was not extracted.
+2. Run `smoke_metrics.py`, `resume_check.py`, and `train.py` for seed 17: conditional
+   5,000 updates, deterministic 2,500 updates. Model and data configurations are in
+   each checkpoint directory. Reduced-width 16-source checks are separate runs.
+3. Preserve `diagnose_sampler.py` failures; use the frozen G-only amendment in
+   `make_pools.py --sampler-config preregistration/sampler_amendment.json`.
+4. For run `pilot_pools_clipped_seed17`, generate `--phase fit`, run
+   `analyze_pilot.py --stage fit`, compare steps, generate `--phase calibration`,
+   analyze `--stage calibrate`, generate `--phase test`, then analyze `--stage evaluate`.
+   These phase names refer only to reserved V subsets, never real C/test.
+5. Run the frozen `run_diagnostics.py`. Fetch published transfer artifacts with
+   `fetch_transfer.py`, apply `prepare_transfer_compat.py` within `.venv-transfer`,
+   and run `transfer_check.py`. The startup failures, compatibility patches, original
+   scored run, and waveform replay are all retained.
+
+Use new run identifiers for any new experiment. Do not overwrite completed artifacts
+or treat a rerun as another independent sample. The dated authorization in
+`configs/run_authorization.json` applies to this run only; scripts enforce its deadline.
+
+## Data, preservation, and resource state
+
+UniqueShip/Ocean Networks Canada data are CC BY 4.0 with attribution recorded in
+`provenance/`. Source/group manifests precede resampling, crops, and artificial masks.
+Missing references are erased at the inference boundary; normalization is recomputed
+after each probe mask; exact projection retains observed samples. Repaired positions
+keep explicit imputation flags. Original field recordings are not noise-free truth.
+
+Raw archives, processed audio, environments, checkpoints, and candidate arrays are
+ignored by Git. Both original archive volumes and ten checkpoints have verified
+local backups; per-case arrays have recorded SHA-256 hashes. Download/retrieval
+locations are in `manifests/` and `provenance/`. The remote `/workspace` is a 50 GB
+container overlay, not a confirmed persistent volume. Keep the local backups.
+
+The pod is intentionally left running. Research jobs finish within the ten-hour
+cap, but leaving the pod running continues billing. The actual booked hourly rate
+and storage charges were not supplied, so no dollar total is claimed. To stop it
+later, use the existing pod's **Stop** control in RunPod after confirming backups;
+do not terminate it expecting the container disk to persist. No shutdown, deletion,
+new paid resource, repository publication, email, or submission is performed here.

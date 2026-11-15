@@ -23,7 +23,10 @@ COLORS = {"full": "#00725D", "no_probes": "#9467BD", "duration_only": "#D58318",
 def save(fig, name):
     OUT.mkdir(exist_ok=True)
     for extension in ("pdf", "svg", "png"):
-        fig.savefig(OUT / (name + "." + extension), dpi=450, bbox_inches="tight", pad_inches=0.04)
+        path = OUT / (name + "." + extension)
+        fig.savefig(path, dpi=450, bbox_inches="tight", pad_inches=0.04)
+        if extension == "svg":
+            path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
     plt.close(fig)
 
 
@@ -38,17 +41,17 @@ def workflow():
     def arrow(start, end, dashed=False):
         ax.add_patch(FancyArrowPatch(start, end, arrowstyle="-|>", mutation_scale=8, linewidth=0.7,
                                     linestyle="--" if dashed else "-", color="#526371"))
-    box(0.01, 0.69, .17, "Observed\naudio + mask")
-    box(.25, .69, .20, "4 candidates\n+ 2 context probes")
-    box(.52, .69, .19, "Diagnostics\n+ candidate score")
-    box(.79, .69, .19, "Accept or\nuse fallback B", "#E4F0E8")
-    arrow((.19, .805), (.24, .805)); arrow((.46, .805), (.51, .805)); arrow((.72, .805), (.78, .805))
-    box(.01, .27, .20, "Train generator\non G only")
-    box(.27, .27, .20, "Choose B\non tuning V")
-    box(.53, .27, .20, "Fit score on D\nFreeze on V")
-    box(.79, .27, .19, "Dry calibration\non reserved V")
-    arrow((.13, .51), (.31, .68), True); arrow((.63, .51), (.63, .68), True)
-    arrow((.88, .51), (.88, .68), True)
+    box(.01, .69, .22, "Observed\naudio + mask")
+    box(.26, .69, .22, "4 candidates\n2 probes")
+    box(.51, .69, .22, "Diagnostic\nscore")
+    box(.76, .69, .22, "Accept or\nfallback B", "#E4F0E8")
+    arrow((.23, .805), (.26, .805)); arrow((.48, .805), (.51, .805)); arrow((.73, .805), (.76, .805))
+    box(.01, .27, .22, "Train on G")
+    box(.26, .27, .22, "Choose B\non tuning V")
+    box(.51, .27, .22, "Fit on D\nFreeze on V")
+    box(.76, .27, .22, "Dry-calibrate\nreserved V")
+    arrow((.12, .51), (.34, .68), True); arrow((.37, .51), (.55, .68), True)
+    arrow((.62, .51), (.62, .68), True); arrow((.87, .51), (.87, .68), True)
     ax.text(.5, .095, "Exact final projection preserves every observed sample.\nAll repaired positions retain an imputation flag.", ha="center", va="center", fontsize=7.5)
     save(fig, "method")
 
@@ -111,7 +114,7 @@ def examples(directory):
         spectrum.grid(alpha=.15)
         evidence.append({"case_id": case["case_id"], "source_id": case["source_id"], "selection": label,
                          "C3_minus_B_Q": differences[decision["case_id"]], "source_partition": "V", "pilot_role": "dev_test"})
-    axes[0, 1].legend(frameon=False, loc="best")
+    axes[0, 1].legend(frameon=True, facecolor="white", framealpha=.95, edgecolor="none", loc="upper right")
     fig.tight_layout(pad=.8, h_pad=1.0, w_pad=1.0)
     save(fig, "development_examples")
     (OUT / "example_selection.json").write_text(json.dumps({"rule": "Extremes of C3-minus-B Q in the dry development test; illustrative and explicitly selected using evaluation outcomes", "cases": evidence}, indent=2) + "\n")

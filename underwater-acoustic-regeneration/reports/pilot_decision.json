@@ -1,0 +1,43 @@
+{
+  "decision": "no_go_for_main_experiments",
+  "scope": "This 5000-update, approximately two-hour G pilot; no conclusion about all possible generators",
+  "oracle_opportunity": {
+    "32_steps": {
+      "cases": 5,
+      "groups": 64,
+      "fraction": 0.078125
+    },
+    "64_steps": {
+      "cases": 5,
+      "groups": 64,
+      "fraction": 0.078125
+    }
+  },
+  "required_fraction": 0.2,
+  "decision_evidence": [
+    "results/pilot_pools_clipped_seed17/frozen_predictors.json",
+    "results/pilot_pools_clipped_seed17/step_comparison.json"
+  ],
+  "numerical_failure_investigated_before_tuning_outcomes": true,
+  "preserved_sampler_failures": [
+    "reports/sampler_numerics.json",
+    "reports/sampler_numerics_bounded.json"
+  ],
+  "corrected_sampler": "preregistration/sampler_amendment.json",
+  "actual_C_and_test_outcomes": "remain unopened",
+  "not_authorized_by_this_decision": [
+    "claim method efficacy",
+    "claim finite-sample empirical calibration on actual C",
+    "claim downstream classification noninferiority",
+    "claim external generalization"
+  ],
+  "main_study_success_criteria": "all untested",
+  "reason_to_avoid_main_runs": "The execution prompt makes >=20% oracle opportunity a precondition and directs preserving a negative result after fixing implementation/training errors rather than expensive model search.",
+  "followup_completed": [
+    "finish development-only dry calibration and test",
+    "extended 16-example overfit diagnostic",
+    "100-realization synthetic identifiability and V-shift suite",
+    "published general-audio checkpoint compatibility check"
+  ],
+  "followup_status": "all four follow-up diagnostics completed; no main-study gate changed"
+}

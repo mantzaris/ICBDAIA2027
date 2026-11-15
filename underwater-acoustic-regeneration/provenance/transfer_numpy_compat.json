@@ -1,0 +1,12 @@
+{
+  "package": "cqt-nsgt-pytorch",
+  "version": "0.0.10",
+  "license": "MIT",
+  "file": "cqt_nsgt_pytorch/nsgfwin.py",
+  "original_sha256": "8d0a61d18e59f53dc6876bdc22a7e4dc9bdd10dc24deb880fa2ef09e830c9dca",
+  "patched_sha256": "ff0fb1900c54f8d60bbe22a2db297a06e2a34556fcd0e94fae68b7ed896082d2",
+  "before": "np.clip(M, min_win, np.inf, out=M)",
+  "after": "np.maximum(M, min_win, out=M)",
+  "reason": "NumPy 1.26 rejects float infinity in an in-place integer clip. M contains finite integer window lengths; lower bounding by integer min_win with maximum is algebraically equivalent to clipping at positive infinity.",
+  "scope": "Legacy dependency compatibility only; no signal, model, or inference hyperparameter changes"
+}

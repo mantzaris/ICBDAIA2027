@@ -24,3 +24,19 @@ across all unknown devices, which is more conservative than splitting them.
 The closest ICIGP paper's title/authors/DOI were reverified through Crossref. Primary
 full text remains unavailable through the checked IEEE page. Do not infer detailed
 limitations from its title, or claim generic underwater inpainting as new.
+
+2026-11-15 completion: The user requested anonymous submission authorship. The
+eight-page development manuscript uses Anonymous submission and clears identifying
+template metadata. No author information remains pending for this draft.
+
+The 5,000-update pilot failed the frozen opportunity trigger: 5/64 rather than
+at least 20%, unchanged with 64-step sampling. Dry calibration selected all-fallback.
+Main C/test outcomes therefore remain unopened. The G-only sampler correction,
+extended learning check, 800 synthetic/shift cases, and eight published-checkpoint
+compatibility cases were completed; all failed attempts and the transfer artifact
+replay are retained. No additional architecture/training search was launched.
+
+All research processes finished; the existing pod remains running per instruction.
+The completed bounded pilot is not a completed main study or submission-ready
+efficacy paper. Dollar charges and the container image digest remain unavailable;
+neither is inferred. Local backups and the rendered anonymous draft are verified.

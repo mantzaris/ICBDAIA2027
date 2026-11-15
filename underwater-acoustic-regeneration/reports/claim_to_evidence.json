@@ -1,0 +1,307 @@
+{
+  "research_complete": false,
+  "submission_ready": false,
+  "claims": [
+    {
+      "id": "data_counts",
+      "claim": "43,208 mono 32 kHz PCM32 sources; Table 1 partition counts",
+      "verdict": "verified_metadata",
+      "scope": "Metadata/decoded-hash audit; not evidence of independent sessions or held-out quality",
+      "completed_run_ids": [
+        "local_artifact_and_table_validation"
+      ],
+      "evidence": [
+        {
+          "path": "manifests/audit.json",
+          "sha256": "1442b3d15e97694cb3291522a1b59afbbfe5f68670811c27f54ea9f56ea6c2fe"
+        },
+        {
+          "path": "manifests/sources.jsonl.gz",
+          "sha256": "32b68bc7f17fce869c1fb294cb7b0a0f0afaf404e1a9f3e425cafe33bfc2c196"
+        },
+        {
+          "path": "reports/data_summary.json",
+          "sha256": "5e35924315cb9e4c31abbd2801b354ef5f3c2babe3577388394b1fddc16c2385"
+        },
+        {
+          "path": "reports/temporal_audit.json",
+          "sha256": "3b5746459fe00414381c826541e90f1eb743b16308eb2da4a7f23a8d314dfaa3"
+        },
+        {
+          "path": "reports/temporal_unknown_device_audit.json",
+          "sha256": "3e3257e94cd661ae5fa5af469feb7afd3b30e6fa4a08812f567f8a913eb82c54"
+        }
+      ]
+    },
+    {
+      "id": "pilot_feasibility",
+      "claim": "5/64 tuning groups pass the oracle improvement criterion at both 32 and 64 steps",
+      "verdict": "failed_trigger",
+      "scope": "One pilot seed, G-only sampler amendment; no general impossibility claim",
+      "completed_run_ids": [
+        "pilot_pools_clipped_seed17_fit",
+        "pilot_pools_clipped_seed17_compare_steps"
+      ],
+      "evidence": [
+        {
+          "path": "results/pilot_pools_clipped_seed17/frozen_predictors.json",
+          "sha256": "63f159ffee41e9bfd98b5bed6208c7fccbeee57560cee065b960e51978fb51f9"
+        },
+        {
+          "path": "results/pilot_pools_clipped_seed17/step_comparison.json",
+          "sha256": "342e204c37d1cece4458a3eba4f31ce97d6ca77a554bd43225da6c7e7b5f3f98"
+        }
+      ]
+    },
+    {
+      "id": "dry_policy",
+      "claim": "No eligible threshold; zero acceptance and P equals B",
+      "verdict": "verified_development_result",
+      "scope": "Reserved V groups only; accepted-sample risk undefined",
+      "completed_run_ids": [
+        "pilot_pools_clipped_seed17_calibration",
+        "pilot_pools_clipped_seed17_analysis"
+      ],
+      "evidence": [
+        {
+          "path": "results/pilot_pools_clipped_seed17/calibration.json",
+          "sha256": "803ad4951af94d8f21fd993a14b62cf403d605a0c213dc9c97fe22535f76b882"
+        },
+        {
+          "path": "results/pilot_pools_clipped_seed17/pilot_summary.json",
+          "sha256": "5b845ad37f1c4c7b8afdfecf70433bfc6ca207f43de168d1d27a681450542f21"
+        }
+      ]
+    },
+    {
+      "id": "dry_quality",
+      "claim": "Table 2 and development tails/paired intervals",
+      "verdict": "descriptive_only",
+      "scope": "64 V groups; exploratory intervals, no primary confirmatory test",
+      "completed_run_ids": [
+        "pilot_pools_clipped_seed17_test",
+        "pilot_pools_clipped_seed17_analysis",
+        "pilot_posthoc_descriptive"
+      ],
+      "evidence": [
+        {
+          "path": "results/pilot_pools_clipped_seed17/pilot_summary.json",
+          "sha256": "5b845ad37f1c4c7b8afdfecf70433bfc6ca207f43de168d1d27a681450542f21"
+        },
+        {
+          "path": "results/pilot_pools_clipped_seed17/classical_dry_test_summary.json",
+          "sha256": "598806992268297a411866ae9cbae4da438354ee12e929632b4ebda6b5dcfbe1"
+        },
+        {
+          "path": "results/pilot_pools_clipped_seed17/secondary_metrics.json",
+          "sha256": "924083960c47cc882ce215a23b793a5a31e6277be614354acec946336bf4d76b"
+        },
+        {
+          "path": "results/pilot_pools_clipped_seed17/date_sensitivity.json",
+          "sha256": "e0375e78af7ca182a347bc0f7a5c54a32e355192a9b594e74843c9bb0f0b9e0c"
+        }
+      ]
+    },
+    {
+      "id": "synthetic_identity",
+      "claim": "400 fixed-input method/pair comparisons have exactly equal output",
+      "verdict": "passed_implementation_check",
+      "scope": "100 distinct hidden-event realizations; same inputs/seeds cannot identify invisible target content",
+      "completed_run_ids": [
+        "pilot_pools_clipped_seed17_diagnostics"
+      ],
+      "evidence": [
+        {
+          "path": "results/pilot_pools_clipped_seed17_diagnostics/summary.json",
+          "sha256": "e1ef7cc41b6f908ea22823b9d077744654e0ea0ffc83311f37d1af7be62950a1"
+        },
+        {
+          "path": "results/pilot_pools_clipped_seed17_diagnostics/hidden_event_summary.json",
+          "sha256": "cf5e80021944a9d2a7afa67a884cc80a550a350e85185f550c6b9ff52225cd00"
+        }
+      ]
+    },
+    {
+      "id": "shift_behavior",
+      "claim": "Table 3: P uses B on all 100 shifted development cases",
+      "verdict": "verified_development_result",
+      "scope": "No transferred calibration or external generalization claim",
+      "completed_run_ids": [
+        "pilot_pools_clipped_seed17_diagnostics"
+      ],
+      "evidence": [
+        {
+          "path": "results/pilot_pools_clipped_seed17_diagnostics/summary.json",
+          "sha256": "e1ef7cc41b6f908ea22823b9d077744654e0ea0ffc83311f37d1af7be62950a1"
+        }
+      ]
+    },
+    {
+      "id": "published_transfer",
+      "claim": "Eight fixed V cases run with hash-verified published weights",
+      "verdict": "compatibility_only",
+      "scope": "No tuning/fine-tuning; adapted rate/mask handling; not an exact reproduction or superiority comparison",
+      "completed_run_ids": [
+        "moliner_zero_shot_8V_artifact_replay"
+      ],
+      "evidence": [
+        {
+          "path": "results/transfer_with_waveforms/summary.json",
+          "sha256": "61a856cc81909b9dba6bbe0ad565c31814e6c555507f5f3c8792b26356157082"
+        },
+        {
+          "path": "results/transfer_with_waveforms/cases.jsonl",
+          "sha256": "9a03edb326e8ac281363547512c4ea95c69bc8a4354ce56a31d568b6a46a30de"
+        },
+        {
+          "path": "provenance/transfer_numpy_compat.json",
+          "sha256": "3fc6f18848370ae451141edbcda53dbc8153ece2e49f4575c18eaf3619ab0142"
+        },
+        {
+          "path": "reports/transfer_replay_verification.json",
+          "sha256": "57b4b8ffd875197b6e51961c1d158f202041197afd2f661980b7eb97f27efb5f"
+        }
+      ]
+    },
+    {
+      "id": "resume",
+      "claim": "CUDA next batch/RNG/loss/parameters reproduce exactly",
+      "verdict": "passed_implementation_check",
+      "scope": "Controlled G verification, not convergence proof",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "reports/cuda_resume_check.json",
+          "sha256": "f8e1db5db77f544b53475fb9520c6e5d7102fd5d11872edfe409afd2bfae565a"
+        }
+      ]
+    },
+    {
+      "id": "sampler",
+      "claim": "Unbounded terminal sampler fails; G-only correction is a disclosed approximation",
+      "verdict": "limitation",
+      "scope": "No V-quality endpoint sweep; Gaussian initialization at nonterminal time remains mismatched",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "reports/sampler_numerics.json",
+          "sha256": "0e13ad2585b0927fd482884e223e12d86017d4fd2686fed0354e009bb47726fd"
+        },
+        {
+          "path": "reports/sampler_numerics_bounded.json",
+          "sha256": "8ea9ed6cf54bff146065b4cea716748973575f0f62635896848ff2c2243649fa"
+        },
+        {
+          "path": "reports/sampler_numerics_truncated.json",
+          "sha256": "f09759363965c785dc7a10a729ec7f2c3367c692c4675dd9fe4a9dd298115469"
+        },
+        {
+          "path": "preregistration/sampler_amendment.json",
+          "sha256": "6305eaa9e5e2cf1c22da39a43ee757db7997cf7b4723fb4d429bd2d3572e6aa0"
+        }
+      ]
+    },
+    {
+      "id": "main_coverage",
+      "claim": "Held-out generative coverage >=25%",
+      "verdict": "untested",
+      "scope": "Required main experiment not run",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "preregistration/protocol.json",
+          "sha256": "1b761aee271cc7d8e78a760a7cb58526b2cffec43b2324b980be843c02594e15"
+        },
+        {
+          "path": "reports/pilot_decision.json",
+          "sha256": "25de092f47e9349f1558629c0e1c6c12156e3bddcf9fb6caf6be09cdec91fdae"
+        }
+      ]
+    },
+    {
+      "id": "main_harm",
+      "claim": ">=25% relative harm reduction with confidence interval excluding zero",
+      "verdict": "untested",
+      "scope": "Required main experiment not run",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "preregistration/protocol.json",
+          "sha256": "1b761aee271cc7d8e78a760a7cb58526b2cffec43b2324b980be843c02594e15"
+        },
+        {
+          "path": "reports/pilot_decision.json",
+          "sha256": "25de092f47e9349f1558629c0e1c6c12156e3bddcf9fb6caf6be09cdec91fdae"
+        }
+      ]
+    },
+    {
+      "id": "main_gate",
+      "claim": "Diagnostics improve harm at matched coverage over duration and dispersion gates",
+      "verdict": "untested",
+      "scope": "Required main experiment not run",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "preregistration/protocol.json",
+          "sha256": "1b761aee271cc7d8e78a760a7cb58526b2cffec43b2324b980be843c02594e15"
+        },
+        {
+          "path": "reports/pilot_decision.json",
+          "sha256": "25de092f47e9349f1558629c0e1c6c12156e3bddcf9fb6caf6be09cdec91fdae"
+        }
+      ]
+    },
+    {
+      "id": "main_noninferiority",
+      "claim": "Held-out Q margin 0.01 and macro-F1 margin 0.02",
+      "verdict": "untested",
+      "scope": "Required main experiment not run",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "preregistration/protocol.json",
+          "sha256": "1b761aee271cc7d8e78a760a7cb58526b2cffec43b2324b980be843c02594e15"
+        },
+        {
+          "path": "reports/pilot_decision.json",
+          "sha256": "25de092f47e9349f1558629c0e1c6c12156e3bddcf9fb6caf6be09cdec91fdae"
+        }
+      ]
+    },
+    {
+      "id": "main_projection",
+      "claim": "Held-out observed drift <=1e-6",
+      "verdict": "untested",
+      "scope": "Required main experiment not run",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "preregistration/protocol.json",
+          "sha256": "1b761aee271cc7d8e78a760a7cb58526b2cffec43b2324b980be843c02594e15"
+        },
+        {
+          "path": "reports/pilot_decision.json",
+          "sha256": "25de092f47e9349f1558629c0e1c6c12156e3bddcf9fb6caf6be09cdec91fdae"
+        }
+      ]
+    },
+    {
+      "id": "external_generalization",
+      "claim": "Zero-adaptation benefit on VLIZ",
+      "verdict": "untested",
+      "scope": "Required main experiment not run",
+      "completed_run_ids": [],
+      "evidence": [
+        {
+          "path": "preregistration/protocol.json",
+          "sha256": "1b761aee271cc7d8e78a760a7cb58526b2cffec43b2324b980be843c02594e15"
+        },
+        {
+          "path": "reports/pilot_decision.json",
+          "sha256": "25de092f47e9349f1558629c0e1c6c12156e3bddcf9fb6caf6be09cdec91fdae"
+        }
+      ]
+    }
+  ]
+}

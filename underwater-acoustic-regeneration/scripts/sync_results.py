@@ -30,6 +30,12 @@ def main() -> None:
                         destination + ":" + remote_path, str(ROOT) + "/"], check=True)
     subprocess.run(["rsync", "-a", "-e", shlex.join(ssh), destination + ":" + connection["project_directory"] +
                     "/requirements.gpu.lock", str(ROOT) + "/"], check=True)
+    transfer_lock = connection["project_directory"] + "/requirements.transfer.lock"
+    available = subprocess.run(ssh + [destination, "test -f " + shlex.quote(transfer_lock)], check=False)
+    if available.returncode == 0:
+        subprocess.run(["rsync", "-a", "-e", shlex.join(ssh), destination + ":" + transfer_lock, str(ROOT) + "/"], check=True)
+    elif available.returncode != 1:
+        raise RuntimeError("Could not check the remote transfer environment lock")
     # Checkpoints are immutable within each completed phase. Hash every downloaded
     # checkpoint and compare with the remote copy; retry a changed active file later.
     paths = [str(path.relative_to(ROOT)) for path in (ROOT / "checkpoints").rglob("*.pt")]

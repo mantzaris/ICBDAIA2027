@@ -16,6 +16,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt
+from lxml import etree
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "manuscript"
@@ -34,6 +35,8 @@ def content(allow_pending=False):
     transfer_path = ROOT / "results/transfer_with_waveforms/summary.json"
     diagnostics = json.loads(diagnostics_path.read_text()) if diagnostics_path.exists() else None
     transfer = json.loads(transfer_path.read_text()) if transfer_path.exists() else None
+    original_transfer_path = ROOT / "results/transfer/summary.json"
+    original_transfer = json.loads(original_transfer_path.read_text()) if original_transfer_path.exists() else None
     if not allow_pending and (diagnostics is None or transfer is None):
         raise ValueError("Completed diagnostic and transfer reports required; use --allow-pending only for layout")
     if diagnostics:
@@ -162,14 +165,19 @@ def content(allow_pending=False):
           "interpretation. Original failures and the amendment are retained, rather than silently replacing them."),
         dict(kind="equation", text="Q = ½ min(NMSEgap / 4, 1) + ½ min(SCgap / 2, 1).                  (2)"),
         p("SC averages gap-only spectral convergence at FFT sizes 64, 128, and 256, periodic Hann windows, "
-          "quarter-window hops, and no centered padding. Smaller Q is better; harm means ΔQ = Qcandidate − QB "
-          "> 0.02. V freezes at most nine nonpositive score thresholds. For n accepted calibration cases and e "
+          "quarter-window hops, and no centered padding. Smaller Q is better; harm means the candidate's Q "
+          "exceeds B's Q by more than 0.02. V freezes at most nine nonpositive score thresholds. For n accepted calibration cases and e "
           "harms, a one-sided Clopper–Pearson upper bound uses level 1 − 0.05/M across M thresholds. A threshold "
           "is eligible only if the bound is ≤0.10; n = 0 gives bound one. If none qualifies, use B everywhere. "
           "The interpretation requires independent, identically distributed group draws and a frozen policy [7], "
           "not arbitrary ocean or site shift.")
     ])
     rows = []
+    baseline_path = RUN / "classical_dry_test_summary.json"
+    if baseline_path.exists():
+        for key, label in [("zero", "Zero fill"), ("linear", "Linear interpolation")]:
+            value = json.loads(baseline_path.read_text())[key]
+            rows.append([label, format(value["mean_Q"], ".3f"), format(value["mean_gap_nmse"], ".3f"), "0.00", "—", "0"])
     for key, name, calls in [("B", "Deterministic B", "0"), ("C1", "One draw (C1)", "32"),
                              ("C2", "Four-draw medoid (C2)", "128"), ("C3", "Select, always accept (C3)", "192"),
                              ("full", "Calibrated policy P", "192")]:
@@ -179,19 +187,18 @@ def content(allow_pending=False):
                      format(value["generative_coverage"], ".2f"), harm, calls])
     pages.append([
         h("5  Development results and no-go decision"),
-        p("Of 200 V groups, 64 tune B and thresholds, 64 dry-calibrate, 64 dry-test, and eight are unused. "
-          "The first 32 tuning groups also monitor training. B is deterministic restoration (mean tuning Q "
-          "0.218 versus 0.229 for AR128). Only 5/64 tuning cases (7.8%) contain any candidate improving Q by "
-          "at least 0.02, below the frozen 20% feasibility trigger. Increasing to 64 steps leaves 5/64 and "
-          "raises mean six-draw latency from 1.28 to 2.48 s. We retain 32 steps and stop the main study."),
+        p("V assigns 64 groups each to tuning, dry calibration, and dry testing, with eight unused. The first "
+          "32 tuning groups also monitor training. Deterministic B wins tuning Q (0.218; AR128: 0.229). Only "
+          "5/64 cases (7.8%) have a candidate improving Q by ≥0.02, below the 20% feasibility trigger. At "
+          "64 steps, opportunity remains 5/64 and six-draw latency rises from 1.28 to 2.48 s. We retain "
+          "32 steps and stop the main study."),
         t("Table 2. One case per dry-test V group (n = 64). Harm is an all-case rate relative to B. "
           "Calls count diffusion evaluations; B still has one learned restoration pass.",
           ["Method", "Q ↓", "NMSE ↓", "Coverage", "Harm", "Calls"], rows,
-          ["results/pilot_pools_clipped_seed17/pilot_summary.json"]),
-        p("All four gate variants freeze only threshold zero, accept 0/64 dry-calibration cases, and fail "
-          "the bound (U = 1). Their final threshold is absent: P equals B. Conditional harm among accepted "
-          "cases is undefined, not zero. C3 harms 52/64 dry-test cases. P's zero harm is structural fallback, "
-          "not a successful risk–coverage tradeoff."),
+          ["results/pilot_pools_clipped_seed17/pilot_summary.json", "results/pilot_pools_clipped_seed17/classical_dry_test_summary.json"]),
+        p("All four gate variants freeze threshold zero, accept 0/64 dry-calibration cases, and fail the bound "
+          "(U = 1). P equals B; conditional accepted-case harm is undefined. C3 harms 52/64 dry-test cases. "
+          "P's zero harm is structural fallback, not a successful risk–coverage tradeoff."),
         f("development_ranking.png", "Fig. 2. Descriptive dry-test score rankings at equal hypothetical coverage. "
           "These counterfactual positive-score acceptances were not used by the calibrated policy and supply "
           "no calibrated guarantee or confirmatory diagnostic comparison.")
@@ -228,10 +235,11 @@ def content(allow_pending=False):
                 "The pinned implementation and EMA weights retain their 22.05 kHz, 184,184-sample configuration. "
                 "Only already-masked observations are resampled; the mask expands by 12 input samples and "
                 "unknown padding is excluded from guidance. Inverse resampling is followed by exact observed "
-                "projection. The completed run has mean Q " + format(transfer["mean_Q"], ".3f") + " and gap SC "
-                + format(transfer["mean_gap_SC"], ".3f") + ". This small domain check is neither an exact benchmark "
-                "reproduction nor evidence of superiority over a general-audio model. No adaptation is undertaken "
-                "after the pilot no-go decision."
+                "projection. The first completed run has mean Q " + format(original_transfer["mean_Q"], ".3f") + " and gap SC "
+                + format(original_transfer["mean_gap_SC"], ".3f") + ". A fixed-seed artifact replay gives Q "
+                + format(transfer["mean_Q"], ".3f") + "; this adapter is not bitwise reproducible on the recorded "
+                "CUDA stack. This small domain check is neither an exact benchmark reproduction nor evidence "
+                "of superiority. Fine-tuning was not allocated after the pilot no-go decision."
             )
         else:
             transfer_text = ("The published general-audio checkpoint [3] was retrieved and hash-verified, but the "
@@ -346,6 +354,19 @@ def clear_template(document):
     props.modified = datetime(2026, 11, 15, tzinfo=timezone.utc)
     props.revision = 1
     document.settings.odd_and_even_pages_header_footer = False
+    for key, relationship in list(document.part.package.rels.items()):
+        if relationship.reltype.endswith("/custom-properties"):
+            del document.part.package.rels[key]
+        elif relationship.reltype.endswith("/extended-properties"):
+            part = relationship.target_part
+            tree = etree.fromstring(part.blob)
+            for child in list(tree):
+                if etree.QName(child).localname in {"Company", "Manager", "Template", "HeadingPairs", "TitlesOfParts", "Words", "Characters", "CharactersWithSpaces", "Lines", "Paragraphs", "Pages"}:
+                    tree.remove(child)
+            part._blob = etree.tostring(tree, xml_declaration=True, encoding="UTF-8", standalone=True)
+    for child in list(document.settings.element):
+        if etree.QName(child).localname in {"rsids", "docVars", "attachedTemplate"}:
+            document.settings.element.remove(child)
 
 
 def build(pages, metadata):
@@ -366,7 +387,7 @@ def build(pages, metadata):
                 table = document.add_table(rows=1, cols=len(block["headers"]))
                 table.autofit = False
                 # Widths fit the template's 120 mm text area.
-                widths = ([4.9, 1.1, 1.3, 1.6, 1.4, 1.7] if len(block["headers"]) == 6 else [4.4, 2.1, 2.1, 3.4])
+                widths = ([4.6, 1.1, 1.6, 1.6, 1.4, 1.7] if len(block["headers"]) == 6 else [4.4, 2.1, 2.1, 3.4])
                 for col, width in zip(table.columns, widths):
                     col.width = Cm(width)
                 for index, text in enumerate(block["headers"]):
@@ -419,11 +440,19 @@ def build(pages, metadata):
                     paragraph.paragraph_format.space_after = Pt(5)
                     paragraph.paragraph_format.first_line_indent = Pt(0)
                 elif kind == "reference":
+                    paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
                     paragraph.paragraph_format.space_after = Pt(4)
                     paragraph.paragraph_format.left_indent = Cm(.45)
                     paragraph.paragraph_format.first_line_indent = Cm(-.45)
                     paragraph.paragraph_format.keep_together = True
                 elif kind == "equation":
+                    if block["text"].startswith("Q ="):
+                        paragraph.clear()
+                        for value, subscript in [("Q = ½ min(NMSE", False), ("gap", True),
+                                                 (" / 4, 1) + ½ min(SC", False), ("gap", True),
+                                                 (" / 2, 1).                  (2)", False)]:
+                            run = paragraph.add_run(value)
+                            run.font.subscript = subscript
                     paragraph.paragraph_format.space_before = Pt(5)
                     paragraph.paragraph_format.space_after = Pt(7)
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -448,6 +477,17 @@ def build(pages, metadata):
                     table_evidence=evidence, author="Anonymous", macros_executed=False)
     (OUT / "render_plan.json").write_text(json.dumps({"metadata": metadata, "pages": pages}, ensure_ascii=False, indent=2) + "\n")
     (OUT / "build_report.json").write_text(json.dumps(metadata, indent=2) + "\n")
+    urls = ["https://arxiv.org/abs/2609.13659", "https://doi.org/10.1109/ICIGP68997.2026.11619767",
+            "https://arxiv.org/abs/2305.15266", "https://arxiv.org/abs/2009.09761",
+            "https://arxiv.org/abs/2107.03502", "https://www.isca-archive.org/interspeech_2025/cohen25_interspeech.html",
+            "https://arxiv.org/abs/2110.01052", "https://arxiv.org/abs/2611.11522",
+            "https://arxiv.org/abs/2010.02502", "https://proceedings.mlr.press/v139/nichol21a.html",
+            "https://arxiv.org/abs/2305.08891", "https://openaccess.thecvf.com/content/CVPR2022/html/Lugmayr_RePaint_Inpainting_Using_Denoising_Diffusion_Probabilistic_Models_CVPR_2022_paper.html"]
+    references = [block["text"] for page in pages for block in page if block["kind"] == "reference"]
+    bibliography = [{"number": i, "citation": text, "primary_url": url, "checked": "2026-11-15",
+                     "access_limit": "Metadata verified; primary full text unavailable" if i == 2 else None}
+                    for i, (text, url) in enumerate(zip(references, urls), 1)]
+    (OUT / "bibliography.json").write_text(json.dumps(bibliography, ensure_ascii=False, indent=2) + "\n")
     print(target)
 
 

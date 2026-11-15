@@ -23,7 +23,10 @@ Unsent organizer question: “Could you confirm whether the full-paper limit is
 eight or ten total pages, whether references count toward that limit, and which
 timezone governs the November 30 deadline?” No message has been sent.
 
-The author's final author list, affiliations, and approval of the completed
-manuscript are still needed before a final submission copy. No coauthors will be
-inferred from dataset authors or the planning document. Submission and copyright
-forms remain the user's responsibility unless separately authorized.
+The user instructed: "leave anonymous for submission". The manuscript therefore
+uses "Anonymous submission", without affiliations or email, and anonymous document
+metadata. This resolves the authorship question for this draft; no further names
+are required. The completed pilot failed its feasibility trigger, so the artifact
+is explicitly a development draft, not a completed main-study submission package.
+Submission and copyright forms remain the user's responsibility unless separately
+authorized. Nothing has been submitted or emailed.
