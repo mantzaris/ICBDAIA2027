@@ -9,6 +9,9 @@ The exact maximum remains ambiguous: the CFP says “at most 8 to 10 pages” an
 not specify reference inclusion or deadline timezone. Plan eight total pages,
 including references. Registration amounts are not reverified here.
 
+The [UNWE event listing](https://www.unwe.bg/en/events/78301/6th-international-conference-on-big-data-and-artificial-intelligence-application.html)
+was rechecked and confirms on-site and online participation.
+
 The [linked Springer template](https://drive.google.com/file/d/1X67baiOAmfXYsMWcHocoHNuiSS75y24w/view)
 was downloaded (115,357 bytes); its source SHA-256 is in
 `provenance/source_retrieval.json`. ZIP/XML inspection confirms a proceedings sample,

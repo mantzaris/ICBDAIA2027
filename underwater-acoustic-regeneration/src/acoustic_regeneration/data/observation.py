@@ -7,6 +7,10 @@ from typing import Tuple
 import numpy as np
 
 
+class NonFiniteCompletionError(ValueError):
+    """A generated interval cannot be used as a finite waveform estimate."""
+
+
 @dataclass(frozen=True)
 class Observation:
     values: np.ndarray
@@ -49,7 +53,7 @@ class Observation:
         if proposed.shape != self.values.shape:
             raise ValueError("Proposal shape does not match observation")
         if not np.isfinite(proposed[~self.observed]).all():
-            raise ValueError("Nonfinite completion")
+            raise NonFiniteCompletionError("Nonfinite completion")
         return np.where(self.observed, self.values, proposed)
 
 
