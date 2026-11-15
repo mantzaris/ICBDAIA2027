@@ -1,0 +1,12 @@
+stage: development_only
+smoke_crops: 200
+overfit_examples: 16
+smoke_model: {residual_channels: 32, residual_layers: 12, dilation_cycle_length: 12}
+full_model_config: configs/model.yaml
+training_audio_hours: 2
+optimizer_updates: 5000
+compare_ddim_steps: [32, 64]
+oracle_improvement_margin: 0.02
+minimum_oracle_opportunity_fraction: 0.20
+must_pass: [finite_outputs, no_leakage, observation_projection, exact_resume, budget_projection]
+allow_test_partition: false

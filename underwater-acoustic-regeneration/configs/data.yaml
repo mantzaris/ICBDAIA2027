@@ -1,0 +1,31 @@
+primary:
+  name: UniqueShip
+  version: '1.0'
+  release: 12 Class - 5 Hours Each
+  folder: https://drive.google.com/drive/folders/1HxV8AGh8ckZS3JehAU_gY2fuCnscX-eV
+  official_fold: 1
+  target_fractions: {G: 0.60, D: 0.10, V: 0.10, C: 0.10, test: 0.10}
+  minimum_calibration_groups: 200
+  minimum_test_groups: 200
+external:
+  name: VLIZ AIS-annotated Hydrophone Recordings for Vessel Classification
+  version: v1
+  record: https://zenodo.org/records/17233667
+  archive_url: https://zenodo.org/api/records/17233667/files/Acoustic_vessel_classifier_dataset_metadata.zip/content
+  expected_bytes: 26005892324
+  expected_md5: 8098056c952ff706bdf1adaab7147096
+  group_stations_by_shared_date: true
+  maximum_groups: 400
+  maximum_clips_per_group: 2
+signal:
+  sample_rate: 8000
+  crop_samples: 32768
+  gap_ms: [50, 100, 250, 500]
+  minimum_context_ms: 750
+  probe_guard_ms: 64
+  training_two_gap_probability: 0.20
+  rms_floor: null  # Must be fitted on G, then frozen with source hashes.
+seeds:
+  partition: 20261115
+  calibration_case: 20261116
+  test_cases: 20261117

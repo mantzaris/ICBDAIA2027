@@ -1,0 +1,243 @@
+Implement and execute a reproducible conference research project, then write its manuscript from the actual results.
+
+PROJECT AND AUTHORIZATION
+
+Working title: Evidence-Guided Regeneration of Underwater Acoustic Data with Generative AI: Selective Waveform Inpainting.
+Target: ICBDAIA 2027. This is a separate study from an MVML paper about agents interpreting acoustic evidence. This project studies restoration decisions and reconstructed waveforms. It contains no LLM, agent reasoning benchmark, or generative training-data augmentation. Document shared preprocessing or datasets in OVERLAP.md; do not reuse manuscript text, result tables, or claim the same contribution twice.
+
+Research question: With a fixed inference budget, can observation-only diagnostic probes and a separately calibrated acceptance rule reduce harmful generative gap completions while preserving acoustic fidelity and downstream utility on unseen vessel recordings?
+
+Here regeneration means conditional waveform inpainting at known missing sample locations. It is an umbrella description, not a claim to have invented a new task. The contribution to test is a selective decision mechanism around an existing class of generators. Diffusion, observation projection, sampling several candidates, and calibration are established components. Do not claim first underwater diffusion, first underwater inpainting, or guaranteed recovery of unobserved events.
+
+The planning session ran no training and provisioned no computing. In this execution session, use the supplied existing RunPod connection and explicitly supplied budget. Do all independent local preparation while waiting for missing configuration. Never invent credentials, rent another GPU, raise the budget, submit the manuscript, send email, sign forms, or publish a repository unless authorized. Once an existing connection and budget are supplied, proceed through the pilot and essential experiments without repeated permission requests. Preserve negative findings.
+
+Configuration to be supplied by the user:
+  PROJECT_DIRECTORY = <local absolute path>
+  RUNPOD_SSH_HOST = <actual host>
+  RUNPOD_SSH_PORT = <actual exposed TCP port>
+  RUNPOD_SSH_USER = <actual user>
+  SSH_PRIVATE_KEY_PATH = <existing local key path; never print its contents>
+  REMOTE_PROJECT_DIRECTORY = <absolute directory on confirmed persistent storage>
+  NETWORK_VOLUME_ID_OR_STORAGE_DESCRIPTION = <actual value>
+  APPROVED_TOTAL_USD = <explicit total including storage; suggested planning ceiling 200>
+  APPROVED_GPU_HOURS = <explicit limit; suggested planning ceiling 160>
+  VERIFIED_HOURLY_USD = <actual instance rate>
+  STOP_POD_WHEN_FINISHED = <explicit yes or no>
+  OPTIONAL_GIT_REMOTE = <repository URL or empty>
+
+CONFERENCE AND OUTPUT FORMAT
+
+Recheck https://easychair.org/cfp/ICBDAIA27 and https://icbdaia.com/ . On November 15, 2026, the CFP advertised submission November 30, decision December 15, camera-ready/registration December 31, and conference April 21-22, 2027. It said "at most 8 to 10 pages" without defining reference inclusion. Use eight TOTAL pages including references until clarified. Submission timezone is unspecified; aim for November 29 America/New_York. Online participation is confirmed by https://www.unwe.bg/en/events/78301/6th-international-conference-on-big-data-and-artificial-intelligence-application.html .
+
+Use the exact conference-linked Springer template:
+https://drive.google.com/file/d/1X67baiOAmfXYsMWcHocoHNuiSS75y24w/view
+The downloaded file is named ICBDAIA27 _Springer _Template.docm. It contains a Springer proceedings sample, 150-250-word abstract instructions, and numbered references. Inspect the template contents without running macros. Produce an editable .docx and its compiled/rendered PDF. If using LaTeX, verify the applicable Springer proceedings class against this template, retain editable .tex/.bib, and also provide the requested Word source. Do not silently substitute an IEEE or Springer journal template. Keep unresolved venue questions in conference_requirements.md. Draft an organizer question about the exact limit and reference inclusion, but do not send it. Obtain the author's preferred author list and affiliations before the final submission copy; do not invent coauthors.
+
+VERIFIED STARTING REFERENCES AND IMPLEMENTATIONS
+
+Retrieve the original publications and pin repository commits before implementation. Search through the execution date for closer work and record the search date. References below were checked in planning; some full texts remain inaccessible. Do not misrepresent an adapted baseline as an exact reproduction.
+
+1. Moliner and Valimaki, Diffusion-Based Audio Inpainting, JAES 72(3), 100-113, 2024. DOI https://doi.org/10.17743/jaes.2022.0129 . Original code https://github.com/eloimoliner/audio-inpainting-diffusion ; checkpoints https://huggingface.co/Eloimoliner/audio-inpainting-diffusion . Both repositories declare MIT. Exact checkpoint files include 22k_8s-850000.pt, maestro_22k_8s-750000.pt, musicnet_44k_4s-560000.pt. These are general/music audio models, not verified underwater checkpoints.
+2. Dror et al., Token-Based Audio Inpainting via Discrete Diffusion, ICLR 2026. https://proceedings.iclr.cc/paper_files/paper/2026/hash/20888d00c5df685de2c09790040e0327-Abstract-Conference.html ; https://github.com/iftachShoham/AIDD ; https://talidror.github.io/aidd.github.io/ . Discrete diffusion with WavTokenizer on MusicNet/MAESTRO. MIT code; inspect separate tokenizer/weights terms. Its supplied tokenizer identifier is wavtokenizer_medium_speech_320_24k.ckpt. Codec reconstruction errors and domain mismatch must be measured before adaptation. This is optional, not a dependency for the core method.
+3. Zhu et al., Underwater acoustic signal denoising with diffusion-based generative models, Signal Processing 242, 110430, 2026. https://doi.org/10.1016/j.sigpro.2025.110430 . DiffUAD uses complex-domain score modeling. Publisher summary accessible; full implementation/checkpoint not verified in planning. Do not label a homemade approximation a reproduction.
+4. Zhao et al., Propeller self-noise suppression algorithm for unmanned underwater vehicles based on a two-stage denoising-inpainting framework, JASA 159, 1749-1761, 2026. https://doi.org/10.1121/10.0042750 . Relevant to spectral preservation; not the same known waveform-gap task. Public code/checkpoint not verified.
+5. Xiao et al., Accurate Deeplofargram: Accurate dynamic dim frequency line recovery for underwater acoustic target via waveform diffusion model, JASA 158, 4870-4887, 2025. https://doi.org/10.1121/10.0041865 . Relevant to recovering versus inventing weak lines. Public checkpoint not verified.
+6. Shen et al., Flow matching based data augmentation: A novel approach to improve underwater ship-radiated noise classification, Ocean Engineering 364, 126887, 2026. https://doi.org/10.1016/j.oceaneng.2026.126887 . Category-conditioned DiT/flow matching and pretraining/fine-tuning already address generative augmentation.
+7. Feng et al., Physics and metadata-guided generative learning for underwater acoustic target recognition, JASA 160, 3505-3516, 2026. https://doi.org/10.1121/10.0046886 . Recent related generative augmentation; inspect full text before describing exact architecture or limitations.
+8. Zhuang et al., Generating Underwater Acoustic Communication Channel Impulse Responses Using A Diffusion Model, UComms 2024. https://doi.org/10.1109/UComms64662.2024.10847985 ; author PDF https://yongjie-zhuang.com/files/published_2024_diffusion_UWA.pdf . KAM11 channel-response synthesis differs from repairing passive acoustic waveforms.
+9. Cohen et al., Discovering Directions of Uncertainty in Speech Inpainting, Interspeech 2025. https://doi.org/10.21437/Interspeech.2025-835 ; https://www.isca-archive.org/interspeech_2025/cohen25_interspeech.pdf ; author-listed code https://github.com/kfirc1503/uq-inpaint . Uncertainty in inpainting is already studied.
+10. Tashiro et al., CSDI, NeurIPS 2021. https://github.com/ermongroup/CSDI ; https://proceedings.neurips.cc/paper_files/paper/2021/hash/cfe8504bda37b575c70ee1a8276f3486-Abstract.html . Cite observed-value conditioning/masked diffusion as prior art.
+11. Kong et al., DiffWave, ICLR 2021, https://github.com/lmnt-com/diffwave . Apache-2.0. Use its waveform residual blocks as the lightweight backbone reference; the proposed architecture below is an adaptation.
+12. Lugmayr et al., RePaint, CVPR 2022. https://github.com/andreas128/RePaint ; https://openaccess.thecvf.com/content/CVPR2022/html/Lugmayr_RePaint_Inpainting_Using_Denoising_Diffusion_Probabilistic_Models_CVPR_2022_paper.html . Use its published resampling idea in a clearly labeled waveform adaptation.
+13. Angelopoulos et al., Learn then Test, https://people.eecs.berkeley.edu/~angelopoulos/publications/downloads/ltt.pdf . Credit calibration via simultaneous tests. Also discuss Task-Driven Uncertainty Quantification in Inverse Problems via Conformal Prediction, ECCV 2024, https://doi.org/10.1007/978-3-031-73027-6_11 . Do not claim generic risk calibration is new.
+14. Critical novelty check: Tembo et al., Mask-Conditioned Diffusion for Deep-Fade-Aware Inpainting of Underwater Acoustic Spectrograms, ICIGP 2026, https://doi.org/10.1109/ICIGP68997.2026.11619767 . The publisher-deposited Crossref title, authors, and conference metadata were verified, but primary full text was inaccessible. Resolve it through legitimate access if possible. Until then, retain a narrow selective-waveform-decision claim and explicitly disclose incomplete comparison; do not infer its detailed limitations from its title.
+
+DATASETS
+
+Primary: UniqueShip v1.0, "12 Class - 5 Hours Each" release.
+Documentation: https://uniqueshipdata.org/
+Paper: https://arxiv.org/pdf/2609.13659 . The website cites OCEANS 2026 but has incomplete proceedings metadata; cite the available preprint until the final proceedings entry is verified.
+Direct official download folder: https://drive.google.com/drive/folders/1HxV8AGh8ckZS3JehAU_gY2fuCnscX-eV
+Release description: 60 hours, 12 classes including background, 5-second clips at 20 kHz; about 17.8 GB compressed and 26 GB expanded. CSV metadata include vessel and recording information. The site states CC BY 4.0 for ONC-owned data and supplies vessel-disjoint folds. Policy: https://www.oceannetworks.ca/data/data-policy/ . These are release claims; audit actual WAV headers, counts, labels, duplicates, and split files before use. Download original audio, not precomputed spectrograms. Preserve attribution and source metadata.
+
+External zero-adaptation test: VLIZ AIS-annotated Hydrophone Recordings for Vessel Classification, version v1.
+https://zenodo.org/records/17233667
+Direct archive: https://zenodo.org/api/records/17233667/files/Acoustic_vessel_classifier_dataset_metadata.zip/content
+Expected archive MD5: 8098056c952ff706bdf1adaab7147096 . Expected bytes: 26005892324.
+Official catalog/license: https://www.vliz.be/en/imis?module=dataset&dasid=8773
+Documentation: https://github.com/woutdecrop/Audio_Vessel_Distance_Categorizer/blob/main/README_dataset.md
+Data DOI: https://doi.org/10.14284/723 . Associated paper: https://doi.org/10.1109/JSTARS.2025.3593779 .
+27,524 ten-second mono clips; documentation says 48 kHz, collected over 116 days at Gardencity and Grafton. CC BY 4.0. Metadata include station, deployment, time, source offset, MMSI, distance, and vessel type. Freeze a deterministic balanced sample of up to 400 station-day groups, or all available groups if fewer, with at most two clips per group, only after auditing dates shared across stations. For conservative uncertainty intervals, group both stations on the same date together. Use this only for paired gap reconstruction and signal statistics in the essential study; do not assume its label taxonomy matches UniqueShip. Do not fine-tune the restorer or acceptance threshold on it.
+
+Fallback if UniqueShip downloads are blocked for more than two working hours: promote VLIZ to the primary dataset, partition by complete recording date with stations from the same date together, and explicitly treat repeated vessel identity as a remaining limitation unless disjointness can also be enforced. Prefer connected components of source session and MMSI if the resulting partitions remain viable. Keep a dated change record. With only about 116 days, strong calibration claims may be underpowered: use conservative fallback and descriptive group-bootstrap risk curves, and state this limitation. Do not claim cross-archive generalization without a second independent archive.
+
+Do not depend on DeepShip full access: https://github.com/irfankamboh/DeepShip currently offers a partial public release and requests email for the remainder. Its original paper describes 47 h 4 min and 265 vessels in four classes, DOI https://doi.org/10.1016/j.eswa.2021.115270 . Dataset license and exact usable public subset require verification. DeepShip and UniqueShip share ONC ancestry; they are not automatically independent external domains.
+ShipsEar portal: https://underwaternoise.atlanttic.uvigo.es/indexDB.php ; original DOI https://doi.org/10.1016/j.apacoust.2016.06.008 . It is a smaller optional external corpus; follow the authors' access/usage agreement rather than assuming a permissive license. QiandaoEar22, https://github.com/xiaoyangdu22/QiandaoEar22 , has an accessible repository but incomplete release/license clarity. DeuteroNoise's https://github.com/Ignasinou/deuteronoise-dataset-preview is explicitly a preview and describes placeholder or real audio; do not substitute it for the claimed full corpus. None of these datasets provides a verified paired clean/noisy recording benchmark for this project.
+
+PARTITION AND PREPROCESSING
+
+Create a manifest before segmentation, normalization, artificial masking, or generation. Record archive/version/checksum, original_file_id, recording_session_id, timestamp/interval, site, hydrophone, MMSI where available, class, native rate, channel, and partition. Hash decoded audio and inspect near duplicates. Group all descendants of a source together.
+
+For UniqueShip, begin with the first supplied fold and preserve its official test assignments. Within the remaining sources create generator-training G, diagnostic-training D, tuning V, and calibration C using vessel/source groups. Target total proportions G/D/V/C/test = 60/10/10/10/10; exact percentages may vary after grouping. Use official validation as V where feasible. Form connected groups for common MMSI, original recording file, or demonstrably shared encounter. For background, group by hydrophone and day. Purge conflicting non-test material rather than leaking a test source into another partition. Publish counts and deviations from the official benchmark; do not call modified results official benchmark scores. Aim for at least 200 calibration groups and 200 test groups. If fewer, report the power and calibration limitation; do not split a group to inflate counts.
+
+Resample each source continuously to 8 kHz with an anti-aliasing polyphase filter BEFORE introducing artificial gaps. Only then extract a 4.096-second/32768-sample crop inside each five-second primary clip. Evaluation uses deterministic nonoverlapping crops; training can random-crop within G. Work in the band below 4 kHz and state this limitation. For genuinely missing native-rate audio, mask first and propagate the mask through any resampling filter support; never let hidden samples enter the resampler.
+
+For each corrupted example, compute mean and RMS from observed samples only, with an RMS floor fixed on G. Apply that transformation to the target during training/evaluation, retaining the factors for inverse scaling. Recompute normalization when making diagnostic probe masks. Do not normalize using the complete held-out waveform, hidden target amplitude, labels, or class-specific information. At the end, copy original observed samples back exactly in floating point. Save original data, the repaired waveform, and an explicit provenance mask separately.
+
+CORE MODEL AND LOSSES
+
+Local model identifiers are project names, not existing published checkpoints:
+  conditional_diffwave_8k_v1
+  deterministic_diffwave_8k_v1
+  repaint_diffwave_8k_v1
+
+Use a DiffWave-style 1D residual network: residual_channels=64; residual_layers=36; dilation_cycle_length=12; kernel_size=3; gated residual/skip blocks; diffusion embedding as in the reference implementation. Dilations repeat 1,2,...,2048 three times. This provides about 3.07 seconds of receptive field at 8 kHz. Preserve the standard residual scaling. Remove the mel upsampler and add a sample-aligned conditioning projection of observed waveform y and binary mask m at each residual block. Report actual parameter counts and measured peak VRAM. Start with width 32 and 12 layers only for the pilot smoke test, then test the final architecture before committing the budget.
+
+Define m[n]=1 for observed samples and 0 inside the known gap, h=1-m, y=m*x. The real recording x is the reference for recovery of a deleted region, not a noise-free source. The task does not remove ambient ocean noise.
+
+Conditional diffusion training uses 1000 steps and a cosine cumulative-alpha schedule. At time t:
+  z_t = m*y + h*(sqrt(alpha_bar_t)*x + sqrt(1-alpha_bar_t)*epsilon)
+  L_diff = sum(h*(epsilon - epsilon_theta(z_t,t,y,m))^2) / sum(h)
+Only missing coordinates are diffused and scored. This is an adaptation of established conditional masked diffusion, not the novel component. Train on G with random masks. No classifier guidance, AIS labels, text conditioning, or reference information at inference. Use DDIM with independent initial gap noise, eta=0, and 32 denoiser evaluations per draw. Reinsert y on observed coordinates at every reverse step and at the final output. Evaluate 64 steps on V during the pilot; adopt them only if the benefit justifies doubling all matched budgets.
+
+For the deterministic learned baseline, use the same residual backbone receiving y,m without diffusion noise, outputting missing samples. Train with:
+  L_det = masked_MAE + 0.5 * multi_resolution_spectral_convergence
+Use STFT window sizes 64,128,256 within the gap, Hann windows, hop=window/4, center=False, normalized=True. Train both learned models on the same sources and mask distribution. Do not train the deterministic baseline with less source diversity to favor diffusion.
+
+Optimization defaults: AdamW; learning_rate=2e-4; weight_decay=1e-4; effective_batch_size=16; microbatch chosen by memory measurement; gradient_clip_norm=1; BF16 where supported with FP32 metric calculations; exponential moving average decay=0.999. Maximum 60,000 optimizer updates per diffusion seed and 30,000 per deterministic seed. Validate every 2,000 updates, early-stop after five non-improving validations, using V only. Record all validation decisions. Training seeds: 17,29,43. Freeze architecture after the pilot; no test-driven tuning.
+
+CLASSICAL BASELINE AND FIXED FALLBACK
+
+Include zero-filled input and linear interpolation. Implement bidirectional autoregressive interpolation using Burg fits to up to 0.5 seconds of observed samples on each side, with stable roots, forward/backward extrapolations, and linear crossfade INSIDE the gap only. Select AR order from 16,32,64,128 on V. Detect numerical blow-ups and fall back to linear interpolation. Do not use a noise-suppression algorithm as the only classical baseline for a missing-data task.
+
+Choose B, the fixed conservative fallback, from stable AR and the deterministic learned baseline by mean validation Q (defined below), then freeze it before calibration and testing. B is itself an estimate, not verified truth. Every repaired sample retains its imputed flag even when B is used. Also retain zero-filled input as a baseline.
+
+EVIDENCE GUIDED CANDIDATE SELECTION
+
+1. Given y,m, generate K=4 conditional-diffusion candidates, each with 32 evaluations and distinct fixed seeds. Hard-project observations for all candidates.
+2. Create two additional diagnostic probe gaps in observed context, one on either side of the real gap where possible. Each has the same duration as the real gap and a 64-ms guard. Neither overlaps the real gap. Hide each probe value before computing features, normalization, or model input. The real gap stays masked during both probes. Generate ONE reconstruction per probe, and also run B there. The genuine observed probe samples are used ONLY to score these diagnostic reconstructions. If two probes cannot be formed, flag the condition and return B under the primary policy. No hidden original-gap sample is ever used.
+3. For each candidate collect scalar features: gap duration; available context lengths; left/right observed log-PSD distance; local observed RMS and spectral flatness; normalized amplitude and derivative mismatch at gap boundaries; gap-to-observed energy ratio; distance from B in waveform and spectral magnitudes; mean/max candidate-pool spectral dispersion; its distance from the pool medoid; and each probe's Q difference between generator and B. Include missing-feature indicators. Avoid class labels, downstream predictions, and hidden references.
+4. Fit a HistGradientBoostingRegressor on D to predict delta_k = Q(candidate_k,x)-Q(B,x). Defaults: max_iter=200, max_leaf_nodes=15, learning_rate=0.05, l2_regularization=1, min_samples_leaf=20. Equalize recording-group weights so long recordings do not dominate. Use grouping for any cross-validation. G must not include D. Reference targets are permitted for fitting this predictor on D, never for test inference. One fit per generator seed. Tune at most the stated small hyperparameter alternatives on V and log them.
+5. Select the candidate with the smallest predicted delta. Acceptance requires this score to pass the independent calibration threshold below and finite output/validity checks. Otherwise return B. Always emit accept/reject, score, probe metrics, candidate identifiers, computation count, and the provenance mask. This is a fixed-pool decision process, not an adaptive outer regeneration loop. Diffusion reverse steps are internal sampling steps. Do not invent a new iteration claim.
+
+LOSS USED BY THE RISK DECISION
+
+Let N be gap-only NMSE = sum((xhat_gap-x_gap)^2)/max(sum(x_gap^2), epsilon_energy), where epsilon_energy is based on the observed-signal RMS floor and gap length, fixed from G. Let S be the average of gap-only spectral convergence at STFT sizes 64,128,256:
+  S = mean_r ||abs(STFT_r(xhat_gap))-abs(STFT_r(x_gap))||_F /
+             max(||abs(STFT_r(x_gap))||_F, epsilon_spectral_r).
+Use floors fixed from G, document numerical definitions, and report quiet/near-silent examples separately.
+  Q = 0.5*min(N/4,1) + 0.5*min(S/2,1).
+Q is in [0,1]. A harmful generative decision has Q(candidate,x)-Q(B,x)>0.02. These weights, caps, and the 0.02 harm margin are preregistered engineering choices, not perceptual or physical laws. Always also report uncapped N and S, so clipping cannot hide catastrophic errors. Use the same definition for diagnostic probes.
+
+CALIBRATION WITHOUT TEST LEAKAGE
+
+On V, freeze up to nine acceptance-score thresholds from quantiles {0.05,0.10,0.20,0.30,0.40,0.50,0.60,0.80,1.00}, capped at 0 because predicted worsening should not be accepted. Freeze the selected candidate policy before opening C.
+
+On C, draw exactly ONE representative source crop and ONE gap case per independent group using a frozen random seed, with duration uniform over 50,100,250,500 ms. This defines the group-balanced deployment distribution used for calibration. For each threshold, count accepted cases n and harmful accepted cases e. Compute a one-sided Clopper-Pearson upper bound U=BetaQuantile(1-0.05/M; e+1,n-e), with U=1 if e=n or n=0, where M is the number of tested thresholds. Accept thresholds only if U<=0.10. Pick the eligible threshold with largest accepted count; deterministic tie break to the stricter threshold. If none passes, use B everywhere and report zero generative coverage. Do not lower the standard after seeing failure.
+
+This is simultaneous binomial calibration of selective harm, credited to risk-control literature. Its finite-sample interpretation assumes independent, identically distributed calibration/test group draws and a frozen policy. It is not a conditional guarantee for each waveform, not automatically valid for every gap duration separately, and not valid under arbitrary ocean/site shift. Correlated sessions and AIS grouping can violate independence; report those limits. Do not apply ordinary pointwise conformal coverage and claim it controls post-selection error. Report empirical calibration curves and accepted-sample harm on the external archive without a transferred guarantee.
+
+EXPERIMENTS AND COMPUTATIONAL CONTROLS
+
+Freeze masks and sampling seeds for paired comparisons. Primary missing lengths: 50,100,250,500 ms, one contiguous gap, with at least 0.75 seconds observed on both sides in the main task. Positions are random within the admissible center region. Training includes one gap 80% of the time and two separated gaps 20% to support the probe procedure. For two-gap training, lengths are independently chosen from the main set when geometry allows. The main scientific task remains one missing interval.
+
+Main evaluation: up to 400 independent UniqueShip test groups, using one fixed crop per group and all four gap lengths. Retain a predeclared one-case-per-group random-duration subset for direct comparison with calibration. Broader all-clip results are secondary and group weighted. External evaluation: up to two crops per available VLIZ date group, four gap lengths, no adaptation. Do not silently treat these many descendants as independent observations.
+
+Essential methods:
+  A. Zero-filled input.
+  B1. Linear interpolation and stable bidirectional AR.
+  B2. Deterministic learned restoration.
+  C1. Conditional diffusion, one 32-step draw.
+  C2. Four draws, predeclared spectral medoid, no diagnostic selection.
+  C3. Same four candidates and two probes as the proposed method, lowest predicted delta, ALWAYS accept. This isolates gating.
+  C4. Six draws, 32 steps each, spectral medoid: 192 denoiser evaluations.
+  C5. One draw with 192 steps: the same denoiser-evaluation budget.
+  C6. Unconditional DiffWave prior plus an adapted RePaint sampler, trained on G. Use the reference algorithm's correctly noised observed coordinates at each diffusion level; tune its jump schedule on V to fit 192 denoiser calls. Cite this as a waveform adaptation, not the original image model.
+  P. Proposed four candidates plus two probes, selection plus calibrated gate: 192 calls, plus B/feature computation.
+
+Use one unconditional-prior seed for an initial RePaint benchmark; reproduce all three seeds if competitive on V or if the budget permits. The mechanism claims are primarily paired comparisons using the SAME trained conditional generator and saved candidate pool in C2, C3, and P. Report the different training-seed counts honestly. Measure GPU wall-clock time, peak VRAM, examples/second and total forward/backward calls. Equal denoiser-call budgets do not guarantee equal latency: provide both, and add an actual-time-matched baseline on a representative subset if overhead exceeds 10%.
+
+Essential ablations, reusing pools where valid:
+  - Remove probe features; refit the diagnostic predictor and recalibrate, retaining probe compute for the matched-budget comparison.
+  - Dispersion-only gate; fit/calibrate on the same groups.
+  - Duration-only gate to test whether the method merely rejects long gaps.
+  - Selection without gate (C3).
+  - No observation projection diagnostic on a small subset, reporting observed-sample drift; this is intentionally invalid for the primary task and not a competitive deployment method.
+  - Compare gate policies at equal accepted coverage, not just at their own thresholds.
+  - Reference-based best-of-four candidate selection is an ORACLE UPPER BOUND for diagnostic opportunity, never an inference method.
+
+General audio transfer check: run Moliner's released 22k_8s-850000.pt on a frozen small V subset, respecting its configuration and source length. Zero-pad observation and mask consistently if required; exclude padding from losses. Do not claim that a music checkpoint failing zero-shot proves superiority over the method. If it is viable, fine-tune on G within a separately allocated cap of 12 GPU-hours and include it. Otherwise report the compatibility/domain limitation and keep the in-domain RePaint adaptation and shared-generator tests as essential evidence. AIDD/NPPC are optional extensions only after the core experiments finish.
+
+STRESS TESTS AND SYNTHETIC MECHANISMS
+
+Use 750- and 1000-ms gaps as out-of-training-range tests. Also test four 50-ms packet-like erasures, smooth changes in level/spectrum across a gap, and cases with insufficient context. Mark these as distribution shift; report fallback frequency and failure rather than retuning.
+
+Generate a separate diagnostic synthetic suite at 8 kHz using randomized mixtures of 1-6 tones/chirps (30-1500 Hz), amplitude modulation (2-20 Hz), colored broadband noise with PSD proportional to f^(-beta), beta in [0,2], and isolated transients. Vary component-to-background SNR over -5,0,10,20 dB. Add optional 2-4 delayed, attenuated copies with delays 1-20 ms. These are controlled signal constructions, not a validated underwater propagation simulator. Evaluate the real-trained model without fitting to the synthetic test signals. Use 100 distinct parameter/noise realizations per main mechanism and pair methods on identical seeds.
+
+Include stationary continuation, gradual chirp, onset/offset at the gap, broadband-only background, and a fully hidden transient. Crucially construct paired targets x_a and x_b that are identical outside the gap but differ by an event entirely inside it. With the same sampler seed, the method must receive identical input and produce identical output for both. Quantify the consequent false-event versus missed-event tradeoff; this is an identifiability limit, not a bug or evidence that the hidden event was recovered.
+
+Do not force continuation of every line observed outside a gap: real events can start or end inside it. Candidate disagreement is a diagnostic, not proof that an event is true or absent. Uncertainty and fallback can limit unsupported decisions but cannot reveal invisible content.
+
+METRICS AND STATISTICAL ANALYSIS
+
+Primary decision metrics: generative acceptance coverage; conditional harmful-acceptance rate; all-case harmful-decision rate; Q; risk-coverage curves, including equal-coverage comparisons. Always count fallback outputs in all-case quality/utility. Never report only accepted successes.
+Acoustic metrics: gap-only NMSE; spectral convergence; log-spectral distance with training-fixed floors; boundary amplitude/derivative discontinuities; max absolute observed-sample drift; raw worst-tail error (95th/99th percentiles). Report full-window metrics secondarily to expose dilution by unchanged context. SI-SDR is optional and must not hide gain error. Do not use PESQ/STOI as primary underwater metrics.
+Structure metrics: tonal peak/track precision and recall on synthetic truth, onset timing error, and normalized envelope autocorrelation error. Freeze peak/track detection parameters on synthetic development examples before the synthetic test. For real recordings, distinguish reproducibility relative to the undeleted field recording from knowledge of a physical source. False/missed peaks are operational measures, not exhaustive hallucination detection.
+Independent utility: train torchvision ResNet-18 with weights=None on G's undeleted log-mel spectrograms, 64 mel bins, FFT 512, hop 128, 8 kHz; modify input to one channel. Use V for early stopping only. Freeze it before evaluating repaired test audio. Report 12-class macro-F1, balanced accuracy, and per-class results. No utility model gradients/confidences enter restoration, candidate selection, or calibration. An optional second evaluator is a linear classifier on log-PSD features. AIS labels are imperfect proximity-based labels, not direct proof of audible identity.
+
+Use seeds 17,29,43 for the principal trained methods and independent classifier. Pair each method on common source groups and masks. Aggregate segments within original recordings/encounters first; bootstrap at the higher vessel/source group level, with a date-block sensitivity analysis where metadata permit. Use 2000 paired bootstrap draws, 95% confidence intervals, and a paired group-level randomization test for the two prespecified primary contrasts: P versus C3 and P versus the V-selected best equal-budget ungated method. Adjust the two p-values with Holm. Show per-seed results; do not treat seeds or segments as additional independent recordings. No post hoc cherry-picking of gap lengths, classes, or seeds. Keep external-site results separate from in-domain tests.
+
+PREREGISTERED DECISION CRITERIA
+
+The primary selective-regeneration claim is supported only if:
+  1. Generative coverage on held-out real groups is at least 25%.
+  2. All-case harmful-decision rate falls by at least 25% relative to C3, with a paired confidence interval excluding no reduction. If C3's harm is already negligible, report that the reduction target is uninformative rather than manufacturing a ratio.
+  3. At matched coverage, the complete diagnostics improve the harm/coverage tradeoff over duration-only and dispersion-only gating.
+  4. Whole-pipeline mean Q is no worse than B by more than 0.01, with a one-sided 95% upper bound, and macro-F1 is no worse than B by more than 0.02 absolute, with a one-sided 95% lower bound.
+  5. Observed samples are preserved within floating-point tolerance (target max drift <=1e-6 on normalized data).
+
+An additional average-fidelity superiority claim requires at least 5% relative reduction in gap spectral convergence against B and the V-selected equal-budget ungated comparator, with paired intervals excluding zero. Do not replace missing average gains with classifier confidence. External generalization is a separate empirical claim and requires the corresponding direction of benefit on VLIZ without recalibration. Failure to satisfy any criterion narrows or rejects that claim; it does not justify changing the criterion after opening test results.
+
+PILOT, COMPUTE, AND SCHEDULE
+
+Minimum: one 24-GB GPU, 32-GB host RAM, approximately 150-200 GB working storage if both archives are extracted. Preferred: 48-GB RTX A6000 or RTX 6000 Ada, 64-GB host RAM, 200-GB independent persistent storage. Use one GPU, not distributed training. A 16-GB device is a microbatch smoke-test option, not the promised full-study configuration.
+
+Planning prices checked November 15, 2026 at https://www.runpod.io/pricing : listed RTX 4090 $0.89/hour, RTX A6000 $0.69/hour, RTX 6000 Ada $1.09/hour. Verify the actual region/tier rate. Standard network storage documentation lists $0.07/GB/month for the first TB. These are planning prices, not booked offers. Runtime estimate: 4-8 GPU-hours pilot, roughly 60-120 GPU-hours total for the focused study, 160-hour ceiling if approved. Expected cost at 4090 listed rate for 60-120 hours is $53.40-$106.80 plus storage and other charges. Do not assume equal runtime across GPU types.
+
+Pilot before full runs: download/verify metadata; build group manifests; smoke-test 200 crops and all metrics; overfit 16 training examples to diagnose bugs; train the final architecture on about two hours of G for 5,000 updates; generate complete validation candidate/probe pools; fit a small diagnostic predictor; perform a full dry calibration/test flow on development-only groups. Keep the real held-out test unopened. Measure actual training and inference throughput and extrapolate from the full matrix, not training alone. Confirm checkpoints resume to an identical next batch/RNG state.
+
+Proceed if losses/outputs are finite, observation drift is negligible, leakage checks pass, the end-to-end compute estimate fits the supplied budget/time, and the same-pool oracle indicates room for selective gain: at least 20% of V cases have one candidate with Q at least 0.02 better than B. This is a feasibility trigger, not a paper result. If the oracle has no opportunity, fix implementation/training errors first, then report the negative result rather than escalating to an expensive model search.
+
+Suggested calendar if starting November 15: November 15-16 source/data/template checks; 17-18 pilot and specification freeze; 19-23 core training/inference; 24-25 external/synthetic tests and statistical analysis; 26-28 manuscript and independent claim audit; 29 final formatting/packaging; 30 submission deadline. Cut AIDD, extra data regimes, additional folds, and extended hardware studies before cutting grouping, essential controls, or honest error analysis.
+
+RUNPOD OPERATIONS
+
+Read current docs https://docs.runpod.io/pods/configuration/use-ssh and https://docs.runpod.io/pods/storage/types . Use actual user-supplied full SSH over exposed TCP for rsync/SFTP; basic proxied SSH is not equivalent. Verify host key through the available trusted connection details, GPU identity, CUDA, disk capacity, and persistent mount before training. Use a pinned compatible PyTorch environment/container and record its exact digest and installed package lock. Do not upgrade the host driver. Keep credentials outside the repository and logs.
+
+Use tmux or an equivalent supervised session. Store raw manifests, checksums, processed audio, checkpoints, metrics, and logs on a confirmed network volume or backed-up persistent location. Container disk is temporary; a Pod volume survives stops but not termination. A network volume persists independently and continues to incur storage cost. Do not terminate or delete resources unless authorized. Cache datasets once, train/infer while the GPU is active, and do manuscript work locally.
+
+Atomic checkpoint every 15 minutes or 2,000 updates, whichever is sooner; retain latest and best, optimizer, scheduler, EMA, scaler, RNG, sampler state, data manifest hash, config, and git commit. Log per-minute GPU utilization and peak memory, job elapsed time, projected remaining cost, and each run status. Interrupt safely at the lower of approved dollars or GPU-hours. Sync results/checkpoints off the GPU after each phase and verify hashes. At completion, stop only if authorized; otherwise give the exact running-state/cost notice and stop instructions. Do not leave a compute process pretending to be complete.
+
+REPOSITORY AND COMPLETION
+
+Use descriptive variables, typed functions, reproducible CLI commands, and modular code:
+  README.md; pyproject.toml; requirements.lock; LICENSE; THIRD_PARTY_NOTICES
+  configs/data.yaml; model.yaml; pilot.yaml; essential.yaml; stress.yaml; remote.example.yaml
+  src/acoustic_regeneration/data/ (download, manifests, grouping, resampling, masks)
+  src/acoustic_regeneration/models/ (conditional, deterministic, unconditional)
+  src/acoustic_regeneration/restoration/ (AR, DDIM, RePaint, projection)
+  src/acoustic_regeneration/diagnostics/ (probes, features, predictor, calibration)
+  src/acoustic_regeneration/evaluation/ (paired metrics, classifier, bootstrap, synthetic)
+  scripts/ (prepare_data, train, make_pools, calibrate, evaluate, build_tables, sync_results)
+  tests/ (meaningful mask, leakage, calibration, resumption, and metric tests)
+  manifests/; provenance/; preregistration/; logs/; results/; figures/; checkpoints/
+  manuscript/ (editable sources, verified bibliography, conference template, final PDF)
+  reports/ (pilot, negative results, claim audit, compute ledger, limitations)
+
+Tests must establish: no original-gap reference/label reaches inference; re-masking removes probe values from all normalization/features; descendants never cross partitions; projection preserves observations; source resampling does not leak simulated hidden samples; identical observations with different hidden synthetic targets produce identical output for fixed RNG; checkpoint resumption works; calibration is group based and applies multiple-threshold correction; and full-window metrics are not mistakenly presented as gap-only metrics.
+
+Persist preregistration before final evaluation. Create a run registry containing run_id, command, config hash, git commit, seed, data/split hashes, model hash, runtime, hardware, status, and output paths. Every manuscript table cell must trace to completed run records; create a machine-readable claim-to-evidence table. Do not fabricate results, impute missing experiment rows, or silently drop failed runs.
+
+The paper should contain: problem and gap; concise related work; selective waveform method and data-consistency equation; grouped dataset protocol; matched-budget experiments; fidelity/utility and harm/coverage results; identifiability failure cases; limitations and reproducibility statement. Aim for three figures (method, risk-coverage, representative success/failure waveforms/spectrograms) and three compact tables (data/protocol, main results with cost, ablations/external results). Keep the 8-page total budget unless confirmed otherwise. A well-supported negative or mixed result is acceptable; adjust title, abstract, and conclusions to the actual evidence.
+
+Deliver executable code, pinned environment, manifests and licenses, trained checkpoints or verified retrieval locations, raw recording-level metrics, statistical scripts, publication-quality figures, completed experiment ledger, cost log, editable manuscript source, and a compiled conference-formatted PDF. Render every manuscript page and inspect it for clipped equations, small labels, broken references, or page-limit violations. Report which success criteria passed, failed, or remain untested; remaining venue questions; and the remote resource state. Do not end after implementation if authorized experiments remain feasible, and do not claim the research is complete when required runs or evidence are missing.

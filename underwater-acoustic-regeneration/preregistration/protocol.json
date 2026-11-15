@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "recorded_date": "2026-11-15",
+  "status": "pre_data_pre_pilot; final architecture and source manifests pending",
+  "question": "Can observation-only probes and separate calibration reduce harmful inpainting at a fixed inference budget?",
+  "partitions": ["G", "D", "V", "C", "test"],
+  "main_gap_ms": [50, 100, 250, 500],
+  "quality": {"nmse_cap": 4.0, "spectral_cap": 2.0, "weights": [0.5, 0.5], "harm_margin": 0.02},
+  "spectral": {"fft_sizes": [64, 128, 256], "window": "periodic_hann", "hop_divisor": 4, "center": false, "normalized": true},
+  "calibration": {
+    "cases_per_independent_group": 1,
+    "gap_duration_distribution": "uniform over main_gap_ms",
+    "threshold_quantiles_on_V": [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.80, 1.00],
+    "maximum_threshold": 0.0,
+    "family_error": 0.05,
+    "maximum_selective_harm": 0.10,
+    "bound": "one-sided Clopper-Pearson with Bonferroni over unique frozen thresholds",
+    "no_eligible_threshold": "use frozen B for every case"
+  },
+  "success": {
+    "minimum_test_coverage": 0.25,
+    "minimum_relative_all_case_harm_reduction_vs_C3": 0.25,
+    "harm_reduction_paired_interval_excludes_zero": true,
+    "improve_equal_coverage_over_duration_and_dispersion": true,
+    "Q_noninferiority_margin": 0.01,
+    "macro_F1_noninferiority_margin": 0.02,
+    "maximum_normalized_observation_drift": 0.000001,
+    "optional_spectral_relative_improvement": 0.05
+  },
+  "training_seeds": [17, 29, 43],
+  "bootstrap_draws": 2000,
+  "inference_must_not_receive": ["original_gap_reference", "class_label", "AIS_label", "utility_model_output"],
+  "assumptions": ["independent exchangeable calibration/test groups", "frozen predictor and thresholds before C", "no transferred guarantee for external sites"],
+  "all_success_criteria_currently": "untested"
+}
