@@ -21,14 +21,14 @@ def main():
     for name, expected in template['files'].items():
         assert hashlib.sha256((PAPER / name).read_bytes()).hexdigest() == expected, name
     figures = re.findall(r'\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}', source)
-    assert set(figures) == {'operator_configuration.pdf', 'velocity_correction.pdf', 'acoustic_case_studies.pdf'}
+    assert set(figures) == {'agent_episode.pdf', 'velocity_correction.pdf', 'acoustic_case_studies.pdf'}
     assert len(figures) == 3
     for name in figures:
         assert Path(name).name == name and (PAPER / name).is_file(), name
         assert (PAPER / name).read_bytes() == (ROOT / 'figures' / name).read_bytes(), name
     citations = set(key.strip() for group in re.findall(r'\\cite(?:\[[^]]*\])?\{([^}]+)\}', source) for key in group.split(','))
     entries = set(re.findall(r'@\w+\s*\{\s*([^,]+),', (PAPER / 'references.bib').read_text()))
-    assert citations == entries and len(entries) == 15
+    assert citations == entries and len(entries) == 16
     examples = json.loads((ROOT / 'figures/acoustic_example_selection.json').read_text())
     assert examples['script_sha256'] == hashlib.sha256((ROOT / 'scripts/build_acoustic_examples.py').read_bytes()).hexdigest()
     for name, expected in examples['source_files'].items():
@@ -47,6 +47,15 @@ def main():
     assert configuration['hardware_configuration_evaluated'] is False
     assert configuration['annotation_is_model_prediction'] is False
     assert [setting['window_samples'] for setting in configuration['settings']] == [256, 1024]
+    agent = json.loads((ROOT / 'reports/cpu_agent_validation.json').read_text())
+    assert agent['status'] == 'passed' and agent['CPU_residency_verified'] is True
+    assert agent['tool_returns_replayed_exactly'] == 7 and agent['model_turns'] == 4
+    assert all(agent['continued_checks'].values())
+    assert agent['unsupported_original_comparison_claim_retained'] is True
+    for name, expected in agent['artifact_sha256'].items():
+        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
+    card = json.loads((ROOT / 'reports/cpu_agent_operator_card.json').read_text())
+    assert card['free_text_model_report_verified'] is False and card['identity_status'] == 'unconfirmed'
     correction = json.loads((ROOT / 'reports/velocity_followup_validation.json').read_text())
     assert correction['status'] == 'passed' and correction['development_groups'] == 192
     assert correction['verified_gap_artifacts'] == 192
@@ -108,6 +117,8 @@ def main():
               'publisher_class_and_style_unmodified': True,
               'acoustic_case_studies': 3, 'verified_listening_clips': len(audio_files),
               'operator_plot_cases_verified': 64, 'analysis_window_configurations': 2,
+              'CPU_agent_demonstration_cases': 1, 'CPU_agent_model_turns': 4, 'CPU_agent_tool_calls': 7,
+              'CPU_agent_action_fix_verified': True, 'CPU_agent_prose_limitations_disclosed': True,
               'identification_and_hardware_control_evaluated': False,
               'figures_in_same_directory': figures, 'tables': 3, 'equations': 5,
               'targeted_correction_development_groups': 192,

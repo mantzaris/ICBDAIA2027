@@ -121,7 +121,7 @@
       "id": "operator_review_views",
       "claim": "Recorded cues, supplied labels, two analysis settings, and the 64-case release result are shown separately",
       "verdict": "descriptive_display_only",
-      "scope": "Offline displays from existing V recordings; object identification, physical equipment control, and agent reasoning are not evaluated",
+      "scope": "Original offline display artifacts; object identification and physical equipment control are not evaluated; the later CPU agent episode has separate evidence",
       "completed_run_ids": [
         "acoustic_example_presentation"
       ],
@@ -301,6 +301,46 @@
         {
           "path": "reports/velocity_followup_date_sensitivity.json",
           "sha256": "1c08b8c707ce6719aa44cc75bd24399eec1e89dee37e17e3a97221015ff4fe3b"
+        }
+      ]
+    },
+    {
+      "id": "CPU_agent_episode",
+      "claim": "One local Llama 3.1 8B episode executes acoustic tools; an explicit post hoc audit continuation completes missing actions while narrative limitations remain",
+      "verdict": "illustrative_tool_use_and_trace_audit",
+      "scope": "One preselected V case, two display choices, corrective feedback; neither autonomous agent success rate nor identification accuracy; model prose is not a verified operator report",
+      "completed_run_ids": [
+        "cpu_agent_demo_run02_seed17",
+        "cpu_agent_demo_audit_continuation"
+      ],
+      "evidence": [
+        {
+          "path": "preregistration/cpu_agent_demo.json",
+          "sha256": "35352ac083511c5d0e9cfb035708b74e2529cf553400e45bde18220284d4b645"
+        },
+        {
+          "path": "preregistration/cpu_agent_audit_continuation.json",
+          "sha256": "73316659ad0399ad01b3c4353906254728607acf81edfe5d911eb91cd2fffce1"
+        },
+        {
+          "path": "results/cpu_agent_demo_run02/summary.json",
+          "sha256": "00a3eb636ab6f086ad907025965746f4e5ee2acf6e297616d5405c003523e1b4"
+        },
+        {
+          "path": "results/cpu_agent_demo_audited/summary.json",
+          "sha256": "dfa961476f76aadcf915e83b57d25140f0a1c73a6b68e9bc341f3fc1b73e037e"
+        },
+        {
+          "path": "reports/cpu_agent_validation.json",
+          "sha256": "c32c95d78b1cf2523371316df13fac41b185de3cc51f7cb0e7ecf15d2c4a17a9"
+        },
+        {
+          "path": "reports/cpu_agent_response_audit.json",
+          "sha256": "5e20aa677e4b2d9dfead896b0f204a5cdf4412236aaf78566cbf23f7123588ed"
+        },
+        {
+          "path": "reports/cpu_agent_operator_card.json",
+          "sha256": "24674d99aa1dbe929733efdfdc62ec6f27d91908b33507187fe0f49f5c2eb5f8"
         }
       ]
     },

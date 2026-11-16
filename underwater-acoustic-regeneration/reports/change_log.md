@@ -100,3 +100,25 @@ metrics were independently recomputed, 206 backup files matched remote SHA-256
 checks, and the training-control audit passed. The GPU is idle and the pod remains
 running. No main-study, object-identification, equipment-control, or reasoning-agent
 capability is claimed.
+
+2026-11-16 CPU follow-up: The user reported the GPU unavailable and asked whether
+the agent demonstration required another pod. The existing local Llama 3.1 8B
+Q4_0 model and masked recordings were sufficient. No remote connection, new model
+download, paid API, or acoustic retraining was used. The task, model digest, tools,
+and limits were frozen on main. Ollama 0.3.2 initially rejected numeric schema
+enum values before inference; the error and transport-only amendment are retained.
+
+The first completed episode used two model turns and three batched tools, selected
+128 ms, and measured a 78.125 Hz peak bin at 7.8125 Hz spacing. Its draft falsely
+claimed a comparison without measuring 32 ms and omitted verification. A separately
+frozen post hoc audit continuation added four tool calls, including the missing
+comparison and verification. Total model/tool execution took 466.08 seconds on CPU
+with zero reported VRAM. The revised prose still lacks requested qualifications
+and is not released as a verified operator report. A structured evidence card is
+assembled directly from tool returns. All seven tool results replay exactly.
+
+Figure 1 now shows this actual agent/audit sequence and the two observed-only
+spectrograms. The paper remains ten pages, with sixteen references and five
+equations. The one-case, guided nature and explicit corrective feedback are disclosed;
+no autonomous success rate, object-identification accuracy, or hardware-control
+claim is added. Original GPU study completion and its ten-hour boundary are unchanged.

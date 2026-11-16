@@ -191,6 +191,13 @@ def main():
                "call_count_units": "Training counts are microbatches; sampling counts are per-draw denoiser evaluations. These exclude some smoke, resume, validation, and G-only numerical diagnostics and are not a complete billing proxy.",
                "utilization_log_scope": "Per-minute training snapshots; inference peak allocation and duration recorded separately. Continuous inference utilization was not logged.",
                "container_digest": None, "container_digest_limitation": "Image digest not exposed through supplied SSH; package, CUDA, Python, and driver versions recorded"}
+    if (ROOT / 'results/cpu_agent_demo_audited/summary.json').exists():
+        local_agent = read('results/cpu_agent_demo_audited/summary.json')
+        compute['additional_local_CPU_agent_after_GPU_study'] = {
+            'model': local_agent['model'], 'quantization': 'Q4_0',
+            'episode_and_continuation_seconds': local_agent['total_episode_seconds_excluding_researcher_audit_time'],
+            'model_turns': 4, 'tool_calls': 7, 'remote_GPU_used': False, 'new_training': False,
+            'scope': 'Separate local follow-up after user reported the pod unavailable; original GPU deadline and completion remain unchanged'}
     save("reports/compute_ledger.json", compute)
 
     claims = []
@@ -219,7 +226,7 @@ def main():
     if (ROOT / "figures/operator_configuration.json").exists():
         claim("operator_review_views", "Recorded cues, supplied labels, two analysis settings, and the 64-case release result are shown separately", "descriptive_display_only",
               ["figures/operator_configuration.json", "figures/operator_decisions.json"],
-              "Offline displays from existing V recordings; object identification, physical equipment control, and agent reasoning are not evaluated",
+              "Original offline display artifacts; object identification and physical equipment control are not evaluated; the later CPU agent episode has separate evidence",
               ["acoustic_example_presentation"])
     claim("synthetic_identity", "400 fixed-input method/pair comparisons have exactly equal output", "passed_implementation_check",
           [DIAG + "/summary.json", DIAG + "/hidden_event_summary.json"], "100 distinct hidden-event realizations; same inputs/seeds cannot identify invisible target content",
@@ -245,6 +252,14 @@ def main():
         claim("velocity_acoustic_comparison", "Fixed-draw and medoid comparisons on the same 192 V groups, separated into three 64-group roles", "exploratory_followup",
               ["results/velocity_followup/summary.json", "results/velocity_followup/cases.jsonl", "reports/velocity_followup_validation.json", "reports/velocity_followup_date_sensitivity.json"],
               "Intervention motivated by previously inspected V results; actual C/test untouched; no recalibrated release policy or object-identification claim", ["velocity_followup_evaluation"])
+    if (ROOT / 'reports/cpu_agent_validation.json').exists():
+        claim('CPU_agent_episode', 'One local Llama 3.1 8B episode executes acoustic tools; an explicit post hoc audit continuation completes missing actions while narrative limitations remain',
+              'illustrative_tool_use_and_trace_audit',
+              ['preregistration/cpu_agent_demo.json', 'preregistration/cpu_agent_audit_continuation.json',
+               'results/cpu_agent_demo_run02/summary.json', 'results/cpu_agent_demo_audited/summary.json',
+               'reports/cpu_agent_validation.json', 'reports/cpu_agent_response_audit.json', 'reports/cpu_agent_operator_card.json'],
+              'One preselected V case, two display choices, corrective feedback; neither autonomous agent success rate nor identification accuracy; model prose is not a verified operator report',
+              ['cpu_agent_demo_run02_seed17', 'cpu_agent_demo_audit_continuation'])
     for identifier, text in [("main_coverage", "Held-out generative coverage >=25%"),
                              ("main_harm", ">=25% relative harm reduction with confidence interval excluding zero"),
                              ("main_gate", "Diagnostics improve harm at matched coverage over duration and dispersion gates"),

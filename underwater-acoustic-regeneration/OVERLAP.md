@@ -1,19 +1,22 @@
 # Relationship to the MVML study
 
-This study concerns restoration decisions and reconstructed waveforms. It contains
-no LLM, agent reasoning benchmark, or generative training-data augmentation.
+This study primarily concerns restoration decisions and reconstructed waveforms.
+It has no agent reasoning benchmark or generative training-data augmentation.
 
 At the user's request, the manuscript now discusses a future operator workflow for
 correct labeling, equipment-setting recommendations, and review through a tool-using
-agent. That is an application outlook, not an empirical agent contribution. Only
-offline analysis-window settings are demonstrated; no object-identification model,
-language-model agent, or physical equipment interface was implemented or evaluated.
+agent. A subsequent CPU demonstration executes one local Llama 3.1 8B episode on
+an existing V case, followed by one explicit post hoc execution-audit continuation.
+It illustrates numeric tool use and virtual analysis-window configuration. The
+first unsupported comparison claim, completed missing actions, and remaining prose
+limitations are retained. This is not a general reasoning evaluation. No independent
+object-identification model or physical equipment interface was implemented.
 
 The subsequent correction experiment changes the conditional diffusion prediction
 target to the established velocity formulation of Salimans and Ho. Its scope is
 numerical diagnosis and acoustic reconstruction on reused development groups.
-It adds neither a language-model agent nor an object-identification experiment,
-and does not claim invention of velocity prediction or diffusion inpainting.
+That correction itself adds neither a language-model agent nor an object-identification
+experiment, and does not claim invention of velocity prediction or diffusion inpainting.
 This distinction preserves the separation from the MVML reasoning study.
 
 No MVML source code, manuscript text, results, or tables have been imported. Actual

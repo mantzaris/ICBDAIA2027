@@ -107,3 +107,26 @@ See `claim_to_evidence.json`, `experiment_ledger.json`, `compute_ledger.json`, a
 `manuscript_audit/table_cells.json` for machine-readable evidence. The exact original
 registries are retained, including the explicit launch-commit correction in
 `provenance_corrections.json`. No results were filled in for unrun experiments.
+
+## Additional local CPU agent demonstration
+
+After the user reported the GPU unavailable, an installed Llama 3.1 8B Q4_0 model
+ran one guided tool-use episode on the existing case C. No new GPU, remote API,
+model download, or acoustic training was required. A startup HTTP 400 from the
+older local tool schema is preserved; the first completed episode is the primary
+draft, without selection among reruns.
+
+The model requested a 128 ms analysis, configured the virtual display, and inspected
+the recording in one batch. It correctly cited a measured 78.125 Hz bin but claimed
+an unexecuted comparison and omitted verification. An explicit post hoc audit
+continuation completed the missing 32 ms measurement and verified the 128 ms display.
+All seven tool returns replay exactly; four model turns took 466.08 seconds of
+CPU execution, with zero reported VRAM. Audio samples and the observation mask
+were preserved. These are software display changes, not hardware commands.
+
+The revised prose still omits the requested timing and identity qualifications and
+leaves comparison wording unclear. Both drafts are retained. The operator evidence
+card reports facts directly from verified tool returns and is not represented as
+model-authored prose. This illustrates action checking and its limits on one known
+case with explicit feedback, not autonomous reasoning performance or identification
+accuracy. Figure 1 incorporates this trace within the ten-page paper.

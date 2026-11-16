@@ -8,6 +8,17 @@ falls from 0.412 to 0.308, about 25%; the learned baseline remains better at 0.2
 The anonymous paper presents the mechanism, three new equations, controls, and
 before/after spectrograms. These are exploratory results on reused development data.
 
+A subsequent **CPU-only tool-using agent demonstration** uses the already installed
+Llama 3.1 8B model. Its first draft claims a comparison it did not execute. One
+explicit audit-feedback continuation completes the missing measurement and display
+verification. Four model turns and seven tool calls take 7.8 minutes, with zero
+server-reported VRAM. The model's revised prose remains incomplete; the operator
+card displays verified tool values directly. This is one guided case, not an agent
+accuracy benchmark. [Figure](manuscript/agent_episode.pdf),
+[recorded episode](results/cpu_agent_demo_run02/summary.json),
+[continuation](results/cpu_agent_demo_audited/summary.json), and
+[factual audit](reports/cpu_agent_response_audit.json) retain the evidence.
+
 The original development pilot **failed its predeclared feasibility trigger**:
 only 5 of 64 tuning groups (7.8%) had a diffusion candidate improving Q by at least
 0.02, versus the required 20%. The calibrated development policy accepts no
@@ -34,8 +45,8 @@ on `main`. Nothing is pushed; the user handles the push.
   [paired results](results/velocity_followup/summary.json),
   [training-control audit](reports/velocity_training_match.json), and
   [independently recomputed metrics](reports/velocity_followup_validation.json).
-- All three paper figures are beside `mainj.tex` in `manuscript/`: an analysis-setting
-  comparison, a numerical/acoustic correction comparison, and three original
+- All three paper figures are beside `mainj.tex` in `manuscript/`: a recorded agent
+  episode with an analysis-setting comparison, a numerical/acoustic correction comparison, and three original
   acoustic case comparisons with plain-language labels.
   PDF/SVG and 450-dpi PNG exports remain in `figures/`, alongside the earlier
   supplemental workflow and waveform/PSD plots. The figure scripts refresh the
@@ -70,14 +81,16 @@ it does not by itself establish object identity.
 | Inspect a low-frequency component | [32 ms versus 128 ms analysis windows](manuscript/operator_configuration.pdf), with 4/16 ms hops and 31.25/7.81 Hz frequency bins | Demonstrated offline on the same available input; frames touching gaps excluded |
 | Identify an object or vessel class | Existing dataset annotations; an independent labeling model is required | No identification accuracy evaluated |
 | Configure physical equipment | Proposed review of acquisition gain/sample rate against instrument capabilities, operator approval, and a new measurement | No hardware commands or configuration benefits evaluated |
-| Reason across tools and evidence | Proposed agent that retrieves clips/masks, requests plots, compares labels, and explains setting tradeoffs | Future extension; no language-model agent implemented |
+| Use tools and audit claimed actions | One local Llama 3.1 8B episode plus an explicit corrective continuation; real measurements and virtual display configuration | Demonstrated on one guided case; action omissions corrected, final prose still incomplete; no general reasoning benchmark |
 
 The [configuration manifest](figures/operator_configuration.json) records exactly
 which display settings were changed. The [supplemental decision plot](figures/operator_decisions.pdf)
 shows all 64 reserved development cases: 52 selected proposals worsen error beyond
 the baseline tolerance, and the release rule uses baseline fill throughout. That
 baseline is also learned, estimated audio. Numerical error and fluent explanations
-are not identification-confidence scores. The paper's operational examples are
+are not identification-confidence scores. The agent receives numeric tool returns,
+without vessel labels, complete-reference gaps, or reconstruction scores. It runs
+locally on CPU and changes only a virtual analysis display. The paper's operational examples are
 illustrative; they are not an operator trial or a deployed sonar system.
 
 ## Acoustic examples
@@ -120,6 +133,7 @@ PYTHONPATH=src python3 scripts/posthoc_pilot.py
 python3 scripts/plot_pilot.py
 PYTHONPATH=src python3 scripts/build_acoustic_examples.py
 PYTHONPATH=src python3 scripts/plot_velocity_followup.py
+PYTHONPATH=src python3 scripts/build_agent_figure.py
 python3 scripts/build_reports.py
 python3 scripts/build_manuscript.py
 python3 scripts/validate_manuscript.py
@@ -155,6 +169,18 @@ equations explaining noise-error amplification, velocity prediction, and the
 masked training loss. The [frozen follow-up protocol](preregistration/velocity_followup.json)
 specifies one matched 5,000-update correction experiment; it does not reopen the
 actual calibration or final-test partitions.
+
+The CPU agent is a later local demonstration after the user reported the pod
+unavailable. Its [task and limits](preregistration/cpu_agent_demo.json),
+[transport compatibility amendment](preregistration/cpu_agent_transport_amendment.json),
+and [post hoc audit continuation](preregistration/cpu_agent_audit_continuation.json)
+were committed before their respective model outputs. An initial HTTP 400 before
+inference is preserved. The installed Ollama 0.3.2 / Q4_0 model digest is pinned in
+`results/cpu_agent_demo/model_environment.json`; the current public model tag differs.
+No model download, external API, new GPU, or acoustic retraining was used. Saved
+requests and responses allow exact tool-result replay, without assuming language-model
+reruns are bitwise reproducible. The plotted evidence card is derived from tools and
+is explicitly not the model's unverified prose.
 
 ## Environments and GPU reproduction
 
@@ -213,8 +239,9 @@ local backups; per-case arrays have recorded SHA-256 hashes. Download/retrieval
 locations are in `manifests/` and `provenance/`. The remote `/workspace` is a 50 GB
 container overlay, not a confirmed persistent volume. Keep the local backups.
 
-The pod is intentionally left running. Research jobs finish within the ten-hour
-cap, but leaving the pod running continues billing. The actual booked hourly rate
+The pod was left running after the GPU study, whose jobs finished within the ten-hour
+cap. The user subsequently reported it unavailable; the agent follow-up uses only
+local CPU and does not reconnect or provision another pod. The actual booked hourly rate
 and storage charges were not supplied, so no dollar total is claimed. To stop it
 later, use the existing pod's **Stop** control in RunPod after confirming backups;
 do not terminate it expecting the container disk to persist. No shutdown, deletion,

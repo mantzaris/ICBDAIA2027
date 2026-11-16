@@ -30,6 +30,13 @@ recording times, hydrophone, gap samples, transformations, and checksums. These
 derivatives retain their source-data attribution; the project-code license does
 not replace it.
 
+`results/cpu_agent_demo/observation.npz` is another derivative of case C: the same
+normalized observed audio, with missing samples erased and a binary observation
+mask. Its source hash and processing parameters are in the colocated
+`input_provenance.json`. The local language model receives only numeric tool
+returns, without the source class or erased reference samples. The derivative
+retains the same ONC/UniqueShip attribution and CC BY 4.0 terms.
+
 The release omits native parent recording/session IDs. Grouping uses supplied MMSI,
 clip identity, available duplicate hashes, and background hydrophone/day. Missing
 background device IDs are grouped together across devices for a given date.

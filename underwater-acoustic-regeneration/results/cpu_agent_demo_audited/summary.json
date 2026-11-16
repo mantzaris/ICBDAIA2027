@@ -1,0 +1,49 @@
+{
+  "status": "completed",
+  "failure": null,
+  "elapsed_seconds": 230.59190715000295,
+  "total_episode_seconds_excluding_researcher_audit_time": 466.08438043799833,
+  "original": "results/cpu_agent_demo_run02",
+  "original_summary_sha256": "00a3eb636ab6f086ad907025965746f4e5ee2acf6e297616d5405c003523e1b4",
+  "git_commit": "cd82e2a398d794d8f8ef3b8c45796c67a5319429",
+  "model": "llama3.1:8b",
+  "model_digest": "62757c860e01d552d4e46b09c6b8d5396ef9015210105427e05a8b27d7727ed2",
+  "additional_model_turns": 2,
+  "additional_tool_calls": 4,
+  "turns": [
+    {
+      "turn": 1,
+      "wall_seconds": 121.15862018699409,
+      "eval_count": 60,
+      "prompt_eval_count": 1327,
+      "total_duration": 121155419225,
+      "load_duration": 6412755084
+    },
+    {
+      "turn": 2,
+      "wall_seconds": 109.40767964300176,
+      "eval_count": 185,
+      "prompt_eval_count": 1591,
+      "total_duration": 109406274604,
+      "load_duration": 23589502
+    }
+  ],
+  "final_response": "**Revised Report for clip_001**\n\nThe original analysis display setting was at 32 ms window and 31.25 Hz bin spacing (tool evidence ID: tool_04). The new setting of 128 ms window and 7.8125 Hz bin spacing was chosen and applied to the virtual display (tool evidence ID: tool_05).\n\n**Conclusions**\n\n* A low-frequency component is observed in the 20–600 Hz band.\n* The peak bin of this component is 78.125 Hz at the new setting (tool evidence ID: tool_06).\n* Missing-data limitation applies, as there are gaps in the recording (tool evidence ID: tool_07).\n\n**Justification**\n\nThe analysis display setting was changed to provide a more detailed view of the low-frequency component. The original setting was not compared with an alternative, but the new setting was chosen and applied to the virtual display.",
+  "final_display_window_ms": 128,
+  "checks": {
+    "both_windows_analyzed": true,
+    "verification_after_original_configuration": true,
+    "target_bin_spacing_met": true,
+    "audio_preserved": true
+  },
+  "all_residency_samples_zero_vram": true,
+  "artifact_sha256": {
+    "scripts/continue_cpu_agent_demo.py": "09c532ddb27cc55634435e2ec57e2a145ce2aadbea9080ef6628b67a78e136e1",
+    "preregistration/cpu_agent_audit_continuation.json": "73316659ad0399ad01b3c4353906254728607acf81edfe5d911eb91cd2fffce1",
+    "src/acoustic_regeneration/agents/analysis_tools.py": "6e48cc4760a05135304960f52787f7ec4e670e99c8e2eb552c989d0756e7732f",
+    "scripts/run_cpu_agent_demo.py": "17a592f1c430a4bd6d6db095b43d8cc5ba7cf4b762b96151bbfa2be191d67512",
+    "results/cpu_agent_demo_audited/events.jsonl": "dc15955cd3fdc1c9d958f4948b8064e8c3bfe80a08b44b3fa203d59b020de128"
+  },
+  "scope": "Post hoc execution-audit continuation of the first completed CPU episode, not a rerun or independent sample",
+  "final_response_factual_audit": "Pending separate audit"
+}
