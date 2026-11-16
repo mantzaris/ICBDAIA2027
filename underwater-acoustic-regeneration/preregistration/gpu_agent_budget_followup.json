@@ -1,0 +1,34 @@
+{
+  "recorded_utc": "2026-11-16T11:19:53.694325+00:00",
+  "stage": "Separate budget-sensitivity follow-up, motivated by truncation counts observed during primary inference; original comparison and gate follow-up remain unchanged",
+  "motivation": {
+    "backed_up_primary_episodes_at_inspection": 58,
+    "thinking_turns": 213,
+    "forced_thinking_closures": 188,
+    "fraction": 0.8826291079812206,
+    "interpretation": "Frequent forced closure limits conclusions about reasoning; test one predetermined larger reasoning budget, not a search over budgets."
+  },
+  "cases": 16,
+  "case_selection": "The first sixteen evaluation cases in the original frozen manifest order; four per original task family. All are reused primary tasks, with no selection by success, cue label, or acoustic quality.",
+  "control": "Reuse the original reasoning-arm outputs on these exact sixteen tasks; do not rerun or replace them.",
+  "intervention": {
+    "arm": "reasoning_long",
+    "max_thinking_tokens_per_turn": 2048,
+    "max_generated_tokens": 12288,
+    "other_settings": "Identical Qwen3-8B BF16 weights, prompts, tools, base seed and case/turn offsets, action cap 512, eight turns, sixteen tool calls, 16384 context tokens, and 600-second episode deadline. No configuration gate or reviewer."
+  },
+  "primary_endpoint": "Original strict task success; scorer unchanged",
+  "secondary_endpoints": [
+    "setting correctness",
+    "cue correctness",
+    "stated-versus-applied setting mismatch",
+    "unsupported structured claims",
+    "forced reasoning closures",
+    "generated tokens and elapsed time",
+    "unfinished episodes"
+  ],
+  "analysis": "Paired recording-level differences on sixteen reused tasks, 10000 paired bootstrap resamples and exact McNemar test. Exploratory budget-sensitivity analysis, separate from the original three primary comparisons and separate from the sixteen-new-group configuration-gate experiment. Report all sixteen outcomes and actual cost.",
+  "scope": "Tests a larger per-turn and total reasoning budget together; not a model, hardware, new-data, or general-reasoning superiority claim. Longer-budget jobs run after the primary and gate phases, so latency is descriptive for this sequential implementation.",
+  "preservation": "One fixed larger-budget condition, no prompt feedback, no favorable reruns, no changes to original outputs or scoring.",
+  "stop_policy": "Queue after the existing configuration-gate experiment; require at least three hours before the existing 19:09 UTC job deadline. Enforce the external timeout and retain partial/failure records if interrupted; leave the pod running."
+}
