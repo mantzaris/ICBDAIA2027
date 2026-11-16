@@ -72,3 +72,10 @@ def test_true_measurement_at_wrong_setting_is_not_an_unsupported_number():
     score=score_report(report,tools,expected)
     assert not score['setting_correct'] and not score['strict_success']
     assert score['numeric_correct'] and score['unsupported_claims']==0
+
+
+def test_malformed_final_fields_are_failures_not_evaluator_exceptions():
+    tools=BenchmarkTools(*inputs()); expected=solve_rules(tools)
+    for field,value in [('window_ms',[]),('evidence_ids',[{}]),('peak_before_hz',float('nan'))]:
+        report=copy.deepcopy(expected);report[field]=value
+        assert score_report(report,tools,expected)['valid_report'] is False

@@ -152,6 +152,16 @@ def score_report(report, tools, expected):
     required = {'decision','window_ms','cue_label','peak_before_hz','peak_after_hz',
                 'identity','gap_unobserved','verified','evidence_ids'}
     valid = isinstance(report, dict) and required.issubset(report)
+    if valid:
+        valid = (report['decision'] in ('configure','decline')
+                 and report['cue_label'] in ('stable','changed','insufficient')
+                 and (report['window_ms'] is None or type(report['window_ms']) is int)
+                 and isinstance(report['identity'],str)
+                 and type(report['gap_unobserved']) is bool and type(report['verified']) is bool
+                 and isinstance(report['evidence_ids'],list)
+                 and all(isinstance(value,str) for value in report['evidence_ids'])
+                 and all(value is None or type(value) in (int,float) and math.isfinite(value)
+                         for value in [report['peak_before_hz'],report['peak_after_hz']]))
     if not valid:
         return {'valid_report': False, 'setting_correct': False, 'cue_correct': False,
                 'numeric_correct': False, 'verification_complete': False, 'evidence_supported': False,
