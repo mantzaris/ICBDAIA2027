@@ -1,0 +1,180 @@
+{
+  "case_id": "guard_16",
+  "arm": "reasoning",
+  "family": "fragmented_observation",
+  "group_id": "0a9ae42c4026e08fbdc41309eae1f3fe6a3752f66eb2863a15145081d3c65f9c",
+  "date": "20191110",
+  "status": "completed",
+  "error": null,
+  "final_report": {
+    "decision": "configure",
+    "window_ms": 64,
+    "cue_label": "changed",
+    "peak_before_hz": 437.5,
+    "peak_after_hz": 31.25,
+    "identity": "unknown",
+    "gap_unobserved": true,
+    "verified": true,
+    "evidence_ids": [
+      "e01",
+      "e02",
+      "e03",
+      "e04"
+    ]
+  },
+  "initial_report": null,
+  "drafts": [
+    {
+      "decision": "configure",
+      "window_ms": 64,
+      "cue_label": "changed",
+      "peak_before_hz": 437.5,
+      "peak_after_hz": 31.25,
+      "identity": "unknown",
+      "gap_unobserved": true,
+      "verified": true,
+      "evidence_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04"
+      ]
+    }
+  ],
+  "checks": {
+    "valid_report": true,
+    "setting_correct": true,
+    "cue_correct": true,
+    "numeric_correct": true,
+    "verification_complete": true,
+    "evidence_supported": true,
+    "identity_and_gap_correct": true,
+    "unsupported_claims": 0,
+    "strict_success": true
+  },
+  "model_turns": 5,
+  "tool_calls": 4,
+  "tool_errors": 0,
+  "generated_tokens": 2735,
+  "inference_seconds": 86.39211822592188,
+  "elapsed_seconds": 86.41722412896343,
+  "forced_reasoning_closures": 5,
+  "review_started": false,
+  "input_unchanged": true,
+  "input_sha256": "8630cdde9c69e80bc043a21baaffe25dc258a7dda24816f0426bedf1fc5aaea2",
+  "tool_trace": [
+    {
+      "evidence_id": "e01",
+      "name": "inspect_recording",
+      "arguments": {},
+      "result": {
+        "sample_rate_hz": 8000,
+        "duration_seconds": 4.096,
+        "observed_fraction": 0.790527,
+        "available_windows_ms": [
+          32,
+          64,
+          128,
+          256
+        ],
+        "current_window_ms": 32,
+        "regions_seconds": {
+          "before": [
+            0.25,
+            1.5
+          ],
+          "after": [
+            2.6,
+            3.85
+          ]
+        },
+        "minimum_frames_per_region": 3,
+        "missing_audio_present": true,
+        "source_identity": "unknown",
+        "physical_hardware_connected": false,
+        "constraints": {
+          "max_bin_spacing_hz": 16,
+          "max_time_support_ms": 128
+        }
+      }
+    },
+    {
+      "evidence_id": "e02",
+      "name": "analyze_window",
+      "arguments": {
+        "window_ms": 64
+      },
+      "result": {
+        "window_ms": 64,
+        "bin_spacing_hz": 15.625,
+        "time_support_ms": 64,
+        "regions": {
+          "before": {
+            "fully_observed_frames": 71,
+            "excluded_frames": 78,
+            "peak_bin_hz": 437.5,
+            "peak_prominence_db": 10.244054,
+            "band_level_db": -5.107186
+          },
+          "after": {
+            "fully_observed_frames": 85,
+            "excluded_frames": 64,
+            "peak_bin_hz": 31.25,
+            "peak_prominence_db": 10.620202,
+            "band_level_db": -5.011784
+          }
+        },
+        "units": "relative level; not calibrated pressure",
+        "missing_frames_excluded": true
+      }
+    },
+    {
+      "evidence_id": "e03",
+      "name": "configure_display",
+      "arguments": {
+        "window_ms": 64
+      },
+      "result": {
+        "previous_window_ms": 32,
+        "current_window_ms": 64,
+        "applied_to": "virtual display",
+        "physical_hardware_changed": false
+      }
+    },
+    {
+      "evidence_id": "e04",
+      "name": "verify_display",
+      "arguments": {},
+      "result": {
+        "current_window_ms": 64,
+        "measurement": {
+          "window_ms": 64,
+          "bin_spacing_hz": 15.625,
+          "time_support_ms": 64,
+          "regions": {
+            "before": {
+              "fully_observed_frames": 71,
+              "excluded_frames": 78,
+              "peak_bin_hz": 437.5,
+              "peak_prominence_db": 10.244054,
+              "band_level_db": -5.107186
+            },
+            "after": {
+              "fully_observed_frames": 85,
+              "excluded_frames": 64,
+              "peak_bin_hz": 31.25,
+              "peak_prominence_db": 10.620202,
+              "band_level_db": -5.011784
+            }
+          },
+          "units": "relative level; not calibrated pressure",
+          "missing_frames_excluded": true
+        },
+        "input_unchanged": true,
+        "gap_still_erased": true,
+        "physical_hardware_changed": false
+      }
+    }
+  ],
+  "events_sha256": "ee6b09b2af0d1d6c2951bc8188fc9253be2bbb43cb6976e3880d7eb58bd6c8b2"
+}

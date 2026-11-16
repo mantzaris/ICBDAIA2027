@@ -49,6 +49,9 @@ def audit(base, arms):
                 initial=before_review['checks']['strict_success']
                 transition=('kept_correct' if initial and final else 'regressed' if initial else 'rescued' if final else 'still_incorrect')
             rows.append({'case_id':cid,'arm':arm,'family':case['family'],'final_success':final,
+                         'cue_correct':summary['checks']['cue_correct'],
+                         'reference_cue_label':case['expected_report']['cue_label'],
+                         'reported_cue_label':report.get('cue_label') if summary['checks']['valid_report'] else 'invalid',
                          'report_setting_correct':report_setting_correct,'final_display_window_ms':tools.window_ms,
                          'stated_applied_setting_mismatch':stated_applied_mismatch,
                          'before_review':before_review,'review_transition':transition,
@@ -56,7 +59,15 @@ def audit(base, arms):
     metrics={}
     for arm in arms:
         subset=[r for r in rows if r['arm']==arm]
+        labels=['stable','changed','insufficient']
+        confusion={expected:{predicted:0 for predicted in labels+['invalid_or_other']} for expected in labels}
+        for row in subset:
+            prediction=row['reported_cue_label']
+            if prediction not in labels:prediction='invalid_or_other'
+            confusion[row['reference_cue_label']][prediction]+=1
+        assert sum(confusion[label][label] for label in labels)==sum(row['cue_correct'] for row in subset)
         metrics[arm]={'cases':len(subset),
+            'cue_confusion_counts_reference_then_reported':confusion,
             'report_setting_correct':sum(r['report_setting_correct'] for r in subset),
             'stated_applied_setting_mismatch':sum(r['stated_applied_setting_mismatch'] for r in subset),
             'cases_with_constraint_violating_configuration':sum(bool(r['constraint_violating_configurations']) for r in subset),
