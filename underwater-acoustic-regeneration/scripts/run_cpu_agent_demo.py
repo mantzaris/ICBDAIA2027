@@ -11,6 +11,7 @@ import platform
 import subprocess
 import time
 import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -20,6 +21,7 @@ from acoustic_regeneration.agents.analysis_tools import AcousticTools, tool_sche
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'results/cpu_agent_demo'
+INPUT = OUT
 API = 'http://127.0.0.1:11434'
 SYSTEM = ('You are an acoustic analysis assistant using a bounded set of real analysis tools. '
           'Tool results are your only acoustic evidence. Call the tools to complete the task; '
@@ -57,8 +59,11 @@ def write(path, value):
 def api(path, payload=None, timeout=300):
     request = urllib.request.Request(API + path, data=None if payload is None else json.dumps(payload).encode(),
                                      headers={'Content-Type': 'application/json'})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as error:
+        raise RuntimeError('HTTP %d: %s' % (error.code, error.read().decode(errors='replace'))) from error
 
 
 def preparation():
@@ -106,13 +111,14 @@ def preparation():
 
 
 def run():
+    OUT.mkdir(parents=True, exist_ok=True)
     protocol = read('preregistration/cpu_agent_demo.json')
     task = read('results/cpu_agent_demo/task.json')
     provenance = read('results/cpu_agent_demo/input_provenance.json')
-    assert sha(OUT / 'observation.npz') == provenance['observation_artifact_sha256']
+    assert sha(INPUT / 'observation.npz') == provenance['observation_artifact_sha256']
     assert task['inference_options'] == protocol['inference_options']
     assert task['tools'] == tool_schemas()
-    with np.load(OUT / 'observation.npz', allow_pickle=False) as arrays:
+    with np.load(INPUT / 'observation.npz', allow_pickle=False) as arrays:
         functions = AcousticTools(arrays['audio'], arrays['observed'], int(arrays['sample_rate']))
     assert functions.audio_hash() == provenance['normalized_observed_audio_sha256']
     code = ['scripts/run_cpu_agent_demo.py', 'src/acoustic_regeneration/agents/analysis_tools.py',
@@ -201,16 +207,16 @@ def run():
                           'verified_after_change': bool(configured and verified and verified[-1]['elapsed_seconds'] > configured[-1]['elapsed_seconds']),
                           'target_bin_spacing_met': 1000 / functions.window_ms <= protocol['task_target_bin_spacing_hz'],
                           'audio_preserved': functions.audio_hash() == functions.initial_sha256},
-               'artifact_sha256': {**hashes, 'results/cpu_agent_demo/events.jsonl': sha(OUT / 'events.jsonl'),
-                                  'results/cpu_agent_demo/observation.npz': sha(OUT / 'observation.npz')},
+               'artifact_sha256': {**hashes, str((OUT / 'events.jsonl').relative_to(ROOT)): sha(OUT / 'events.jsonl'),
+                                  'results/cpu_agent_demo/observation.npz': sha(INPUT / 'observation.npz')},
                'scope': protocol['scope'], 'final_response_factual_audit': 'Pending separate audit; no success claim from tool checks alone'}
     write(OUT / 'summary.json', summary)
     write(OUT / 'display_state.json', {'window_ms': functions.window_ms, 'physical_hardware_changed': False})
     with (ROOT / 'results/local_run_registry.jsonl').open('a') as stream:
-        stream.write(json.dumps({'run_id': 'cpu_agent_demo_seed17', 'status': status, 'recorded_utc': now(),
+        stream.write(json.dumps({'run_id': OUT.name + '_seed17', 'status': status, 'recorded_utc': now(),
                     'git_commit': git_commit, 'elapsed_seconds': elapsed, 'model_turns': len(turns),
                     'tool_calls': len(tool_events), 'GPU_requested': False,
-                    'summary_sha256': sha(OUT / 'summary.json'), 'output_path': 'results/cpu_agent_demo',
+                    'summary_sha256': sha(OUT / 'summary.json'), 'output_path': str(OUT.relative_to(ROOT)),
                     'scope': 'Additional local CPU demonstration after the bounded GPU study; no remote pod access'}) + '\n')
     print(json.dumps(summary, indent=2, ensure_ascii=False))
     if status == 'execution_failed':
@@ -220,5 +226,10 @@ def run():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--prepare', action='store_true')
+    parser.add_argument('--run-directory', default='cpu_agent_demo')
     args = parser.parse_args()
+    if Path(args.run_directory).name != args.run_directory:
+        raise ValueError('Run directory must be a simple name inside results')
+    if not args.prepare:
+        OUT = ROOT / 'results' / args.run_directory
     preparation() if args.prepare else run()

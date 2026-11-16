@@ -108,7 +108,7 @@ def tool_schemas():
         window = name in ('analyze_spectrum', 'configure_display')
         parameters = {'type': 'object', 'properties': {}, 'required': []}
         if window:
-            parameters['properties']['window_ms'] = {'type': 'integer', 'enum': [32, 128], 'description': 'Analysis window length in milliseconds'}
+            parameters['properties']['window_ms'] = {'type': 'integer', 'description': 'Analysis window length in milliseconds; allowed values are 32 or 128'}
             parameters['required'] = ['window_ms']
         tools.append({'type': 'function', 'function': {'name': name, 'description': description, 'parameters': parameters}})
     return tools

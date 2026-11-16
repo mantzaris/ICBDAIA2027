@@ -1,0 +1,10 @@
+{
+  "scope": "Transport compatibility correction before any model response or acoustic tool action",
+  "first_attempt": "results/cpu_agent_demo",
+  "failure": "Ollama 0.3.2 rejects integer JSON-Schema enum values before inference (HTTP 400)",
+  "evidence": "results/cpu_agent_demo/startup_error_detail.json",
+  "change": "Remove the numeric enum from transmitted tool schemas; keep integer type and enumerate 32/128 in the description. The same values remain enforced by tool code.",
+  "unchanged": ["system and user prompts", "model and model digest", "seed and CPU options", "observed-only input", "allowed tools and settings", "task and success checks"],
+  "new_attempt_directory": "results/cpu_agent_demo_run02",
+  "selection_rule": "First completed episode; preserve the zero-response startup failure"
+}
