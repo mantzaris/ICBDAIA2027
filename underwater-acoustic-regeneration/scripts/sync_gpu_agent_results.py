@@ -20,7 +20,7 @@ def main():
 from pathlib import Path
 files=[]
 completion={};progress={}
-for run in ['gpu_agent_benchmark','gpu_agent_guard']:
+for run in ['gpu_agent_benchmark','gpu_agent_guard','gpu_agent_budget']:
     base=Path('results')/run
     for phase in ['smoke','evaluation']:
         directory=base/phase
@@ -34,11 +34,22 @@ for run in ['gpu_agent_benchmark','gpu_agent_guard']:
     for name in ['evaluation_launch.json']:
         if (base/name).exists(): files.append(base/name)
     queue=base/'queue.json'
-    if queue.exists() and json.loads(queue.read_text())['status'] not in ['waiting_for_primary','running']:
+    if queue.exists() and json.loads(queue.read_text())['status'] not in ['waiting_for_primary','waiting_for_guard_followup','running']:
         files.append(queue)
+        if run=='gpu_agent_budget':
+            resource_log=Path('logs/gpu_agent_budget_utilization.csv')
+            if resource_log.exists():files.append(resource_log)
     completion[run]=(base/'evaluation/completion.json').exists()
     if (base/'evaluation/progress.json').exists():
         progress[run]=json.loads((base/'evaluation/progress.json').read_text())
+monitor=Path('reports/gpu_agent_utilization_monitor.json')
+if monitor.exists():
+    files.append(monitor)
+    record=json.loads(monitor.read_text())
+    process=Path('/proc')/str(record['pid'])/'stat'
+    stopped=not process.exists() or process.read_text().split()[2]=='Z'
+    resource_log=Path('logs/gpu_agent_utilization.jsonl')
+    if stopped and resource_log.exists():files.append(resource_log)
 print(json.dumps({'complete':all(completion.values()),'phase_completion':completion,'progress':progress,
  'files':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}))
 '''
