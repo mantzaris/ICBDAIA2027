@@ -1,4 +1,4 @@
-# Selective underwater waveform inpainting
+# Generative AI for underwater acoustic review
 
 The completed development pilot **failed its predeclared feasibility trigger**:
 only 5 of 64 tuning groups (7.8%) had a diffusion candidate improving Q by at least
@@ -21,8 +21,9 @@ on `main`. Nothing is pushed; the user handles the push.
   and [compute ledger](reports/compute_ledger.json).
 - [Frozen protocol](preregistration/protocol.json), [sampler amendment](preregistration/sampler_amendment.json),
   [raw run registry](results/run_registry.jsonl), and [source/data attribution](provenance/DATA_ATTRIBUTION.md).
-- All three paper figures are beside `mainj.tex` in `manuscript/`, including the
-  hydrophone waveform/spectrogram overview and three acoustic case comparisons.
+- All three paper figures are beside `mainj.tex` in `manuscript/`: an analysis-setting
+  comparison, a recording-by-recording view of the release decision, and three
+  acoustic case comparisons with plain-language labels.
   PDF/SVG and 450-dpi PNG exports remain in `figures/`, alongside the earlier
   supplemental workflow and waveform/PSD plots. The figure scripts refresh the
   active paper figures; the manuscript builder compiles the editable LaTeX directly.
@@ -37,6 +38,31 @@ remain eight unique cases. Fixed seeds did not yield bitwise transfer reproducib
 The three-seed main matrix, C4/C5/C6 controls, independent classifier, VLIZ audio,
 and confirmatory statistical comparisons were not run after the no-go decision.
 The 16-source learning diagnostic does not establish near-zero memorization.
+
+## Operator workflow: labels and configuration
+
+The paper connects audio quality to a proposed operator loop: **inspect evidence →
+label or retain unknown → recommend settings → approve/configure → measure again**.
+Each label needs a source and status: supplied annotation, model hypothesis, or
+operator-confirmed identification. A frequency component is an observed feature;
+it does not by itself establish object identity.
+
+| Operator task | What this project provides | Capability status |
+| --- | --- | --- |
+| Distinguish recording from fill | Source records and an explicit missing/estimated-sample mask | Implemented and checked |
+| Generate and assess possible gap fills | Diffusion proposals, known-audio checks, and a fixed release rule | Pilot evaluated; no proposals released |
+| Inspect a low-frequency component | [32 ms versus 128 ms analysis windows](manuscript/operator_configuration.pdf), with 4/16 ms hops and 31.25/7.81 Hz frequency bins | Demonstrated offline on the same available input; frames touching gaps excluded |
+| Identify an object or vessel class | Existing dataset annotations; an independent labeling model is required | No identification accuracy evaluated |
+| Configure physical equipment | Proposed review of acquisition gain/sample rate against instrument capabilities, operator approval, and a new measurement | No hardware commands or configuration benefits evaluated |
+| Reason across tools and evidence | Proposed agent that retrieves clips/masks, requests plots, compares labels, and explains setting tradeoffs | Future extension; no language-model agent implemented |
+
+The [configuration manifest](figures/operator_configuration.json) records exactly
+which display settings were changed. The [decision plot](manuscript/operator_decisions.pdf)
+shows all 64 reserved development cases: 52 selected proposals worsen error beyond
+the baseline tolerance, and the release rule uses baseline fill throughout. That
+baseline is also learned, estimated audio. Numerical error and fluent explanations
+are not identification-confidence scores. The paper's operational examples are
+illustrative; they are not an operator trial or a deployed sonar system.
 
 ## Acoustic examples
 

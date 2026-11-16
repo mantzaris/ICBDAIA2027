@@ -57,3 +57,16 @@ shared presentation gain per case. Their source and pool hashes, recomputed scor
 gap masks, and PCM observed-sample consistency are verified. The example selection
 is post hoc and adds no independent sample, inference, or GPU work. Veirs et al.
 (PeerJ, 2016) supplies primary hydrophone-measurement context for the introduction.
+
+The user asked for language and examples that connect with acoustic/sonar operators,
+especially correct object labels and equipment configuration. The title, abstract,
+keywords, method labels, and anecdotes now use the sequence inspect, label/unknown,
+recommend settings, approve/configure, and remeasure. Generative AI describes the
+existing diffusion model; agentic review and physical equipment control are explicitly
+proposed extensions. A new plot compares 32/4 ms and 128/16 ms window/hop settings
+on observed input, excluding every frame touching the artificial gap. It distinguishes
+the supplied tanker annotation from the measured frequency component and from any
+unperformed identification. A second plot shows the 52/64 worse proposals and the
+actual disabled release gate. ReAct is cited for the future tool-use concept.
+No new inference, training, object predictions, hardware actions, or operator trials
+were performed. All twelve listening clips retain the same audio samples.

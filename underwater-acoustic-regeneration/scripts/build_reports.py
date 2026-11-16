@@ -203,6 +203,11 @@ def main():
               ["figures/acoustic_example_selection.json"],
               "Post hoc C3-minus-B score extremes and a tonal 500-ms V example; not representative, not a listening study, no new inference",
               ["pilot_pools_clipped_seed17_test"])
+    if (ROOT / "figures/operator_configuration.json").exists():
+        claim("operator_review_views", "Recorded cues, supplied labels, two analysis settings, and the 64-case release result are shown separately", "descriptive_display_only",
+              ["figures/operator_configuration.json", "figures/operator_decisions.json"],
+              "Offline displays from existing V recordings; object identification, physical equipment control, and agent reasoning are not evaluated",
+              ["acoustic_example_presentation"])
     claim("synthetic_identity", "400 fixed-input method/pair comparisons have exactly equal output", "passed_implementation_check",
           [DIAG + "/summary.json", DIAG + "/hidden_event_summary.json"], "100 distinct hidden-event realizations; same inputs/seeds cannot identify invisible target content",
           ["pilot_pools_clipped_seed17_diagnostics"])
@@ -238,7 +243,7 @@ def main():
     for method, values in {**pilot["policies"], **baselines}.items():
         if method in {"no_probes", "duration_only", "dispersion_only"}:
             continue
-        for column, key in [("Q", "mean_Q"), ("NMSE", "mean_gap_nmse"), ("Coverage", "generative_coverage"), ("Harm", "all_case_harm_rate")]:
+        for column, key in [("Error Q", "mean_Q"), ("NMSE", "mean_gap_nmse"), ("AI use", "generative_coverage"), ("Worse", "all_case_harm_rate")]:
             if key in values:
                 source = RUN + ("/classical_dry_test_summary.json" if method in baselines else "/pilot_summary.json")
                 pointer = "/" + method + "/" + key if method in baselines else "/policies/" + method + "/" + key
@@ -247,12 +252,12 @@ def main():
         cells.append({"table": 2, "row": method, "column": "Calls", "value": calls,
                       "source": RUN + "/pool_config.json", "derivation": "0/1/4/6 diffusion draws × 32 steps; excludes deterministic restoration pass and feature computation"})
     for method in ("zero", "linear", "B"):
-        cells.append({"table": 2, "row": method, "column": "Harm", "value": "—", "derivation": "Baseline row; generative harmful-acceptance rate is not defined"})
+        cells.append({"table": 2, "row": method, "column": "Worse", "value": "—", "derivation": "Baseline row; generative harmful-acceptance rate is not defined"})
     for method in ("zero", "linear"):
-        cells.append({"table": 2, "row": method, "column": "Coverage", "value": 0, "derivation": "No diffusion output is accepted by this baseline"})
+        cells.append({"table": 2, "row": method, "column": "AI use", "value": 0, "derivation": "No diffusion output is accepted by this baseline"})
     for mechanism, item in diagnostics["mechanisms"].items():
         if item["cases"] == 20:
-            for column, key in [("Cases", "cases"), ("Coverage", "coverage"), ("Q(P)", "mean_P_Q")]:
+            for column, key in [("Cases", "cases"), ("AI use", "coverage"), ("Error Q(P)", "mean_P_Q")]:
                 cells.append({"table": 3, "row": mechanism, "column": column, "value": item[key], "source": DIAG + "/summary.json", "json_pointer": "/mechanisms/" + mechanism + "/" + key})
     save("reports/manuscript_audit/table_cells.json", cells)
     with (ROOT / "reports/experiment_ledger.csv").open("w", newline="") as stream:

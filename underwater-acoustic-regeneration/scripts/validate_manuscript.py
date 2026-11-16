@@ -21,16 +21,30 @@ def main():
     for name, expected in template['files'].items():
         assert hashlib.sha256((PAPER / name).read_bytes()).hexdigest() == expected, name
     figures = re.findall(r'\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}', source)
-    assert set(figures) == {'acoustic_context.pdf', 'development_ranking.pdf', 'acoustic_case_studies.pdf'}
+    assert set(figures) == {'operator_configuration.pdf', 'operator_decisions.pdf', 'acoustic_case_studies.pdf'}
     assert len(figures) == 3
     for name in figures:
         assert Path(name).name == name and (PAPER / name).is_file(), name
         assert (PAPER / name).read_bytes() == (ROOT / 'figures' / name).read_bytes(), name
     citations = set(key.strip() for group in re.findall(r'\\cite(?:\[[^]]*\])?\{([^}]+)\}', source) for key in group.split(','))
     entries = set(re.findall(r'@\w+\s*\{\s*([^,]+),', (PAPER / 'references.bib').read_text()))
-    assert citations == entries and len(entries) == 13
+    assert citations == entries and len(entries) == 14
     examples = json.loads((ROOT / 'figures/acoustic_example_selection.json').read_text())
     assert examples['script_sha256'] == hashlib.sha256((ROOT / 'scripts/build_acoustic_examples.py').read_bytes()).hexdigest()
+    decisions = json.loads((ROOT / 'figures/operator_decisions.json').read_text())
+    assert decisions['script_sha256'] == examples['script_sha256']
+    assert decisions['cases'] == len(decisions['rows']) == 64
+    assert sum(row['worse_than_baseline'] for row in decisions['rows']) == 52
+    assert not any(row['checked_policy_uses_AI'] for row in decisions['rows'])
+    assert decisions['calibrated_threshold'] is None
+    for name, expected in decisions['source_files'].items():
+        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
+    configuration = json.loads((ROOT / 'figures/operator_configuration.json').read_text())
+    assert configuration['script_sha256'] == examples['script_sha256']
+    assert configuration['identification_evaluated'] is False
+    assert configuration['hardware_configuration_evaluated'] is False
+    assert configuration['annotation_is_model_prediction'] is False
+    assert [setting['window_samples'] for setting in configuration['settings']] == [256, 1024]
     assert [case['tag'] for case in examples['cases']] == ['A', 'B', 'C']
     audio_files = []
     for case in examples['cases']:
@@ -65,6 +79,8 @@ def main():
               'single_manuscript_tex': True, 'bibtex_entries': len(entries), 'resolved_citations': len(citations),
               'publisher_class_and_style_unmodified': True,
               'acoustic_case_studies': 3, 'verified_listening_clips': len(audio_files),
+              'operator_plot_cases_verified': 64, 'analysis_window_configurations': 2,
+              'identification_and_hardware_control_evaluated': False,
               'figures_in_same_directory': figures, 'tables': 3, 'equations': 2,
               'no_undefined_references_or_overfull_boxes': True,
               'pdf_sha256': hashlib.sha256((PAPER / 'mainj.pdf').read_bytes()).hexdigest(),

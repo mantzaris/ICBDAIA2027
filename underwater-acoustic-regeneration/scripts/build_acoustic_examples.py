@@ -6,6 +6,7 @@ No model inference, held-out C/test access, or subjective listening scores.
 from __future__ import annotations
 
 import gzip
+import copy
 import hashlib
 import json
 import shutil
@@ -17,6 +18,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch, Rectangle
 import numpy as np
 from scipy.io import wavfile
 
@@ -49,7 +51,7 @@ def save(fig, name):
         fig.savefig(path, dpi=450, bbox_inches='tight', pad_inches=.04, metadata=metadata)
         if extension == 'svg':
             path.write_text('\n'.join(line.rstrip() for line in path.read_text().splitlines()) + '\n')
-        elif extension == 'pdf':
+        elif extension == 'pdf' and name in {'operator_configuration', 'operator_decisions', 'acoustic_case_studies'}:
             shutil.copyfile(path, ROOT / 'manuscript' / path.name)
     plt.close(fig)
 
@@ -158,23 +160,27 @@ def overview(example):
     known[evidence['gap_start_sample']:evidence['gap_end_sample_exclusive']] = np.nan
     waveform.plot(time, known, color='#146D88', linewidth=.35)
     waveform.axvspan(a, b, facecolor='#E8C66A', alpha=.45)
-    waveform.text((a + b) / 2, .97, '500 ms\ngap', transform=waveform.get_xaxis_transform(),
+    waveform.text((a + b) / 2, .97, 'Missing\n0.5 s', transform=waveform.get_xaxis_transform(),
                   ha='center', va='top', fontsize=6, bbox={'facecolor': 'white', 'alpha': .8, 'edgecolor': 'none', 'pad': .5})
-    waveform.set(xlim=(0, 4.096), xlabel='Time (s)', ylabel='Normalized amplitude', title='Tanker-labeled hydrophone audio')
+    waveform.set(xlim=(0, 4.096), xlabel='Time (s)', ylabel='Relative amplitude', title='Recorded sound with a test gap')
     times, frequencies, power = stft_power(target, window=1024, hop=128)
     db = 10 * np.log10(np.maximum(power / power.max(), 1e-12))
     spectrum.pcolormesh(times, frequencies, db, vmin=-60, vmax=0, cmap='magma', shading='nearest', rasterized=True)
     for boundary in (a, b):
         spectrum.axvline(boundary, color='white', linestyle='--', linewidth=.6)
+    spectrum.annotate('Low tone near 78 Hz', xy=(3.1, 78), xytext=(2.55, 450),
+                      color='white', fontsize=6, ha='center',
+                      arrowprops={'arrowstyle': '->', 'color': 'white', 'lw': .7})
     spectrum.set(xlim=(0, 4.096), ylim=(0, 600), yticks=[0, 200, 400, 600],
-                 xlabel='Time (s)', ylabel='Frequency (Hz)', title='Reference: low-frequency detail')
+                 xlabel='Time (s)', ylabel='Frequency (Hz)', title='Frequency view: brighter = stronger')
     fig.tight_layout(pad=.5, w_pad=.8)
     save(fig, 'acoustic_context')
 
 
 def comparisons(examples):
     fig, axes = plt.subplots(3, 4, figsize=(4.7, 3.6))
-    titles = ['Reference', 'Gap erased', 'Fallback B = P', 'Selected C3']
+    titles = ['Complete audio\nTest reference', 'Available audio\nGap erased',
+              'Baseline fill\nUsed by rule', 'AI proposal\nDeclined by rule']
     for row, (evidence, signals) in enumerate(examples):
         a, b = evidence['gap_seconds']
         left, right = a - .12, b + .12
@@ -197,15 +203,133 @@ def comparisons(examples):
                 ax.tick_params(labelleft=False)
             if row == 0:
                 ax.set_title(titles[col], pad=17)
-        label = f"{evidence['tag']}  {evidence['source_class'].capitalize()} | {evidence['gap_ms']:.0f} ms | C3 − B: ΔQ = {evidence['C3_minus_B_Q']:+.3f}"
+        descriptions = ['Small score gain, changed frequency pattern',
+                        'Extra energy inside the gap', 'Low tone weakens across the gap']
+        label = f"{evidence['tag']}  {evidence['source_class'].capitalize()} | {evidence['gap_ms']:.0f} ms | {descriptions[row]}"
         axes[row, 0].text(0, 1.07, label, transform=axes[row, 0].transAxes, fontsize=6.6, ha='left')
     fig.subplots_adjust(left=.105, right=.97, bottom=.17, top=.88, wspace=.14, hspace=.65)
-    fig.text(.54, .085, 'Time from gap start (ms); dashed lines delimit missing samples', ha='center', fontsize=6.5)
+    fig.text(.54, .085, 'Time from gap start (ms); dashed lines mark the missing input interval', ha='center', fontsize=6.3)
     cax = fig.add_axes([.27, .027, .43, .021])
     bar = fig.colorbar(mesh, cax=cax, orientation='horizontal', ticks=[-60, -40, -20, 0])
     bar.ax.tick_params(labelsize=6, pad=1, length=2)
     fig.text(.72, .028, 'dB / ref. peak', fontsize=6, va='center')
     save(fig, 'acoustic_case_studies')
+
+
+def configuration_views(example):
+    """Demonstrate display settings on measured samples only, with gap frames excluded."""
+    evidence, signals = example
+    available = signals['masked']
+    gap_start, gap_end = evidence['gap_start_sample'], evidence['gap_end_sample_exclusive']
+    settings, spectra = [], []
+    for window, hop in [(256, 32), (1024, 128)]:
+        times, frequencies, power = stft_power(available, window, hop)
+        starts = np.arange(0, len(available) - window + 1, hop)
+        touches_gap = (starts < gap_end) & (starts + window > gap_start)
+        # One-sided periodogram density; color is relative to a shared observed peak.
+        hann_energy = np.sum(np.hanning(window + 1)[:-1] ** 2)
+        power *= window / (RATE * hann_energy)
+        power[1:-1] *= 2
+        power[:, touches_gap] = np.nan
+        assert np.isfinite(power[:, ~touches_gap]).all()
+        spectra.append((times, frequencies, power))
+        settings.append({'window_samples': window, 'window_ms': window / RATE * 1000,
+                         'hop_samples': hop, 'hop_ms': hop / RATE * 1000,
+                         'bin_spacing_hz': RATE / window,
+                         'frames_touching_missing_samples_excluded': int(touches_gap.sum()),
+                         'display_frequency_hz': [0, 600]})
+    peak = max(np.nanmax(power) for _, _, power in spectra)
+    fig, axes = plt.subplots(1, 2, figsize=(4.7, 2.05))
+    cmap = copy.copy(plt.get_cmap('magma'))
+    cmap.set_bad('#DDDDDD')
+    for index, (ax, (times, frequencies, power), setting) in enumerate(zip(axes, spectra, settings)):
+        db = 10 * np.log10(np.maximum(power / peak, 1e-12))
+        ax.pcolormesh(times, frequencies, np.ma.masked_invalid(db), vmin=-60, vmax=0,
+                      cmap=cmap, shading='nearest', rasterized=True)
+        ax.set(xlim=(0, 4.096), ylim=(0, 600), yticks=[0, 200, 400, 600],
+               xlabel='Time (s)', ylabel='Frequency (Hz)' if index == 0 else '')
+        ax.set_title(f"{setting['window_ms']:.0f} ms window: {setting['bin_spacing_hz']:.2f} Hz bins", fontsize=7)
+        ax.text((gap_start + gap_end) / (2 * RATE), 500, 'Gap', ha='center', fontsize=6, color='#333333')
+        if index == 1:
+            ax.annotate('Band near 78 Hz', xy=(3.05, 78), xytext=(2.85, 400),
+                        color='white', fontsize=6, ha='center',
+                        arrowprops={'arrowstyle': '->', 'color': 'white', 'lw': .7})
+    fig.subplots_adjust(left=.10, right=.98, top=.89, bottom=.38, wspace=.25)
+    fig.text(.5, .19, 'Recorded cue: low-frequency band. Dataset annotation: tanker.', ha='center', fontsize=6.6)
+    fig.text(.5, .11, 'Object identity was not predicted; these are display settings, not hardware commands.', ha='center', fontsize=6.1)
+    fig.text(.5, .015, 'Proposed equipment loop: observe → label / unknown → recommend → approve / configure → remeasure', ha='center', fontsize=5.7)
+    save(fig, 'operator_configuration')
+    report = {'scope': 'Offline analysis-setting demonstration on one existing V recording; no physical equipment control or identification model',
+              'script_sha256': digest(Path(__file__)), 'case_id': evidence['case_id'],
+              'source_array_sha256': evidence['source_array_sha256'],
+              'dataset_annotation': evidence['source_class'], 'annotation_is_model_prediction': False,
+              'observed_feature': {'description': 'dominant observed-context component',
+                                   'frequency_hz': evidence['observed_context_peak_hz']},
+              'input': 'Available observed-normalized samples; the artificial gap is zeroed before analysis',
+              'sample_rate_hz': RATE, 'settings': settings,
+              'display_power': 'One-sided periodic-Hann periodogram density; -60 to 0 dB relative to the common peak over fully observed frames',
+              'missing_frame_policy': 'Every analysis frame touching the gap is excluded from both views',
+              'identification_evaluated': False, 'hardware_configuration_evaluated': False,
+              'agent_workflow_status': 'Proposed only', 'new_inference_calls': 0}
+    (OUT / 'operator_configuration.json').write_text(json.dumps(report, indent=2) + '\n')
+
+
+def operator_decisions():
+    """Show the same 64 frozen cases under always-use and calibrated policies."""
+    cases = {row['case_id']: row for row in map(json.loads, (RUN / 'cases.jsonl').read_text().splitlines())
+             if row['pilot_role'] == 'dev_test'}
+    decisions = {row['case_id']: row for row in map(json.loads, (RUN / 'dry_test_decisions.jsonl').read_text().splitlines())
+                 if row['policy'] == 'full'}
+    calibration = json.loads((RUN / 'calibration.json').read_text())['policies']['full']
+    assert cases.keys() == decisions.keys() and len(cases) == 64
+    assert calibration['threshold'] is None
+    rows = []
+    for identifier in sorted(cases):
+        case, decision = cases[identifier], decisions[identifier]
+        assert case['source_partition'] == 'V' and not decision['accepted']
+        baseline_q = case['fallback_metrics']['Q']
+        proposal_q = case['candidate_metrics'][decision['selected_index']]['Q']
+        rows.append({'case_id': identifier, 'baseline_Q': baseline_q, 'selected_proposal_Q': proposal_q,
+                     'worse_than_baseline': bool(proposal_q > baseline_q + .02),
+                     'checked_policy_uses_AI': bool(decision['accepted'])})
+    worse = sum(row['worse_than_baseline'] for row in rows)
+    assert worse == 52
+    colors = {'worse': '#C45237', 'other': '#D8D8D8', 'baseline': '#277C94'}
+    fig, axes = plt.subplots(1, 2, figsize=(4.7, 2.25))
+    for panel, ax in enumerate(axes):
+        ax.set(xlim=(-.15, 8.15), ylim=(-.15, 8.15), aspect='equal')
+        ax.axis('off')
+        for index, row in enumerate(rows):
+            x, y = index % 8, 7 - index // 8
+            kind = ('worse' if row['worse_than_baseline'] else 'other') if panel == 0 else 'baseline'
+            ax.add_patch(Rectangle((x + .06, y + .06), .86, .86, facecolor=colors[kind], edgecolor='white', linewidth=.35))
+            if kind == 'worse':
+                ax.plot([x + .3, x + .68], [y + .3, y + .68], color='white', linewidth=.6)
+                ax.plot([x + .3, x + .68], [y + .68, y + .3], color='white', linewidth=.6)
+            elif kind == 'baseline':
+                ax.plot([x + .28, x + .7], [y + .49, y + .49], color='white', linewidth=.65)
+        ax.set_title(['Always use the AI proposal', 'Apply the release rule'][panel], fontsize=7.5, pad=4)
+        ax.text(.5, -.06, ['52 of 64 fills worse than baseline', '0 proposals used; 64 baseline fills'][panel],
+                transform=ax.transAxes, ha='center', va='top', fontsize=7,
+                color=colors['worse' if panel == 0 else 'baseline'], fontweight='bold')
+    fig.subplots_adjust(left=.04, right=.98, top=.86, bottom=.28, wspace=.16)
+    handles = [Patch(facecolor=colors[key], label=label) for key, label in
+               [('worse', 'Worse reconstruction'), ('other', 'Within tolerance'), ('baseline', 'Baseline fill')]]
+    fig.legend(handles=handles, loc='lower center', bbox_to_anchor=(.5, .04), ncol=3, frameon=False,
+               fontsize=6.1, handlelength=.9, columnspacing=1)
+    fig.text(.5, .015, 'Each square is one recording. Baseline fill is estimated audio too.', ha='center', fontsize=6.3)
+    save(fig, 'operator_decisions')
+    report = {'scope': 'Retrospective display of 64 existing dry-test V groups; no operator trial or new inference',
+              'script_sha256': digest(Path(__file__)), 'cases': 64, 'always_use_AI': 64,
+              'always_use_worse_than_baseline': worse, 'checked_policy_AI_used': 0,
+              'checked_policy_baseline_used': 64, 'harm_margin_Q': .02,
+              'calibrated_threshold': calibration['threshold'],
+              'threshold_interpretation': 'No candidate threshold passed dry calibration; the release gate is disabled',
+              'baseline_is_still_estimated': True, 'tile_order': 'case_id ascending, row-major from top left; same order in both panels',
+              'source_files': {str(path.relative_to(ROOT)): digest(path) for path in
+                               [RUN / 'cases.jsonl', RUN / 'dry_test_decisions.jsonl', RUN / 'calibration.json']},
+              'rows': rows}
+    (OUT / 'operator_decisions.json').write_text(json.dumps(report, indent=2) + '\n')
 
 
 def export_audio(examples):
@@ -234,6 +358,8 @@ def main():
     examples = load_examples()
     overview(examples[2])
     comparisons(examples)
+    configuration_views(examples[2])
+    operator_decisions()
     export_audio(examples)
     report = {'scope': 'Post hoc anecdotes from three existing dry-test V cases; no new inference or held-out outcomes',
               'source_run': 'results/pilot_pools_clipped_seed17', 'script_sha256': digest(Path(__file__)),
@@ -265,11 +391,15 @@ def main():
               'unique_existing_cases': 3, 'audio_files': 12, 'new_model_inference_calls': 0,
               'actual_C_test_opened': False, 'output_manifest': str(manifest.relative_to(ROOT)),
               'output_manifest_sha256': digest(manifest),
+              'operator_plot_manifest': 'figures/operator_decisions.json',
+              'operator_plot_manifest_sha256': digest(OUT / 'operator_decisions.json'),
+              'configuration_plot_manifest': 'figures/operator_configuration.json',
+              'configuration_plot_manifest_sha256': digest(OUT / 'operator_configuration.json'),
               'scope': 'Post hoc acoustic illustration and PCM export, not an additional independent experiment'}
     with (ROOT / 'results/local_run_registry.jsonl').open('a') as stream:
         stream.write(json.dumps(record, sort_keys=True) + '\n')
     print(json.dumps({'cases': [{key: evidence[key] for key in ('tag', 'source_class', 'gap_ms', 'C3_minus_B_Q', 'observed_context_peak_hz', 'gap_rms_db_relative_to_reference')} for evidence, _ in examples],
-                      'figures': ['acoustic_context', 'acoustic_case_studies'], 'audio_clips': 12}, indent=2))
+                      'figures': ['acoustic_context', 'acoustic_case_studies', 'operator_configuration', 'operator_decisions'], 'audio_clips': 12}, indent=2))
 
 
 if __name__ == '__main__':
