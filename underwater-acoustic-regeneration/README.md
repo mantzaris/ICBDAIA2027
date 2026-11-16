@@ -1,4 +1,4 @@
-# Verifying generative underwater acoustic repair and agent decisions
+# Checking sound and action: generative AI for underwater acoustic analysis
 
 The targeted follow-up **diagnoses and corrects a numerical failure** in generative
 underwater audio repair. A matched velocity-prediction model removes the observed
@@ -196,9 +196,8 @@ requirement with LaTeX only. Prior Word output remains in Git history at `a0e3a1
 and its audit records are in `reports/manuscript_audit/word_draft/`. PDF author
 metadata and the displayed author remain anonymous.
 
-The user requested the upper end of the conference's published “8 to 10 pages”
-wording. The compiled paper is **ten total pages including references**; the
-organizers have not clarified that ambiguous wording. The paper adds three
+The conference homepage specifies **8–10 pages**. The compiled paper is **ten total
+pages including references**; the site does not separately specify reference inclusion. The paper adds three
 equations explaining noise-error amplification, velocity prediction, and the
 masked training loss. The [frozen follow-up protocol](preregistration/velocity_followup.json)
 specifies one matched 5,000-update correction experiment; it does not reopen the
@@ -308,3 +307,23 @@ resource is provisioned. The actual hourly rate and storage charges were not
 supplied, so no dollar total is claimed. Hash-verified local outputs preserve the
 new results; publicly available pinned model weights remain on the pod. No push
 or submission is performed here.
+
+## Readability revision and AI disclosure
+
+The paper now opens with an operator examining a missing tone and an assistant
+that reports one display setting while applying another. The abstract explains
+one central contribution: checks that locate different failures and test a remedy
+for each. Equation explanations and acoustic examples connect the measured
+results to decisions about recorded evidence, generated estimates, and executed
+settings. The conclusion gives concrete design lessons. Experimental outcomes,
+all 110 table values, five equations, and the three figure datasets are unchanged.
+
+The [policy review](reports/ai_disclosure_policy.json) distinguishes the conference
+instructions from Springer’s books/proceedings guidance. The paper includes a
+first-page note, an end declaration, and assistance notices in every figure/table
+caption. Codex’s role includes research planning, code, execution, analysis, and
+writing; it is not described as copyediting alone. Evaluated models are described
+in the methods. The human authors still need to verify and take responsibility for
+the submission. No completed human-review attestation or organizer approval is claimed.
+The [audio companion note](examples/acoustics/README.md) identifies the recorded
+and estimated clips and the code assistance used to prepare them.

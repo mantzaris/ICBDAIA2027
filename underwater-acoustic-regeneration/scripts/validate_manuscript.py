@@ -16,6 +16,12 @@ def main():
     assert not re.search(r'\\(?:input|include)\s*\{', source), 'All manuscript text must be in mainj.tex'
     assert r'\bibliography{references}' in source and r'\bibliographystyle{splncs04}' in source
     assert r'\author{Anonymous submission}' in source
+    abstract = source.split(r'\begin{abstract}', 1)[1].split(r'\keywords', 1)[0]
+    assert 150 <= len(abstract.split()) <= 250
+    assert r'\thanks{AI tools assisted the research and manuscript;' in source
+    assert r'\paragraph{AI Use Declaration.}' in source
+    captions = re.findall(r'\\caption\{(.*?)\}\s*\\label', source, re.S)
+    assert len(captions) == 6 and all('OpenAI Codex' in c and '2026' in c and 'declaration' in c for c in captions)
     assert not list(PAPER.rglob('*.docx'))
     template = json.loads((ROOT / 'provenance/latex_template.json').read_text())
     for name, expected in template['files'].items():
@@ -121,6 +127,7 @@ def main():
     assert re.search(r'^Author:\s+Anonymous\s*$', info, re.MULTILINE)
     text = subprocess.check_output(['pdftotext', str(PAPER / 'mainj.pdf'), '-'], text=True)
     assert 'Anonymous submission' in text and 'References' in text
+    assert 'AI tools assisted the research and manuscript' in text.split('\f')[0]
     assert not any(value in text for value in ('LAYOUT PREVIEW', '[PENDING', '\ufffd'))
     assert len(re.findall(r'\\begin\{table\}', source)) == 3
     assert len(re.findall(r'\\begin\{equation\}', source)) == 5
@@ -159,6 +166,8 @@ def main():
     report = {'status': 'passed', 'format': 'LaTeX', 'pages': pages, 'author': 'Anonymous',
               'single_manuscript_tex': True, 'bibtex_entries': len(entries), 'resolved_citations': len(citations),
               'publisher_class_and_style_unmodified': True,
+              'abstract_words_whitespace_count': len(abstract.split()),
+              'AI_disclosure_first_page_end_and_six_captions': True,
               'acoustic_case_studies': 3, 'verified_listening_clips': len(audio_files),
               'operator_plot_cases_verified': 64, 'analysis_window_configurations': 2,
               'GPU_agent_cases': 32, 'GPU_agent_approaches': 5, 'GPU_agent_neural_episodes': 128,
@@ -170,7 +179,7 @@ def main():
               'figures_in_same_directory': figures, 'tables': 3, 'equations': 5,
               'targeted_correction_development_groups': 192,
               'training_intervention_state_match_verified': True,
-              'page_limit_basis': 'Ten total pages requested by user; upper end of the CFP wording at most 8 to 10 pages',
+              'page_limit_basis': 'Ten total pages including references; conference homepage specifies 8 to 10 pages',
               'no_undefined_references_or_overfull_boxes': True,
               'pdf_sha256': hashlib.sha256((PAPER / 'mainj.pdf').read_bytes()).hexdigest(),
               'source_sha256': hashlib.sha256((PAPER / 'mainj.tex').read_bytes()).hexdigest(),

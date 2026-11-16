@@ -147,3 +147,17 @@ not silently rescored. A figure metadata variable was corrected during final rev
 to retain the first case's cue label after plotting other cases; raw results and
 scores were unchanged. All code, data, and manuscript work stays in this project;
 commits remain on main and nothing is pushed.
+
+2026-11-16 readability and disclosure revision: Rewrote the abstract, opening,
+methods explanations, acoustic anecdotes, and conclusion around the operator’s
+need to distinguish plausible output from checked evidence. The contribution is
+controlled diagnosis and targeted intervention in these acoustic applications;
+established algorithms and inconclusive comparisons remain explicit. All 110
+table values and five equation blocks are unchanged, and no experiment was run.
+The anonymous paper remains ten pages with nineteen references. Current conference
+and Springer policy sources were checked; a first-page note, end declaration,
+figure/table caption notices, and an accompanying audio note disclose substantial
+Codex assistance. The publisher guidance PDF is retained with its checksum.
+The homepage’s explicit 8–10-page range replaces the earlier uncertainty about
+whether ten pages were allowed. Human author review is still required before
+submission; no such review, organizer approval, or acceptance is claimed.
