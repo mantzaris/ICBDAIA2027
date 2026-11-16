@@ -41,3 +41,9 @@ unchanged feasibility trigger. The paper presents numerical diagnosis and measur
 improvement on reused development data, with no completed-main-study claim.
 Submission and copyright forms remain the user's responsibility unless separately
 authorized. Nothing has been submitted or emailed.
+
+The expanded draft also reports a completed GPU comparison on 32 acoustic tasks,
+a separately frozen gate comparison on sixteen new recording groups, and a
+reasoning-budget check on sixteen reused primary tasks. It distinguishes supported
+cue labels, actual display settings, and complete verified execution. Vessel
+identification and physical equipment control remain outside the measured scope.

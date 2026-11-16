@@ -1,0 +1,22 @@
+{
+  "queued_utc": "2026-11-16T11:23:52.227489+00:00",
+  "status": "completed",
+  "deadline_utc": "2026-11-16T19:09:00+00:00",
+  "started_utc": "2026-11-16T14:04:52.411806+00:00",
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=30s",
+    "18247",
+    "/workspace/underwater-acoustic-regeneration/.venv-agents/bin/python",
+    "scripts/run_gpu_agent_budget_followup.py"
+  ],
+  "utilization_command": [
+    "nvidia-smi",
+    "--query-gpu=timestamp,name,utilization.gpu,memory.used,memory.total,power.draw",
+    "--format=csv",
+    "--loop=60"
+  ],
+  "exit_code": 0,
+  "finished_utc": "2026-11-16T15:03:03.571183+00:00"
+}

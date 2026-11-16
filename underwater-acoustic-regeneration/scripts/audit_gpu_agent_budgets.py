@@ -11,9 +11,10 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def audit(directory, expected_episodes):
+def audit(directory, expected_episodes, overrides=None):
     protocol = json.loads((ROOT / 'preregistration/gpu_agent_benchmark.json').read_text())
-    limits = protocol['budgets']
+    limits = dict(protocol['budgets'])
+    limits.update(overrides or {})
     completion = json.loads((directory / 'completion.json').read_text())
     assert completion['episodes'] == expected_episodes
     paths = sorted(directory.glob('*__*.json'))
@@ -42,6 +43,7 @@ def audit(directory, expected_episodes):
         item = arms.setdefault(summary['arm'], {
             'episodes': 0, 'statuses': Counter(), 'errors': Counter(), 'model_turns': 0,
             'thinking_turns': 0, 'forced_thinking_closures': 0, 'action_cap_hits': 0,
+            'forced_closure_token_counts': Counter(),
             'episodes_with_forced_thinking_closure': 0, 'episodes_with_action_cap_hit': 0,
             'maximum_context_tokens': 0, 'maximum_generated_tokens': 0,
             'maximum_episode_seconds': 0., 'total_generated_tokens': 0,
@@ -53,6 +55,7 @@ def audit(directory, expected_episodes):
         item['model_turns'] += len(responses)
         item['thinking_turns'] += sum(e['reasoning_tokens'] > 0 for e in responses)
         item['forced_thinking_closures'] += summary['forced_reasoning_closures']
+        item['forced_closure_token_counts'].update(e['reasoning_tokens'] for e in responses if e['forced_reasoning_close'])
         item['action_cap_hits'] += sum(e['action_hit_token_cap'] for e in responses)
         item['episodes_with_forced_thinking_closure'] += int(summary['forced_reasoning_closures'] > 0)
         item['episodes_with_action_cap_hit'] += int(any(e['action_hit_token_cap'] for e in responses))
@@ -62,7 +65,7 @@ def audit(directory, expected_episodes):
         item['total_generated_tokens'] += summary['generated_tokens']
         hashes[str(path.relative_to(ROOT))] = sha(path)
         hashes[str(event_path.relative_to(ROOT))] = sha(event_path)
-    return {'episodes': len(paths), 'arms': arms, 'artifact_sha256': hashes}
+    return {'episodes': len(paths), 'limits': limits, 'arms': arms, 'artifact_sha256': hashes}
 
 
 def main():
@@ -75,8 +78,16 @@ def main():
         'token_note': 'Counts are generated tokens, including reasoning; externally inserted closing markers are not model-generated tokens.',
         'analysis_sha256': sha(Path(__file__)),
     }
+    budget_directory = ROOT / 'results/gpu_agent_budget/evaluation'
+    if (budget_directory / 'completion.json').exists():
+        budget_protocol = json.loads((ROOT / 'preregistration/gpu_agent_budget_followup.json').read_text())
+        overrides = {key: budget_protocol['intervention'][key]
+                     for key in ('max_thinking_tokens_per_turn', 'max_generated_tokens')}
+        report['larger_budget_followup'] = audit(budget_directory, 16, overrides)
+        report['larger_budget_scope'] = 'Sixteen new episodes only; their original controls are already counted in the primary audit.'
     (ROOT / 'reports/gpu_agent_budget_audit.json').write_text(json.dumps(report, indent=2) + '\n')
-    print(json.dumps({name: value['arms'] for name, value in [('primary', primary), ('guard_followup', followup)]}, indent=2))
+    print(json.dumps({name: value['arms'] for name, value in report.items()
+                      if isinstance(value, dict) and 'arms' in value}, indent=2))
 
 
 if __name__ == '__main__':

@@ -147,9 +147,22 @@ def main():
                        "measured_attempt_seconds": sum(row.get("elapsed_seconds", 0) for row in terminal),
                        "registry_lines_1based": [i + 1 for i, row in enumerate(registry) if row["run_id"] == run],
                        "output_paths": sorted({row["output_path"] for row in entries if "output_path" in row})})
+    for run_id, prefix in [('gpu_agent_benchmark_smoke','results/gpu_agent_benchmark/smoke'),
+                           ('gpu_agent_benchmark_evaluation','results/gpu_agent_benchmark/evaluation'),
+                           ('gpu_agent_guard_followup','results/gpu_agent_guard/evaluation'),
+                           ('gpu_agent_budget_followup','results/gpu_agent_budget/evaluation')]:
+        if (ROOT / prefix / 'completion.json').exists():
+            finish = read(prefix+'/completion.json')
+            start = read(prefix+'/run_definition.json')
+            seconds = (datetime.fromisoformat(finish['completed_utc'])-datetime.fromisoformat(start['started_utc'])).total_seconds()
+            ledger.append({'run_id':run_id,'final_status':'completed','all_statuses':['running','completed'],
+                           'completed_attempts':1,'recorded_failure_entries':0,'measured_attempt_seconds':seconds,
+                           'registry_lines_1based':[],'source_registry':prefix+'/run_definition.json',
+                           'output_paths':[prefix+'/completion.json'],'episodes':finish['episodes'],
+                           'scope':'Completed batch includes unsuccessful agent tasks; task success is reported separately'})
     unrun = ["main three-seed training", "actual C calibration", "actual held-out test", "C4 six-draw medoid",
              "C5 one 192-step draw", "C6 waveform RePaint", "independent ResNet18 utility", "VLIZ external audio",
-             "primary Holm-adjusted comparisons", "core no-projection ablation", "pre-frozen tonal/onset structure metrics",
+             "original restoration primary Holm-adjusted comparisons", "core no-projection ablation", "pre-frozen tonal/onset structure metrics",
              "general-audio fine-tuning"]
     save("reports/experiment_ledger.json", {"runs": ledger, "unrun": unrun,
          "unrun_reason": "The 5000-update pilot failed the predeclared opportunity gate. Full three-seed training also exceeds the ten-hour session cap at observed throughput.",
@@ -198,6 +211,53 @@ def main():
             'episode_and_continuation_seconds': local_agent['total_episode_seconds_excluding_researcher_audit_time'],
             'model_turns': 4, 'tool_calls': 7, 'remote_GPU_used': False, 'new_training': False,
             'scope': 'Separate local follow-up after user reported the pod unavailable; original GPU deadline and completion remain unchanged'}
+    if (ROOT / 'results/gpu_agent_benchmark/summary.json').exists():
+        gpu_agent = read('results/gpu_agent_benchmark/summary.json')
+        gpu_auth = read('configs/gpu_agent_authorization.json')
+        gpu_finish = datetime.fromisoformat(gpu_agent['gpu_completion']['completed_utc'])
+        gpu_hours = (gpu_finish-datetime.fromisoformat(gpu_auth['run_start_utc'])).total_seconds()/3600
+        assert gpu_hours < gpu_auth['maximum_run_hours']
+        compute['replacement_pod_GPU_agent_comparison'] = {
+            'gpu': gpu_auth['observed_gpu'], 'model': 'Qwen/Qwen3-8B', 'dtype': 'bfloat16',
+            'cases': gpu_agent['cases'], 'neural_episodes': gpu_agent['neural_episodes'],
+            'session_hours_through_evaluation': gpu_hours,
+            'neural_inference_seconds': sum(m['total_inference_seconds'] for m in gpu_agent['metrics'].values()),
+            'peak_allocated_bytes': gpu_agent['gpu_completion']['peak_allocated_bytes'],
+            'utilization_log': 'logs/gpu_agent_utilization.jsonl',
+            'utilization_log_scope': 'Minute-spaced snapshots starting during primary evaluation; setup, smoke, and earlier primary inference are not covered',
+            'local_model_inference': False, 'new_training': False, 'pod_shutdown': False,
+            'scope': 'Separate user-authorized replacement-pod run; original study and CPU demonstration preserved'}
+        if (ROOT / 'results/gpu_agent_guard/summary.json').exists():
+            guarded = read('results/gpu_agent_guard/summary.json')
+            guard_finish = datetime.fromisoformat(guarded['completion']['completed_utc'])
+            total_hours = (guard_finish-datetime.fromisoformat(gpu_auth['run_start_utc'])).total_seconds()/3600
+            assert total_hours < gpu_auth['maximum_run_hours']
+            compute['replacement_pod_GPU_agent_comparison']['guarded_followup'] = {
+                'new_groups':16,'neural_episodes':32,
+                'inference_seconds':sum(m['total_inference_seconds'] for m in guarded['metrics'].values()),
+                'peak_allocated_bytes':guarded['completion']['peak_allocated_bytes'],
+                'session_hours_through_all_agent_jobs':total_hours,
+                'completed_utc':guarded['completion']['completed_utc']}
+        if (ROOT / 'results/gpu_agent_budget/summary.json').exists():
+            budgeted = read('results/gpu_agent_budget/summary.json')
+            budget_finish = datetime.fromisoformat(budgeted['completion']['completed_utc'])
+            final_hours = (budget_finish-datetime.fromisoformat(gpu_auth['run_start_utc'])).total_seconds()/3600
+            assert final_hours < gpu_auth['maximum_run_hours']
+            compute['replacement_pod_GPU_agent_comparison']['reasoning_budget_followup'] = {
+                'reused_primary_tasks':16,'new_neural_episodes':16,
+                'inference_seconds':budgeted['metrics']['reasoning_long']['total_inference_seconds'],
+                'peak_allocated_bytes':budgeted['completion']['peak_allocated_bytes'],
+                'utilization_log':'logs/gpu_agent_budget_utilization.csv',
+                'session_hours_through_all_agent_jobs':final_hours,
+                'completed_utc':budgeted['completion']['completed_utc']}
+            compute['replacement_pod_GPU_agent_comparison']['total_scored_neural_episodes'] = 176
+            compute['replacement_pod_GPU_agent_comparison']['total_scored_episodes_including_rules'] = 208
+            compute['replacement_pod_GPU_agent_comparison']['unique_recording_groups'] = 48
+            compute['replacement_pod_GPU_agent_comparison']['session_hours_to_last_job'] = final_hours
+            compute['replacement_pod_GPU_agent_comparison']['total_scored_neural_inference_seconds'] = (
+                sum(m['total_inference_seconds'] for m in gpu_agent['metrics'].values())
+                + sum(m['total_inference_seconds'] for m in guarded['metrics'].values())
+                + budgeted['metrics']['reasoning_long']['total_inference_seconds'])
     save("reports/compute_ledger.json", compute)
 
     claims = []
@@ -231,7 +291,7 @@ def main():
     claim("synthetic_identity", "400 fixed-input method/pair comparisons have exactly equal output", "passed_implementation_check",
           [DIAG + "/summary.json", DIAG + "/hidden_event_summary.json"], "100 distinct hidden-event realizations; same inputs/seeds cannot identify invisible target content",
           ["pilot_pools_clipped_seed17_diagnostics"])
-    claim("shift_behavior", "Table 3: P uses B on all 100 shifted development cases", "verified_development_result",
+    claim("shift_behavior", "P uses B on all 100 shifted development cases", "verified_development_result",
           [DIAG + "/summary.json"], "No transferred calibration or external generalization claim", ["pilot_pools_clipped_seed17_diagnostics"])
     claim("published_transfer", "Eight fixed V cases run with hash-verified published weights", "compatibility_only",
           [TRANSFER + "/summary.json", TRANSFER + "/cases.jsonl", "provenance/transfer_numpy_compat.json", "reports/transfer_replay_verification.json"],
@@ -260,6 +320,28 @@ def main():
                'reports/cpu_agent_validation.json', 'reports/cpu_agent_response_audit.json', 'reports/cpu_agent_operator_card.json'],
               'One preselected V case, two display choices, corrective feedback; neither autonomous agent success rate nor identification accuracy; model prose is not a verified operator report',
               ['cpu_agent_demo_run02_seed17', 'cpu_agent_demo_audit_continuation'])
+    if (ROOT / 'reports/gpu_agent_validation.json').exists():
+        claim('GPU_agent_comparison', 'Five approaches compared on 32 frozen acoustic tasks; every executed measurement and structured report is audited',
+              'bounded_task_comparison',
+              ['preregistration/gpu_agent_benchmark.json', 'preregistration/gpu_agent_scoring_amendment.json',
+               'preregistration/gpu_agent_evaluation_freeze.json', 'results/gpu_agent_benchmark/summary.json',
+               'reports/gpu_agent_validation.json', 'provenance/gpu_agent_environment.json', 'figures/gpu_agent_comparison.json'],
+              'One Qwen3 model and decoding seed; reused V recordings; equal ceilings with unequal actual cost; rule-defined cue labels, not vessel identification or physical hardware outcomes',
+              ['gpu_agent_benchmark_evaluation'])
+    if (ROOT / 'reports/gpu_agent_guard_validation.json').exists():
+        claim('GPU_agent_configuration_gate', 'A separate same-model comparison tests a feasibility gate on 16 new agent source groups/dates',
+              'bounded_followup_comparison',
+              ['preregistration/gpu_agent_guard_followup.json','preregistration/gpu_agent_guard_freeze.json',
+               'results/gpu_agent_guard/summary.json','reports/gpu_agent_guard_validation.json','reports/gpu_agent_failure_audit.json'],
+              'Motivated by the initial trace audit; new agent groups within V, no oracle labels in tools; gate rejection follows from construction and complete-task benefit is evaluated separately',
+              ['gpu_agent_guard_followup'])
+    if (ROOT / 'reports/gpu_agent_budget_validation.json').exists():
+        claim('GPU_agent_reasoning_budget', 'A separate larger-budget control reuses the first sixteen primary tasks and their original reasoning outputs',
+              'exploratory_budget_sensitivity',
+              ['preregistration/gpu_agent_budget_followup.json','preregistration/gpu_agent_budget_freeze.json',
+               'results/gpu_agent_budget/summary.json','reports/gpu_agent_budget_validation.json'],
+              'Motivated by frequent forced reasoning closure during primary execution; larger per-turn and total caps change together; no new independent source groups or model; all outcomes retained',
+              ['gpu_agent_budget_followup'])
     for identifier, text in [("main_coverage", "Held-out generative coverage >=25%"),
                              ("main_harm", ">=25% relative harm reduction with confidence interval excluding zero"),
                              ("main_gate", "Diagnostics improve harm at matched coverage over duration and dispersion gates"),
@@ -307,10 +389,33 @@ def main():
                 cells.append({"table": 2, "row": label, "column": column, "value": value,
                               "source": "results/velocity_followup/cases.jsonl",
                               "derivation": "Mean over the same 64 dev_test V groups; " + method + "; fixed first draw or spectral medoid; no release gate applied"})
-    for mechanism, item in diagnostics["mechanisms"].items():
-        if item["cases"] == 20:
-            for column, key in [("Cases", "cases"), ("AI use", "coverage"), ("Error Q(P)", "mean_P_Q")]:
-                cells.append({"table": 3, "row": mechanism, "column": column, "value": item[key], "source": DIAG + "/summary.json", "json_pointer": "/mechanisms/" + mechanism + "/" + key})
+    if (ROOT / 'results/gpu_agent_benchmark/summary.json').exists():
+        agent = read('results/gpu_agent_benchmark/summary.json')
+        labels={'rules':'Fixed rules','direct':'Direct agent','reasoning':'Reasoning agent',
+                'self_review':'Self-review','two_agents':'Planner--reviewer'}
+        columns={'Setting':'setting_correct','Cue':'cue_correct','Complete':'successes',
+                 'Tokens':'mean_generated_tokens','Seconds':'median_elapsed_seconds'}
+        for arm,label in labels.items():
+            for column,key in columns.items():
+                cells.append({'table':3,'row':label,'column':column,'value':agent['metrics'][arm][key],
+                              'source':'results/gpu_agent_benchmark/summary.json','json_pointer':'/metrics/'+arm+'/'+key})
+        if (ROOT / 'results/gpu_agent_guard/summary.json').exists():
+            guarded = read('results/gpu_agent_guard/summary.json')
+            for arm,label in [('reasoning','Follow-up: reasoning'),('reasoning_guarded','Follow-up: guarded')]:
+                for column,key in columns.items():
+                    cells.append({'table':3,'row':label,'column':column,'value':guarded['metrics'][arm][key],
+                                  'source':'results/gpu_agent_guard/summary.json','json_pointer':'/metrics/'+arm+'/'+key})
+        if (ROOT / 'results/gpu_agent_budget/summary.json').exists():
+            budgeted = read('results/gpu_agent_budget/summary.json')
+            for arm,label in [('reasoning','Budget: original'),('reasoning_long','Budget: longer')]:
+                for column,key in columns.items():
+                    cells.append({'table':3,'row':label,'column':column,'value':budgeted['metrics'][arm][key],
+                                  'source':'results/gpu_agent_budget/summary.json','json_pointer':'/metrics/'+arm+'/'+key})
+    else:
+        for mechanism, item in diagnostics["mechanisms"].items():
+            if item["cases"] == 20:
+                for column, key in [("Cases", "cases"), ("AI use", "coverage"), ("Error Q(P)", "mean_P_Q")]:
+                    cells.append({"table": 3, "row": mechanism, "column": column, "value": item[key], "source": DIAG + "/summary.json", "json_pointer": "/mechanisms/" + mechanism + "/" + key})
     save("reports/manuscript_audit/table_cells.json", cells)
     with (ROOT / "reports/experiment_ledger.csv").open("w", newline="") as stream:
         writer = csv.writer(stream, lineterminator="\n")

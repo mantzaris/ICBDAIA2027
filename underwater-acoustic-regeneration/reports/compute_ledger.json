@@ -1,5 +1,5 @@
 {
-  "recorded_utc": "2026-11-16T08:58:08.555292+00:00",
+  "recorded_utc": "2026-11-16T15:18:43.130944+00:00",
   "completion_utc": "2026-11-16T05:08:06.309695+00:00",
   "session_elapsed_hours_at_completion": 8.318974915277778,
   "authorized_maximum_hours": 10,
@@ -45,5 +45,43 @@
     "remote_GPU_used": false,
     "new_training": false,
     "scope": "Separate local follow-up after user reported the pod unavailable; original GPU deadline and completion remain unchanged"
+  },
+  "replacement_pod_GPU_agent_comparison": {
+    "gpu": "NVIDIA RTX PRO 4500 Blackwell",
+    "model": "Qwen/Qwen3-8B",
+    "dtype": "bfloat16",
+    "cases": 32,
+    "neural_episodes": 128,
+    "session_hours_through_evaluation": 3.5250039027777778,
+    "neural_inference_seconds": 11234.201599838794,
+    "peak_allocated_bytes": 17259933184,
+    "utilization_log": "logs/gpu_agent_utilization.jsonl",
+    "utilization_log_scope": "Minute-spaced snapshots starting during primary evaluation; setup, smoke, and earlier primary inference are not covered",
+    "local_model_inference": false,
+    "new_training": false,
+    "pod_shutdown": false,
+    "scope": "Separate user-authorized replacement-pod run; original study and CPU demonstration preserved",
+    "guarded_followup": {
+      "new_groups": 16,
+      "neural_episodes": 32,
+      "inference_seconds": 3231.0523447064916,
+      "peak_allocated_bytes": 17140803584,
+      "session_hours_through_all_agent_jobs": 4.428300916666666,
+      "completed_utc": "2026-11-16T14:04:41.883300+00:00"
+    },
+    "reasoning_budget_followup": {
+      "reused_primary_tasks": 16,
+      "new_neural_episodes": 16,
+      "inference_seconds": 3481.575897885952,
+      "peak_allocated_bytes": 17433020416,
+      "utilization_log": "logs/gpu_agent_budget_utilization.csv",
+      "session_hours_through_all_agent_jobs": 5.400464438055556,
+      "completed_utc": "2026-11-16T15:03:01.671977+00:00"
+    },
+    "total_scored_neural_episodes": 176,
+    "total_scored_episodes_including_rules": 208,
+    "unique_recording_groups": 48,
+    "session_hours_to_last_job": 5.400464438055556,
+    "total_scored_neural_inference_seconds": 17946.829842431238
   }
 }

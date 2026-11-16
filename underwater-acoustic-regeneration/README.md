@@ -1,4 +1,4 @@
-# Diagnosing generative underwater acoustic repair
+# Verifying generative underwater acoustic repair and agent decisions
 
 The targeted follow-up **diagnoses and corrects a numerical failure** in generative
 underwater audio repair. A matched velocity-prediction model removes the observed
@@ -8,16 +8,36 @@ falls from 0.412 to 0.308, about 25%; the learned baseline remains better at 0.2
 The anonymous paper presents the mechanism, three new equations, controls, and
 before/after spectrograms. These are exploratory results on reused development data.
 
-A subsequent **CPU-only tool-using agent demonstration** uses the already installed
-Llama 3.1 8B model. Its first draft claims a comparison it did not execute. One
-explicit audit-feedback continuation completes the missing measurement and display
-verification. Four model turns and seven tool calls take 7.8 minutes, with zero
-server-reported VRAM. The model's revised prose remains incomplete; the operator
-card displays verified tool values directly. This is one guided case, not an agent
-accuracy benchmark. [Figure](manuscript/agent_episode.pdf),
-[recorded episode](results/cpu_agent_demo_run02/summary.json),
-[continuation](results/cpu_agent_demo_audited/summary.json), and
-[factual audit](reports/cpu_agent_response_audit.json) retain the evidence.
+A **GPU agent comparison** evaluates fixed rules, direct Qwen3-8B, Qwen3 reasoning,
+reasoning with self-review, and a planner–reviewer pair on 32 recorded acoustic
+tasks. Every neural approach uses the same BF16 weights on the user-supplied
+RTX PRO 4500 Blackwell. The tasks require a supported acoustic-cue label, a feasible
+virtual display setting, and executed verification. A separately frozen follow-up
+compares reasoning with and without a configuration feasibility gate on sixteen
+additional source groups and dates. These are new agent outcomes on reused acoustic
+development data; they do not evaluate vessel identification or physical equipment.
+The frozen protocols and all outcomes, including failures, are retained below.
+A third, exploratory budget check reuses the first sixteen primary tasks and their
+original reasoning outputs, allowing 2,048 thinking tokens per turn and 12,288 total
+generated tokens. It addresses frequent truncation under the original cap; these
+sixteen paired tasks are not counted as additional independent recordings.
+
+The primary complete-task counts are 10/32 for direct mode, 4/32 for reasoning,
+8/32 for self-review, and 9/32 for the planner–reviewer; none of the three predefined
+paired contrasts is conclusive after adjustment. Fixed rules complete 32/32.
+The gate blocks infeasible applied changes (six to zero), while completion changes
+from 2/16 to 3/16 without conclusive evidence of improvement. The larger budget
+improves correct settings from 8/16 to 12/16 and completion from 3/16 to 5/16
+(exact p=0.6875), while mean tokens rise from 3,044 to 6,278 and median time from
+111.6 to 187.2 seconds. These results support checking executed state and reporting
+actual cost; they do not establish a general ranking of reasoning ability.
+
+All three phases are complete: **208 scored episodes, including 176 neural episodes,
+on 48 unique recording groups**, in **5 hours 24 minutes**. Replay audits verify
+1,109 unique tool returns and 1,080 CUDA turns. The [completion record](reports/gpu_agent_remote_completion.json)
+confirms that research jobs ended and the pod was left running. The
+[backup manifest](manifests/verified_gpu_agent_backup.json) verifies 450 closed remote
+output and resource files. No new language-model inference ran on the local computer.
 
 The original development pilot **failed its predeclared feasibility trigger**:
 only 5 of 64 tuning groups (7.8%) had a diffusion candidate improving Q by at least
@@ -35,7 +55,7 @@ on `main`. Nothing is pushed; the user handles the push.
 
 - [Single LaTeX manuscript](manuscript/mainj.tex), [BibTeX references](manuscript/references.bib),
   and [rendered PDF](manuscript/mainj.pdf): an anonymous development
-  diagnosis and targeted correction study, not a completed confirmatory main study.
+  diagnosis, targeted correction, and controlled GPU agent comparison; the original confirmatory restoration study remains incomplete.
 - [Pilot findings and limits](reports/pilot.md), [claim-to-evidence map](reports/claim_to_evidence.json),
   [table-cell sources](reports/manuscript_audit/table_cells.json), [experiment ledger](reports/experiment_ledger.json),
   and [compute ledger](reports/compute_ledger.json).
@@ -45,8 +65,15 @@ on `main`. Nothing is pushed; the user handles the push.
   [paired results](results/velocity_followup/summary.json),
   [training-control audit](reports/velocity_training_match.json), and
   [independently recomputed metrics](reports/velocity_followup_validation.json).
-- All three paper figures are beside `mainj.tex` in `manuscript/`: a recorded agent
-  episode with an analysis-setting comparison, a numerical/acoustic correction comparison, and three original
+- [GPU comparison protocol](preregistration/gpu_agent_benchmark.json),
+  [pre-evaluation scoring amendment](preregistration/gpu_agent_scoring_amendment.json),
+  [frozen implementation](preregistration/gpu_agent_evaluation_freeze.json), and
+  [separate configuration-gate follow-up](preregistration/gpu_agent_guard_followup.json),
+  plus the [reasoning-budget check](preregistration/gpu_agent_budget_followup.json).
+  Input waveforms, masks, tasks, raw model responses, and executed tool returns are
+  under `results/gpu_agent_benchmark/`, `results/gpu_agent_guard/`, and `results/gpu_agent_budget/`.
+- All three paper figures are beside `mainj.tex` in `manuscript/`: a recorded acoustic
+  example with the comparative agent results, a numerical/acoustic correction comparison, and three original
   acoustic case comparisons with plain-language labels.
   PDF/SVG and 450-dpi PNG exports remain in `figures/`, alongside the earlier
   supplemental workflow and waveform/PSD plots. The figure scripts refresh the
@@ -62,7 +89,8 @@ The added correction trains for 5,000 updates, evaluates 192 existing V groups w
 two samplers, and independently verifies all 1,536 new candidate gap scores.
 
 The three-seed main matrix, C4/C5/C6 controls, independent classifier, VLIZ audio,
-and confirmatory statistical comparisons were not run after the no-go decision.
+and the original restoration study's confirmatory statistical comparisons were not
+run after the no-go decision.
 The 16-source learning diagnostic does not establish near-zero memorization.
 
 ## Operator workflow: labels and configuration
@@ -81,7 +109,7 @@ it does not by itself establish object identity.
 | Inspect a low-frequency component | [32 ms versus 128 ms analysis windows](manuscript/operator_configuration.pdf), with 4/16 ms hops and 31.25/7.81 Hz frequency bins | Demonstrated offline on the same available input; frames touching gaps excluded |
 | Identify an object or vessel class | Existing dataset annotations; an independent labeling model is required | No identification accuracy evaluated |
 | Configure physical equipment | Proposed review of acquisition gain/sample rate against instrument capabilities, operator approval, and a new measurement | No hardware commands or configuration benefits evaluated |
-| Use tools and audit claimed actions | One local Llama 3.1 8B episode plus an explicit corrective continuation; real measurements and virtual display configuration | Demonstrated on one guided case; action omissions corrected, final prose still incomplete; no general reasoning benchmark |
+| Use tools and audit claimed actions | Four Qwen3-8B workflows and a rule baseline; real measurements, cue labels, and virtual display configuration | Frozen comparison on 32 source groups, plus a separately frozen 16-group feasibility-gate follow-up; bounded task rules and one model/base seed |
 
 The [configuration manifest](figures/operator_configuration.json) records exactly
 which display settings were changed. The [supplemental decision plot](figures/operator_decisions.pdf)
@@ -89,8 +117,9 @@ shows all 64 reserved development cases: 52 selected proposals worsen error beyo
 the baseline tolerance, and the release rule uses baseline fill throughout. That
 baseline is also learned, estimated audio. Numerical error and fluent explanations
 are not identification-confidence scores. The agent receives numeric tool returns,
-without vessel labels, complete-reference gaps, or reconstruction scores. It runs
-locally on CPU and changes only a virtual analysis display. The paper's operational examples are
+without vessel labels, complete-reference gaps, or reconstruction scores. Neural
+inference for the new comparison runs on the supplied GPU and changes only a virtual
+analysis display. The paper's operational examples are
 illustrative; they are not an operator trial or a deployed sonar system.
 
 ## Acoustic examples
@@ -133,7 +162,12 @@ PYTHONPATH=src python3 scripts/posthoc_pilot.py
 python3 scripts/plot_pilot.py
 PYTHONPATH=src python3 scripts/build_acoustic_examples.py
 PYTHONPATH=src python3 scripts/plot_velocity_followup.py
-PYTHONPATH=src python3 scripts/build_agent_figure.py
+PYTHONPATH=src python3 scripts/analyze_gpu_agent_benchmark.py
+PYTHONPATH=src python3 scripts/analyze_gpu_agent_guard_followup.py
+PYTHONPATH=src python3 scripts/analyze_gpu_agent_budget_followup.py
+PYTHONPATH=src python3 scripts/audit_gpu_agent_failures.py
+python3 scripts/audit_gpu_agent_budgets.py
+PYTHONPATH=src python3 scripts/plot_gpu_agent_benchmark.py
 python3 scripts/build_reports.py
 python3 scripts/build_manuscript.py
 python3 scripts/validate_manuscript.py
@@ -170,7 +204,7 @@ masked training loss. The [frozen follow-up protocol](preregistration/velocity_f
 specifies one matched 5,000-update correction experiment; it does not reopen the
 actual calibration or final-test partitions.
 
-The CPU agent is a later local demonstration after the user reported the pod
+The retained CPU agent is an earlier local demonstration after the user reported the pod
 unavailable. Its [task and limits](preregistration/cpu_agent_demo.json),
 [transport compatibility amendment](preregistration/cpu_agent_transport_amendment.json),
 and [post hoc audit continuation](preregistration/cpu_agent_audit_continuation.json)
@@ -182,11 +216,24 @@ requests and responses allow exact tool-result replay, without assuming language
 reruns are bitwise reproducible. The plotted evidence card is derived from tools and
 is explicitly not the model's unverified prose.
 
+The subsequent GPU comparison changes both model and protocol relative to that
+guided CPU example. It does **not** isolate a causal benefit of GPU hardware or
+show that GPU execution fixes a CPU reasoning failure. Within the new comparison,
+weights and task rules are controlled. Thinking mode, continuation structure, and
+the tool gate are the evaluated changes. Equal ceilings (eight turns, sixteen tool
+calls, 6,144 generated tokens) do not mean equal actual cost. The 512-token per-turn
+thinking cap and forced closing of unfinished reasoning are recorded. Rules encode
+the specified policy and provide a task-specific ceiling, not a general acoustic
+intelligence system. Cue labels are defined by supplied prominence, frequency, and
+relative-level rules; their class balance limits interpretation.
+
 ## Environments and GPU reproduction
 
 `requirements.lock` records the CPU verification environment;
 `requirements.gpu.lock` records Python 3.12 / PyTorch 2.8.0+cu128 on the RTX 4090;
 `requirements.transfer.lock` records the separate legacy general-audio environment;
+`provenance/gpu_agent_environment.json` pins the Qwen3 model revision, weight hashes,
+CUDA residency, and library versions on the replacement pod;
 `reports/manuscript_audit/build_report.json` records the LaTeX engines and hashes;
 `provenance/word_environment.lock` retains the former Word/figure environment. Full freezes
 include inherited system packages and are environment inventories, not portable
@@ -220,10 +267,24 @@ The executed sequence was:
    original frozen cases. `sync_velocity_followup.py` verifies 206 transferred
    files against the remote copies; `plot_velocity_followup.py` independently
    recomputes scores and checks the derived error-propagation identities.
+7. On the replacement pod, set up `.venv-agents` with `scripts/setup_gpu_agents.sh`
+   and the pinned Qwen3 revision. Prepare frozen observed-only tasks with
+   `prepare_gpu_agent_cases.py`. Run two G-only transport cases before the scored
+   comparison, preserving the documented scoring corrections. The scored job uses
+   `launch_gpu_agent_evaluation.py`; `queue_gpu_agent_guard_followup.py` starts the
+   separately frozen sixteen-group follow-up after the primary job exits. Both use
+   `configs/gpu_agent_authorization.json`, CUDA-only model weights, and a hard job
+   deadline. `sync_gpu_agent_results.py --final` copies closed outputs and verifies
+   their hashes against all completed remote phases. The analysis scripts replay
+   tool measurements and rescore every report without running a language model.
+   `queue_gpu_agent_budget_followup.py` subsequently runs the one larger-budget
+   condition if at least three authorized hours remain. It adds sixteen neural
+   episodes on reused tasks, preserving the original paired control outputs.
 
 Use new run identifiers for any new experiment. Do not overwrite completed artifacts
-or treat a rerun as another independent sample. The dated authorization in
-`configs/run_authorization.json` applies to this run only; scripts enforce its deadline.
+or treat a rerun as another independent sample. The dated authorizations in
+`configs/run_authorization.json` and `configs/gpu_agent_authorization.json` apply to
+their respective GPU sessions; scripts enforce their deadlines.
 
 ## Data, preservation, and resource state
 
@@ -239,10 +300,11 @@ local backups; per-case arrays have recorded SHA-256 hashes. Download/retrieval
 locations are in `manifests/` and `provenance/`. The remote `/workspace` is a 50 GB
 container overlay, not a confirmed persistent volume. Keep the local backups.
 
-The pod was left running after the GPU study, whose jobs finished within the ten-hour
-cap. The user subsequently reported it unavailable; the agent follow-up uses only
-local CPU and does not reconnect or provision another pod. The actual booked hourly rate
-and storage charges were not supplied, so no dollar total is claimed. To stop it
-later, use the existing pod's **Stop** control in RunPod after confirming backups;
-do not terminate it expecting the container disk to persist. No shutdown, deletion,
-new paid resource, repository publication, email, or submission is performed here.
+The original RTX 4090 pod was left running after its study, whose jobs finished
+within the ten-hour cap; the user subsequently reported it unavailable. The new
+GPU experiments use the user's replacement RTX PRO 4500 pod under a separate
+ten-hour authorization, with instructions to leave it running. No additional
+resource is provisioned. The actual hourly rate and storage charges were not
+supplied, so no dollar total is claimed. Hash-verified local outputs preserve the
+new results; publicly available pinned model weights remain on the pod. No push
+or submission is performed here.

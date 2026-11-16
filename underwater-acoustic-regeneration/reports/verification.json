@@ -1,7 +1,7 @@
 {
-  "local_pytest_passed": 49,
+  "local_pytest_passed": 59,
   "remote_pytest_passed": 45,
-  "local_test_seconds": 1.67,
+  "local_test_seconds": 1.48,
   "remote_test_seconds": 2.78,
   "local_python": "3.8.10",
   "remote_python": "3.12.3",
@@ -101,7 +101,7 @@
   },
   "manuscript_total_pages": 10,
   "manuscript_equations": 5,
-  "manuscript_citations": 16,
+  "manuscript_citations": 19,
   "visual_pages_inspected": 10,
   "CPU_agent": {
     "cases": 1,
@@ -113,5 +113,62 @@
     "model_prose_verified": false,
     "physical_hardware_changed": false,
     "tool_state_and_mask_preserved": true
-  }
+  },
+  "GPU_agent_preflight": {
+    "new_tests_passed": 10,
+    "CUDA_smoke_cases": 2,
+    "CUDA_smoke_neural_episodes": 8,
+    "all_smoke_episodes_completed": true,
+    "smoke_report": "reports/gpu_agent_smoke.json",
+    "scoring_amendment": "preregistration/gpu_agent_scoring_amendment.json",
+    "evaluation_status": "All three GPU phases passed independent replay and score validation",
+    "local_language_model_inference": false,
+    "guarded_tool_tests_passed": 2
+  },
+  "remote_pytest_scope": "Original RTX4090 run; new CUDA agent outputs are verified by separate replay audits",
+  "GPU_agent": {
+    "primary": {
+      "status": "passed",
+      "cases": 32,
+      "neural_episodes": 128,
+      "tool_returns_replayed": 888,
+      "CUDA_model_turns_verified": 817,
+      "validation": "reports/gpu_agent_validation.json"
+    },
+    "configuration_gate": {
+      "status": "passed",
+      "new_groups": 16,
+      "neural_episodes": 32,
+      "tool_returns_replayed": 159,
+      "CUDA_model_turns_verified": 186,
+      "validation": "reports/gpu_agent_guard_validation.json"
+    },
+    "larger_budget": {
+      "status": "passed",
+      "reused_primary_tasks": 16,
+      "new_neural_episodes": 16,
+      "new_tool_returns_replayed": 62,
+      "new_CUDA_model_turns_verified": 77,
+      "audit_tool_returns_including_reused_controls": 135,
+      "audit_CUDA_turns_including_reused_controls": 167,
+      "validation": "reports/gpu_agent_budget_validation.json"
+    },
+    "local_language_model_inference": false,
+    "all_failures_retained": true,
+    "total_scored_episodes": 208,
+    "total_scored_neural_episodes": 176,
+    "unique_recording_groups": 48,
+    "unique_tool_returns_replayed": 1109,
+    "unique_CUDA_model_turns_verified": 1080,
+    "resource_cap_audit": "reports/gpu_agent_budget_audit.json",
+    "failure_component_audit": "reports/gpu_agent_failure_audit.json",
+    "backup_verified_files": 450,
+    "remote_completion": "reports/gpu_agent_remote_completion.json",
+    "session_hours_to_last_job": 5.400464438055556,
+    "pod_left_running": true
+  },
+  "manuscript_pdf_sha256": "1bd9c1ebcef11b42cdddbbb0c48ac23f943360138ee87114ac85169f3041ab91",
+  "manuscript_numeric_table_cells_verified": 110,
+  "visual_review_pdf_sha256": "1bd9c1ebcef11b42cdddbbb0c48ac23f943360138ee87114ac85169f3041ab91",
+  "final_reviewed_utc": "2026-11-16T15:19:34.746733+00:00"
 }

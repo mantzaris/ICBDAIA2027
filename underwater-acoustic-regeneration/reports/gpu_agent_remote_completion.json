@@ -1,0 +1,46 @@
+{
+  "checked_utc": "2026-11-16T15:06:31.399989+00:00",
+  "pod_running": true,
+  "research_processes": [],
+  "primary_guard_monitor_active": false,
+  "budget_queue": {
+    "queued_utc": "2026-11-16T11:23:52.227489+00:00",
+    "status": "completed",
+    "deadline_utc": "2026-11-16T19:09:00+00:00",
+    "started_utc": "2026-11-16T14:04:52.411806+00:00",
+    "command": [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=30s",
+      "18247",
+      "/workspace/underwater-acoustic-regeneration/.venv-agents/bin/python",
+      "scripts/run_gpu_agent_budget_followup.py"
+    ],
+    "utilization_command": [
+      "nvidia-smi",
+      "--query-gpu=timestamp,name,utilization.gpu,memory.used,memory.total,power.draw",
+      "--format=csv",
+      "--loop=60"
+    ],
+    "exit_code": 0,
+    "finished_utc": "2026-11-16T15:03:03.571183+00:00"
+  },
+  "gpu": "NVIDIA RTX PRO 4500 Blackwell, 0, 2, 32623, 26",
+  "compute_processes": "",
+  "disk_usage_bytes": {
+    "total": 53687091200,
+    "used": 16633044992,
+    "free": 37054046208
+  },
+  "final_GPU_job_completed_utc": "2026-11-16T15:03:01.671977+00:00",
+  "session_hours_to_last_job": 5.400464438055556,
+  "stop_pod_requested": false,
+  "pod_left_running_per_user": true,
+  "new_neural_inference_on_local_computer": false,
+  "scored_episodes": 208,
+  "scored_neural_episodes": 176,
+  "unique_recording_groups": 48,
+  "reused_budget_controls_counted_twice": false,
+  "local_output_backup": "manifests/verified_gpu_agent_backup.json",
+  "scope": "Replacement RTX PRO 4500 run; all three experiment phases and their resource monitors finished. Published model weights remain on the running pod; scored outputs and fixed inputs are preserved locally."
+}

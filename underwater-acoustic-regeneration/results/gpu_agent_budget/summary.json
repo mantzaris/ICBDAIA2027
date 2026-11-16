@@ -1,0 +1,98 @@
+{
+  "status": "completed",
+  "cases": 16,
+  "new_neural_episodes": 16,
+  "reused_primary_control_episodes": 16,
+  "case_ids": [
+    "case_01",
+    "case_02",
+    "case_03",
+    "case_04",
+    "case_05",
+    "case_06",
+    "case_07",
+    "case_08",
+    "case_09",
+    "case_10",
+    "case_11",
+    "case_12",
+    "case_13",
+    "case_14",
+    "case_15",
+    "case_16"
+  ],
+  "metrics": {
+    "reasoning": {
+      "n": 16,
+      "successes": 3,
+      "success_rate": 0.1875,
+      "wilson_95": [
+        0.06591599071428142,
+        0.4300888096197414
+      ],
+      "setting_correct": 8,
+      "cue_correct": 13,
+      "stated_applied_setting_mismatch": 1,
+      "unsupported_report_cases": 4,
+      "model_turns": 90,
+      "forced_thinking_closures": 79,
+      "forced_closure_fraction": 0.8777777777777778,
+      "mean_generated_tokens": 3044.1875,
+      "median_elapsed_seconds": 111.5963853665744,
+      "total_inference_seconds": 1783.447542440379,
+      "failed_or_incomplete": 0
+    },
+    "reasoning_long": {
+      "n": 16,
+      "successes": 5,
+      "success_rate": 0.3125,
+      "wilson_95": [
+        0.14164643854782039,
+        0.5559564416525933
+      ],
+      "setting_correct": 12,
+      "cue_correct": 13,
+      "stated_applied_setting_mismatch": 0,
+      "unsupported_report_cases": 3,
+      "model_turns": 77,
+      "forced_thinking_closures": 21,
+      "forced_closure_fraction": 0.2727272727272727,
+      "mean_generated_tokens": 6277.625,
+      "median_elapsed_seconds": 187.23710287554422,
+      "total_inference_seconds": 3481.575897885952,
+      "failed_or_incomplete": 2
+    }
+  },
+  "paired_long_minus_original": {
+    "difference": 0.125,
+    "paired_bootstrap_95": [
+      -0.1875,
+      0.4375
+    ],
+    "wins": 4,
+    "losses": 2,
+    "ties": 10,
+    "mcnemar_exact_p": 0.6875
+  },
+  "completion": {
+    "completed_utc": "2026-11-16T15:03:01.671977+00:00",
+    "cases": 16,
+    "episodes": 16,
+    "model_device": "cuda:0",
+    "peak_allocated_bytes": 17433020416,
+    "artifact_sha256": {
+      "preregistration/gpu_agent_benchmark.json": "c1c824407a1c2dd7bda19b2a2533f32933f3371e951271a5261aafedd133a44c",
+      "preregistration/gpu_agent_budget_followup.json": "07ffbfea8f489da90667a1a941cb60bb70587908e8a21f1a0aaf765a6a5c23a6",
+      "scripts/run_gpu_agent_benchmark.py": "3fedf2a030797adfa9744f7a96f02570c575e949ff912c9837212bf21d3bef04",
+      "scripts/run_gpu_agent_budget_followup.py": "142384cc9636c32888c805fade03188c41111c7d6f4e000c0bc7321a44890acd",
+      "scripts/analyze_gpu_agent_benchmark.py": "a1e03e04befe1ebd0cfed44d4159cc40427673b9a1466a65b34aba37174f4426",
+      "scripts/analyze_gpu_agent_budget_followup.py": "37a73736cb9b832dfa31bf5b68e5d631af48bf8af997db3e37a4e4559dcf8604",
+      "scripts/queue_gpu_agent_budget_followup.py": "3152f5e6239ca14d33e610ffdf4d7ed794bd6e168d5c8b0a2c8b3620f7d9639b",
+      "src/acoustic_regeneration/agents/benchmark_tools.py": "fe9cb098103a757a1671e59143dfd571e6a208c77cdc852344391fc18fb9efa9",
+      "results/gpu_agent_benchmark/inputs/manifest.json": "5bb238a8aaf9f0b2c3bb427b66649d3db4ca9829372000301bca6b80226a0a1f",
+      "provenance/gpu_agent_environment.json": "32a64d8db030743b748e4625bee3b8a0367ef5d051a4c832572cec66ccfa3b39",
+      "configs/gpu_agent_authorization.json": "f59ba20bd54f4ec751a1d4da23c22d93bb76e7d97b12566ad71290e96e77a9ac"
+    }
+  },
+  "scope": "Exploratory budget sensitivity on the first sixteen frozen primary tasks; not new independent recordings. Both per-turn and total reasoning-token caps change. All other model/task settings and scoring remain fixed."
+}

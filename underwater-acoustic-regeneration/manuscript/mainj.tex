@@ -1,6 +1,6 @@
 % Canonical, editable manuscript. All prose, equations, and tables are in this file.
 % Build: latexmk -pdf -interaction=nonstopmode -halt-on-error mainj.tex
-% Anonymous development draft; main-study efficacy remains untested.
+% Anonymous development study; original held-out restoration goals remain untested.
 \documentclass[runningheads,orivec]{llncs}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -11,44 +11,40 @@
 \usepackage{float}
 \usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdfauthor={Anonymous},pdftitle={Diagnosing and Correcting Unstable Generative Underwater Acoustic Repair},pdfsubject={Anonymous development study; targeted correction and operational limitations}}
+\hypersetup{pdfauthor={Anonymous},pdftitle={Verifying Generative Underwater Acoustic Repair and Agent Decisions},pdfsubject={Anonymous development study; acoustic correction and GPU agent comparisons}}
 
 \begin{document}
 \raggedbottom
-\title{Diagnosing and Correcting Unstable\texorpdfstring{\\}{ }Generative Underwater Acoustic Repair}
-\titlerunning{Diagnosing Generative Underwater Acoustic Repair}
+\title{Verifying Generative Underwater Acoustic Repair and Agent Decisions}
+\titlerunning{Verifying Acoustic Repair and Agent Decisions}
 \author{Anonymous submission}
 \authorrunning{Anonymous}
 \institute{}
 \maketitle
 
 \begin{abstract}
-Trustworthy acoustic evidence supports object labeling and equipment decisions. We study repairing known gaps in public underwater vessel recordings while keeping estimated samples marked. An initial diffusion pilot exposes a specific failure: converting predicted noise into sound amplifies squared prediction error by approximately $4.12\times10^8$ at the terminal diffusion step. Precision and clipping controls isolate the problem. A matched 5,000-update intervention uses established velocity prediction to remove that conversion singularity. On four diagnostic recordings, full-precision gap NMSE falls from $5.18\times10^6$ to 1.03 without clipping or skipping the terminal step. Across 192 reused development groups, acoustic error also decreases. On the 64 reserved development cases, first-draw combined error Q falls from 0.412 to 0.308, a 25\% reduction, although the learned baseline remains better at 0.239. The correction therefore resolves the observed numerical failure without establishing sufficient acoustic usefulness. Three spectrogram and listening examples connect the comparison to excess energy, frequency structure, and low-tone continuity; an analysis-window comparison illustrates the tradeoff between timing and frequency detail. The original release rule declines every generative proposal, and no new rule is calibrated for the corrected model. This study demonstrates an inspectable diagnose--correct--verify workflow. A local CPU agent episode additionally shows how an execution audit catches an unsupported comparison claim and prompts missing tool actions. Identification and physical equipment control remain untested.
-\keywords{Generative AI \and Passive acoustics \and Audio inpainting \and Tool-using agents \and Operator decision support}
+Generative audio and language-model agents can produce plausible outputs without usable acoustic evidence. We test repair and executed decisions on public vessel recordings, retaining gap masks. A diffusion pilot exposes a conversion amplifying squared prediction error by approximately $4.12\times10^8$. Precision and clipping controls isolate the mechanism. A matched 5,000-update velocity intervention reduces full-precision gap NMSE from $5.18\times10^6$ to 1.03 on four diagnostic recordings. On 64 reserved development cases, error Q falls from 0.412 to 0.308 (25\%), while the learned baseline remains better at 0.239. Three acoustic examples illustrate limitations. Five GPU workflows compare fixed rules, direct and reasoning agents, self-review, and a planner--reviewer on 32 acoustic tasks. At 512 thinking tokens per turn, reasoning labels 25/32 cues correctly versus 16/32 for direct mode, but completes 4/32 tasks versus 10/32. A gate on sixteen new recordings blocks prohibited changes without establishing a completion gain. Larger budgets reduce truncation on sixteen reused tasks without establishing improved completion. Numerical stability, acoustic quality, and verified actions require separate checks. Object identification and physical equipment control remain untested.
+\keywords{Generative AI \and Passive acoustics \and Audio inpainting \and Reasoning agents \and Operator decision support}
 \end{abstract}
 
 \section{From acoustic evidence to labels and settings}
 
-An acoustic or sonar operator needs to answer three questions: what was measured, which label is justified, and would a different setting improve the evidence? Ship recordings contain low-frequency components and broadband energy \cite{veirs}. Figure~\ref{fig:configuration} connects a real recording to a language-model agent's analysis actions and an execution audit. A component near 78 Hz is a feature; it does not by itself identify an object. The dataset's tanker annotation is withheld from the agent.
+An acoustic or sonar operator needs to know what was measured, which label is justified, and whether a different setting improves the evidence. Ship recordings contain low-frequency components and broadband energy \cite{veirs}. Figure~\ref{fig:configuration} compares agents using these cues. A spectral peak alone does not identify an object; dataset vessel annotations remain unavailable to agents.
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=\linewidth]{agent_episode.pdf}
-\caption{One recorded CPU agent episode with post hoc audit feedback. The first draft claims a comparison absent from its tool trace; the continuation is recorded separately. Spectrograms use the same available audio at 32/4 and 128/16 ms window/hop. Gray excludes every frame touching the gap; power shares a $-60$ to 0 dB scale. Longer windows improve frequency-bin spacing but blur timing. Only the software display is configured.}
+\includegraphics[width=\linewidth]{gpu_agent_comparison.pdf}
+\caption{A: recorded before/after spectra at 128 ms for the first frozen case, zoomed to 20--160 Hz; missing-sample frames are excluded. The callout compares stated/applied windows under two thinking limits. B: complete tasks on 32 recordings, with 95\% Wilson intervals for neural workflows. Fixed rules encode the policy. C: individual outcomes; orange means correct setting but incomplete task. Two agents means planner--reviewer. All changes affect a virtual display.}
 \label{fig:configuration}
 \end{figure}
 
-\emph{Generative AI} proposes missing sound; \emph{AI abstention} declines a generative proposal when the release rule fails. A \emph{provenance mask} marks measured versus filled samples, even when a baseline fill is used. These concepts protect the distinction between data and suggestions upstream of labeling and configuration.
-
-The pilot uses public single-hydrophone recordings, artificial gaps, and 8 kHz audio below 4 kHz. It includes no submarine recordings, array processing, active echoes, or operator trial. Actual calibration and final-test outcomes remain unopened; amplitudes are relative, not calibrated sound-pressure levels.
-
-The engineering question is whether an unsuccessful generator can reveal a correctable failure mechanism. We separate two tests: removing numerical error amplification, and improving reconstructed sound against a fixed baseline. A targeted follow-up changes the diffusion prediction target while retaining the architecture, training data, and update budget. This connects a reproducible failure trace to a specific intervention, with separate checks on stability and acoustic usefulness.
+\emph{Generative AI} proposes missing sound; \emph{abstention} declines unsuitable proposals. A \emph{provenance mask} marks every fill, including baseline estimates. We separately test numerical stability, acoustic fidelity, and executed agent actions. Public single-hydrophone recordings, artificial gaps, and relative amplitudes at 8 kHz support this development study. Submarine recordings, arrays, active echoes, and operator trials are outside its scope.
 
 \section{Prior work and the recordings used}
 
-UniqueShip addresses leakage in acoustic ship classification \cite{uniqueship}. Underwater spectrogram inpainting is already studied by Tembo et al. \cite{tembo}; their metadata were verified, but primary full text was unavailable. General-audio diffusion inpainting \cite{moliner}, DiffWave \cite{diffwave}, CSDI conditioning \cite{csdi}, inpainting uncertainty \cite{cohen}, risk calibration \cite{ltt}, and similarity guidance \cite{simdps} are established components. Velocity prediction is an established diffusion parameterization \cite{salimans}; our contribution is a controlled diagnostic application to this acoustic failure, not a new diffusion formulation.
+UniqueShip addresses leakage in acoustic classification \cite{uniqueship}; Tembo et al. study underwater spectrogram inpainting \cite{tembo}. General-audio diffusion inpainting \cite{moliner}, DiffWave \cite{diffwave}, CSDI conditioning \cite{csdi}, uncertainty \cite{cohen}, risk calibration \cite{ltt}, and similarity guidance \cite{simdps} are established. We apply established velocity prediction \cite{salimans} to diagnose and correct a measured acoustic failure. Tool-based reasoning \cite{react}, reflection \cite{reflexion}, and multi-agent conversations \cite{autogen} also precede this work. Li et al.\ \cite{signals_evidence} align multichannel acoustic representations with an LLM for structured detection reports. Here, controlled comparisons check reported decisions against executed measurements and display settings, followed by feasibility-gate and reasoning-budget interventions.
 
-The audited UniqueShip v1 twelve-class, five-hours-per-class archive has 43,208 mono PCM32 recordings at 32 kHz, totaling 60.008 hours; headers differ from the website's 20 kHz description. Twelve clips are shorter than the 4.096 s crop. Table~\ref{tab:1} preserves the first official test split, validation where feasible, and separates generator fitting G, quality-checker fitting D, development V, and calibration C by source/vessel group.
+UniqueShip v1 has 43,208 mono PCM32 recordings, twelve classes, and 60.008 hours. Audited headers give 32 kHz rather than the website's 20 kHz. Table~\ref{tab:1} preserves the first official test split and separates generator fitting G, quality-checker fitting D, development V, and calibration C by source/vessel group.
 
 \begin{table}[htbp]
 \caption{Audited source partitions; counts describe available data, not evaluated outcomes.}
@@ -75,39 +71,35 @@ Test & 4,477 & 610 & Unopened \\
 \end{tabular*}
 \end{table}
 
-All source descendants remain grouped; background uses hydrophone/date, with unknown devices pooled by date. Hash checks found no duplicates; timestamps found no cross-partition overlap or separation below 60 s. Yet 1,332/1,522 dates span partitions and parent/session IDs are unavailable, so environmental independence is unproven. Exhaustive shifted-duplicate detection was not performed. V/D lack pilot-vessel examples; C also lacks dredger; test lacks dredger and supports eleven classes. No identification accuracy is reported. Complete audio is resampled before artificial masking.
+Background grouping uses hydrophone/date, pooling unknown devices by date. Hash/timestamp checks find no duplicates, cross-partition groups, or separation below 60 s. Environmental independence and shifted-duplicate exclusion remain unproven: 1,332/1,522 dates span partitions and session IDs are missing. V/D lack pilot-vessel cases; C/test lack dredger. Crops are 4.096 s at 8 kHz, masked after resampling; twelve shorter clips are excluded.
 
 \section{Generate, check, select, and keep the gap marked}
 
-\textbf{Generate:} refine random noise in the gap into four possible fills. \textbf{Check:} rebuild two deliberately hidden nearby segments with known originals. \textbf{Select:} predict error relative to baseline B, then apply a release rule. \textbf{Mark:} retain the missing-sample flag. B is a deterministic learned restorer, also machine learning; P denotes the full rule's output.
+The pipeline generates four fills, checks two hidden nearby segments, selects by predicted error relative to deterministic learned baseline B, and applies a release rule. P denotes its output; the gap flag remains.
 
 For mask $m$ and input $y=m\odot x$, hidden values are erased before processing. Mean/RMS scaling uses observed samples only, with a training-fixed floor. Every generation step copies observations back; final inverse scaling preserves original observations exactly:
 \begin{equation}
 \Pi_y(z)=m\odot y+(1-m)\odot z.\label{eq:projection}
 \end{equation}
-Gaps are 50, 100, 250, or 500 ms with at least 0.75 s context per side. Training uses one gap 80\% of the time, otherwise two. Four proposals plus two known-audio checks use 32 DDIM steps each \cite{ddim}, totaling 192 evaluations. Each check hides its samples before recomputing normalization; references and labels never enter inference.
+Gaps are 50/100/250/500 ms with at least 0.75 s context per side; training uses one gap 80\% of the time, otherwise two. Four proposals plus two known-audio checks take 32 DDIM steps each \cite{ddim}: 192 evaluations. Checks erase samples before normalization; references and labels never enter inference.
 
-B minimizes development Q against bidirectional autoregressive orders 16/32/64/128. A histogram gradient-boosting regressor fits proposal-minus-B error $\Delta Q$ on 200 equally weighted D groups. Its 18 features summarize proposal disagreement, differences from B, boundaries, and known-audio errors. The lowest predicted error selects the proposal. Simpler duration-only and disagreement-only gates retain this selector.
+A histogram gradient-boosting regressor trained on 200 equally weighted D groups selects the lowest predicted proposal-minus-B error. Eighteen features cover disagreement, baseline differences, boundaries, and known-audio checks; duration-only and disagreement-only gates retain this selector.
 
-\section{Implementation and what the error scores mean}
+\textbf{Implementation and scores.} A 2.72-million-parameter DiffWave adaptation \cite{diffwave} uses a 1,000-step cosine schedule \cite{nichol}, seed 17, batch 16, and 5,000 updates on 1,440 G sources (about two hours). The same-backbone baseline trains for 2,500 updates with masked MAE plus 0.5 times multiresolution spectral convergence. Training takes 29.3/17.9 minutes on one RTX 4090, with 2.56 GiB peak allocation each.
 
-The DiffWave adaptation \cite{diffwave} has 64 channels, 36 residual layers, dilations 1--2048 repeated three times, 2,717,697 parameters, and a 3.071 s receptive field. A 1,000-step cosine schedule \cite{nichol}, seed 17, batch 16, and 5,000 updates use 1,440 G sources (about two hours). The same-backbone baseline trains for 2,500 updates with masked MAE plus 0.5 times multiresolution spectral convergence. Training takes 29.3/17.9 minutes on one RTX 4090, with 2.56 GiB peak allocation each.
-
-A reduced-width, 16-source diagnostic lowers loss but does not establish near-zero memorization after 2,000 updates. CUDA checkpoint restoration reproduces the next batch, RNG, loss, and parameters exactly. A 200-crop, six-output metric check has finite scores and zero observed-sample drift.
-
-Unbounded DDIM fails on four G-only cases: $\bar\alpha_{999}=2.43\times10^{-9}$ amplifies prediction error to gap NMSE in the millions. Clipping alone leaves Q saturated at one. Before V outcomes, a recorded amendment starts at $t=934$, the last timestep with $\bar\alpha\geq0.01$, and clips clean predictions at the G-derived bound $\pm5.897$. Noise is recomputed after clipping; observations are never clipped. Gaussian initialization at this nonterminal step introduces a train--inference mismatch \cite{lin}; the amended sampler is approximate.
+Unbounded DDIM fails on four G cases: $\bar\alpha_{999}=2.43\times10^{-9}$ amplifies error to gap NMSE in the millions. Clipping alone leaves Q at one. A pre-V amendment starts at $t=934$ (last $\bar\alpha\geq0.01$), clips predictions at G-derived $\pm5.897$, and recomputes noise. Observations are never clipped. Gaussian initialization at a nonterminal step makes this sampler approximate \cite{lin}.
 
 \begin{equation}
 Q=\tfrac12\min\!\left(\frac{\mathrm{NMSE}_{\mathrm{gap}}}{4},1\right)+\tfrac12\min\!\left(\frac{\mathrm{SC}_{\mathrm{gap}}}{2},1\right).\label{eq:quality}
 \end{equation}
 
-NMSE measures waveform mismatch relative to reference energy; SC measures frequency-magnitude mismatch. Lower is better for both and their combined Q. SC averages gap-only convergence at FFT sizes 64/128/256 with periodic Hann windows, quarter-window hops, and no centered padding. A ``worse'' fill exceeds B's Q by over 0.02: a reconstruction criterion, not an identification or safety score.
+NMSE measures waveform mismatch relative to reference energy; SC measures frequency-magnitude mismatch. Lower is better. SC averages gap-only convergence at FFT sizes 64/128/256, periodic Hann windows, quarter-window hops, and no centered padding. ``Worse'' means Q exceeds B's by over 0.02, a reconstruction rather than identification criterion.
 
-The release rule seeks at most 10\% worse fills among accepted proposals. V freezes at most nine nonpositive cutoffs. For $n$ acceptances and $e$ worse fills, the one-sided Clopper--Pearson bound uses level $1-0.05/M$ across $M$ cutoffs. A cutoff qualifies only if its bound is $\leq0.10$; $n=0$ gives one. Otherwise generative release is disabled. This requires independent, identically distributed groups and a frozen policy \cite{ltt}, not arbitrary site changes.
+The release rule seeks at most 10\% worse fills among acceptances. V freezes at most nine nonpositive cutoffs. A one-sided Clopper--Pearson bound at $1-0.05/M$ across $M$ cutoffs must be $\leq0.10$. Zero acceptances give bound one, disabling release. Independent groups, a frozen policy, and matching distributions are required \cite{ltt}.
 
 \section{Original pilot: the rule declines every AI proposal}
 
-V assigns 64 groups each to tuning, practice calibration, and reserved-case evaluation, with eight unused; the first 32 tuning groups also monitor training. B wins tuning Q (0.218; AR128: 0.229). Even choosing the best proposal with the reference, only 5/64 (7.8\%) improve Q by $\geq0.02$, below the 20\% requirement. At 64 steps this remains 5/64 while latency rises from 1.28 to 2.48 s. We retain 32 steps and stop the main study.
+V assigns 64 groups each to tuning, practice calibration, and reserved evaluation, with eight unused; the first 32 tuning groups also monitor training. B wins tuning Q (0.218; AR128: 0.229). Even reference-based best-of-four selection improves Q by $\geq0.02$ on only 5/64 groups (7.8\%), below the 20\% trigger. The 64-step check leaves this count unchanged; we retain 32 steps and stop the original main study.
 
 \begin{table}[htbp]
 \caption{One case per reserved development group ($n=64$). Lower error is better. AI use is the fraction receiving a diffusion proposal; Worse is the fraction with Q over 0.02 above B. Calls count diffusion evaluations; B needs one restoration pass. Velocity rows are the follow-up in Sect.~\ref{sec:correction}, without a release gate.}
@@ -146,9 +138,7 @@ Velocity: central of four & 0.295 & 1.255 & 1.00 & 0.703 & 128 \\
 \end{tabular*}
 \end{table}
 
-All four gates test cutoff zero: 0/64 practice-calibration acceptances give bound one. No cutoff qualifies, disabling the final gate. Always using the selected AI proposal worsens 52/64 gaps; P uses B throughout. Accepted-proposal risk is undefined. This stopping result motivates a targeted correction before further release-policy evaluation.
-
-Gap NMSE is 0.713 for B/P and 1.460 for C3, versus full-window 0.038/0.074; unchanged context dilutes error. C3's 99th-percentile gap NMSE is 6.944 versus B's 2.596. Observed drift is zero. A 2,000-draw group bootstrap gives P-minus-C3 Q $-0.110$ (95\% interval $-0.130$ to $-0.089$); balancing 63 dates gives $-0.112$ ($-0.132$ to $-0.091$), a different estimand. Both are exploratory.
+All four gates test cutoff zero: 0/64 practice-calibration acceptances give bound one, disabling release. Always using selected AI worsens 52/64 gaps; P uses B throughout and accepted-proposal risk is undefined. Gap NMSE is 0.713 for B/P and 1.460 for C3, versus full-window 0.038/0.074: unchanged context dilutes error. This stopping result motivates correction before further release-policy evaluation.
 
 \section{From a failure trace to a targeted correction}
 \label{sec:correction}
@@ -160,11 +150,9 @@ Gap NMSE is 0.713 for B/P and 1.460 for C3, versus full-window 0.038/0.074; unch
 \|\hat x_0^{\epsilon}-x_0\|_2^2&=\frac{1-\bar\alpha_t}{\bar\alpha_t}\|\hat\epsilon_\theta-\epsilon\|_2^2.
 \end{aligned}\label{eq:amplification}
 \end{equation}
-At $t=999$, the squared-error multiplier is approximately $4.12\times10^8$. A small error in predicted noise can therefore produce a very large waveform error. This is local error propagation at a known forward-noised state; it does not by itself model the full sampling trajectory.
+At $t=999$, the squared-error multiplier is approximately $4.12\times10^8$: small noise-prediction errors can become large waveform errors. This identity describes a known forward-noised state, not the full trajectory. Four G sources, fixed masks, and a noise seed isolate precision and clipping. Full precision also fails; clipping bounds amplitude but leaves Q at one. Starting later changes initialization as well as amplification.
 
-The saved four-source G diagnostic separates this mechanism from precision and amplitude bounding. With the same model, sources, masks, and noise seed, full-precision sampling also fails, so reduced precision alone cannot explain the problem. Clipping removes extreme amplitude but leaves Q saturated at one. Starting later reduces the amplification but changes the initialization assumption. These controls explain why the original numerical amendment enabled evaluation without establishing useful repair.
-
-\textbf{Change the prediction coordinates.} Following Salimans and Ho \cite{salimans}, train the same network to predict a velocity target and recover both clean signal and noise through a rotation:
+\textbf{Change prediction coordinates.} Following Salimans and Ho \cite{salimans}, predict velocity and recover clean signal and noise through a rotation:
 \begin{equation}
 \begin{aligned}
 v_t&=\sqrt{\bar\alpha_t}\epsilon-\sqrt{1-\bar\alpha_t}x_0,\\
@@ -172,30 +160,30 @@ v_t&=\sqrt{\bar\alpha_t}\epsilon-\sqrt{1-\bar\alpha_t}x_0,\\
 \hat\epsilon^{v}&=\sqrt{1-\bar\alpha_t}z_t+\sqrt{\bar\alpha_t}\hat v_\theta.
 \end{aligned}\label{eq:velocity}
 \end{equation}
-Now the squared clean-signal error equals $(1-\bar\alpha_t)\|\hat v_\theta-v_t\|_2^2$ at a fixed state: its multiplier is at most one. The conversion avoids division by the small signal coefficient. ``Velocity'' names a mathematical diffusion coordinate, not vessel speed or a physical acoustic velocity measurement.
+The fixed-state squared clean-signal error becomes $(1-\bar\alpha_t)\|\hat v_\theta-v_t\|_2^2$, with multiplier at most one. ``Velocity'' denotes a diffusion coordinate, not vessel speed.
 
-The observed-sample mask $m$ confines the training objective to erased coordinates; the norms sum across missing samples in each microbatch:
+The mask $m$ confines training to erased coordinates, summing across each microbatch:
 \begin{equation}
 \mathcal L_v=\mathbb E_{t,\epsilon}\!\left[
 \frac{\|(1-m)\odot(\hat v_\theta-v_t)\|_2^2}{\|1-m\|_1}
 \right].\label{eq:velocity_loss}
 \end{equation}
-This also changes the implied weighting of clean-signal error across noise levels: velocity loss weights it by $1/(1-\bar\alpha_t)$, whereas noise loss uses $\bar\alpha_t/(1-\bar\alpha_t)$. The intervention therefore changes both prediction coordinates and training emphasis; we do not attribute any acoustic gain to conversion arithmetic alone.
+Velocity loss weights clean-signal error by $1/(1-\bar\alpha_t)$, whereas noise loss uses $\bar\alpha_t/(1-\bar\alpha_t)$. Both prediction coordinates and training emphasis change; acoustic gains cannot be attributed to conversion arithmetic alone.
 
-\textbf{Test one fixed correction.} Before the new run, we record one 5,000-update, seed-17 intervention with the same 1,440 G sources, initialization, crop/mask/noise random streams, batch size, optimizer, EMA, and cosine schedule. The final checkpoint is fixed in advance. The primary sampler starts at 999 without clipping; a second velocity sampler retains the original 934/clipping settings to separate sampler effects. All use 32 steps. The unchanged schedule has near-zero, not exactly zero, terminal signal power; no zero-SNR rescaling is claimed \cite{lin}.
+\textbf{Test one fixed correction.} A pre-run protocol fixes 5,000 updates, seed 17, and the final checkpoint, matching sources, initialization, crop/mask/noise streams, batch, optimizer, EMA, and schedule. The 32-step primary sampler starts at 999 unclipped; a second retains 934/clipping to separate sampler effects. Terminal signal power remains near-zero without zero-SNR rescaling \cite{lin}.
 
-We reuse all 192 V groups with identical gaps and four candidate seeds, reporting the original tuning, practice-calibration, and reserved-development groups separately. First draw and spectral medoid are usable selection rules; reference-based best-of-four remains an oracle. Pairing is by recording group, with 2,000 bootstrap draws for exploratory intervals. This follow-up was motivated by inspected V results and is not a new confirmatory test. The original quality predictor and gate are not transferred to the new generator; actual C/test outcomes remain unopened.
+All 192 V groups retain identical gaps and four seeds; tuning, practice calibration, and reserved development stay separate. First draw and spectral medoid are usable selectors; reference-based best-of-four is an oracle. Exploratory intervals use 2,000 recording-group bootstrap draws. Inspected V results motivated this follow-up; no quality predictor or release gate is transferred, and C/test remain unopened.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{velocity_correction.pdf}
-\caption{A: clean-signal error at known forward-noised states, averaged over the same four G recordings; solid/dashed curves use full/reduced precision. B: fixed first draws on the same 64 tuning groups; points below the diagonal favor the correction. A diagnoses numerical amplification; B measures acoustic repair. The original model in B uses its amended sampler.}
+\caption{A: clean-signal error at known forward-noised states on four G recordings; solid/dashed curves use full/reduced precision. B: fixed first draws on 64 tuning groups; below-diagonal points favor correction. A diagnoses amplification; B measures repair against the original model's amended sampler.}
 \label{fig:correction}
 \end{figure}
 
-\textbf{Verify the fix and locate the next bottleneck.} Figure~\ref{fig:correction} separates numerical and acoustic effects. On the four G cases, full-precision gap NMSE changes from $5.18\times10^6$ (original terminal sampler), to 22.55 (clipping only), to 1.84 (original amended sampler), to 1.03 (velocity, terminal and unclipped). Matching end-of-training RNG states verifies the paired training streams. The added training and evaluation take 29.2 and 7.3 minutes on the same RTX 4090.
+\textbf{Verify the correction.} On four G cases, full-precision gap NMSE changes from $5.18\times10^6$ (original terminal sampler), to 22.55 (clipping only), to 1.84 (original amendment), to 1.03 (terminal, unclipped velocity). Matching final RNG states verifies paired training streams. Added training/evaluation take 29.2/7.3 minutes on the same RTX 4090 (Fig.~\ref{fig:correction}).
 
-First-draw Q improves from 0.395 to 0.309 on tuning, 0.416 to 0.307 on practice calibration, and 0.412 to 0.308 on reserved development. For the latter, the paired change is $-0.103$ (exploratory 95\% interval $-0.129$ to $-0.077$); balancing its 63 dates gives $-0.104$ ($-0.132$ to $-0.077$). Table~\ref{tab:2} separates the new target with the old sampler from the terminal sampler and four-draw medoid. Observed samples remain exact. Yet the terminal model's best-of-four improves on B by 0.02 in only 7/64 tuning groups (10.9\%), still below the unchanged 20\% trigger. Numerical amplification is now controlled; matching the missing acoustic structure is the remaining measured limitation. Further acoustic modeling should precede a new release-policy study.
+First-draw Q improves from 0.395 to 0.309 on tuning, 0.416 to 0.307 on practice calibration, and 0.412 to 0.308 on reserved development. The latter paired change is $-0.103$ (exploratory 95\% interval $-0.129$ to $-0.077$); balancing 63 dates gives $-0.104$ ($-0.132$ to $-0.077$). Table~\ref{tab:2} separates sampler and selector effects. Observations remain exact, but best-of-four improves on B by 0.02 in only 7/64 tuning groups (10.9\%), below the unchanged 20\% trigger. Amplification is controlled; recovering missing acoustic structure remains the measured limitation.
 
 \section{Three practical questions about a repaired recording}
 
@@ -212,52 +200,63 @@ Figure~\ref{fig:acoustic_cases} retains the original pipeline's best/worst C3-mi
 
 \noindent\textbf{B: Louder fill, stronger real event?} For the other-vessel class (50 ms), C3's gap RMS is 3.38 dB above the reference. The correction is 1.73 dB below and lowers Q from 0.590 to 0.354; B still scores 0.278. This illustrates reduced excess energy, but generated level alone cannot justify an acquisition-gain change.
 
-\noindent\textbf{C: Did the low tone stop?} For tanker (500 ms), the reference's component near 78 Hz continues. B and C3 lower gap RMS by 14.48 and 7.13 dB; the correction is only 1.14 dB below reference, yet Q rises from C3's 0.364 to 0.412. Recovering level does not recover the waveform. Neither a weak fill nor a generated tone proves silence or object identity. Figure~\ref{fig:configuration} offers finer frequency detail in the \emph{recorded} context.
+\noindent\textbf{C: Did the low tone stop?} For tanker (500 ms), the reference's component near 78 Hz continues. B and C3 lower gap RMS by 14.48 and 7.13 dB; the correction is only 1.14 dB below reference, yet Q rises from C3's 0.364 to 0.412. Recovering level does not recover the waveform. Neither a weak fill nor a generated tone proves silence or object identity. The agent comparison likewise restricts measurements to \emph{recorded} context.
 
-\section{What the pilot cannot establish}
+\textbf{Limits of repair evidence.} For synthetic targets differing only in a hidden transient, identical inputs/seeds yield identical outputs in 400 original-method comparisons. At event-projection threshold 0.5, all 100 inserted events are missed without false detections. These diagnostics exclude the correction and ocean propagation. The original rule also uses B on 100 shifted V cases; fallback does not validate transferred risk bounds.
 
-The original pipeline's seven synthetic conditions have 100 realizations each: tonal continuation, chirp, onset, offset, colored background, and two hidden-event targets. Paired targets share observations/seeds but differ by a fully hidden transient. All 400 method--pair comparisons produce identical outputs. At event-projection threshold 0.5, each method misses all 100 inserted events and makes no false-event decision on absent counterparts. These controlled signals show missing evidence, not validated ocean propagation or recoverable hidden events; they were not rerun for the correction.
+One seed, shared environments, and reused V outcomes limit interpretation. Three-seed training, waveform RePaint \cite{repaint}, independent classification, and VLIZ validation were not run. Tonal/onset metrics were not pre-frozen; held-out coverage, harm-reduction, and utility remain untested.
+
+\section{Reasoning and reviewing acoustic decisions on a GPU}
+
+Five workflows use 32 V recordings: fixed rules, direct and reasoning agents, self-review, and a planner--reviewer pair. Frozen hash order selects one source per group/date, excluding published anecdotes. Eight tasks each request finer frequency detail, finer timing, conflicting limits, or fragmented-audio analysis. All hide 500 ms; fragmented tasks erase additional samples. Task/scoring rules precede evaluated responses; two disjoint G smoke cases are excluded. These are new agent outcomes on reused development audio.
+
+Each task asks for the shortest 32/64/128/256 ms window meeting supplied frequency and timing limits, with at least three wholly observed frames in both requested regions. A window of $T$ ms gives $1000/T$ Hz bin spacing: longer windows give a finer frequency grid but blur timing. Four tools inspect, measure, configure a virtual display, and verify it. Agents operate on task text and numeric tool returns. Relative spectra use Hann windows, one-eighth-window hops, and 20--600 Hz; gap samples are erased. A stipulated cue label is \emph{stable} when both regions have at least 10 dB peak-to-median prominence, peak bins differ by at most one selected-window bin, and band levels differ by at most 6 dB; otherwise a supported tonal comparison is \emph{changed}. Insufficient prominence or no feasible setting gives \emph{insufficient}. These labels describe observed cues, not vessel identity or continuity inside the gap. Twenty cases permit configuration; twelve require declining it.
+
+All neural workflows use Qwen3-8B \cite{qwen3}, BF16, on one RTX PRO 4500 Blackwell without CPU offload. Direct mode omits intermediate reasoning. Self-review continues the conversation; a separate reviewer receives task, executed trace, and draft in fresh context. Neither receives evaluator feedback. Handoff occurs at a draft or four turns; the planner gets at most half the shared token allowance. Ceilings are eight turns, sixteen tool calls, and 6,144 generated tokens including reasoning; each turn allows 512 thinking and 512 action tokens, with capped thinking closed. Base seed 17 has fixed case/turn offsets; protocols retain prompts and decoding settings. Equal ceilings allow unequal actual cost.
+
+Complete success requires correct setting/refusal and executed state, cue label, supported numbers/citations, post-configuration verification, unknown identity, and preserved input/gap status. Citations must identify successful tool returns. Infeasible tasks require refusal without changing the display. Fixed rules encode the policy ceiling. All failures remain included. Paired recording-level differences use 10,000 bootstrap draws and exact McNemar tests, Holm-adjusted across three predefined neural comparisons; costs accompany accuracy.
 
 \begin{table}[htbp]
-\caption{Conditions outside the usual training setup, with 20 V sources each. The fixed rule uses B throughout; zero AI use does not validate a risk bound in new conditions.}
+\caption{GPU agent outcomes. Setting requires the correct reported choice and executed state; Complete adds evidence and verification checks. Tokens is mean generation length; Seconds is median episode time excluding model loading. Primary rows use the same 32 tasks. Follow-ups are separate.}
 \label{tab:3}
 \centering\small
-\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrr@{}}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
 \toprule
-
-\textbf{Condition} & \textbf{Cases} & \textbf{AI use} & \textbf{Error Q(P)} \\
-
+\textbf{Approach} & \textbf{Setting} & \textbf{Cue} & \textbf{Complete} & \textbf{Tokens} & \textbf{Seconds} \\
 \midrule
-
-750 ms gap & 20 & 0.00 & 0.274 \\
-
-1,000 ms gap & 20 & 0.00 & 0.299 \\
-
-Four 50 ms gaps & 20 & 0.00 & 0.188 \\
-
-Short context & 20 & 0.00 & 0.254 \\
-
-Level/spectrum shift & 20 & 0.00 & 0.208 \\
-
+Fixed rules & 32 & 32 & 32 & 0 & 0.0 \\
+Direct agent & 12 & 16 & 10 & 238 & 9.8 \\
+Reasoning agent & 18 & 25 & 4 & 3018 & 102.0 \\
+Self-review & 16 & 21 & 8 & 3171 & 103.9 \\
+Planner--reviewer & 19 & 19 & 9 & 3679 & 134.1 \\
+\midrule
+\multicolumn{6}{l}{\emph{Feasibility follow-up: 16 new recordings}} \\
+Follow-up: reasoning & 8 & 9 & 2 & 3067 & 93.6 \\
+Follow-up: guarded & 11 & 9 & 3 & 3122 & 92.8 \\
+\midrule
+\multicolumn{6}{l}{\emph{Budget check: first 16 primary recordings, reused}} \\
+Budget: original & 8 & 13 & 3 & 3044 & 111.6 \\
+Budget: longer & 12 & 13 & 5 & 6278 & 187.2 \\
 \bottomrule
 \end{tabular*}
 \end{table}
 
-The fixed-rule checks in Table~\ref{tab:3} change gap length, packet geometry, context, or smooth level/spectrum. Multiple gaps and insufficient probe context trigger predetermined fallback. Outcomes do not retune the model, normalization, or cutoff.
+Reasoning yields more correct cue labels than direct mode (25/32 versus 16/32), but fewer complete tasks (4/32 versus 10/32); self-review and paired agents complete 8/32 and 9/32 (Table~\ref{tab:3}). For reasoning minus direct, self-review minus reasoning, and paired agents minus self-review, the completion differences are $-18.8$, $+12.5$, and $+3.1$ percentage points, with exploratory 95\% intervals $[-37.5,0]$, $[0,28.1]$, and $[-15.6,21.9]$. None is conclusive after Holm adjustment ($p\geq0.328$). Verification is executed in 5/20 feasible reasoning cases and 20/20 direct cases. Both reviewing workflows reach the handoff without a draft in 23/32 cases; ten paired-agent episodes lack a valid final report. These bounded failures do not establish a general reasoning ranking.
 
-An isolated compatibility run uses Moliner and Välimäki's published EMA checkpoint \cite{moliner} on eight fixed V groups without fine-tuning. Its 22.05 kHz, 184,184-sample configuration is retained. Only masked observations are resampled; the gap expands by 12 input samples, unknown padding is excluded from guidance, and final observed samples are copied exactly. First-run Q/SC are 0.655/1.256; replay Q is 0.654, not bitwise reproducible on the recorded CUDA stack. This is a small adapted compatibility check, not benchmark superiority.
+The first trace motivates a feasibility-gate test: an 8 Hz bin-spacing limit and 160 ms time limit require 128 ms (7.81 Hz); the reasoner reports this but applies 64 ms (15.63 Hz). Before follow-up inference, we freeze sixteen new groups/dates, four per family. Conditions share weights, prompts, and budgets; one tool rejects measured infeasible settings without giving an answer or verification. This enforces constraints by construction; paired complete-task success tests the benefit.
 
-One short training seed, small V subsets, shared environments, and follow-up reuse of inspected outcomes limit interpretation. The original sampler is approximate; the correction retains the same near-zero-terminal schedule. Three-seed training, six-draw medoid C4, one 192-step draw C5, waveform RePaint C6 \cite{repaint}, independent classifier, and VLIZ evaluation were not run. Tonal/onset metrics were not pre-frozen. The planned held-out goals---25\% coverage, 25\% relative harm reduction, better ranking, Q/classifier noninferiority, and observation consistency---remain untested together. Zero observed-sample drift is an implementation check.
+Infeasible applied changes fall from six to zero, with nine rejected requests. Complete success changes from 2/16 to 3/16 ($+6.25$ percentage points; exploratory 95\% paired interval $[0,18.75]$; exact $p=1$). Both arms label 9/16 cues correctly and execute verification on 4/10 feasible tasks. Two additional guarded reports fail solely by citing actual rejection errors, excluded by the frozen citation rule. Boundary enforcement is demonstrated; improved task completion is not established.
 
-\section{A CPU agent for acoustic analysis settings}
+Forced closure on 520/585 primary reasoning turns motivates one frozen budget check on the first sixteen primary tasks, reusing their original reasoning outputs. Thinking increases to 2,048 tokens per turn and 12,288 total generated tokens. Model, prompts, tools, seeds, action limits, and scoring remain fixed. This paired sensitivity analysis changes both caps and adds no independent recordings.
 
-The operator loop is \textbf{inspect, retain unknown when needed, configure analysis, and verify}. We execute one guided episode on existing case C using local Llama 3.1 8B \cite{llama3} (Q4\_0, Ollama 0.3.2, seed 17, temperature zero), with GPU layers disabled and zero VRAM residency verified. Four tools inspect the clip, measure its observed spectrum, configure a virtual display, and remeasure it. Tool returns exclude vessel labels, erased references, repair outputs, and reference-based scores. The task requests bin spacing $\leq10$ Hz from 32/128 ms choices. Full requests, responses, and tool results are retained.
+Forced closure falls from 79/90 to 21/77 turns (87.8\% to 27.3\%). Complete success changes from 3/16 to 5/16 ($+12.5$ percentage points; exploratory 95\% paired interval $[-18.75,43.75]$; exact $p=0.6875$), with four wins and two losses. Mean tokens rise from 3,044 to 6,278; median time rises from 111.6 to 187.2 s. Two longer-budget episodes exhaust their allowance. The first case now applies its reported 128 ms and passes every check (Fig.~\ref{fig:configuration}); an overall completion gain remains unestablished.
 
-The first response batches 128 ms analysis, display configuration, and inspection before seeing their returns. The tool reports a 78.125 Hz peak bin and 7.8125 Hz bin spacing. The model's subsequent draft correctly retains unknown identity but falsely says it compared settings: no 32 ms analysis is recorded, and post-change verification is missing. An external trace audit supplies one corrective message; the original draft is preserved. The continuation adds the missing 32 ms measurement and verifies the 128 ms display, with unchanged audio and mask. Across both stages, four model turns and seven tool calls take 7.8 minutes on CPU. The revised prose still omits the timing tradeoff and identity qualification and leaves its comparison wording unclear. An operator evidence card therefore displays values directly from verified tool returns; both model drafts remain available for audit.
+Primary and follow-up sets contain one changed cue each; stable/insufficient counts are 16/15 and 3/12. One model/base seed, bounded reasoning, reused V data, and explicit rules limit generalization. The paired agents share weights and run sequentially. Gate and budget interventions are tested separately. Object classification, direct audio-language understanding, and physical acquisition control are not evaluated.
 
-This applies the reasoning/action feedback pattern \cite{react} to an inspectable acoustic task. One known case, a prescribed resolution goal, two settings, and explicit corrective feedback do not establish autonomous reasoning performance. The agent consumes numeric tool returns, not audio directly. Object classification and physical acquisition settings require separate models, validation, and operator approval; neither is evaluated here.
+\section{Conclusion}
 
-The pilot turns a failed repair into a testable engineering result: isolate error amplification, change the prediction target, and verify reduced numerical and acoustic error on matched recordings. The baseline still wins, so the evidence supports further acoustic modeling before deployment. Fifteen 4.096 s clips, code, masks, and checkpoints make the diagnosis and correction inspectable. The single-RTX-4090 run stayed within ten hours; the next independent study must test acoustic utility, label correctness, and equipment outcomes separately.
+Numerical stability, acoustic fidelity, and executed agent actions require separate checks. The matched velocity intervention controls error amplification and improves reconstruction, while the learned baseline remains better. For agents, correct cue labels do not ensure correctly executed actions. Deterministic feasibility checks block prohibited changes; more thinking and review do not establish reliable completion here. Operator assistance should keep unsupported identities unknown, enforce setting limits, and verify executed state.
+Code, traces, and fifteen listening clips are provided. Independent sites, identification, and physical equipment outcomes remain unvalidated.
 
 \bibliographystyle{splncs04}
 \bibliography{references}

@@ -122,3 +122,28 @@ spectrograms. The paper remains ten pages, with sixteen references and five
 equations. The one-case, guided nature and explicit corrective feedback are disclosed;
 no autonomous success rate, object-identification accuracy, or hardware-control
 claim is added. Original GPU study completion and its ten-hour boundary are unchanged.
+
+2026-11-16 replacement-pod GPU completion: The user authorized comparisons on an
+RTX PRO 4500 Blackwell and excluded new local language-model inference. A frozen
+32-recording comparison evaluates fixed rules and four Qwen3-8B workflows: direct,
+reasoning, self-review, and a planner–reviewer pair. The three predefined completion
+contrasts are inconclusive after Holm adjustment. Separate protocols test a
+configuration feasibility gate on sixteen new groups/dates and a larger thinking
+budget on the first sixteen primary tasks. No favorable reruns or omitted failures
+replace the original scores. The gate prevents six infeasible applied changes;
+completion changes from 2/16 to 3/16. Longer thinking improves setting correctness
+from 8/16 to 12/16, but the 3/16 to 5/16 completion change is inconclusive and costs
+more tokens and time. The first frozen case's stated/applied discrepancy is corrected
+under the larger budget and every success check passes for that case.
+
+All 208 scored episodes (176 neural; 48 unique groups) finish in 5.4005 hours.
+Independent audits replay 1,109 unique tool returns and verify 1,080 CUDA turns;
+450 closed remote outputs/resource files are backed up with matching hashes.
+The GPU is idle; the pod remains running. The paper replaces its historical CPU
+illustration with the controlled GPU results, retains the numerical correction and
+three acoustic anecdotes, and uses nineteen references. The frozen citation rule
+continues to reject two genuine guard-error citations; this limitation is disclosed,
+not silently rescored. A figure metadata variable was corrected during final review
+to retain the first case's cue label after plotting other cases; raw results and
+scores were unchanged. All code, data, and manuscript work stays in this project;
+commits remain on main and nothing is pushed.

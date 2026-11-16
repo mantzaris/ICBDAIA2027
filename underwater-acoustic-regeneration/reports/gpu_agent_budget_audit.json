@@ -2,6 +2,15 @@
   "status": "passed",
   "primary": {
     "episodes": 160,
+    "limits": {
+      "max_model_turns": 8,
+      "max_tool_calls": 16,
+      "max_generated_tokens": 6144,
+      "max_context_tokens": 16384,
+      "max_thinking_tokens_per_turn": 512,
+      "max_action_tokens_per_turn": 512,
+      "max_episode_seconds": 600
+    },
     "arms": {
       "direct": {
         "episodes": 32,
@@ -13,6 +22,7 @@
         "thinking_turns": 0,
         "forced_thinking_closures": 0,
         "action_cap_hits": 0,
+        "forced_closure_token_counts": {},
         "episodes_with_forced_thinking_closure": 0,
         "episodes_with_action_cap_hit": 0,
         "maximum_context_tokens": 2453,
@@ -30,6 +40,9 @@
         "thinking_turns": 179,
         "forced_thinking_closures": 158,
         "action_cap_hits": 1,
+        "forced_closure_token_counts": {
+          "512": 158
+        },
         "episodes_with_forced_thinking_closure": 32,
         "episodes_with_action_cap_hit": 1,
         "maximum_context_tokens": 2435,
@@ -47,6 +60,7 @@
         "thinking_turns": 0,
         "forced_thinking_closures": 0,
         "action_cap_hits": 0,
+        "forced_closure_token_counts": {},
         "episodes_with_forced_thinking_closure": 0,
         "episodes_with_action_cap_hit": 0,
         "maximum_context_tokens": 0,
@@ -65,6 +79,9 @@
         "thinking_turns": 188,
         "forced_thinking_closures": 166,
         "action_cap_hits": 0,
+        "forced_closure_token_counts": {
+          "512": 166
+        },
         "episodes_with_forced_thinking_closure": 32,
         "episodes_with_action_cap_hit": 0,
         "maximum_context_tokens": 2523,
@@ -83,6 +100,9 @@
         "thinking_turns": 218,
         "forced_thinking_closures": 196,
         "action_cap_hits": 2,
+        "forced_closure_token_counts": {
+          "512": 196
+        },
         "episodes_with_forced_thinking_closure": 32,
         "episodes_with_action_cap_hit": 2,
         "maximum_context_tokens": 2873,
@@ -416,6 +436,15 @@
   },
   "guard_followup": {
     "episodes": 32,
+    "limits": {
+      "max_model_turns": 8,
+      "max_tool_calls": 16,
+      "max_generated_tokens": 6144,
+      "max_context_tokens": 16384,
+      "max_thinking_tokens_per_turn": 512,
+      "max_action_tokens_per_turn": 512,
+      "max_episode_seconds": 600
+    },
     "arms": {
       "reasoning": {
         "episodes": 16,
@@ -428,6 +457,9 @@
         "thinking_turns": 92,
         "forced_thinking_closures": 82,
         "action_cap_hits": 0,
+        "forced_closure_token_counts": {
+          "512": 82
+        },
         "episodes_with_forced_thinking_closure": 16,
         "episodes_with_action_cap_hit": 0,
         "maximum_context_tokens": 2399,
@@ -446,6 +478,9 @@
         "thinking_turns": 94,
         "forced_thinking_closures": 83,
         "action_cap_hits": 0,
+        "forced_closure_token_counts": {
+          "512": 83
+        },
         "episodes_with_forced_thinking_closure": 16,
         "episodes_with_action_cap_hit": 0,
         "maximum_context_tokens": 2425,
@@ -524,5 +559,77 @@
   "scope": "Descriptive resource and truncation audit; frozen accuracy scores unchanged",
   "time_limit_note": "The episode deadline is checked between model calls; the external job deadline is enforced separately.",
   "token_note": "Counts are generated tokens, including reasoning; externally inserted closing markers are not model-generated tokens.",
-  "analysis_sha256": "903c9eeef0afa9b01b34c277cf95d932e7e36c067637408fa60f51df45afc9d6"
+  "analysis_sha256": "636f6905722900f6c21aab7ac354733283296cb7d8113c4c4b7f4464ea3d8907",
+  "larger_budget_followup": {
+    "episodes": 16,
+    "limits": {
+      "max_model_turns": 8,
+      "max_tool_calls": 16,
+      "max_generated_tokens": 12288,
+      "max_context_tokens": 16384,
+      "max_thinking_tokens_per_turn": 2048,
+      "max_action_tokens_per_turn": 512,
+      "max_episode_seconds": 600
+    },
+    "arms": {
+      "reasoning_long": {
+        "episodes": 16,
+        "statuses": {
+          "completed": 14,
+          "budget_exhausted": 2
+        },
+        "errors": {},
+        "model_turns": 77,
+        "thinking_turns": 77,
+        "forced_thinking_closures": 21,
+        "action_cap_hits": 1,
+        "forced_closure_token_counts": {
+          "2048": 19,
+          "585": 1,
+          "369": 1
+        },
+        "episodes_with_forced_thinking_closure": 10,
+        "episodes_with_action_cap_hit": 1,
+        "maximum_context_tokens": 2286,
+        "maximum_generated_tokens": 12288,
+        "maximum_episode_seconds": 461.8006630819291,
+        "total_generated_tokens": 100442
+      }
+    },
+    "artifact_sha256": {
+      "results/gpu_agent_budget/evaluation/case_01__reasoning_long.json": "92b41f5e1117e3337201dcbb170d089ce8aa8ac5705a275f5ae162b9bebc8779",
+      "results/gpu_agent_budget/evaluation/case_01__reasoning_long.jsonl": "b6c49cf5222e60a92f9e34543cd801a996dab7651f50cec5c3f32d6cb3950238",
+      "results/gpu_agent_budget/evaluation/case_02__reasoning_long.json": "ea1de0005a81eeb7304626780bc9da833f0bfc50dcba93bfbca60950b7aeefd5",
+      "results/gpu_agent_budget/evaluation/case_02__reasoning_long.jsonl": "b8e1f2a0edee892467c9a90e994ceb8c02c0d50421a3136e29e1176825714b2e",
+      "results/gpu_agent_budget/evaluation/case_03__reasoning_long.json": "2f06935fd074d442f6c2b52468d896770093e3d8178148a928cc5ff2ef596e72",
+      "results/gpu_agent_budget/evaluation/case_03__reasoning_long.jsonl": "4cda68a1d2b350bdb8e72047a990a7914d76497190731efb848bb0e0e4c4fb9f",
+      "results/gpu_agent_budget/evaluation/case_04__reasoning_long.json": "36f0863d61340c7de31eb63df3d66948eed394d0a1438a7dc5d46fdf7ffb78c6",
+      "results/gpu_agent_budget/evaluation/case_04__reasoning_long.jsonl": "89a087c4c4e3879b7bc9c2a81073284d901338e81b109effb344c2055806f675",
+      "results/gpu_agent_budget/evaluation/case_05__reasoning_long.json": "c5c32c208dfc24aa5099cd93c706a91c00d92b9813d926d85b3b40ad77fe855f",
+      "results/gpu_agent_budget/evaluation/case_05__reasoning_long.jsonl": "a1b4a9f5ca92e49a9537df75fc93368a5c4e98f68dba90d3aa548fb8176a0c12",
+      "results/gpu_agent_budget/evaluation/case_06__reasoning_long.json": "443dd9c57a298c4e0c7966ba0e97c84158e2a51bf32112b3e49a22ea98771d47",
+      "results/gpu_agent_budget/evaluation/case_06__reasoning_long.jsonl": "e54c69b643f9bea9bd1a097b1a533902c841a7e4e0ae7a1085b6fa347542306f",
+      "results/gpu_agent_budget/evaluation/case_07__reasoning_long.json": "53e7e4a4f2ac62911e80e901a4de12ef72922adb0b48c39c82d3937317995103",
+      "results/gpu_agent_budget/evaluation/case_07__reasoning_long.jsonl": "63f04d79e6e8f767404d29eededdbc5625f1b0967b2b9f2aeded45f8178363d3",
+      "results/gpu_agent_budget/evaluation/case_08__reasoning_long.json": "f1dc33a8610e944ad28b1fe710f210061d7e96fd5500ba1bac08720d2a5804dc",
+      "results/gpu_agent_budget/evaluation/case_08__reasoning_long.jsonl": "abb832c5c72f8cca72c42a43498401ea40ca71381da8a7d598aebde2c43d26ff",
+      "results/gpu_agent_budget/evaluation/case_09__reasoning_long.json": "9c8aab419cd02745273daca8fa43b5ababdee5b87e94bd35721b432445d8a199",
+      "results/gpu_agent_budget/evaluation/case_09__reasoning_long.jsonl": "b86c0f216f913cc7b87f2e054fc03fc48911379ebf886ee218e5e349b3470313",
+      "results/gpu_agent_budget/evaluation/case_10__reasoning_long.json": "9b4d90c33db5d1250a7e77409a017896b506aa168dddeb65d3f145a353fb7a8c",
+      "results/gpu_agent_budget/evaluation/case_10__reasoning_long.jsonl": "c62e5fe59e353110973d03845e85d622d1c2c70e8c333ce71fd13b8fad8c604c",
+      "results/gpu_agent_budget/evaluation/case_11__reasoning_long.json": "c15ba2a79f4c2777b9740b9a7443d636bef9084f6096b2945de6543440b7e36a",
+      "results/gpu_agent_budget/evaluation/case_11__reasoning_long.jsonl": "8fe22a8a534e0370ee0dd6d0647d408053fc4f4145a94fef1a5dde703bfe944a",
+      "results/gpu_agent_budget/evaluation/case_12__reasoning_long.json": "ad7e493e9680b3f54cbddc5627ef0f33d136b1771819c636e02b0a74850fc2d0",
+      "results/gpu_agent_budget/evaluation/case_12__reasoning_long.jsonl": "9ab29925a8454e02c4b081c7ca13c5aea6c3fc2540d9df8e5ee499120081d5a1",
+      "results/gpu_agent_budget/evaluation/case_13__reasoning_long.json": "ee67af33609d893a5c21ac958744a49f3992013f11e1ec0f34b1fce536558a4d",
+      "results/gpu_agent_budget/evaluation/case_13__reasoning_long.jsonl": "c905d9c8ab8482ac7059c22f5513f76fe6a620b3126a58d4009955e3cd2fdf98",
+      "results/gpu_agent_budget/evaluation/case_14__reasoning_long.json": "7934d3a4175b8197ae04c8449cb0f43f77bf29f1949ffcfc70dcaa054937d5c9",
+      "results/gpu_agent_budget/evaluation/case_14__reasoning_long.jsonl": "c067920cc0e64a578c9759d003bcd461f8c33131d05e0ddb32ca65a27703fd54",
+      "results/gpu_agent_budget/evaluation/case_15__reasoning_long.json": "1c818e9432633a9521261b578de263314b266d4adae234c9fe22221860aaa458",
+      "results/gpu_agent_budget/evaluation/case_15__reasoning_long.jsonl": "dfdce65edca6f5c1bc8dd75cd9fe2fdd60b2656a020baa799e14317bc8ea1f26",
+      "results/gpu_agent_budget/evaluation/case_16__reasoning_long.json": "b5b6dafcac18e229ac6523c0b2968895e983fe8c959097f28d7d29a2bcdd2f44",
+      "results/gpu_agent_budget/evaluation/case_16__reasoning_long.jsonl": "9a1a4812fff1d028a551ca188fc4379d37d1b9149c7555cf6253aa491849f35b"
+    }
+  },
+  "larger_budget_scope": "Sixteen new episodes only; their original controls are already counted in the primary audit."
 }

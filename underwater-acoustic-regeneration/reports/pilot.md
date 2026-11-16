@@ -1,4 +1,4 @@
-# Original pilot and completed targeted correction
+# Acoustic repair and GPU agent findings
 
 The frozen feasibility requirement was at least 20% of tuning-V cases with one
 candidate improving Q over B by 0.02. The observed result was **5/64 = 7.8125%**
@@ -98,9 +98,9 @@ gaps and undeleted field references are not a paired clean/noisy benchmark.
 
 The closest underwater spectrogram-inpainting publication's metadata were verified,
 but its primary full text remains inaccessible. No first-underwater-diffusion or
-first-inpainting claim is made. The manuscript is anonymous per user instruction,
-ten total pages including references, and explicitly a development study with a
-post hoc correction. The user chose the upper end of the venue's published
+first-inpainting claim is made. The manuscript is anonymous per user instruction
+and targets ten total pages including references, explicitly presenting development
+evidence. The user chose the upper end of the venue's published
 eight-to-ten-page wording; organizer clarification and deadline timezone remain unresolved.
 
 See `claim_to_evidence.json`, `experiment_ledger.json`, `compute_ledger.json`, and
@@ -129,4 +129,152 @@ leaves comparison wording unclear. Both drafts are retained. The operator eviden
 card reports facts directly from verified tool returns and is not represented as
 model-authored prose. This illustrates action checking and its limits on one known
 case with explicit feedback, not autonomous reasoning performance or identification
-accuracy. Figure 1 incorporates this trace within the ten-page paper.
+accuracy. An earlier ten-page draft incorporated this trace. The active paper now
+uses the replacement-pod GPU comparison below; the CPU episode remains historical
+evidence and is not used as a hardware or model-performance control.
+
+## Controlled GPU agent comparison
+
+The user supplied an RTX PRO 4500 Blackwell and authorized additional agent
+comparisons within a separate ten-hour run. All new neural inference uses
+Qwen3-8B BF16 entirely on CUDA. There is no local language-model inference,
+CPU offload, acoustic retraining, or external API. The model revision, complete
+prompts, input arrays, masks, task definitions, executed tools, and raw responses
+are retained in the GPU protocols and result folders.
+
+Thirty-two V recordings are chosen by frozen hash order, one group and date each,
+excluding the three published anecdotes. The four task families each contain
+eight cases: frequency detail, timing detail, incompatible constraints, and
+fragmented observations. The agent chooses the shortest feasible analysis window,
+labels the measured cue, configures a virtual display when allowed, and verifies
+the executed state. Cue labels are stipulated rules on measured spectra, not
+object-identification annotations. The reference labels contain 16 stable,
+15 insufficient, and only one changed case; 20 tasks permit configuration.
+
+| Primary approach, n=32 | Correct setting and state | Correct cue | Complete task | Mean generated tokens | Median seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Fixed rules | 32 | 32 | 32 | 0 | 0.0 |
+| Direct agent | 12 | 16 | 10 | 238 | 9.8 |
+| Reasoning agent | 18 | 25 | 4 | 3018 | 102.0 |
+| Self-review | 16 | 21 | 8 | 3171 | 103.9 |
+| Planner–reviewer | 19 | 19 | 9 | 3679 | 134.1 |
+
+The fixed rules implement the supplied task policy and serve as a transparent
+ceiling. All four neural workflows share weights, tool access, task instructions,
+and total ceilings, but consume different amounts of compute. Thinking is disabled
+only in the direct arm. Review begins at a draft or four turns; its planner receives
+at most half the shared token allowance. The separate reviewer uses the same
+weights with a fresh context. Neither review receives evaluator feedback.
+
+The predefined success differences are reasoning minus direct −18.75 percentage
+points (paired bootstrap 95% interval −37.5 to 0; Holm p=0.328125), self-review
+minus reasoning +12.5 (0 to 28.125; Holm p=0.4375), and paired agents minus
+self-review +3.125 (−15.625 to 21.875; Holm p=1). These small, bounded comparisons
+do not establish a general ranking. Better cue labels alone do not establish
+complete execution: post-configuration verification occurs in 5/20 feasible
+reasoning episodes and 20/20 direct episodes. Both reviewing workflows reach
+handoff without a draft in 23/32 cases; ten paired-agent episodes lack a valid
+final report. Their effect includes completing unfinished work, rather than only
+correcting existing answers.
+
+The descriptive cue confusion counts are retained in the failure audit. Direct
+mode labels 11/16 stable cues and 4/15 insufficient-evidence cases correctly;
+reasoning labels 16/16 and 8/15, respectively. Both get the sole changed case
+right. A single changed case cannot establish reliable detection of acoustic
+changes. Cue accuracy includes inability to choose a feasible setting through
+the stipulated insufficient-evidence rule; it is not an independent acoustic
+recognition endpoint.
+
+The primary audit independently replays all 888 tool returns, checks all 817 CUDA
+model turns and their prompts, recomputes every score, and verifies unchanged
+input hashes. All 160 episodes, including 128 neural episodes, are retained.
+Peak allocated GPU memory is 17,259,933,184 bytes. The primary batch completed
+at 2026-11-16 13:10:30 UTC. Both follow-ups below were frozen before their own
+outputs, after specified primary-run observations, and are reported separately.
+
+### Configuration-gate and reasoning-budget follow-ups
+
+A first-case discrepancy motivates the configuration gate: the reasoner reports
+the required 128 ms window but applies 64 ms. At an 8 Hz bin-spacing limit and
+160 ms maximum support, 128 ms gives 7.8125 Hz bins and qualifies; 64 ms gives
+15.625 Hz and does not. Sixteen additional V groups and dates, disjoint from the
+primary tasks, receive paired original and guarded reasoning agents. The gate
+rejects already-measured infeasible settings without supplying the answer, cue
+label, or automatic verification. Rejection is guaranteed by construction; any
+benefit in complete-task success must be measured separately.
+
+The gate batch completed at 2026-11-16 14:04:41 UTC. Independent replay verifies
+159 tool returns and 186 CUDA turns across all 32 paired episodes. The new set
+contains three stable, one changed, and twelve insufficient-evidence labels, so
+its absolute accuracy should not be pooled with the differently distributed
+primary set.
+
+| Gate follow-up, n=16 new groups | Correct setting and state | Correct cue | Complete task | Mean generated tokens | Median seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Original reasoning | 8 | 9 | 2 | 3067 | 93.6 |
+| Guarded reasoning | 11 | 9 | 3 | 3122 | 92.8 |
+
+Infeasible applied changes fall from six, across six cases, to zero. The guarded
+arm rejects nine requests; this protection follows from the tool's construction.
+Complete-task success rises by one paired case: +6.25 percentage points, bootstrap
+95% interval 0 to 18.75, exact McNemar p=1. There are no paired losses in this
+sample, but the evidence does not establish a general completion improvement.
+Unsupported structured reports occur in three original and four guarded episodes;
+unfinished episodes number two and three, respectively. Rejecting an infeasible
+change does not select the shortest feasible window, assign a cue, or complete
+verification. The paired prompts and tool descriptions are unchanged, so the
+model encounters the gate only through returned errors.
+
+Both arms actually perform post-configuration verification in 4/10 feasible
+tasks. The frozen score also rejects all citations to error returns. In guarded
+cases 03 and 04, every other success condition passes, but each report cites a
+genuine configuration-rejection message alongside its successful measurements.
+These are not invented evidence IDs or fabricated numerical measurements. They
+remain failures under the unchanged endpoint, and the descriptive audit identifies
+them separately. This distinction limits interpreting every citation failure as
+an unsupported factual assertion; no relaxed scores replace the frozen results.
+
+The primary cap forces closure on 520 of 585 thinking-enabled model turns.
+A second follow-up uses the first sixteen primary tasks, without selection by
+their outcomes, and retains their original reasoning outputs as controls. It
+increases thinking from 512 to 2,048 tokens per turn and the total allowance from
+6,144 to 12,288; all other model, action, tool, sampling, and scoring settings
+remain fixed. Both caps change together, and these are reused recordings. No
+new independent groups are counted for this sensitivity analysis.
+
+The larger-budget batch completed at 2026-11-16 15:03:01 UTC. It reduces forced
+thinking closure from 79/90 turns (87.8%) to 21/77 (27.3%). Nineteen longer-budget
+closures reach 2,048 thinking tokens; two reach the remaining total-token allowance
+at 585 and 369 tokens. All original 79 closures occur at 512 tokens.
+
+| Budget check, n=16 reused tasks | Correct setting and state | Correct cue | Complete task | Mean generated tokens | Median seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Original reasoning | 8 | 13 | 3 | 3044 | 111.6 |
+| Longer reasoning | 12 | 13 | 5 | 6278 | 187.2 |
+
+The paired completion difference is +12.5 percentage points, with an exploratory
+95% bootstrap interval of −18.75 to 43.75 and exact McNemar p=0.6875: four wins,
+two losses, and ten ties. Two longer-budget episodes exhaust their token allowance;
+all are retained. Unsupported structured reports decrease from four to three, and
+stated/applied configuration mismatches decrease from one to zero. More thinking
+reduces truncation and improves settings in this sample, but does not establish a
+general completion gain. Both per-turn and total caps change, so the experiment
+cannot attribute effects to just one limit.
+
+The first frozen case now reports and applies 128 ms, labels its observed cue
+stable, cites measured 39.0625/46.875 Hz peaks, and passes every success check.
+The same recording under the original cap reports 128 ms but applies 64 ms.
+This is a concrete corrected execution example, not an outcome-selected case or
+an additional independent recording. Its spectra and stated/applied comparison
+appear in the paper's GPU figure.
+
+The budget audit replays 135 tool returns and 167 CUDA turns, including 73 returns
+and 90 turns from the reused controls. Across the three phases there are **208
+unique scored episodes**, including **176 neural episodes**, on **48 unique source
+groups**. Their 1,109 tool returns and 1,080 CUDA turns are verified without
+counting reused controls twice. Two smoke cases (eight neural episodes and two
+rule episodes) are excluded from all scored outcomes. The new session finishes in
+5.4005 hours from the authorized start; scored neural inference totals 17,946.83
+seconds. Peak allocated memory is 17,433,020,416 bytes. All 450 closed remote output
+and resource-log files are hash-verified locally. Fixed input and environment hashes
+are retained in the phase freezes. The GPU is idle and the pod remains running.
