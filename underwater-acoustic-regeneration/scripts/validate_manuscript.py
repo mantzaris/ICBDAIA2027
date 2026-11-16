@@ -21,13 +21,26 @@ def main():
     for name, expected in template['files'].items():
         assert hashlib.sha256((PAPER / name).read_bytes()).hexdigest() == expected, name
     figures = re.findall(r'\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}', source)
+    assert set(figures) == {'acoustic_context.pdf', 'development_ranking.pdf', 'acoustic_case_studies.pdf'}
     assert len(figures) == 3
     for name in figures:
         assert Path(name).name == name and (PAPER / name).is_file(), name
         assert (PAPER / name).read_bytes() == (ROOT / 'figures' / name).read_bytes(), name
     citations = set(key.strip() for group in re.findall(r'\\cite(?:\[[^]]*\])?\{([^}]+)\}', source) for key in group.split(','))
     entries = set(re.findall(r'@\w+\s*\{\s*([^,]+),', (PAPER / 'references.bib').read_text()))
-    assert citations == entries and len(entries) == 12
+    assert citations == entries and len(entries) == 13
+    examples = json.loads((ROOT / 'figures/acoustic_example_selection.json').read_text())
+    assert examples['script_sha256'] == hashlib.sha256((ROOT / 'scripts/build_acoustic_examples.py').read_bytes()).hexdigest()
+    assert [case['tag'] for case in examples['cases']] == ['A', 'B', 'C']
+    audio_files = []
+    for case in examples['cases']:
+        assert case['source_partition'] == 'V' and case['pilot_role'] == 'dev_test'
+        assert case['policy_accepted'] is False
+        assert len(case['audio_files']) == 4
+        for artifact in case['audio_files'].values():
+            path = ROOT / artifact['path']
+            assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact['sha256'], path
+            audio_files.append(artifact['path'])
     log = (ROOT / '.cache/latex/mainj.log').read_text(errors='replace')
     assert not re.search(r'undefined|Overfull \\[hv]box|LaTeX Error', log, re.IGNORECASE)
     info = subprocess.check_output(['pdfinfo', str(PAPER / 'mainj.pdf')], text=True)
@@ -51,11 +64,12 @@ def main():
     report = {'status': 'passed', 'format': 'LaTeX', 'pages': pages, 'author': 'Anonymous',
               'single_manuscript_tex': True, 'bibtex_entries': len(entries), 'resolved_citations': len(citations),
               'publisher_class_and_style_unmodified': True,
+              'acoustic_case_studies': 3, 'verified_listening_clips': len(audio_files),
               'figures_in_same_directory': figures, 'tables': 3, 'equations': 2,
               'no_undefined_references_or_overfull_boxes': True,
               'pdf_sha256': hashlib.sha256((PAPER / 'mainj.pdf').read_bytes()).hexdigest(),
               'source_sha256': hashlib.sha256((PAPER / 'mainj.tex').read_bytes()).hexdigest(),
-              'scientific_content_scope': 'Existing negative feasibility pilot preserved; full study remains incomplete',
+              'scientific_content_scope': 'Negative development pilot with post hoc acoustic examples; full study remains incomplete',
               'visual_review': 'Separate page-by-page inspection required'}
     (AUDIT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))

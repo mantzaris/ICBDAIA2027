@@ -1,4 +1,4 @@
-"""Rebuild vector and high-resolution figures from completed development runs."""
+"""Rebuild the ranking plot and supplemental workflow/waveform figures."""
 from __future__ import annotations
 
 import gzip
@@ -28,7 +28,7 @@ def save(fig, name):
         fig.savefig(path, dpi=450, bbox_inches="tight", pad_inches=0.04)
         if extension == "svg":
             path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
-        elif extension == "pdf":
+        elif extension == "pdf" and name == "development_ranking":
             # The editable LaTeX paper is portable with figures beside mainj.tex.
             (ROOT / "manuscript").mkdir(exist_ok=True)
             shutil.copyfile(path, ROOT / "manuscript" / path.name)

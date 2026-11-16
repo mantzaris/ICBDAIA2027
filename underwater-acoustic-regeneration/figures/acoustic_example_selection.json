@@ -1,0 +1,303 @@
+{
+  "scope": "Post hoc anecdotes from three existing dry-test V cases; no new inference or held-out outcomes",
+  "source_run": "results/pilot_pools_clipped_seed17",
+  "script_sha256": "3502e83c9539d928b469544971dcad4bcecfcef566591b5f02076a2ca2030050",
+  "sample_rate": 8000,
+  "samples_per_clip": 32768,
+  "audio_format": "16-bit PCM WAV",
+  "audio_scaling": "Observed mean/RMS normalization, then one shared gain per case across all four variants; maximum peak 0.8; no independent loudness normalization, fading, or time stretching",
+  "amplitude_interpretation": "Relative signal units, not calibrated Pa or dB re 1 micropascal",
+  "comparison_stft": {
+    "window": "periodic Hann",
+    "samples": 256,
+    "hop_samples": 32,
+    "center_padding": false,
+    "frame_centers": true,
+    "display_db": [
+      -60,
+      6
+    ],
+    "reference": "Peak reference STFT power in the displayed time interval, shared across each row",
+    "display_khz_by_row": [
+      4,
+      4,
+      1
+    ]
+  },
+  "overview_stft": {
+    "window": "periodic Hann",
+    "samples": 1024,
+    "hop_samples": 128,
+    "display_hz": [
+      0,
+      600
+    ],
+    "display_db": [
+      -60,
+      0
+    ]
+  },
+  "selection_flatness": {
+    "window_samples": 1024,
+    "hop_samples": 256,
+    "band_hz": [
+      20,
+      4000
+    ],
+    "per_frame_mean_removed": true,
+    "fully_observed_windows_only": true,
+    "eligible_500ms_cases": 17
+  },
+  "verification": {
+    "source_and_pool_hashes": true,
+    "saved_metrics_recomputed": true,
+    "observed_samples_preserved_before_and_after_pcm_export": true,
+    "masked_pcm_gap_is_zero": true,
+    "no_audio_clipping": true
+  },
+  "not_claimed": [
+    "Representative examples",
+    "Auditory quality scores",
+    "Physical source attribution of individual tones",
+    "Acoustic pressure calibration"
+  ],
+  "cases": [
+    {
+      "tag": "A",
+      "case_id": "f21a8e2f45204e244f4bd2293b803d7eb3c10d51522c7f78071deed73ed03268_50",
+      "source_id": "f21a8e2f45204e244f4bd2293b803d7eb3c10d51522c7f78071deed73ed03268",
+      "source_class": "cargo",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "timestamp_interval_utc": "20171224T172500.000Z_20171224T172505.000Z",
+      "hydrophone": "ICLISTENAF2523",
+      "original_archive_member": "allclass_5hours/audio/cargo/20171224T172500.000Z_20171224T172505.000Z.wav",
+      "selection_rule": "Minimum C3-minus-B Q among 64 dry-test V cases (post hoc)",
+      "source_array_sha256": "2818de0872187cb328e7092d0ab9545368fcc9d719fb547bf81fd5039e7d59cc",
+      "pool_sha256": "b4ddef86d8063ac6751ae3173fadfb77d3e4bd2d42ec6555dca005d6b1db4c3e",
+      "normalization_mean": 0.028978035724572086,
+      "normalization_scale": 0.00714074868397882,
+      "gap_start_sample": 9981,
+      "gap_end_sample_exclusive": 10381,
+      "gap_seconds": [
+        1.247625,
+        1.297625
+      ],
+      "gap_ms": 50.0,
+      "selected_index": 3,
+      "policy_accepted": false,
+      "C3_minus_B_Q": -0.023381972106131077,
+      "recomputed_metrics": {
+        "fallback_B_equals_P": {
+          "gap_nmse": 1.4551297894281991,
+          "gap_spectral_convergence": 0.7268175602885183,
+          "gap_log_spectral_distance_db": 10.885719214305775,
+          "Q": 0.36359561375065447,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 1.063440904859689,
+          "boundary_derivative_max": 1.106409654859689,
+          "gap_absolute_error_p95": 2.4230481041671257,
+          "gap_absolute_error_p99": 2.8398832560553404,
+          "gap_samples": 400,
+          "quiet_reference": false
+        },
+        "selected_C3": {
+          "gap_nmse": 1.191117513843375,
+          "gap_spectral_convergence": 0.765295809656406,
+          "gap_log_spectral_distance_db": 12.22476506223328,
+          "Q": 0.3402136416445234,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.6866357663439379,
+          "boundary_derivative_max": 0.7536873522118891,
+          "gap_absolute_error_p95": 2.342177563972879,
+          "gap_absolute_error_p99": 2.8844808148213352,
+          "gap_samples": 400,
+          "quiet_reference": false
+        }
+      },
+      "gap_rms_db_relative_to_reference": {
+        "fallback_B_equals_P": -9.971970384848314,
+        "selected_C3": -8.022358879871538
+      },
+      "observed_context_flatness": null,
+      "observed_context_peak_hz": null,
+      "audio_gain_after_observed_normalization": 0.16402882414493866,
+      "audio_files": {
+        "reference": {
+          "path": "examples/acoustics/A_cargo_reference.wav",
+          "sha256": "ae42ccdf41a534326a4c3e5e14dd4540eaaf6d7b4cce5c94e2fb2eb724444155"
+        },
+        "masked": {
+          "path": "examples/acoustics/A_cargo_masked.wav",
+          "sha256": "5771c562f3d8ada52082013a32ed3bd7697b6585985fb48f7a97697c4500989d"
+        },
+        "fallback_B_equals_P": {
+          "path": "examples/acoustics/A_cargo_fallback_B_equals_P.wav",
+          "sha256": "465b2ade5b712d6bce0ecc258b77dbae20d745ffa84cb20d786737ed8929da16"
+        },
+        "selected_C3": {
+          "path": "examples/acoustics/A_cargo_selected_C3.wav",
+          "sha256": "845da76f1fafadce71c328d624ac579c93f3ebd75654b865d95dac1e14057c3d"
+        }
+      }
+    },
+    {
+      "tag": "B",
+      "case_id": "471e45f368757679f9437a30e393988d77f5dca8a7209517cf8a90d4961010d2_50",
+      "source_id": "471e45f368757679f9437a30e393988d77f5dca8a7209517cf8a90d4961010d2",
+      "source_class": "other",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "timestamp_interval_utc": "20170126T131825.000Z_20170126T131830.000Z",
+      "hydrophone": "ICLISTENAF2523",
+      "original_archive_member": "allclass_5hours/audio/other/20170126T131825.000Z_20170126T131830.000Z.wav",
+      "selection_rule": "Maximum C3-minus-B Q among 64 dry-test V cases (post hoc)",
+      "source_array_sha256": "5e8105c39aee9af683eea31f9fd17faa3a4e2b6cf87688ab2e58f0c4e3a931ba",
+      "pool_sha256": "02be9851095ccb5d592a5a4b034df905f05e6dd50a3bd949c898b1a566f657bb",
+      "normalization_mean": 0.0283001388547559,
+      "normalization_scale": 0.0006375378679259729,
+      "gap_start_sample": 11695,
+      "gap_end_sample_exclusive": 12095,
+      "gap_seconds": [
+        1.461875,
+        1.511875
+      ],
+      "gap_ms": 50.0,
+      "selected_index": 1,
+      "policy_accepted": false,
+      "C3_minus_B_Q": 0.31210435649516993,
+      "recomputed_metrics": {
+        "fallback_B_equals_P": {
+          "gap_nmse": 0.9266448335579048,
+          "gap_spectral_convergence": 0.6470965961269893,
+          "gap_log_spectral_distance_db": 11.721267270124725,
+          "Q": 0.2776047532264854,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.46291757365721103,
+          "boundary_derivative_max": 1.6289430628830384,
+          "gap_absolute_error_p95": 1.7619653240825364,
+          "gap_absolute_error_p99": 2.2801743827612486,
+          "gap_samples": 400,
+          "quiet_reference": false
+        },
+        "selected_C3": {
+          "gap_nmse": 2.695318901864952,
+          "gap_spectral_convergence": 1.0111769879541452,
+          "gap_log_spectral_distance_db": 9.355296907476381,
+          "Q": 0.5897091097216554,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 1.5705052687789762,
+          "boundary_derivative_max": 2.7365307580048035,
+          "gap_absolute_error_p95": 2.902664745259196,
+          "gap_absolute_error_p99": 3.9734956391417278,
+          "gap_samples": 400,
+          "quiet_reference": false
+        }
+      },
+      "gap_rms_db_relative_to_reference": {
+        "fallback_B_equals_P": -5.173621848940937,
+        "selected_C3": 3.37658712041967
+      },
+      "observed_context_flatness": null,
+      "observed_context_peak_hz": null,
+      "audio_gain_after_observed_normalization": 0.04706873904064471,
+      "audio_files": {
+        "reference": {
+          "path": "examples/acoustics/B_other_reference.wav",
+          "sha256": "d57ba6088c7fecbaf53f5b1b47bef5761d4b781759ad5aad3b418f55db6c1db7"
+        },
+        "masked": {
+          "path": "examples/acoustics/B_other_masked.wav",
+          "sha256": "9771bee95ae2454c26326cb61049d8afb874ed85a0d8f517b7e4735f48d300d0"
+        },
+        "fallback_B_equals_P": {
+          "path": "examples/acoustics/B_other_fallback_B_equals_P.wav",
+          "sha256": "c1d9680f3f2e1b117468eef465ab3e4751913cc9bbcd2b8da9d0b2c5e46c2840"
+        },
+        "selected_C3": {
+          "path": "examples/acoustics/B_other_selected_C3.wav",
+          "sha256": "f62bc511da240be16bdcf2ebd60f51756294f9deb82c4b5c7f1799331626b004"
+        }
+      }
+    },
+    {
+      "tag": "C",
+      "case_id": "bc151aa07abf7caa8378e49a581cc4f11ba9193c2dc09673632a945f3104b98f_500",
+      "source_id": "bc151aa07abf7caa8378e49a581cc4f11ba9193c2dc09673632a945f3104b98f",
+      "source_class": "tanker",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "timestamp_interval_utc": "20210611T180850.000Z_20210611T180855.000Z",
+      "hydrophone": "ICLISTENAF2523",
+      "original_archive_member": "allclass_5hours/audio/tanker/20210611T180850.000Z_20210611T180855.000Z.wav",
+      "selection_rule": "Minimum observed-context spectral flatness among the 17 dry-test V cases with 500-ms gaps (post hoc)",
+      "source_array_sha256": "b0d5c9ad4dd6e48ddefe0ff760da632bc416437207a5b3b025c45d1d4bda340c",
+      "pool_sha256": "c147610357526e7e3a098bc28c79f12eb592707cab266f3d58352d5d4a58297b",
+      "normalization_mean": 0.0043618698192763455,
+      "normalization_scale": 0.035720899526943115,
+      "gap_start_sample": 10159,
+      "gap_end_sample_exclusive": 14159,
+      "gap_seconds": [
+        1.269875,
+        1.769875
+      ],
+      "gap_ms": 500.0,
+      "selected_index": 0,
+      "policy_accepted": false,
+      "C3_minus_B_Q": 0.012779136125831703,
+      "recomputed_metrics": {
+        "fallback_B_equals_P": {
+          "gap_nmse": 1.0501713453147132,
+          "gap_spectral_convergence": 0.8798402348915079,
+          "gap_log_spectral_distance_db": 14.62902498561719,
+          "Q": 0.3512314768872161,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.6322779409047413,
+          "boundary_derivative_max": 0.6186060659047414,
+          "gap_absolute_error_p95": 2.253650980976463,
+          "gap_absolute_error_p99": 3.2511120458499243,
+          "gap_samples": 4000,
+          "quiet_reference": false
+        },
+        "selected_C3": {
+          "gap_nmse": 1.1635930988944234,
+          "gap_spectral_convergence": 0.8742459026049797,
+          "gap_log_spectral_distance_db": 15.90706433000431,
+          "Q": 0.3640106130130478,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.37806733926569935,
+          "boundary_derivative_max": 0.1507667549494457,
+          "gap_absolute_error_p95": 2.5497325361135936,
+          "gap_absolute_error_p99": 3.289343192905356,
+          "gap_samples": 4000,
+          "quiet_reference": false
+        }
+      },
+      "gap_rms_db_relative_to_reference": {
+        "fallback_B_equals_P": -14.477103319851064,
+        "selected_C3": -7.128291966150267
+      },
+      "observed_context_flatness": 0.002242730540592548,
+      "observed_context_peak_hz": 78.125,
+      "audio_gain_after_observed_normalization": 0.231716346799639,
+      "audio_files": {
+        "reference": {
+          "path": "examples/acoustics/C_tanker_reference.wav",
+          "sha256": "f3985d1c346646c3c87de5a99a6a46fb42da60b5412476c5cd88b2f5c4b304f6"
+        },
+        "masked": {
+          "path": "examples/acoustics/C_tanker_masked.wav",
+          "sha256": "85fda124fe20f3537a1f3566723e1b9d7932fab07887931c437b8e45c6573cce"
+        },
+        "fallback_B_equals_P": {
+          "path": "examples/acoustics/C_tanker_fallback_B_equals_P.wav",
+          "sha256": "763c4637f3c79ebc1fc7411d7c0e0e23215e23f78e626635e7d65020d42346da"
+        },
+        "selected_C3": {
+          "path": "examples/acoustics/C_tanker_selected_C3.wav",
+          "sha256": "7537b1017d01ef5187b392c1bc3d270968324d3a18bb0608b55ae852786ac82b"
+        }
+      }
+    }
+  ]
+}

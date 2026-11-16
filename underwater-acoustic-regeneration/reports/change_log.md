@@ -46,3 +46,14 @@ and figures in that same directory. The active paper now uses the unmodified
 official LNCS class/style with its figures in `manuscript/`. Word output is retired
 from the working tree and retained in Git history. The scientific content and
 anonymous authorship are preserved; this conversion runs locally without GPU work.
+
+At the user's request, the paper now foregrounds hydrophone acoustics with an
+actual waveform/spectrogram overview and three explicitly selected anecdotal
+cases: cargo (small aggregate improvement with worse spectral convergence),
+other vessel (excess gap energy), and tanker (loss of a low-frequency component).
+The manuscript remains eight pages and uses one `mainj.tex` with a separate `.bib`.
+Twelve 8 kHz listening clips provide reference/input/B=P/C3 comparisons with a
+shared presentation gain per case. Their source and pool hashes, recomputed scores,
+gap masks, and PCM observed-sample consistency are verified. The example selection
+is post hoc and adds no independent sample, inference, or GPU work. Veirs et al.
+(PeerJ, 2016) supplies primary hydrophone-measurement context for the introduction.

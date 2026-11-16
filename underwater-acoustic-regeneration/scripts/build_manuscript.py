@@ -1,6 +1,7 @@
 """Compile the editable, single-file LaTeX manuscript without regenerating its text."""
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -24,8 +25,8 @@ def main():
         print('\n'.join(log.read_text(errors='replace').splitlines()[-30:]))
         raise SystemExit(result.returncode)
     shutil.copyfile(BUILD / 'mainj.pdf', PAPER / 'mainj.pdf')
-    paths = ['mainj.tex', 'references.bib', 'llncs.cls', 'splncs04.bst',
-             'method.pdf', 'development_ranking.pdf', 'development_examples.pdf', 'mainj.pdf']
+    figures = re.findall(r'\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}', (PAPER / 'mainj.tex').read_text())
+    paths = ['mainj.tex', 'references.bib', 'llncs.cls', 'splncs04.bst', *figures, 'mainj.pdf']
     report = {'format': 'LaTeX', 'canonical_source': 'manuscript/mainj.tex',
               'bibliography': 'manuscript/references.bib', 'author': 'Anonymous',
               'submission_ready': False, 'main_study_complete': False,

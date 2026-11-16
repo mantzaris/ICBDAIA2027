@@ -197,6 +197,12 @@ def main():
     claim("dry_quality", "Table 2 and development tails/paired intervals", "descriptive_only",
           [RUN + "/pilot_summary.json", RUN + "/classical_dry_test_summary.json", RUN + "/secondary_metrics.json", RUN + "/date_sensitivity.json"],
           "64 V groups; exploratory intervals, no primary confirmatory test", ["pilot_pools_clipped_seed17_test", "pilot_pools_clipped_seed17_analysis", "pilot_posthoc_descriptive"])
+    acoustic_examples = ROOT / "figures/acoustic_example_selection.json"
+    if acoustic_examples.exists():
+        claim("acoustic_examples", "Three hydrophone anecdotes with spectrograms, recomputed gap scores, and twelve listening clips", "illustrative_only",
+              ["figures/acoustic_example_selection.json"],
+              "Post hoc C3-minus-B score extremes and a tonal 500-ms V example; not representative, not a listening study, no new inference",
+              ["pilot_pools_clipped_seed17_test"])
     claim("synthetic_identity", "400 fixed-input method/pair comparisons have exactly equal output", "passed_implementation_check",
           [DIAG + "/summary.json", DIAG + "/hidden_event_summary.json"], "100 distinct hidden-event realizations; same inputs/seeds cannot identify invisible target content",
           ["pilot_pools_clipped_seed17_diagnostics"])

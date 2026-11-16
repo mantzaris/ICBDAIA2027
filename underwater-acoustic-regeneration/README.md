@@ -21,9 +21,11 @@ on `main`. Nothing is pushed; the user handles the push.
   and [compute ledger](reports/compute_ledger.json).
 - [Frozen protocol](preregistration/protocol.json), [sampler amendment](preregistration/sampler_amendment.json),
   [raw run registry](results/run_registry.jsonl), and [source/data attribution](provenance/DATA_ATTRIBUTION.md).
-- All three vector figures are beside `mainj.tex` in `manuscript/`. Additional
-  PDF/SVG and 450-dpi PNG exports remain in `figures/`. The figure script refreshes
-  both locations; the manuscript build script compiles the editable LaTeX directly.
+- All three paper figures are beside `mainj.tex` in `manuscript/`, including the
+  hydrophone waveform/spectrogram overview and three acoustic case comparisons.
+  PDF/SVG and 450-dpi PNG exports remain in `figures/`, alongside the earlier
+  supplemental workflow and waveform/PSD plots. The figure scripts refresh the
+  active paper figures; the manuscript builder compiles the editable LaTeX directly.
 
 Completed work includes the 43,208-file UniqueShip audit, a 200-crop metric check,
 5,000-update conditional and 2,500-update deterministic pilots, exact CUDA checkpoint
@@ -36,6 +38,31 @@ The three-seed main matrix, C4/C5/C6 controls, independent classifier, VLIZ audi
 and confirmatory statistical comparisons were not run after the no-go decision.
 The 16-source learning diagnostic does not establish near-zero memorization.
 
+## Acoustic examples
+
+The paper's three anecdotes use saved dry-test V outputs: A is the most favorable
+C3-minus-B score difference, B the most harmful, and C the lowest observed-context
+spectral flatness among the 17 cases with 500 ms gaps. They are explicitly selected
+illustrations. The cargo case improves waveform error while worsening spectral
+convergence; the other-vessel case adds excess gap energy; the tanker case loses a
+prominent low-frequency component. The calibrated policy rejects all three and uses B.
+
+| Case / source date / gap | Reference | Erased input | B = P | Selected C3 |
+| --- | --- | --- | --- | --- |
+| A: cargo / 2017-12-24 / 50 ms | [WAV](examples/acoustics/A_cargo_reference.wav) | [WAV](examples/acoustics/A_cargo_masked.wav) | [WAV](examples/acoustics/A_cargo_fallback_B_equals_P.wav) | [WAV](examples/acoustics/A_cargo_selected_C3.wav) |
+| B: other vessel / 2017-01-26 / 50 ms | [WAV](examples/acoustics/B_other_reference.wav) | [WAV](examples/acoustics/B_other_masked.wav) | [WAV](examples/acoustics/B_other_fallback_B_equals_P.wav) | [WAV](examples/acoustics/B_other_selected_C3.wav) |
+| C: tanker / 2021-06-11 / 500 ms | [WAV](examples/acoustics/C_tanker_reference.wav) | [WAV](examples/acoustics/C_tanker_masked.wav) | [WAV](examples/acoustics/C_tanker_fallback_B_equals_P.wav) | [WAV](examples/acoustics/C_tanker_selected_C3.wav) |
+
+Each clip is 4.096 s at 8 kHz. One shared gain per case preserves relative levels
+across its four versions, with no time stretching or independent loudness matching.
+The [example manifest](figures/acoustic_example_selection.json) records source
+times, gap sample indices, recomputed scores, processing details, and SHA-256 hashes.
+Both the floating-point outputs and exported PCM preserve identical observed samples
+across variants. These are listening aids, not subjective quality scores or calibrated
+sound-pressure measurements. Credit UniqueShip's authors and Ocean Networks Canada
+under the source recordings' CC BY 4.0 terms; [attribution and modifications](provenance/DATA_ATTRIBUTION.md)
+are retained with the project.
+
 ## Inspect and rebuild locally
 
 From this directory:
@@ -44,14 +71,17 @@ From this directory:
 python3 -m pytest -q
 PYTHONPATH=src python3 scripts/preflight.py
 PYTHONPATH=src python3 scripts/posthoc_pilot.py
-python3 scripts/build_reports.py
 python3 scripts/plot_pilot.py
+PYTHONPATH=src python3 scripts/build_acoustic_examples.py
+python3 scripts/build_reports.py
 python3 scripts/build_manuscript.py
 python3 scripts/validate_manuscript.py
 ```
 
 `build_reports.py` requires locally backed-up candidate and diagnostic arrays,
-deliberately excluded from Git. Paper compilation needs only the files in
+deliberately excluded from Git. The acoustic example builder uses those frozen
+arrays and processed source audio; it verifies their hashes, reproduces saved gap
+metrics, and checks PCM export without running any model. Paper compilation needs only the files in
 `manuscript/` and a TeX installation with `latexmk`, pdfLaTeX, BibTeX, NewTX,
 `booktabs`, `float`, `microtype`, and `hyperref`. The build script keeps
 auxiliary files under `.cache/latex/`; it never regenerates or overwrites the text
