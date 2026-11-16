@@ -75,3 +75,8 @@ submission. Automated checks do not establish that this human review has occurre
 the draft does not claim it has. Policy evidence and applicability are recorded in
 `reports/ai_disclosure_policy.json`; the publisher guide is preserved, with its
 checksum recorded there, in `provenance/ai_disclosure_guidance.pdf`.
+
+The user subsequently instructed that the manuscript contain an AI disclosure
+only at the end. The first-page and caption notices were therefore removed.
+The publisher requirements described above remain the policy findings; the selected
+placement is a user-directed departure from that guidance, not a compliance certification.

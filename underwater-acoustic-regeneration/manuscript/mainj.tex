@@ -15,7 +15,7 @@
 
 \begin{document}
 \raggedbottom
-\title{Checking Sound and Action: Generative AI for Underwater Acoustic Analysis\thanks{AI tools assisted the research and manuscript; see the AI Use Declaration.}}
+\title{Checking Sound and Action: Generative AI for Underwater Acoustic Analysis}
 \titlerunning{Checking Sound and Action in Underwater Acoustics}
 \author{Anonymous submission}
 \authorrunning{Anonymous}
@@ -39,7 +39,7 @@ We apply controlled verification to two separate tasks: waveform repair and agen
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{gpu_agent_comparison.pdf}
-\caption{Recorded sound and executed decisions. A: before/after spectra at 128 ms for the first case (20--160 Hz zoom); frames touching gaps are excluded. The callout compares stated/applied windows. B: complete tasks, with 95\% Wilson intervals for neural workflows. C: individual recordings; orange means correct setting but incomplete task. Two agents means planner--reviewer. Plot code: OpenAI Codex (Nov.\ 2026); see AI declaration.}
+\caption{Recorded sound and executed decisions. A: before/after spectra at 128 ms for the first case (20--160 Hz zoom); frames touching gaps are excluded. The callout compares stated/applied windows. B: complete tasks, with 95\% Wilson intervals for neural workflows. C: individual recordings; orange means correct setting but incomplete task. Two agents means planner--reviewer.}
 \label{fig:configuration}
 \end{figure}
 
@@ -54,7 +54,7 @@ Tool-based reasoning \cite{react}, self-review \cite{reflexion}, and multi-agent
 UniqueShip v1 \cite{uniqueship} contains 43,208 mono recordings, twelve classes, and 60.008 hours. Audited headers give 32 kHz sampling. Related recordings stay together to limit learning from one excerpt and testing on another from the same source. Table~\ref{tab:1} separates generator training (G), quality-checker training (D), development (V), calibration (C), and final testing. Actual C/test outcomes remain unopened.
 
 \begin{table}[htbp]
-\caption{Audited source partitions; counts describe available data, not evaluated outcomes. Preparation: OpenAI Codex (Nov.\ 2026); see AI declaration.}
+\caption{Audited source partitions; counts describe available data, not evaluated outcomes.}
 \label{tab:1}
 \centering\small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrr@{}}
@@ -111,7 +111,7 @@ Starting generation at the final noise step produces enormous errors on four G r
 V assigns 64 groups each to tuning, practice calibration, and reserved evaluation; eight are unused. The first 32 tuning groups also monitor training. Even selecting the best of four proposals with the answer visible improves on B by 0.02 in only 5/64 groups (7.8\%). This retrospective best choice misses the predeclared 20\% feasibility threshold. Doubling generation steps leaves the count unchanged; the original main study stops.
 
 \begin{table}[htbp]
-\caption{Repair on 64 reserved development groups; lower error is better. AI use: fraction receiving diffusion; Worse: Q above B by over 0.02; Calls: diffusion evaluations (B needs one baseline pass). Velocity rows have no release gate (Sect.~\ref{sec:correction}). Preparation: OpenAI Codex (Nov.\ 2026); see AI declaration.}
+\caption{Repair on 64 reserved development groups; lower error is better. AI use: fraction receiving diffusion; Worse: Q above B by over 0.02; Calls: diffusion evaluations (B needs one baseline pass). Velocity rows have no release gate (Sect.~\ref{sec:correction}).}
 \label{tab:2}
 \centering\small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
@@ -182,7 +182,7 @@ The target also changes training emphasis, so acoustic gains reflect both learni
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{velocity_correction.pdf}
-\caption{Test stability, then acoustic quality. A: reconstruction of known noisy signals on four G recordings; solid/dashed curves use full/reduced precision. B: repair on 64 tuning groups; below-diagonal points favor correction. Plot code: OpenAI Codex (Nov.\ 2026); see AI declaration.}
+\caption{Test stability, then acoustic quality. A: reconstruction of known noisy signals on four G recordings; solid/dashed curves use full/reduced precision. B: repair on 64 tuning groups; below-diagonal points favor correction.}
 \label{fig:correction}
 \end{figure}
 
@@ -199,7 +199,7 @@ Figure~\ref{fig:acoustic_cases} makes the distinction visible. A/B are the origi
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{acoustic_case_studies.pdf}
-\caption{Complete reference, baseline B, original selected C3, and corrected first proposal. Dashed lines mark gaps; brightness shares a scale within each row. C enlarges low frequencies. Windows are 32 ms (4 ms hop) and may cross boundaries. Reference audio is unavailable during real loss. Corrected proposals have no release gate. Plot code: OpenAI Codex (Nov.\ 2026); see AI declaration.}
+\caption{Complete reference, baseline B, original selected C3, and corrected first proposal. Dashed lines mark gaps; brightness shares a scale within each row. C enlarges low frequencies. Windows are 32 ms (4 ms hop) and may cross boundaries. Reference audio is unavailable during real loss. Corrected proposals have no release gate.}
 \label{fig:acoustic_cases}
 \end{figure}
 
@@ -228,7 +228,7 @@ A \emph{stable} cue requires peaks at least 10 dB above each region's median spe
 Success requires the correct choice and actual state, cue label, supported numbers/citations, verification after configuration, unknown identity, and intact input/gap flags. Refusal must leave the display unchanged; citations must identify successful tool returns. Fixed rules encode this policy ceiling. All failures remain included. Paired uncertainty uses 10,000 group-bootstrap draws and exact McNemar tests, Holm-adjusted across three predefined contrasts.
 
 \begin{table}[htbp]
-\caption{Agent outcomes. Setting checks the reported choice and actual state; Complete adds all remaining task checks. Tokens: mean generated text length; Seconds: median episode time excluding model loading. Primary rows share 32 tasks; follow-ups are separate. Preparation: OpenAI Codex (Nov.\ 2026); see AI declaration.}
+\caption{Agent outcomes. Setting checks the reported choice and actual state; Complete adds all remaining task checks. Tokens: mean generated text length; Seconds: median episode time excluding model loading. Primary rows share 32 tasks; follow-ups are separate.}
 \label{tab:3}
 \centering\small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
@@ -270,6 +270,7 @@ The method separates failures that otherwise look like one unsuccessful acoustic
 
 For system designers, the findings identify concrete checks: preserve recorded samples and mark estimates, assess acoustic structure after stabilizing generation, enforce known setting limits, and read back what was applied. This controlled diagnosis supplies new empirical evidence for developing acoustic assistance. Independent sites, richer cue classes, identification, and physical equipment outcomes are the next tests.
 
+\clearpage
 \paragraph{AI Use Declaration.} OpenAI Codex assisted planning, code, execution, analysis, literature checks, figure/table preparation, and writing in November 2026. This revision used a GPT-6-based interface; exact earlier backend revisions were not recorded. Evaluated diffusion and Qwen3-8B methods are described above. Figures plot recorded data and saved outputs; no image-generation model produced them. Experimental artifacts retain code, evaluated-agent prompts, and outcomes. Human authors remain responsible for verification, interpretation, and the submitted manuscript.
 
 \bibliographystyle{splncs04}

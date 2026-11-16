@@ -161,3 +161,12 @@ Codex assistance. The publisher guidance PDF is retained with its checksum.
 The homepage’s explicit 8–10-page range replaces the earlier uncertainty about
 whether ten pages were allowed. Human author review is still required before
 submission; no such review, organizer approval, or acceptance is claimed.
+
+2026-11-16 end-only disclosure placement: At the user's explicit request, removed
+the title footnote and all six figure/table preparation notices. The paper now
+contains only one short AI Use Declaration after the conclusion and before the
+references, kept together on page ten. Scientific prose, equations, results, and
+figure data are unchanged. The single-source LaTeX paper remains anonymous and
+ten pages; compilation, manuscript validation, and visual inspection passed.
+Policy records distinguish this chosen placement from the publisher guidance;
+no claim of publisher approval or submission is made.

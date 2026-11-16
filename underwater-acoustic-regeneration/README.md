@@ -319,9 +319,9 @@ settings. The conclusion gives concrete design lessons. Experimental outcomes,
 all 110 table values, five equations, and the three figure datasets are unchanged.
 
 The [policy review](reports/ai_disclosure_policy.json) distinguishes the conference
-instructions from Springer’s books/proceedings guidance. The paper includes a
-first-page note, an end declaration, and assistance notices in every figure/table
-caption. Codex’s role includes research planning, code, execution, analysis, and
+instructions from Springer’s books/proceedings guidance. At the user’s explicit request, the paper includes only a short end declaration;
+first-page and caption notices are omitted. The policy review records the difference
+from the publisher guidance. Codex’s role includes research planning, code, execution, analysis, and
 writing; it is not described as copyediting alone. Evaluated models are described
 in the methods. The human authors still need to verify and take responsibility for
 the submission. No completed human-review attestation or organizer approval is claimed.
