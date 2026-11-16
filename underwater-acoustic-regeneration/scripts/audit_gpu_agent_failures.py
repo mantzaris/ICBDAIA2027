@@ -6,24 +6,26 @@ from pathlib import Path
 import numpy as np
 
 from acoustic_regeneration.agents.benchmark_tools import BenchmarkTools, qualifies, score_report
+from acoustic_regeneration.agents.guarded_tools import GuardedBenchmarkTools
 from run_gpu_agent_benchmark import parse_action
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/'results/gpu_agent_benchmark'
 
 
-def main():
-    cases=[c for c in json.loads((BASE/'inputs/manifest.json').read_text())['cases'] if c['split']=='evaluation']
+def audit(base, arms):
+    cases=[c for c in json.loads((base/'inputs/manifest.json').read_text())['cases'] if c.get('split','evaluation')=='evaluation']
     rows=[]
     for case in cases:
-        cid=case['case_id'];task=json.loads((BASE/'inputs'/f'{cid}.json').read_text())
-        with np.load(BASE/'inputs'/f'{cid}.npz',allow_pickle=False) as d:audio,mask=d['audio'],d['observed']
+        cid=case['case_id'];task=json.loads((base/'inputs'/f'{cid}.json').read_text())
+        with np.load(base/'inputs'/f'{cid}.npz',allow_pickle=False) as d:audio,mask=d['audio'],d['observed']
         measurements={e['arguments']['window_ms']:e['result'] for e in case['reference_tool_trace'] if e['name']=='analyze_window'}
-        for arm in ['direct','reasoning','self_review','two_agents']:
-            summary=json.loads((BASE/'evaluation'/f'{cid}__{arm}.json').read_text())
-            tools=BenchmarkTools(audio,mask,task);draft=None;before_review=None;review_started=False
+        for arm in arms:
+            summary=json.loads((base/'evaluation'/f'{cid}__{arm}.json').read_text())
+            tools=(GuardedBenchmarkTools if arm=='reasoning_guarded' else BenchmarkTools)(audio,mask,task)
+            draft=None;before_review=None;review_started=False
             bad_changes=[];new_review_tools=[]
-            for event in map(json.loads,(BASE/'evaluation'/f'{cid}__{arm}.jsonl').read_text().splitlines()):
+            for event in map(json.loads,(base/'evaluation'/f'{cid}__{arm}.jsonl').read_text().splitlines()):
                 if event['kind']=='tool_result':
                     tools.call(event['name'],event['arguments'])
                     if review_started:new_review_tools.append(event['name'])
@@ -39,28 +41,45 @@ def main():
                     before_review={'draft_present':draft is not None,'checks':score_report(draft,tools,case['expected_report'])}
                     review_started=True
             final=summary['checks']['strict_success']
+            report=summary['final_report']
+            report_setting_correct=isinstance(report,dict) and report.get('decision')==case['expected_report']['decision'] and report.get('window_ms')==case['expected_report']['window_ms']
+            stated_applied_mismatch=isinstance(report,dict) and report.get('decision')=='configure' and report.get('window_ms')!=tools.window_ms
             transition=None
             if before_review is not None:
                 initial=before_review['checks']['strict_success']
                 transition=('kept_correct' if initial and final else 'regressed' if initial else 'rescued' if final else 'still_incorrect')
             rows.append({'case_id':cid,'arm':arm,'family':case['family'],'final_success':final,
+                         'report_setting_correct':report_setting_correct,'final_display_window_ms':tools.window_ms,
+                         'stated_applied_setting_mismatch':stated_applied_mismatch,
                          'before_review':before_review,'review_transition':transition,
                          'review_tool_calls':new_review_tools,'constraint_violating_configurations':bad_changes})
     metrics={}
-    for arm in ['direct','reasoning','self_review','two_agents']:
+    for arm in arms:
         subset=[r for r in rows if r['arm']==arm]
         metrics[arm]={'cases':len(subset),
+            'report_setting_correct':sum(r['report_setting_correct'] for r in subset),
+            'stated_applied_setting_mismatch':sum(r['stated_applied_setting_mismatch'] for r in subset),
             'cases_with_constraint_violating_configuration':sum(bool(r['constraint_violating_configurations']) for r in subset),
             'total_constraint_violating_configurations':sum(len(r['constraint_violating_configurations']) for r in subset),
             'review_transitions':{name:sum(r['review_transition']==name for r in subset) for name in ['kept_correct','regressed','rescued','still_incorrect']},
-            'initial_draft_missing':sum(r['before_review'] is not None and not r['before_review']['draft_present'] for r in subset)}
+            'initial_draft_missing':sum(r['before_review'] is not None and not r['before_review']['draft_present'] for r in subset),
+            'rescued_existing_draft':sum(r['review_transition']=='rescued' and r['before_review']['draft_present'] for r in subset),
+            'completed_missing_draft':sum(r['review_transition']=='rescued' and not r['before_review']['draft_present'] for r in subset)}
+    return {'metrics':metrics,'rows':rows}
+
+
+def main():
+    primary=audit(BASE,['direct','reasoning','self_review','two_agents'])
+    guard=audit(ROOT/'results/gpu_agent_guard',['reasoning','reasoning_guarded'])
     record={'scope':'Descriptive secondary audit specified during execution; not an additional confirmatory hypothesis or a changed primary score',
             'configuration_definition':'Applied window violates numeric constraints or has fewer than three observed frames in either requested region; no real hardware connected',
             'review_definition':'Score the proposed draft against the tool state at review handoff, then compare with its final score; completing an absent draft is identified separately',
-            'metrics':metrics,'rows':rows,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-            'summary_sha256':hashlib.sha256((BASE/'summary.json').read_bytes()).hexdigest()}
+            'setting_mismatch_definition':'A configure report states a window different from the final executed virtual-display state; this audit was motivated by the first primary-case trace and does not change frozen primary scores',
+            **primary,'guard_followup':guard,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            'source_summary_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in
+                [BASE/'summary.json',ROOT/'results/gpu_agent_guard/summary.json']}}
     (ROOT/'reports/gpu_agent_failure_audit.json').write_text(json.dumps(record,indent=2)+'\n')
-    print(json.dumps(metrics,indent=2))
+    print(json.dumps({'primary':primary['metrics'],'guard_followup':guard['metrics']},indent=2))
 
 
 if __name__=='__main__':main()
