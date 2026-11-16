@@ -1,0 +1,144 @@
+{
+  "case_id": "case_06",
+  "arm": "reasoning",
+  "family": "timing_detail",
+  "group_id": "c59900dd30879b699ed0ba91de1b1e33eb311476924d021b6dd3f33b6e1213e7",
+  "date": "20160529",
+  "status": "completed",
+  "error": null,
+  "final_report": {
+    "decision": "configure",
+    "window_ms": 32,
+    "cue_label": "stable",
+    "peak_before_hz": 31.25,
+    "peak_after_hz": 31.25,
+    "identity": "unknown",
+    "gap_unobserved": true,
+    "verified": false,
+    "evidence_ids": [
+      "e01",
+      "e02",
+      "e03"
+    ]
+  },
+  "initial_report": null,
+  "drafts": [
+    {
+      "decision": "configure",
+      "window_ms": 32,
+      "cue_label": "stable",
+      "peak_before_hz": 31.25,
+      "peak_after_hz": 31.25,
+      "identity": "unknown",
+      "gap_unobserved": true,
+      "verified": false,
+      "evidence_ids": [
+        "e01",
+        "e02",
+        "e03"
+      ]
+    }
+  ],
+  "checks": {
+    "valid_report": true,
+    "setting_correct": true,
+    "cue_correct": true,
+    "numeric_correct": true,
+    "verification_complete": false,
+    "evidence_supported": true,
+    "identity_and_gap_correct": true,
+    "unsupported_claims": 0,
+    "strict_success": false
+  },
+  "model_turns": 4,
+  "tool_calls": 3,
+  "tool_errors": 0,
+  "generated_tokens": 1884,
+  "inference_seconds": 70.4498663910199,
+  "elapsed_seconds": 70.47405532095581,
+  "forced_reasoning_closures": 2,
+  "review_started": false,
+  "input_unchanged": true,
+  "input_sha256": "b4e6189e31c5444a9d76ce95c626cda46d976d8b8a4330797cf82c76975f0214",
+  "tool_trace": [
+    {
+      "evidence_id": "e01",
+      "name": "inspect_recording",
+      "arguments": {},
+      "result": {
+        "sample_rate_hz": 8000,
+        "duration_seconds": 4.096,
+        "observed_fraction": 0.87793,
+        "available_windows_ms": [
+          32,
+          64,
+          128,
+          256
+        ],
+        "current_window_ms": 32,
+        "regions_seconds": {
+          "before": [
+            0.25,
+            1.5
+          ],
+          "after": [
+            2.6,
+            3.85
+          ]
+        },
+        "minimum_frames_per_region": 3,
+        "missing_audio_present": true,
+        "source_identity": "unknown",
+        "physical_hardware_connected": false,
+        "constraints": {
+          "max_bin_spacing_hz": 40,
+          "max_time_support_ms": 64
+        }
+      }
+    },
+    {
+      "evidence_id": "e02",
+      "name": "analyze_window",
+      "arguments": {
+        "window_ms": 32
+      },
+      "result": {
+        "window_ms": 32,
+        "bin_spacing_hz": 31.25,
+        "time_support_ms": 32,
+        "regions": {
+          "before": {
+            "fully_observed_frames": 305,
+            "excluded_frames": 0,
+            "peak_bin_hz": 31.25,
+            "peak_prominence_db": 21.857164,
+            "band_level_db": -3.787198
+          },
+          "after": {
+            "fully_observed_frames": 305,
+            "excluded_frames": 0,
+            "peak_bin_hz": 31.25,
+            "peak_prominence_db": 20.479449,
+            "band_level_db": -5.23955
+          }
+        },
+        "units": "relative level; not calibrated pressure",
+        "missing_frames_excluded": true
+      }
+    },
+    {
+      "evidence_id": "e03",
+      "name": "configure_display",
+      "arguments": {
+        "window_ms": 32
+      },
+      "result": {
+        "previous_window_ms": 32,
+        "current_window_ms": 32,
+        "applied_to": "virtual display",
+        "physical_hardware_changed": false
+      }
+    }
+  ],
+  "events_sha256": "2588ee7cbe0acee05cf4ad31acca95274cbfd38d3402ccbdc09fc9cc652fcbb0"
+}
