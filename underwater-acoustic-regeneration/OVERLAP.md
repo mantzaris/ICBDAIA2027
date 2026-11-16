@@ -8,6 +8,12 @@ correct labeling, equipment-setting recommendations, and review through a tool-u
 agent. That is an application outlook, not an empirical agent contribution. Only
 offline analysis-window settings are demonstrated; no object-identification model,
 language-model agent, or physical equipment interface was implemented or evaluated.
+
+The subsequent correction experiment changes the conditional diffusion prediction
+target to the established velocity formulation of Salimans and Ho. Its scope is
+numerical diagnosis and acoustic reconstruction on reused development groups.
+It adds neither a language-model agent nor an object-identification experiment,
+and does not claim invention of velocity prediction or diffusion inpainting.
 This distinction preserves the separation from the MVML reasoning study.
 
 No MVML source code, manuscript text, results, or tables have been imported. Actual

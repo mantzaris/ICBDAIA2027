@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "script_sha256": "84614726b34153d7a388d7ff211eb0959ee7e70729d5564889f7b6947dc8d9b6",
+  "source_files": {
+    "reports/sampler_numerics.json": "0e13ad2585b0927fd482884e223e12d86017d4fd2686fed0354e009bb47726fd",
+    "reports/sampler_numerics_bounded.json": "8ea9ed6cf54bff146065b4cea716748973575f0f62635896848ff2c2243649fa",
+    "reports/sampler_numerics_truncated.json": "f09759363965c785dc7a10a729ec7f2c3367c692c4675dd9fe4a9dd298115469",
+    "reports/velocity_numerics_terminal.json": "e9f2633c717259956ae18f94342e520f31ee81a262805a5ecc5cfcca2d9c109d",
+    "reports/velocity_numerics_amended.json": "dfcb340bb8029375912ea3aff798aeefa61772a2bd9f9455b33876e1e444b549",
+    "results/velocity_followup/summary.json": "0ef103ed2b19980b08cdf8cb103422c01c280f5116fce5b6ae2f854a6c1d2b57",
+    "results/velocity_followup/cases.jsonl": "7e677b37d166029b7bc368d8744e9ee429ed3a1d4a909467ae0aaac87fe6f6bf"
+  },
+  "numerical_controls": {
+    "epsilon_terminal": {
+      "fp32": {
+        "gap_nmse": 5180206.0263836,
+        "gap_spectral_convergence": 1769.7387689183095,
+        "Q": 1.0,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 3144611.0625
+      },
+      "bf16": {
+        "gap_nmse": 5250957.510479284,
+        "gap_spectral_convergence": 1781.227182836832,
+        "Q": 1.0,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 3179462.125
+      }
+    },
+    "epsilon_clipped": {
+      "fp32": {
+        "gap_nmse": 22.548988971930335,
+        "gap_spectral_convergence": 3.6297246825780665,
+        "Q": 1.0,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 3144611.0625
+      },
+      "bf16": {
+        "gap_nmse": 22.35802288647416,
+        "gap_spectral_convergence": 3.6239133303920585,
+        "Q": 1.0,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 3179462.125
+      }
+    },
+    "epsilon_amended": {
+      "fp32": {
+        "gap_nmse": 1.8420762369692074,
+        "gap_spectral_convergence": 0.8224443551919906,
+        "Q": 0.43587061841914854,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 3144611.0625
+      },
+      "bf16": {
+        "gap_nmse": 1.8369792263936287,
+        "gap_spectral_convergence": 0.8269254237486822,
+        "Q": 0.4363537592363741,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 3179462.125
+      }
+    },
+    "velocity_terminal": {
+      "fp32": {
+        "gap_nmse": 1.0284589326450695,
+        "gap_spectral_convergence": 0.4782635061627229,
+        "Q": 0.2481232431213144,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 0.3298316206783056
+      },
+      "bf16": {
+        "gap_nmse": 1.0245323337782344,
+        "gap_spectral_convergence": 0.47639085974932205,
+        "Q": 0.24716425665960978,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 0.32961803674697876
+      }
+    },
+    "velocity_amended": {
+      "fp32": {
+        "gap_nmse": 1.078603732002602,
+        "gap_spectral_convergence": 0.5058934969107581,
+        "Q": 0.2612988407280148,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 0.3298316206783056
+      },
+      "bf16": {
+        "gap_nmse": 1.073839072164605,
+        "gap_spectral_convergence": 0.5037359918088319,
+        "Q": 0.2601638819727836,
+        "maximum_observed_drift": 0.0,
+        "terminal_teacher_forced_clean_MSE": 0.32961803674697876
+      }
+    }
+  },
+  "development_groups": 192,
+  "verified_gap_artifacts": 192,
+  "old_candidate_metrics_recomputed_and_matched": true,
+  "local_error_amplification_identity_verified": true,
+  "new_velocity_draw_gap_metrics_recomputed": 1536,
+  "primary_plot_groups": 64,
+  "primary_plot_role": "V",
+  "plot_draw": "fixed first candidate seed",
+  "date_sensitivity_sha256": "1c08b8c707ce6719aa44cc75bd24399eec1e89dee37e17e3a97221015ff4fe3b",
+  "figure_sha256": "4847891b074ce21f86fead3371815f6b5c91e0581aac4f03a01d6060564d61d3",
+  "scope": "Numerical diagnosis on four G sources and exploratory paired evaluation on reused V; no classification, release-policy calibration, or hardware-control claim"
+}

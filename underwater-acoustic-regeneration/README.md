@@ -1,11 +1,20 @@
-# Generative AI for underwater acoustic review
+# Diagnosing generative underwater acoustic repair
 
-The completed development pilot **failed its predeclared feasibility trigger**:
+The targeted follow-up **diagnoses and corrects a numerical failure** in generative
+underwater audio repair. A matched velocity-prediction model removes the observed
+terminal-step blow-up: full-precision gap NMSE on four diagnostic sources falls
+from 5.18 million to 1.03. On 64 reserved development cases, first-draw error Q
+falls from 0.412 to 0.308, about 25%; the learned baseline remains better at 0.239.
+The anonymous paper presents the mechanism, three new equations, controls, and
+before/after spectrograms. These are exploratory results on reused development data.
+
+The original development pilot **failed its predeclared feasibility trigger**:
 only 5 of 64 tuning groups (7.8%) had a diffusion candidate improving Q by at least
 0.02, versus the required 20%. The calibrated development policy accepts no
 generated completions and equals its deterministic fallback. This is not evidence
-of a successful selective method. Actual calibration/test outcomes remain unopened;
-the full research study is incomplete.
+of a successful selective method. The correction raises the tuning opportunity to
+7/64 (10.9%), still below 20%; no new release gate is fitted. Actual calibration/test
+outcomes remain unopened; the full research study is incomplete.
 
 The user authorized an existing RunPod, requested a run under ten hours, and asked
 that the pod remain running. Work stays in this directory and is committed only
@@ -15,14 +24,18 @@ on `main`. Nothing is pushed; the user handles the push.
 
 - [Single LaTeX manuscript](manuscript/mainj.tex), [BibTeX references](manuscript/references.bib),
   and [rendered PDF](manuscript/mainj.pdf): an anonymous development
-  feasibility audit, not a submission-ready main-study paper.
+  diagnosis and targeted correction study, not a completed confirmatory main study.
 - [Pilot findings and limits](reports/pilot.md), [claim-to-evidence map](reports/claim_to_evidence.json),
   [table-cell sources](reports/manuscript_audit/table_cells.json), [experiment ledger](reports/experiment_ledger.json),
   and [compute ledger](reports/compute_ledger.json).
 - [Frozen protocol](preregistration/protocol.json), [sampler amendment](preregistration/sampler_amendment.json),
   [raw run registry](results/run_registry.jsonl), and [source/data attribution](provenance/DATA_ATTRIBUTION.md).
+- [Correction protocol](preregistration/velocity_followup.json),
+  [paired results](results/velocity_followup/summary.json),
+  [training-control audit](reports/velocity_training_match.json), and
+  [independently recomputed metrics](reports/velocity_followup_validation.json).
 - All three paper figures are beside `mainj.tex` in `manuscript/`: an analysis-setting
-  comparison, a recording-by-recording view of the release decision, and three
+  comparison, a numerical/acoustic correction comparison, and three original
   acoustic case comparisons with plain-language labels.
   PDF/SVG and 450-dpi PNG exports remain in `figures/`, alongside the earlier
   supplemental workflow and waveform/PSD plots. The figure scripts refresh the
@@ -34,6 +47,8 @@ resumption, 392 saved candidate/probe pools, a paired 32/64-step comparison, dry
 calibration/testing, 800 synthetic/shift cases, and eight published-checkpoint transfer
 cases. The transfer cases were replayed to save complete waveform artifacts; they
 remain eight unique cases. Fixed seeds did not yield bitwise transfer reproducibility.
+The added correction trains for 5,000 updates, evaluates 192 existing V groups with
+two samplers, and independently verifies all 1,536 new candidate gap scores.
 
 The three-seed main matrix, C4/C5/C6 controls, independent classifier, VLIZ audio,
 and confirmatory statistical comparisons were not run after the no-go decision.
@@ -51,13 +66,14 @@ it does not by itself establish object identity.
 | --- | --- | --- |
 | Distinguish recording from fill | Source records and an explicit missing/estimated-sample mask | Implemented and checked |
 | Generate and assess possible gap fills | Diffusion proposals, known-audio checks, and a fixed release rule | Pilot evaluated; no proposals released |
+| Diagnose and correct unstable generation | Matched noise/velocity targets, precision controls, and paired acoustic scores | Numerical failure corrected; baseline still wins mean acoustic error |
 | Inspect a low-frequency component | [32 ms versus 128 ms analysis windows](manuscript/operator_configuration.pdf), with 4/16 ms hops and 31.25/7.81 Hz frequency bins | Demonstrated offline on the same available input; frames touching gaps excluded |
 | Identify an object or vessel class | Existing dataset annotations; an independent labeling model is required | No identification accuracy evaluated |
 | Configure physical equipment | Proposed review of acquisition gain/sample rate against instrument capabilities, operator approval, and a new measurement | No hardware commands or configuration benefits evaluated |
 | Reason across tools and evidence | Proposed agent that retrieves clips/masks, requests plots, compares labels, and explains setting tradeoffs | Future extension; no language-model agent implemented |
 
 The [configuration manifest](figures/operator_configuration.json) records exactly
-which display settings were changed. The [decision plot](manuscript/operator_decisions.pdf)
+which display settings were changed. The [supplemental decision plot](figures/operator_decisions.pdf)
 shows all 64 reserved development cases: 52 selected proposals worsen error beyond
 the baseline tolerance, and the release rule uses baseline fill throughout. That
 baseline is also learned, estimated audio. Numerical error and fluent explanations
@@ -71,16 +87,20 @@ C3-minus-B score difference, B the most harmful, and C the lowest observed-conte
 spectral flatness among the 17 cases with 500 ms gaps. They are explicitly selected
 illustrations. The cargo case improves waveform error while worsening spectral
 convergence; the other-vessel case adds excess gap energy; the tanker case loses a
-prominent low-frequency component. The calibrated policy rejects all three and uses B.
+prominent low-frequency component. The original policy uses B in all three. The
+corrected model's fixed first draw is added to these same cases selected before
+the intervention. It reduces excess energy in B; closer level in C still does not
+recover the waveform. Original C3 uses a learned selector, so its selection rule
+differs from the new first draw. The main results also compare matched first draws.
 
-| Case / source date / gap | Reference | Erased input | B = P | Selected C3 |
-| --- | --- | --- | --- | --- |
-| A: cargo / 2017-12-24 / 50 ms | [WAV](examples/acoustics/A_cargo_reference.wav) | [WAV](examples/acoustics/A_cargo_masked.wav) | [WAV](examples/acoustics/A_cargo_fallback_B_equals_P.wav) | [WAV](examples/acoustics/A_cargo_selected_C3.wav) |
-| B: other vessel / 2017-01-26 / 50 ms | [WAV](examples/acoustics/B_other_reference.wav) | [WAV](examples/acoustics/B_other_masked.wav) | [WAV](examples/acoustics/B_other_fallback_B_equals_P.wav) | [WAV](examples/acoustics/B_other_selected_C3.wav) |
-| C: tanker / 2021-06-11 / 500 ms | [WAV](examples/acoustics/C_tanker_reference.wav) | [WAV](examples/acoustics/C_tanker_masked.wav) | [WAV](examples/acoustics/C_tanker_fallback_B_equals_P.wav) | [WAV](examples/acoustics/C_tanker_selected_C3.wav) |
+| Case / source date / gap | Reference | Erased input | B = P | Selected C3 | Velocity first draw |
+| --- | --- | --- | --- | --- | --- |
+| A: cargo / 2017-12-24 / 50 ms | [WAV](examples/acoustics/A_cargo_reference.wav) | [WAV](examples/acoustics/A_cargo_masked.wav) | [WAV](examples/acoustics/A_cargo_fallback_B_equals_P.wav) | [WAV](examples/acoustics/A_cargo_selected_C3.wav) | [WAV](examples/acoustics/A_cargo_velocity_first.wav) |
+| B: other vessel / 2017-01-26 / 50 ms | [WAV](examples/acoustics/B_other_reference.wav) | [WAV](examples/acoustics/B_other_masked.wav) | [WAV](examples/acoustics/B_other_fallback_B_equals_P.wav) | [WAV](examples/acoustics/B_other_selected_C3.wav) | [WAV](examples/acoustics/B_other_velocity_first.wav) |
+| C: tanker / 2021-06-11 / 500 ms | [WAV](examples/acoustics/C_tanker_reference.wav) | [WAV](examples/acoustics/C_tanker_masked.wav) | [WAV](examples/acoustics/C_tanker_fallback_B_equals_P.wav) | [WAV](examples/acoustics/C_tanker_selected_C3.wav) | [WAV](examples/acoustics/C_tanker_velocity_first.wav) |
 
 Each clip is 4.096 s at 8 kHz. One shared gain per case preserves relative levels
-across its four versions, with no time stretching or independent loudness matching.
+across its five versions, with no time stretching or independent loudness matching.
 The [example manifest](figures/acoustic_example_selection.json) records source
 times, gap sample indices, recomputed scores, processing details, and SHA-256 hashes.
 Both the floating-point outputs and exported PCM preserve identical observed samples
@@ -99,6 +119,7 @@ PYTHONPATH=src python3 scripts/preflight.py
 PYTHONPATH=src python3 scripts/posthoc_pilot.py
 python3 scripts/plot_pilot.py
 PYTHONPATH=src python3 scripts/build_acoustic_examples.py
+PYTHONPATH=src python3 scripts/plot_velocity_followup.py
 python3 scripts/build_reports.py
 python3 scripts/build_manuscript.py
 python3 scripts/validate_manuscript.py
@@ -126,6 +147,14 @@ the LNCS template family; retrieval and comparison are recorded in
 requirement with LaTeX only. Prior Word output remains in Git history at `a0e3a17`,
 and its audit records are in `reports/manuscript_audit/word_draft/`. PDF author
 metadata and the displayed author remain anonymous.
+
+The user requested the upper end of the conference's published “8 to 10 pages”
+wording. The compiled paper is **ten total pages including references**; the
+organizers have not clarified that ambiguous wording. The paper adds three
+equations explaining noise-error amplification, velocity prediction, and the
+masked training loss. The [frozen follow-up protocol](preregistration/velocity_followup.json)
+specifies one matched 5,000-update correction experiment; it does not reopen the
+actual calibration or final-test partitions.
 
 ## Environments and GPU reproduction
 
@@ -158,6 +187,13 @@ The executed sequence was:
    `fetch_transfer.py`, apply `prepare_transfer_compat.py` within `.venv-transfer`,
    and run `transfer_check.py`. The startup failures, compatibility patches, original
    scored run, and waveform replay are all retained.
+6. Freeze `preregistration/velocity_followup.json`; train the same conditional
+   architecture with `--prediction-type velocity --updates 5000 --seed 17`.
+   `verify_velocity_training.py` checks matched training streams;
+   `evaluate_velocity_followup.py` evaluates the fixed final checkpoint and
+   original frozen cases. `sync_velocity_followup.py` verifies 206 transferred
+   files against the remote copies; `plot_velocity_followup.py` independently
+   recomputes scores and checks the derived error-propagation identities.
 
 Use new run identifiers for any new experiment. Do not overwrite completed artifacts
 or treat a rerun as another independent sample. The dated authorization in
@@ -172,7 +208,7 @@ after each probe mask; exact projection retains observed samples. Repaired posit
 keep explicit imputation flags. Original field recordings are not noise-free truth.
 
 Raw archives, processed audio, environments, checkpoints, and candidate arrays are
-ignored by Git. Both original archive volumes and ten checkpoints have verified
+ignored by Git. Both original archive volumes and twelve checkpoints have verified
 local backups; per-case arrays have recorded SHA-256 hashes. Download/retrieval
 locations are in `manifests/` and `provenance/`. The remote `/workspace` is a 50 GB
 container overlay, not a confirmed persistent volume. Keep the local backups.

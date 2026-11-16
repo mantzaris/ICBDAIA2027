@@ -82,6 +82,17 @@ def main():
         for row in rows(path):
             assert digest(row[artifact_key]) == row[hash_key], row[artifact_key]
             checked.append(row[artifact_key])
+    velocity_rows = []
+    if (ROOT / "results/velocity_followup/summary.json").exists():
+        velocity_summary = read("results/velocity_followup/summary.json")
+        assert velocity_summary["status"] == "completed" and velocity_summary["groups"] == 192
+        velocity_rows = rows("results/velocity_followup/cases.jsonl")
+        assert len(velocity_rows) == 192 and all(row["source_partition"] == "V" for row in velocity_rows)
+        for row in velocity_rows:
+            assert digest(row["artifact_path"]) == row["artifact_sha256"], row["artifact_path"]
+            checked.append(row["artifact_path"])
+        assert read("reports/velocity_training_match.json")["status"] == "passed"
+        assert read("reports/velocity_followup_validation.json")["status"] == "passed"
     pairs = read(DIAG + "/hidden_event_pairs.json")
     assert len(pairs) == 400 and all(row["maximum_output_difference"] == 0 for row in pairs)
     assert all(row["false_event_on_absent"] != row["missed_event_on_present"] for row in pairs)
@@ -117,6 +128,7 @@ def main():
     save("reports/artifact_validation.json", {"status": "completed", "candidate_and_diagnostic_artifacts_checked": len(checked),
          "unique_paths": len(set(checked)), "groups_in_pilot": len(cases), "actual_C_test_opened": False,
          "paired_hidden_target_comparisons": len(pairs), "transferred_waveform_projection_verified": len(replay),
+         "targeted_velocity_followup_groups": len(velocity_rows),
          "script_sha256": digest("scripts/build_reports.py")})
 
     registry = rows("results/run_registry.jsonl")
@@ -173,6 +185,7 @@ def main():
                "saved_main_pilot_pool_denoiser_evaluations": sum(row["denoiser_calls"] for row in cases),
                "step64_comparison_denoiser_evaluations": sum(row["denoiser_calls_64"] for row in rows(RUN + "/step_comparison_cases.jsonl")),
                "saved_synthetic_shift_denoiser_evaluations": sum(row["denoiser_calls"] for row in rows(DIAG + "/cases.jsonl")),
+               "velocity_followup_denoiser_evaluations": sum(row.get("forward_evaluations_in_this_invocation", 0) for row in completed if row["run_id"] == "velocity_followup_evaluation"),
                "transfer_forward_evaluations_including_replay": sum(row["denoiser_forward_evaluations"] for row in original_transfer + replay),
                "transfer_backward_evaluations_including_replay": sum(row["backward_evaluations"] for row in original_transfer + replay),
                "call_count_units": "Training counts are microbatches; sampling counts are per-draw denoiser evaluations. These exclude some smoke, resume, validation, and G-only numerical diagnostics and are not a complete billing proxy.",
@@ -199,9 +212,9 @@ def main():
           "64 V groups; exploratory intervals, no primary confirmatory test", ["pilot_pools_clipped_seed17_test", "pilot_pools_clipped_seed17_analysis", "pilot_posthoc_descriptive"])
     acoustic_examples = ROOT / "figures/acoustic_example_selection.json"
     if acoustic_examples.exists():
-        claim("acoustic_examples", "Three hydrophone anecdotes with spectrograms, recomputed gap scores, and twelve listening clips", "illustrative_only",
+        claim("acoustic_examples", "Three hydrophone anecdotes with spectrograms, recomputed gap scores, and fifteen listening clips including the fixed first velocity draw", "illustrative_only",
               ["figures/acoustic_example_selection.json"],
-              "Post hoc C3-minus-B score extremes and a tonal 500-ms V example; not representative, not a listening study, no new inference",
+              "Cases selected using original C3-minus-B score extremes and a tonal 500-ms V example before the velocity correction; different candidate-selection rules are shown; not representative or a listening study",
               ["pilot_pools_clipped_seed17_test"])
     if (ROOT / "figures/operator_configuration.json").exists():
         claim("operator_review_views", "Recorded cues, supplied labels, two analysis settings, and the 64-case release result are shown separately", "descriptive_display_only",
@@ -222,6 +235,16 @@ def main():
     claim("sampler", "Unbounded terminal sampler fails; G-only correction is a disclosed approximation", "limitation",
           ["reports/sampler_numerics.json", "reports/sampler_numerics_bounded.json", "reports/sampler_numerics_truncated.json", "preregistration/sampler_amendment.json"],
           "No V-quality endpoint sweep; Gaussian initialization at nonterminal time remains mismatched")
+    if velocity_rows:
+        claim("velocity_training_control", "A single 5000-update velocity intervention matches the original source manifest, architecture, optimizer settings, and ending training RNG states", "verified_control",
+              ["preregistration/velocity_followup.json", "reports/velocity_training_match.json"],
+              "One seed; prediction coordinates and implied loss weighting both change", ["pilot_velocity_seed17"])
+        claim("velocity_numerical_correction", "The measured local error propagation matches the epsilon and velocity conversion equations; paired G trajectories document the effect", "mechanistic_development_evidence",
+              ["reports/velocity_followup_validation.json", "reports/velocity_numerics_terminal.json", "reports/velocity_numerics_amended.json"],
+              "Four training sources; numerical stability is distinct from reconstruction utility", ["velocity_followup_evaluation"])
+        claim("velocity_acoustic_comparison", "Fixed-draw and medoid comparisons on the same 192 V groups, separated into three 64-group roles", "exploratory_followup",
+              ["results/velocity_followup/summary.json", "results/velocity_followup/cases.jsonl", "reports/velocity_followup_validation.json", "reports/velocity_followup_date_sensitivity.json"],
+              "Intervention motivated by previously inspected V results; actual C/test untouched; no recalibrated release policy or object-identification claim", ["velocity_followup_evaluation"])
     for identifier, text in [("main_coverage", "Held-out generative coverage >=25%"),
                              ("main_harm", ">=25% relative harm reduction with confidence interval excluding zero"),
                              ("main_gate", "Diagnostics improve harm at matched coverage over duration and dispersion gates"),
@@ -255,6 +278,20 @@ def main():
         cells.append({"table": 2, "row": method, "column": "Worse", "value": "—", "derivation": "Baseline row; generative harmful-acceptance rate is not defined"})
     for method in ("zero", "linear"):
         cells.append({"table": 2, "row": method, "column": "AI use", "value": 0, "derivation": "No diffusion output is accepted by this baseline"})
+    if velocity_rows:
+        reserved = [row for row in velocity_rows if row["pilot_role"] == "dev_test"]
+        for label, method, use_medoid in [("Velocity: old sampler", "velocity_amended", False),
+                                          ("Velocity: one draw", "velocity_terminal", False),
+                                          ("Velocity: central of four", "velocity_terminal", True)]:
+            metrics = [row["methods"][method]["candidate_metrics"][row["methods"][method]["medoid"] if use_medoid else 0] for row in reserved]
+            values = {"Error Q": float(np.mean([m["Q"] for m in metrics])),
+                      "NMSE": float(np.mean([m["gap_nmse"] for m in metrics])), "AI use": 1.0,
+                      "Worse": float(np.mean([m["Q"] > row["baseline_metrics"]["Q"] + .02 for m, row in zip(metrics, reserved)])),
+                      "Calls": 128 if use_medoid else 32}
+            for column, value in values.items():
+                cells.append({"table": 2, "row": label, "column": column, "value": value,
+                              "source": "results/velocity_followup/cases.jsonl",
+                              "derivation": "Mean over the same 64 dev_test V groups; " + method + "; fixed first draw or spectral medoid; no release gate applied"})
     for mechanism, item in diagnostics["mechanisms"].items():
         if item["cases"] == 20:
             for column, key in [("Cases", "cases"), ("AI use", "coverage"), ("Error Q(P)", "mean_P_Q")]:

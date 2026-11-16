@@ -70,3 +70,33 @@ unperformed identification. A second plot shows the 52/64 worse proposals and th
 actual disabled release gate. ReAct is cited for the future tool-use concept.
 No new inference, training, object predictions, hardware actions, or operator trials
 were performed. All twelve listening clips retain the same audio samples.
+
+The user subsequently requested a ten-page version, one to three additional
+equations, and a measured correction of the identified failure. A single
+velocity-prediction training intervention was frozen before its outcomes in
+`preregistration/velocity_followup.json` and committed on main. It retains the
+original architecture, data, seed, stochastic training streams, optimizer,
+batch size, and 5,000-update budget. One terminal sampler and one sampler matching
+the old amendment are compared on the same 192 V groups. Actual C/test outcomes
+remain unopened, and the original learned release gate is not reused for the
+new generator. The original no-go result and all failed sampler controls remain
+part of the record. No additional pod or paid service was provisioned; the
+existing ten-hour deadline and instruction to leave the pod running still apply.
+
+2026-11-16 follow-up completion: Matched training and 192-group evaluation finished
+at 05:08:06 UTC, 8.32 hours after the authorized session start. The added training
+and evaluation took 29.2 and 7.3 minutes. Velocity prediction reduced full-precision
+gap NMSE on the four original G diagnostic sources from 5.18 million to 1.03,
+without truncation or clipping. Reserved-development first-draw Q fell from 0.412
+to 0.308; baseline Q remains 0.239. The unchanged tuning feasibility trigger still
+fails (7/64 versus 20%), and no new gate is calibrated. The original no-go evidence
+is preserved alongside the demonstrated numerical correction.
+
+The paper now has ten pages including references, three added equations (five
+total), a before/after correction figure, and corrected outputs in the same three
+previously selected acoustic cases. Fifteen listening clips use a shared gain per
+case; the original twelve are byte-identical. All 1,536 new velocity candidate
+metrics were independently recomputed, 206 backup files matched remote SHA-256
+checks, and the training-control audit passed. The GPU is idle and the pod remains
+running. No main-study, object-identification, equipment-control, or reasoning-agent
+capability is claimed.

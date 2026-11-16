@@ -104,16 +104,16 @@
     },
     {
       "id": "acoustic_examples",
-      "claim": "Three hydrophone anecdotes with spectrograms, recomputed gap scores, and twelve listening clips",
+      "claim": "Three hydrophone anecdotes with spectrograms, recomputed gap scores, and fifteen listening clips including the fixed first velocity draw",
       "verdict": "illustrative_only",
-      "scope": "Post hoc C3-minus-B score extremes and a tonal 500-ms V example; not representative, not a listening study, no new inference",
+      "scope": "Cases selected using original C3-minus-B score extremes and a tonal 500-ms V example before the velocity correction; different candidate-selection rules are shown; not representative or a listening study",
       "completed_run_ids": [
         "pilot_pools_clipped_seed17_test"
       ],
       "evidence": [
         {
           "path": "figures/acoustic_example_selection.json",
-          "sha256": "fcea6ddcea1180a4f2e25e74a0f866c1888bea1d14c3185e6d15cb8bf2331550"
+          "sha256": "30a8a2073007733f2ccdb0178aa43c757e69d50ab0ad7154ed1e61e765a43490"
         }
       ]
     },
@@ -128,11 +128,11 @@
       "evidence": [
         {
           "path": "figures/operator_configuration.json",
-          "sha256": "d8bf0f4930fe4e65f57afa614c26a25d326938114b9511c2d506db6e6db6ddfb"
+          "sha256": "80c092ef3c4434dcda8aa1bb0df7d89cee2a5b9abc80838a00e6d5e658bc7032"
         },
         {
           "path": "figures/operator_decisions.json",
-          "sha256": "904210e49a6546da6f2d3c957596c7dfc32359f9b47e22a3b4537a450db96729"
+          "sha256": "26bba75504c2c336cb1277630975908a7d94d63d4f45b32342226b350a0bed47"
         }
       ]
     },
@@ -232,6 +232,75 @@
         {
           "path": "preregistration/sampler_amendment.json",
           "sha256": "6305eaa9e5e2cf1c22da39a43ee757db7997cf7b4723fb4d429bd2d3572e6aa0"
+        }
+      ]
+    },
+    {
+      "id": "velocity_training_control",
+      "claim": "A single 5000-update velocity intervention matches the original source manifest, architecture, optimizer settings, and ending training RNG states",
+      "verdict": "verified_control",
+      "scope": "One seed; prediction coordinates and implied loss weighting both change",
+      "completed_run_ids": [
+        "pilot_velocity_seed17"
+      ],
+      "evidence": [
+        {
+          "path": "preregistration/velocity_followup.json",
+          "sha256": "326a5a9fd11bc739fea750b464cfc78361affb196b8d26854548e4adeda500a2"
+        },
+        {
+          "path": "reports/velocity_training_match.json",
+          "sha256": "812e59f5a28e594b6740684cebe638565330cf197c44297ce4698787e2e61f1a"
+        }
+      ]
+    },
+    {
+      "id": "velocity_numerical_correction",
+      "claim": "The measured local error propagation matches the epsilon and velocity conversion equations; paired G trajectories document the effect",
+      "verdict": "mechanistic_development_evidence",
+      "scope": "Four training sources; numerical stability is distinct from reconstruction utility",
+      "completed_run_ids": [
+        "velocity_followup_evaluation"
+      ],
+      "evidence": [
+        {
+          "path": "reports/velocity_followup_validation.json",
+          "sha256": "79127ffea8b52a0db22cd5060a61119b8f1272ea54a69135d4b7b8591f0ad028"
+        },
+        {
+          "path": "reports/velocity_numerics_terminal.json",
+          "sha256": "e9f2633c717259956ae18f94342e520f31ee81a262805a5ecc5cfcca2d9c109d"
+        },
+        {
+          "path": "reports/velocity_numerics_amended.json",
+          "sha256": "dfcb340bb8029375912ea3aff798aeefa61772a2bd9f9455b33876e1e444b549"
+        }
+      ]
+    },
+    {
+      "id": "velocity_acoustic_comparison",
+      "claim": "Fixed-draw and medoid comparisons on the same 192 V groups, separated into three 64-group roles",
+      "verdict": "exploratory_followup",
+      "scope": "Intervention motivated by previously inspected V results; actual C/test untouched; no recalibrated release policy or object-identification claim",
+      "completed_run_ids": [
+        "velocity_followup_evaluation"
+      ],
+      "evidence": [
+        {
+          "path": "results/velocity_followup/summary.json",
+          "sha256": "0ef103ed2b19980b08cdf8cb103422c01c280f5116fce5b6ae2f854a6c1d2b57"
+        },
+        {
+          "path": "results/velocity_followup/cases.jsonl",
+          "sha256": "7e677b37d166029b7bc368d8744e9ee429ed3a1d4a909467ae0aaac87fe6f6bf"
+        },
+        {
+          "path": "reports/velocity_followup_validation.json",
+          "sha256": "79127ffea8b52a0db22cd5060a61119b8f1272ea54a69135d4b7b8591f0ad028"
+        },
+        {
+          "path": "reports/velocity_followup_date_sensitivity.json",
+          "sha256": "1c08b8c707ce6719aa44cc75bd24399eec1e89dee37e17e3a97221015ff4fe3b"
         }
       ]
     },

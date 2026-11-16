@@ -1,11 +1,20 @@
 {
-  "scope": "Post hoc anecdotes from three existing dry-test V cases; no new inference or held-out outcomes",
-  "source_run": "results/pilot_pools_clipped_seed17",
-  "script_sha256": "59d5663216cf1308012d0b46583d910cf0b3733b7e9cc6cae27c0531d2c975d0",
+  "scope": "Post hoc anecdotes selected from original V outcomes before the correction; saved velocity first draws added to the same three cases; this presentation script runs no inference",
+  "source_runs": [
+    "results/pilot_pools_clipped_seed17",
+    "results/velocity_followup"
+  ],
+  "source_files": {
+    "results/pilot_pools_clipped_seed17/cases.jsonl": "8fa509df1eb467b3441054cff68be73486908a91cf186ec53dc950ef5def52eb",
+    "results/velocity_followup/cases.jsonl": "7e677b37d166029b7bc368d8744e9ee429ed3a1d4a909467ae0aaac87fe6f6bf",
+    "results/velocity_followup/summary.json": "0ef103ed2b19980b08cdf8cb103422c01c280f5116fce5b6ae2f854a6c1d2b57",
+    "preregistration/velocity_followup.json": "326a5a9fd11bc739fea750b464cfc78361affb196b8d26854548e4adeda500a2"
+  },
+  "script_sha256": "9275de37cd15f56d24bc1fc920af6c6b5573c4b1e5b620166266cea8342a8857",
   "sample_rate": 8000,
   "samples_per_clip": 32768,
   "audio_format": "16-bit PCM WAV",
-  "audio_scaling": "Observed mean/RMS normalization, then one shared gain per case across all four variants; maximum peak 0.8; no independent loudness normalization, fading, or time stretching",
+  "audio_scaling": "Observed mean/RMS normalization, then one shared gain per case across all five variants; maximum peak 0.8; no independent loudness normalization, fading, or time stretching",
   "amplitude_interpretation": "Relative signal units, not calibrated Pa or dB re 1 micropascal",
   "comparison_stft": {
     "window": "periodic Hann",
@@ -86,6 +95,11 @@
       "gap_ms": 50.0,
       "selected_index": 3,
       "policy_accepted": false,
+      "velocity_artifact_path": "results/pools/velocity_followup/f21a8e2f45204e244f4bd2293b803d7eb3c10d51522c7f78071deed73ed03268_50.npz",
+      "velocity_artifact_sha256": "6213384b4a563912d3ec0c0883aabee9d213f1717f75b344dc04a23bc211102d",
+      "velocity_candidate_index": 0,
+      "velocity_candidate_seed": 4228281000,
+      "velocity_release_gate_fitted": false,
       "C3_minus_B_Q": -0.023381972106131077,
       "recomputed_metrics": {
         "fallback_B_equals_P": {
@@ -113,11 +127,25 @@
           "gap_absolute_error_p99": 2.8844808148213352,
           "gap_samples": 400,
           "quiet_reference": false
+        },
+        "velocity_first": {
+          "gap_nmse": 1.341907097461392,
+          "gap_spectral_convergence": 0.6994261053302266,
+          "gap_log_spectral_distance_db": 9.292135489151983,
+          "Q": 0.34259491351523064,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.6252572395841153,
+          "boundary_derivative_max": 0.3768678762952359,
+          "gap_absolute_error_p95": 2.364789734452176,
+          "gap_absolute_error_p99": 2.95726914180319,
+          "gap_samples": 400,
+          "quiet_reference": false
         }
       },
       "gap_rms_db_relative_to_reference": {
         "fallback_B_equals_P": -9.971970384848314,
-        "selected_C3": -8.022358879871538
+        "selected_C3": -8.022358879871538,
+        "velocity_first": -4.1106356032530735
       },
       "observed_context_flatness": null,
       "observed_context_peak_hz": null,
@@ -138,6 +166,10 @@
         "selected_C3": {
           "path": "examples/acoustics/A_cargo_selected_C3.wav",
           "sha256": "845da76f1fafadce71c328d624ac579c93f3ebd75654b865d95dac1e14057c3d"
+        },
+        "velocity_first": {
+          "path": "examples/acoustics/A_cargo_velocity_first.wav",
+          "sha256": "d1ea78cf1ad42c02b0285ce2087c55f4784a0a2f148f3a76a51de413e44ea779"
         }
       }
     },
@@ -165,6 +197,11 @@
       "gap_ms": 50.0,
       "selected_index": 1,
       "policy_accepted": false,
+      "velocity_artifact_path": "results/pools/velocity_followup/471e45f368757679f9437a30e393988d77f5dca8a7209517cf8a90d4961010d2_50.npz",
+      "velocity_artifact_sha256": "3b2f560dbf389f7ad53cd9eeb7e98e902618873f1189168bc2dc435d24535c0c",
+      "velocity_candidate_index": 0,
+      "velocity_candidate_seed": 11782559800,
+      "velocity_release_gate_fitted": false,
       "C3_minus_B_Q": 0.31210435649516993,
       "recomputed_metrics": {
         "fallback_B_equals_P": {
@@ -192,11 +229,25 @@
           "gap_absolute_error_p99": 3.9734956391417278,
           "gap_samples": 400,
           "quiet_reference": false
+        },
+        "velocity_first": {
+          "gap_nmse": 1.5505714250166494,
+          "gap_spectral_convergence": 0.6397446264975606,
+          "gap_log_spectral_distance_db": 8.977294237009536,
+          "Q": 0.35375758475147134,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.4251496066983843,
+          "boundary_derivative_max": 1.50064456419291,
+          "gap_absolute_error_p95": 2.309581847972267,
+          "gap_absolute_error_p99": 2.7383896924556543,
+          "gap_samples": 400,
+          "quiet_reference": false
         }
       },
       "gap_rms_db_relative_to_reference": {
         "fallback_B_equals_P": -5.173621848940937,
-        "selected_C3": 3.37658712041967
+        "selected_C3": 3.37658712041967,
+        "velocity_first": -1.733904338475019
       },
       "observed_context_flatness": null,
       "observed_context_peak_hz": null,
@@ -217,6 +268,10 @@
         "selected_C3": {
           "path": "examples/acoustics/B_other_selected_C3.wav",
           "sha256": "f62bc511da240be16bdcf2ebd60f51756294f9deb82c4b5c7f1799331626b004"
+        },
+        "velocity_first": {
+          "path": "examples/acoustics/B_other_velocity_first.wav",
+          "sha256": "4661134780121bb4f21b5c04668fc3dc007228ea14dd3b15a01c9f4c7cf5cd1a"
         }
       }
     },
@@ -244,6 +299,11 @@
       "gap_ms": 500.0,
       "selected_index": 0,
       "policy_accepted": false,
+      "velocity_artifact_path": "results/pools/velocity_followup/bc151aa07abf7caa8378e49a581cc4f11ba9193c2dc09673632a945f3104b98f_500.npz",
+      "velocity_artifact_sha256": "b0eecc061b95c78bb295a7741f7806b29019e066b0a08b0f32546e50b5edf39d",
+      "velocity_candidate_index": 0,
+      "velocity_candidate_seed": 38737162180,
+      "velocity_release_gate_fitted": false,
       "C3_minus_B_Q": 0.012779136125831703,
       "recomputed_metrics": {
         "fallback_B_equals_P": {
@@ -271,11 +331,25 @@
           "gap_absolute_error_p99": 3.289343192905356,
           "gap_samples": 4000,
           "quiet_reference": false
+        },
+        "velocity_first": {
+          "gap_nmse": 1.742997427646881,
+          "gap_spectral_convergence": 0.7777247994046109,
+          "gap_log_spectral_distance_db": 14.954965941353109,
+          "Q": 0.4123058783070128,
+          "observed_max_drift": 0.0,
+          "boundary_amplitude_max": 0.6145028718355846,
+          "boundary_derivative_max": 0.24603035529887185,
+          "gap_absolute_error_p95": 2.916572551849257,
+          "gap_absolute_error_p99": 4.3009796447272794,
+          "gap_samples": 4000,
+          "quiet_reference": false
         }
       },
       "gap_rms_db_relative_to_reference": {
         "fallback_B_equals_P": -14.477103319851064,
-        "selected_C3": -7.128291966150267
+        "selected_C3": -7.128291966150267,
+        "velocity_first": -1.13562867841585
       },
       "observed_context_flatness": 0.002242730540592548,
       "observed_context_peak_hz": 78.125,
@@ -296,6 +370,10 @@
         "selected_C3": {
           "path": "examples/acoustics/C_tanker_selected_C3.wav",
           "sha256": "7537b1017d01ef5187b392c1bc3d270968324d3a18bb0608b55ae852786ac82b"
+        },
+        "velocity_first": {
+          "path": "examples/acoustics/C_tanker_velocity_first.wav",
+          "sha256": "ed89f147a8048627bdf659d71d8ac51148f8c0156d8fa667ded7d18910b69e69"
         }
       }
     }

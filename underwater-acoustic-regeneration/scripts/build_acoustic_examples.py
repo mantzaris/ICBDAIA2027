@@ -84,6 +84,9 @@ def load_examples():
     decisions = {row['case_id']: row for row in map(json.loads, (RUN / 'dry_test_decisions.jsonl').read_text().splitlines())
                  if row['policy'] == 'full'}
     assert cases.keys() == decisions.keys() and len(cases) == 64
+    followup = {row['case_id']: row for row in map(json.loads, (ROOT / 'results/velocity_followup/cases.jsonl').read_text().splitlines())
+                if row['pilot_role'] == 'dev_test'}
+    assert followup.keys() == cases.keys()
     with gzip.open(ROOT / 'manifests/pilot_sources.jsonl.gz', 'rt') as stream:
         sources = {row['original_file_id']: row for row in map(json.loads, stream)}
     targets, flatness, peaks = {}, {}, {}
@@ -119,18 +122,27 @@ def load_examples():
         with np.load(path, allow_pickle=False) as pool:
             signals['fallback_B_equals_P'][start:end] = pool['fallback_gap']
             signals['selected_C3'][start:end] = pool['candidates_gap'][decision['selected_index']]
+        correction = followup[identifier]
+        assert correction['gap_start'] == start and correction['gap_end'] == end
+        assert correction['source_array_sha256'] == source['processed_sha256']
+        correction_path = ROOT / correction['artifact_path']
+        assert digest(correction_path) == correction['artifact_sha256']
+        signals['velocity_first'] = target.copy()
+        with np.load(correction_path, allow_pickle=False) as pool:
+            signals['velocity_first'][start:end] = pool['velocity_terminal_gap'][0]
         observed = np.ones(len(target), dtype=bool)
         observed[start:end] = False
         metrics = {}
         for variant, saved in [('fallback_B_equals_P', case['fallback_metrics']),
-                               ('selected_C3', case['candidate_metrics'][decision['selected_index']])]:
+                               ('selected_C3', case['candidate_metrics'][decision['selected_index']]),
+                               ('velocity_first', correction['methods']['velocity_terminal']['candidate_metrics'][0])]:
             assert np.array_equal(signals[variant][observed], target[observed])
             metrics[variant] = gap_metrics(signals[variant], target, [(start, end)], MetricFloors(floor / case['normalization_scale']))
             for name in ('Q', 'gap_nmse', 'gap_spectral_convergence'):
                 assert np.isclose(metrics[variant][name], saved[name], rtol=1e-9, atol=1e-10), (identifier, name)
         reference_rms = np.sqrt(np.mean(target[start:end] ** 2))
         levels = {variant: float(20 * np.log10(np.sqrt(np.mean(signals[variant][start:end] ** 2)) / reference_rms))
-                  for variant in ('fallback_B_equals_P', 'selected_C3')}
+                  for variant in ('fallback_B_equals_P', 'selected_C3', 'velocity_first')}
         evidence = {'tag': tag, 'case_id': identifier, 'source_id': case['source_id'],
                     'source_class': source['class'], 'source_partition': 'V', 'pilot_role': 'dev_test',
                     'timestamp_interval_utc': source['timestamp_interval'], 'hydrophone': source['hydrophone'],
@@ -140,6 +152,10 @@ def load_examples():
                     'gap_start_sample': start, 'gap_end_sample_exclusive': end,
                     'gap_seconds': [start / RATE, end / RATE], 'gap_ms': case['gap_ms'],
                     'selected_index': decision['selected_index'], 'policy_accepted': False,
+                    'velocity_artifact_path': correction['artifact_path'],
+                    'velocity_artifact_sha256': correction['artifact_sha256'],
+                    'velocity_candidate_index': 0, 'velocity_candidate_seed': correction['candidate_seeds'][0],
+                    'velocity_release_gate_fitted': False,
                     'C3_minus_B_Q': delta[identifier], 'recomputed_metrics': metrics,
                     'gap_rms_db_relative_to_reference': levels,
                     'observed_context_flatness': flatness.get(identifier),
@@ -179,15 +195,16 @@ def overview(example):
 
 def comparisons(examples):
     fig, axes = plt.subplots(3, 4, figsize=(4.7, 3.6))
-    titles = ['Complete audio\nTest reference', 'Available audio\nGap erased',
-              'Baseline fill\nUsed by rule', 'AI proposal\nDeclined by rule']
+    titles = ['Complete audio\nTest reference', 'Baseline fill\nOriginal rule',
+              'Original AI\nSelected C3', 'Velocity fix\nFirst draw']
+    plotted = ['reference', 'fallback_B_equals_P', 'selected_C3', 'velocity_first']
     for row, (evidence, signals) in enumerate(examples):
         a, b = evidence['gap_seconds']
         left, right = a - .12, b + .12
         all_spectra = {variant: stft_power(signal) for variant, signal in signals.items()}
         reference_times, _, reference_power = all_spectra['reference']
         reference_peak = reference_power[:, (reference_times >= left) & (reference_times <= right)].max()
-        for col, variant in enumerate(VARIANTS):
+        for col, variant in enumerate(plotted):
             ax = axes[row, col]
             times, frequencies, power = all_spectra[variant]
             db = 10 * np.log10(np.maximum(power / reference_peak, 1e-12))
@@ -203,8 +220,8 @@ def comparisons(examples):
                 ax.tick_params(labelleft=False)
             if row == 0:
                 ax.set_title(titles[col], pad=17)
-        descriptions = ['Small score gain, changed frequency pattern',
-                        'Extra energy inside the gap', 'Low tone weakens across the gap']
+        descriptions = ['Original: lower Q, changed pattern',
+                        'Original: excess gap energy', 'Compare low-frequency continuity']
         label = f"{evidence['tag']}  {evidence['source_class'].capitalize()} | {evidence['gap_ms']:.0f} ms | {descriptions[row]}"
         axes[row, 0].text(0, 1.07, label, transform=axes[row, 0].transAxes, fontsize=6.6, ha='left')
     fig.subplots_adjust(left=.105, right=.97, bottom=.17, top=.88, wspace=.14, hspace=.65)
@@ -361,10 +378,14 @@ def main():
     configuration_views(examples[2])
     operator_decisions()
     export_audio(examples)
-    report = {'scope': 'Post hoc anecdotes from three existing dry-test V cases; no new inference or held-out outcomes',
-              'source_run': 'results/pilot_pools_clipped_seed17', 'script_sha256': digest(Path(__file__)),
+    report = {'scope': 'Post hoc anecdotes selected from original V outcomes before the correction; saved velocity first draws added to the same three cases; this presentation script runs no inference',
+              'source_runs': ['results/pilot_pools_clipped_seed17', 'results/velocity_followup'],
+              'source_files': {str(path.relative_to(ROOT)): digest(path) for path in
+                               [RUN / 'cases.jsonl', ROOT / 'results/velocity_followup/cases.jsonl',
+                                ROOT / 'results/velocity_followup/summary.json', ROOT / 'preregistration/velocity_followup.json']},
+              'script_sha256': digest(Path(__file__)),
               'sample_rate': RATE, 'samples_per_clip': 32768, 'audio_format': '16-bit PCM WAV',
-              'audio_scaling': 'Observed mean/RMS normalization, then one shared gain per case across all four variants; maximum peak 0.8; no independent loudness normalization, fading, or time stretching',
+              'audio_scaling': 'Observed mean/RMS normalization, then one shared gain per case across all five variants; maximum peak 0.8; no independent loudness normalization, fading, or time stretching',
               'amplitude_interpretation': 'Relative signal units, not calibrated Pa or dB re 1 micropascal',
               'comparison_stft': {'window': 'periodic Hann', 'samples': 256, 'hop_samples': 32,
                                   'center_padding': False, 'frame_centers': True,
@@ -388,7 +409,7 @@ def main():
               'working_tree_dirty': bool(subprocess.check_output(['git', 'status', '--porcelain', '--', '.'], cwd=ROOT, text=True).strip()),
               'script_sha256': report['script_sha256'],
               'source_identity_note': 'Base HEAD plus exact script hash; presentation derived from existing frozen V outputs',
-              'unique_existing_cases': 3, 'audio_files': 12, 'new_model_inference_calls': 0,
+              'unique_existing_cases': 3, 'audio_files': 15, 'new_model_inference_calls': 0,
               'actual_C_test_opened': False, 'output_manifest': str(manifest.relative_to(ROOT)),
               'output_manifest_sha256': digest(manifest),
               'operator_plot_manifest': 'figures/operator_decisions.json',
@@ -399,7 +420,7 @@ def main():
     with (ROOT / 'results/local_run_registry.jsonl').open('a') as stream:
         stream.write(json.dumps(record, sort_keys=True) + '\n')
     print(json.dumps({'cases': [{key: evidence[key] for key in ('tag', 'source_class', 'gap_ms', 'C3_minus_B_Q', 'observed_context_peak_hz', 'gap_rms_db_relative_to_reference')} for evidence, _ in examples],
-                      'figures': ['acoustic_context', 'acoustic_case_studies', 'operator_configuration', 'operator_decisions'], 'audio_clips': 12}, indent=2))
+                      'figures': ['acoustic_context', 'acoustic_case_studies', 'operator_configuration', 'operator_decisions'], 'audio_clips': 15}, indent=2))
 
 
 if __name__ == '__main__':

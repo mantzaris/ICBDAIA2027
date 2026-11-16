@@ -17,12 +17,13 @@ gain/offset-normalized waveforms are additionally quantized at 1e-4 and hashed.
 These checks found no exact decoded duplicates. They do not exhaustively exclude
 time-shifted or overlapping recordings.
 
-The twelve clips in `examples/acoustics/` are short derivatives of three UniqueShip
+The fifteen clips in `examples/acoustics/` are short derivatives of three UniqueShip
 recordings owned by Ocean Networks Canada, under the release's CC BY 4.0 terms.
 Credit the dataset authors above and ONC when sharing these audio examples.
 Changes include resampling to 8 kHz, a 4.096 s crop, observed-context normalization,
 and a shared presentation gain per case. Erased-input clips additionally zero the
-gap; reconstructed clips replace that gap with frozen pilot outputs. They are
+gap; reconstructed clips replace that gap with frozen original or velocity-follow-up
+outputs. All five versions of each case use the same presentation gain. They are
 16-bit PCM listening aids, not calibrated sound-pressure measurements.
 `figures/acoustic_example_selection.json` identifies original archive members,
 recording times, hydrophone, gap samples, transformations, and checksums. These
