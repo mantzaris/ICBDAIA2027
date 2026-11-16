@@ -1,0 +1,12 @@
+{
+  "scope": "Post hoc execution-audit continuation of the first completed CPU episode, not a rerun or independent sample",
+  "original_summary_sha256": "00a3eb636ab6f086ad907025965746f4e5ee2acf6e297616d5405c003523e1b4",
+  "identified_issue": "The first draft claims a comparison despite no recorded 32 ms analysis and omits post-configuration verification. Three calls were selected in one batch before seeing their returned measurements.",
+  "change": "A recorded execution checklist holds the draft and supplies one corrective message identifying missing actions. Same model, task, tools, input, and decoding options.",
+  "maximum_additional_model_turns": 4,
+  "maximum_additional_tool_calls": 8,
+  "maximum_total_episode_seconds": 1200,
+  "feedback": "Execution-audit feedback: your proposed final report is held because the recorded actions do not establish two required steps. Only analyze_spectrum(128), configure_display(128), and inspect_recording() were executed. No analysis at the original 32 ms setting and no verify_display() after configuration are recorded. Your statement that the existing setting was compared is therefore unsupported by this trace. Complete the missing measurements using the available tools, then issue a revised report of at most 120 words. Give the actual selected window, frequency-bin spacing, peak bin, timing tradeoff, missing-data limitation, and source-identity status, citing the returned evidence IDs. Do not claim actions that have not executed. This feedback contains no new acoustic measurement.",
+  "release_condition": "Recorded missing steps completed and final response independently checked against returned evidence; preserve unsupported original statement",
+  "interpretation": "Illustrative response to explicit audit feedback on one familiar development case; no autonomous completion rate or general reasoning claim"
+}

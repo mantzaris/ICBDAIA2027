@@ -1,0 +1,54 @@
+{
+  "status": "completed",
+  "failure": null,
+  "elapsed_seconds": 235.49247328799538,
+  "git_commit": "df1ba24045239e604281cca66dfb27e171fe4803",
+  "model": "llama3.1:8b",
+  "model_digest": "62757c860e01d552d4e46b09c6b8d5396ef9015210105427e05a8b27d7727ed2",
+  "model_turns": 2,
+  "tool_calls": 3,
+  "tool_errors": 0,
+  "turns": [
+    {
+      "turn": 1,
+      "wall_seconds": 135.71886696699949,
+      "total_duration": 135715469619,
+      "load_duration": 6814187634,
+      "prompt_eval_count": 564,
+      "prompt_eval_duration": 38271192000,
+      "eval_count": 320,
+      "eval_duration": 90625012000
+    },
+    {
+      "turn": 2,
+      "wall_seconds": 99.76025926000148,
+      "total_duration": 99758657447,
+      "load_duration": 20460912,
+      "prompt_eval_count": 649,
+      "prompt_eval_duration": 32698887000,
+      "eval_count": 238,
+      "eval_duration": 67028326000
+    }
+  ],
+  "final_response": "Based on the tool results, here is a concise operator report:\n\n**Report for clip_001**\n\nThe observed low-frequency component in the 20–600 Hz band has a peak bin at 78.125 Hz (tool evidence ID: tool_01). The analysis display setting with frequency-bin spacing at most 10 Hz was chosen and applied to the virtual display (tool evidence ID: tool_02).\n\n**Conclusions**\n\n* A low-frequency component is observed in the 20–600 Hz band.\n* The peak bin of this component is 78.125 Hz.\n* The analysis display setting with frequency-bin spacing at most 10 Hz was chosen and applied to the virtual display.\n\n**Limitations**\n\n* Object identity cannot be established based on the spectral peak (tool evidence ID: tool_01).\n* Missing-data limitation applies, as there are gaps in the recording (tool evidence ID: tool_03).\n\n**Justification**\n\nThe analysis display setting with frequency-bin spacing at most 10 Hz was chosen to provide a more detailed view of the low-frequency component. The existing setting was compared with an available alternative, and the chosen setting was applied to the virtual display.",
+  "final_display_window_ms": 128,
+  "all_residency_samples_zero_vram": true,
+  "checks": {
+    "inspected": true,
+    "both_windows_analyzed": false,
+    "display_changed_with_evidence": true,
+    "verified_after_change": false,
+    "target_bin_spacing_met": true,
+    "audio_preserved": true
+  },
+  "artifact_sha256": {
+    "scripts/run_cpu_agent_demo.py": "17a592f1c430a4bd6d6db095b43d8cc5ba7cf4b762b96151bbfa2be191d67512",
+    "src/acoustic_regeneration/agents/analysis_tools.py": "6e48cc4760a05135304960f52787f7ec4e670e99c8e2eb552c989d0756e7732f",
+    "preregistration/cpu_agent_demo.json": "35352ac083511c5d0e9cfb035708b74e2529cf553400e45bde18220284d4b645",
+    "results/cpu_agent_demo/task.json": "cf61d05ec473f25b0ccd715c0623640c1df0604fde01188309c3e527e9282a66",
+    "results/cpu_agent_demo_run02/events.jsonl": "42344a44860a9d8fc7ce6beb6ec5c53df448d185b3d1f14ac72bff54fbe3ce4a",
+    "results/cpu_agent_demo/observation.npz": "8970ab0ae6d611f3dd1a4be468c9a0ee368e5b2a70f75d00cb6e9c03adf8ebc8"
+  },
+  "scope": "One illustrative local CPU tool-using language-model episode on previously selected acoustic case C; not an independent agent benchmark",
+  "final_response_factual_audit": "Pending separate audit; no success claim from tool checks alone"
+}
