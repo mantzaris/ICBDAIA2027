@@ -1,0 +1,15 @@
+{
+  "stage": "Follow-up motivated by inspection of the first completed primary-case traces; primary comparison remains unchanged",
+  "motivation": "An agent reported the correct 128 ms choice while actually configuring 64 ms. A separate reviewer could change the setting yet still omit verification. The proposed intervention checks feasibility at the configuration tool boundary.",
+  "cases": 16,
+  "case_selection": "First eligible V sources in SHA256(gpu-agent-guard-followup-20261116|source_id) order; exclude all primary-comparison groups and dates and all published anecdotes; one group/date per new case. Four cases per existing task family, assigned cyclically. No outcome or acoustic-quality selection.",
+  "selection_seed": "gpu-agent-guard-followup-20261116",
+  "arms": ["reasoning", "reasoning_guarded"],
+  "intervention": "Reject configure_display when its already-measured window fails the user bin-spacing/time-support limits or has fewer than three fully observed frames in either region. Return a generic constraint error; leave display unchanged. Do not supply the optimal setting, cue label, expected answer, or automatic verification.",
+  "controls": "Identical Qwen3-8B BF16 weights, thinking mode, prompts, tool schemas, sampling seed and all generation/tool/time caps from the primary protocol; rotate arm order by case. Only the tool implementation differs.",
+  "endpoints": ["strict task success", "constraint-violating applied configurations", "incorrect cue labels", "report-versus-applied-setting discrepancies", "generated tokens and latency"],
+  "analysis": "One paired comparison on the 16 new recording groups, paired-bootstrap interval and exact McNemar test; report separately from the initial 32-case matrix. Blocking prohibited changes follows from the gate construction and is not itself evidence of improved task completion.",
+  "scope": "New agent-evaluation source groups/dates within previously used acoustic development partition V; not an external archive, vessel-identification test, or hardware trial",
+  "stop_policy": "Run sequentially after the primary comparison within the existing replacement-pod ten-hour authorization; require at least two hours remaining before starting, retain partial/failure records if the deadline prevents completion.",
+  "preservation": "Do not alter primary prompts, model outputs, score definitions, or results; retain all follow-up outcomes regardless of direction."
+}
