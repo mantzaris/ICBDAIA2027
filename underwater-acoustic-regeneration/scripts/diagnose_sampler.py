@@ -14,7 +14,7 @@ from acoustic_regeneration.data.observation import Observation, normalize_observ
 from acoustic_regeneration.data.preprocessing import crop_source, draw_mask
 from acoustic_regeneration.evaluation.metrics import MetricFloors, gap_metrics
 from acoustic_regeneration.registry import file_hash
-from acoustic_regeneration.restoration.diffusion import cosine_schedule, noisy_training_input
+from acoustic_regeneration.restoration.diffusion import cosine_schedule, diffusion_target, noisy_training_input, prediction_components
 from acoustic_regeneration.restoration.learned import load_ema_model
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +32,7 @@ def main():
     initial_timestep = sampler_config.get("initial_timestep", 999)
     torch.set_num_threads(2)
     model, config, _ = load_ema_model(args.checkpoint)
+    prediction_type = model.config.prediction_type
     with gzip.open(ROOT / "manifests/pilot_sources.jsonl.gz", "rt") as stream:
         rows = [row for row in map(json.loads, stream) if row["partition"] == "G"][:4]
     schedule = cosine_schedule().cuda()
@@ -53,19 +54,20 @@ def main():
                 state, observed = noisy_training_input(x, m, t, noise, schedule)
                 with context():
                     predicted = model(state, t, observed, m)
-                clean = (state - (1 - schedule[time]).sqrt() * predicted.float()) / schedule[time].sqrt()
-                exact = (state - (1 - schedule[time]).sqrt() * noise) / schedule[time].sqrt()
+                prediction_target = diffusion_target(x, noise, t, schedule, prediction_type)
+                clean, _ = prediction_components(state, predicted.float(), schedule[time], prediction_type)
+                exact, _ = prediction_components(state, prediction_target, schedule[time], prediction_type)
                 local["teacher_forced"].append({"time": time, "alpha_bar": float(schedule[time]),
-                    "epsilon_mse": float((predicted.float()[~m] - noise[~m]).square().mean()),
+                    "prediction_mse": float((predicted.float()[~m] - prediction_target[~m]).square().mean()),
                     "x0_mse": float((clean[~m] - x[~m]).square().mean()),
-                    "exact_epsilon_x0_mse": float((exact[~m] - x[~m]).square().mean())})
+                    "exact_prediction_x0_mse": float((exact[~m] - x[~m]).square().mean())})
             state = torch.where(m, values, noise)
             times = np.linspace(initial_timestep, 0, 32, dtype=int).tolist()
             trajectory = []
             for index, time in enumerate(times):
                 with context():
                     prediction = model(state, torch.tensor([time], device="cuda"), values, m)
-                clean = (state - (1 - schedule[time]).sqrt() * prediction.float()) / schedule[time].sqrt()
+                clean, prediction = prediction_components(state, prediction.float(), schedule[time], prediction_type)
                 if clean_clip is not None:
                     clean = clean.clamp(-clean_clip, clean_clip)
                     prediction = (state - schedule[time].sqrt() * clean) / (1 - schedule[time]).sqrt()
@@ -78,6 +80,7 @@ def main():
             local.update(trajectory=trajectory, metrics=gap_metrics(output, target, observation.gaps, MetricFloors(config["rms_floor"] / transform.scale)))
             results.append(local)
     report = {"checkpoint_sha256": file_hash(args.checkpoint), "source_partition": "G", "cases": results,
+              "prediction_type": prediction_type, "script_sha256": file_hash(Path(__file__)),
               "clean_prediction_clip_abs": clean_clip,
               "initial_timestep": initial_timestep,
               "purpose": "Implementation/numerical diagnosis only; no V, C, or test outcomes used"}
