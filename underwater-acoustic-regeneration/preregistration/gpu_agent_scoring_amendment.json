@@ -1,0 +1,8 @@
+{
+  "stage": "Transport smoke only; before any evaluation-case model output",
+  "trigger": "The first direct-mode G smoke response chose the wrong window but truthfully reported that window's measured peak bins. The original scoring implementation incorrectly counted disagreement with the optimal-window values as an unsupported numeric claim.",
+  "correction": "Judge reported numeric values against cited measurements at the REPORTED window. Score optimal-window selection separately. Wrong-setting decisions remain failures of the primary endpoint but truthful wrong-setting values are not labeled fabricated.",
+  "unchanged": ["selected recordings", "task requests", "label definitions", "model", "prompts", "sampling", "resource ceilings", "primary endpoint definition"],
+  "test": "A deliberately wrong 256 ms configuration with accurately cited measurements must fail setting correctness and strict success while passing numeric support.",
+  "preservation": "Retain the original smoke scores and events; use the corrected evaluator for the scored evaluation and identify this amendment in its freeze record."
+}

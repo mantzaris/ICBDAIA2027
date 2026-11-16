@@ -164,23 +164,33 @@ def score_report(report, tools, expected):
     setting = report['decision']==expected['decision'] and report['window_ms']==expected['window_ms']
     setting = setting and (tools.window_ms==expected['window_ms'] if feasible else not configured)
     verify = bool(configured and verifications and verifications[-1]>configured[-1]) if feasible else not configured
-    numeric = True
-    for key in ('peak_before_hz','peak_after_hz'):
-        if expected[key] is None:
-            numeric &= report[key] is None
-        else:
-            numeric &= isinstance(report[key], (float,int)) and not isinstance(report[key], bool) and abs(report[key]-expected[key])<1e-5
     citations = report['evidence_ids']
     evidence = isinstance(citations,list) and bool(citations) and all(isinstance(c,str) and c in by_id for c in citations)
     supported_windows = set()
+    cited_measurements = []
     for key in citations if isinstance(citations,list) else []:
         e = by_id.get(key) if isinstance(key,str) else None
         if e and e['name'] in ('analyze_window','verify_display'):
             m = e['result'] if e['name']=='analyze_window' else e['result']['measurement']
             supported_windows.add(m['window_ms'])
-    if feasible:
-        evidence &= expected['window_ms'] in supported_windows
+            cited_measurements.append(m)
+    # A truthful measurement at the WRONG setting is a decision error, not a
+    # fabricated number. Judge numeric claims against the cited measured setting.
+    numeric = False
+    if report['decision']=='configure':
+        evidence &= report['window_ms'] in supported_windows
+        for measurement in cited_measurements:
+            if measurement['window_ms'] != report['window_ms']:
+                continue
+            matches = True
+            for region in ('before','after'):
+                actual = measurement['regions'][region]['peak_bin_hz']
+                claimed = report['peak_'+region+'_hz']
+                matches &= (claimed is None if actual is None else
+                            isinstance(claimed,(float,int)) and not isinstance(claimed,bool) and abs(claimed-actual)<1e-5)
+            numeric |= matches
     else:
+        numeric = report['peak_before_hz'] is None and report['peak_after_hz'] is None
         # Only settings satisfying the numeric constraints need measured frame evidence.
         candidate = {w for w in WINDOWS if 1000/w<=tools.task['constraints']['max_bin_spacing_hz']
                      and w<=tools.task['constraints']['max_time_support_ms']}

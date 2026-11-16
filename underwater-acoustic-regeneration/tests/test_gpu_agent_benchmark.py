@@ -1,7 +1,7 @@
 import copy
 import numpy as np
 
-from acoustic_regeneration.agents.benchmark_tools import BenchmarkTools, solve_rules, score_report
+from acoustic_regeneration.agents.benchmark_tools import BenchmarkTools, solve_rules, score_report, cue_label
 
 
 def inputs(spacing=8,support=160):
@@ -55,3 +55,20 @@ def test_tool_boundary_and_missing_report():
     assert 'error' in tools.call('shell',{'command':'anything'})['result']
     assert 'error' in tools.call('analyze_window',{'window_ms':True})['result']
     assert score_report(None,tools,{})['strict_success'] is False
+
+
+def test_true_measurement_at_wrong_setting_is_not_an_unsupported_number():
+    expected=solve_rules(BenchmarkTools(*inputs()))
+    tools=BenchmarkTools(*inputs())
+    tools.call('inspect_recording',{})
+    item=tools.call('analyze_window',{'window_ms':256})
+    tools.call('configure_display',{'window_ms':256})
+    verify=tools.call('verify_display',{})
+    report=copy.deepcopy(expected)
+    report.update(window_ms=256,cue_label=cue_label(item['result']),
+                  peak_before_hz=item['result']['regions']['before']['peak_bin_hz'],
+                  peak_after_hz=item['result']['regions']['after']['peak_bin_hz'],
+                  evidence_ids=[item['evidence_id'],verify['evidence_id']])
+    score=score_report(report,tools,expected)
+    assert not score['setting_correct'] and not score['strict_success']
+    assert score['numeric_correct'] and score['unsupported_claims']==0
