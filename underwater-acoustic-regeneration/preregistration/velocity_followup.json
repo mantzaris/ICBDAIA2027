@@ -1,0 +1,2991 @@
+{
+  "version": 1,
+  "recorded_utc": "2026-11-16T04:30:23.409517+00:00",
+  "authorization": "User requested isolating the failure and demonstrating a correction, within the existing under-ten-hour run limit; no new resources or branches.",
+  "status": "Frozen before any velocity training or evaluation",
+  "hypothesis": "Velocity prediction removes the near-terminal division that amplifies epsilon prediction error; acoustic reconstruction benefit is a separate empirical question.",
+  "primary_reference": "https://arxiv.org/abs/2202.00512",
+  "training": {
+    "run_id": "pilot_velocity_seed17",
+    "updates": 5000,
+    "seed": 17,
+    "effective_batch": 16,
+    "microbatch": 4,
+    "source_partition": "G",
+    "source_files": 1440,
+    "architecture": "same 64-channel 36-layer DiffWave adaptation",
+    "schedule": "same 1000-step cosine alpha_bar; no zero-SNR rescaling",
+    "optimizer": "same AdamW lr=2e-4 weight_decay=1e-4, gradient norm cap 1",
+    "ema_decay": 0.999,
+    "changed": "conditional target v = sqrt(alpha_bar)*noise - sqrt(1-alpha_bar)*clean; uniform missing-sample velocity MSE",
+    "checkpoint_for_evaluation": "latest.pt after exactly 5000 updates, regardless of validation loss",
+    "unchanged": [
+      "initial weight seed and architecture",
+      "training-source order",
+      "crop and mask RNG draws",
+      "diffusion timestep and noise RNG draws",
+      "observed-only normalization",
+      "observation projection",
+      "training update budget"
+    ]
+  },
+  "evaluation": {
+    "primary_subset": "the same 64 original V tuning groups",
+    "secondary_subsets": "the same 64 practice-calibration V groups and 64 reserved development V groups, reported separately",
+    "posthoc_status": "These V outcomes were inspected for the original pilot; this is a targeted follow-up, not confirmatory held-out evaluation.",
+    "actual_C_or_test_access": false,
+    "primary_sampler": {
+      "prediction_type": "velocity",
+      "initial_timestep": 999,
+      "clean_clip": null,
+      "steps": 32,
+      "draws_per_case": 4
+    },
+    "sampler_control": {
+      "prediction_type": "velocity",
+      "initial_timestep": 934,
+      "clean_clip": 5.896913617434104,
+      "steps": 32,
+      "draws_per_case": 4
+    },
+    "comparators": [
+      "same-backbone deterministic B from frozen saved pools",
+      "original epsilon model with amended t=934 clipped sampler from saved four-draw pools",
+      "original epsilon model terminal unbounded first draw on each of the 64 tuning cases"
+    ],
+    "case_geometry_and_seeds": "exactly reuse saved crop, gap indices, normalization, and candidate seeds",
+    "primary_scores": [
+      "fixed first-draw Q and uncapped gap NMSE/SC",
+      "spectral-medoid-of-four Q",
+      "oracle opportunity versus B with unchanged margin 0.02 and 20 percent feasibility criterion",
+      "maximum observed-sample drift",
+      "nonfinite output count"
+    ],
+    "statistics": "paired mean differences and exploratory 2000-draw group-bootstrap 95 percent intervals; no independent-sample inflation from four draws; each V role reported separately",
+    "no_gate_reuse": "The old learned quality predictor and release cutoff are not valid for a new generator; no repaired samples are declared released by a recalibrated policy."
+  },
+  "numerical_diagnostic": {
+    "cases": "same four G sources as saved sampler_numerics reports",
+    "precisions": [
+      "fp32",
+      "bf16"
+    ],
+    "seed": 17,
+    "teacher_forced_timesteps": [
+      999,
+      980,
+      900,
+      750,
+      500,
+      250,
+      50,
+      0
+    ],
+    "comparisons": [
+      "epsilon terminal unbounded (saved)",
+      "epsilon terminal clipped (saved)",
+      "epsilon t=934 clipped (saved)",
+      "velocity terminal unbounded (new)",
+      "velocity t=934 clipped (new)"
+    ],
+    "scope": "mechanistic checks on training sources, not independent quality evidence"
+  },
+  "stop_rules": [
+    "No architecture, learning-rate, seed, or checkpoint sweep after outcomes.",
+    "One 5000-update velocity training run only.",
+    "Retain all negative outcomes and the original no-go decision.",
+    "Stop GPU jobs by the existing 2026-11-16T06:33:58+00:00 deadline; preserve results before 06:48:58.",
+    "Numerical stability alone does not establish useful repair, correct identification, or equipment-control benefit."
+  ],
+  "source_hashes": {
+    "manifests/pilot_sources.jsonl.gz": "967b9663c796c30bc4e1de0aec7f146eb6b13a1bedfc6812fbb06c2496db3d5a",
+    "results/pilot_pools_clipped_seed17/cases.jsonl": "8fa509df1eb467b3441054cff68be73486908a91cf186ec53dc950ef5def52eb",
+    "results/pilot_pools_clipped_seed17/pool_config.json": "cf9ca13c7657fec47fe230d762f5260cc1a1684c4482f2588fa410a0555e5e96",
+    "preregistration/sampler_amendment.json": "6305eaa9e5e2cf1c22da39a43ee757db7997cf7b4723fb4d429bd2d3572e6aa0",
+    "scripts/train.py": "76b24f1ce53606143afb0bc9f56c969a3b9a4df1b10c6cd9857deddbce50f8fa",
+    "src/acoustic_regeneration/restoration/diffusion.py": "db8183e1e8e2fe8333fc1a190ee80ac9f4aef03472ba8b4ade2f69ad2af4c527",
+    "src/acoustic_regeneration/models/diffwave.py": "17304840cf837af835597e26e08131f98e306c96203091e3ea85bc6a59ff037f"
+  },
+  "cases": [
+    {
+      "case_id": "9aad73ec779e18f4116eb27ab3bee3e784fca0e61d6a49e88163893ce6aca4a4_250",
+      "source_id": "9aad73ec779e18f4116eb27ab3bee3e784fca0e61d6a49e88163893ce6aca4a4",
+      "group_id": "d719489cd787cc7fd2852bee7c225c2a08ce1c1f9f184a10dff4d482afd4906d",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23823,
+      "gap_end": 25823,
+      "candidate_seeds": [
+        27751283950,
+        27751283951,
+        27751283952,
+        27751283953
+      ]
+    },
+    {
+      "case_id": "b4066cfd439fa7dbb41801668dd4fb13ec46e9f1be27b55b84db944508dbdc0f_100",
+      "source_id": "b4066cfd439fa7dbb41801668dd4fb13ec46e9f1be27b55b84db944508dbdc0f",
+      "group_id": "336b899ac17cedcb177a79801475ea15791d4ff3830d304f0017530045d87064",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23120,
+      "gap_end": 23920,
+      "candidate_seeds": [
+        20135141140,
+        20135141141,
+        20135141142,
+        20135141143
+      ]
+    },
+    {
+      "case_id": "1d53bb2efca65254b5b35e0138051c6dbf08f88890d1a33c771873b90434b164_500",
+      "source_id": "1d53bb2efca65254b5b35e0138051c6dbf08f88890d1a33c771873b90434b164",
+      "group_id": "cb12af392144cfd939830c48a40f8a2fc93d0d263a82d3a7bc90e164dec0d508",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 18547,
+      "gap_end": 22547,
+      "candidate_seeds": [
+        28704361360,
+        28704361361,
+        28704361362,
+        28704361363
+      ]
+    },
+    {
+      "case_id": "20ceca38d03d9ecc1c6724d0173126c8cb2e7cc95e1a508acf62b0b17cced03f_250",
+      "source_id": "20ceca38d03d9ecc1c6724d0173126c8cb2e7cc95e1a508acf62b0b17cced03f",
+      "group_id": "245d0426ab8e5a44919be1d6f8bfb3e9703af035f6a7fce451ac9110ed5041dc",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 6072,
+      "gap_end": 8072,
+      "candidate_seeds": [
+        22239947550,
+        22239947551,
+        22239947552,
+        22239947553
+      ]
+    },
+    {
+      "case_id": "06f76e828605edb722051573227f2df68b50bac6106afa75333b4c23cb3d9973_50",
+      "source_id": "06f76e828605edb722051573227f2df68b50bac6106afa75333b4c23cb3d9973",
+      "group_id": "4762df6fb34f4fc65a97b028b4bad6cf87e734e9595ca4076e9b03b04d8441c6",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 7599,
+      "gap_end": 7999,
+      "candidate_seeds": [
+        9651309460,
+        9651309461,
+        9651309462,
+        9651309463
+      ]
+    },
+    {
+      "case_id": "010046fcfd713a6a856496e70fd456e65083e7526aee6b7cb1e3d3c3ba4d51bf_500",
+      "source_id": "010046fcfd713a6a856496e70fd456e65083e7526aee6b7cb1e3d3c3ba4d51bf",
+      "group_id": "50c4532028442807ad6367a2508d21b98b85d327ea6eaa5c30b5ecf416f7ca7c",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 12212,
+      "gap_end": 16212,
+      "candidate_seeds": [
+        39577990900,
+        39577990901,
+        39577990902,
+        39577990903
+      ]
+    },
+    {
+      "case_id": "a8fdd740a8adeefece2f0d8db86d757d377c5987c7c0af7e1eefb5ed61d75ca3_50",
+      "source_id": "a8fdd740a8adeefece2f0d8db86d757d377c5987c7c0af7e1eefb5ed61d75ca3",
+      "group_id": "c272c381ae9f77a891a973e37be9d5be5f05d5c36698010abdea8a8803b022f0",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 17120,
+      "gap_end": 17520,
+      "candidate_seeds": [
+        34562634960,
+        34562634961,
+        34562634962,
+        34562634963
+      ]
+    },
+    {
+      "case_id": "e3ad0c1237cd0d05080fd06d0cdfe0ae6406ed152086cdb18f0eacd22ebcaaba_100",
+      "source_id": "e3ad0c1237cd0d05080fd06d0cdfe0ae6406ed152086cdb18f0eacd22ebcaaba",
+      "group_id": "33cf1421f64d66b5c16583b04ef7e86d53baeefffcc0314bd35fb3ff78f3d11b",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 10038,
+      "gap_end": 10838,
+      "candidate_seeds": [
+        22694235180,
+        22694235181,
+        22694235182,
+        22694235183
+      ]
+    },
+    {
+      "case_id": "fe73ae36883ce151dfc63a83edbc08387834da44c627dc8840c65712c7d41902_500",
+      "source_id": "fe73ae36883ce151dfc63a83edbc08387834da44c627dc8840c65712c7d41902",
+      "group_id": "4a4b514d5936f5770844c28139e305b153c998705aa2087391cf0812e580d173",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 17824,
+      "gap_end": 21824,
+      "candidate_seeds": [
+        22514020220,
+        22514020221,
+        22514020222,
+        22514020223
+      ]
+    },
+    {
+      "case_id": "e6adde070bda20113d18faedf9d9f526b3eebbc3e6c68a27050ea28eaf7109d2_500",
+      "source_id": "e6adde070bda20113d18faedf9d9f526b3eebbc3e6c68a27050ea28eaf7109d2",
+      "group_id": "26829ef50a68121711704298b2ecfbb6e1a5939587e244540092924068277be1",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 7999,
+      "gap_end": 11999,
+      "candidate_seeds": [
+        22949654300,
+        22949654301,
+        22949654302,
+        22949654303
+      ]
+    },
+    {
+      "case_id": "a4e0982968b583d14d26173a7bab031574e8a6c991cf351f4b3507fda1040669_250",
+      "source_id": "a4e0982968b583d14d26173a7bab031574e8a6c991cf351f4b3507fda1040669",
+      "group_id": "931133ca3898c66979e3cff61007d52cf72a52b0b627cc31bdf34b1510104978",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 11153,
+      "gap_end": 13153,
+      "candidate_seeds": [
+        41073575600,
+        41073575601,
+        41073575602,
+        41073575603
+      ]
+    },
+    {
+      "case_id": "9858d3652c6838764d91faef5848e5435915c12adcd8393260f8baacf4b0acde_50",
+      "source_id": "9858d3652c6838764d91faef5848e5435915c12adcd8393260f8baacf4b0acde",
+      "group_id": "1ab7d8229a8181a9682c58b6c7b030c39937c154effb084620d2f41442af01a6",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 21753,
+      "gap_end": 22153,
+      "candidate_seeds": [
+        4395250850,
+        4395250851,
+        4395250852,
+        4395250853
+      ]
+    },
+    {
+      "case_id": "8bced3a3eafac9dc942a76bb8ef61401b8576ebe25f5b045b62086780eae7a89_250",
+      "source_id": "8bced3a3eafac9dc942a76bb8ef61401b8576ebe25f5b045b62086780eae7a89",
+      "group_id": "27cd312e6c14b02d434902bed22b8cfa3b13cefec673bf1a2bcee24802fc98cf",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 20702,
+      "gap_end": 22702,
+      "candidate_seeds": [
+        39308198890,
+        39308198891,
+        39308198892,
+        39308198893
+      ]
+    },
+    {
+      "case_id": "67e498b8c21f0ac2b1ea83febc9acdb38f2bb5f5c8fe2e2a50360d754a603822_250",
+      "source_id": "67e498b8c21f0ac2b1ea83febc9acdb38f2bb5f5c8fe2e2a50360d754a603822",
+      "group_id": "00410d1f81722287cb0814b17cfa39070d557ce628b80e4fdc36f69d2ada768e",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 18676,
+      "gap_end": 20676,
+      "candidate_seeds": [
+        37176750220,
+        37176750221,
+        37176750222,
+        37176750223
+      ]
+    },
+    {
+      "case_id": "c56f2b08a5e654869e48f0bf9a7be3fddb6ca09e2625265ae15e62174e39513e_250",
+      "source_id": "c56f2b08a5e654869e48f0bf9a7be3fddb6ca09e2625265ae15e62174e39513e",
+      "group_id": "03fcbb0faff30ffabd1f779bd346cc93b5c3e436c575be3761861faa02c46858",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23880,
+      "gap_end": 25880,
+      "candidate_seeds": [
+        26863396660,
+        26863396661,
+        26863396662,
+        26863396663
+      ]
+    },
+    {
+      "case_id": "28c590a07701d56aee4e8c2096eb0c8bc8ffc91af195429e1944fa6eb616f4b4_500",
+      "source_id": "28c590a07701d56aee4e8c2096eb0c8bc8ffc91af195429e1944fa6eb616f4b4",
+      "group_id": "0dabe4b8b871e57fcd74c6e10dfba6b127fd6c6862353bfe58c3a06d64b2c316",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 12137,
+      "gap_end": 16137,
+      "candidate_seeds": [
+        27470518790,
+        27470518791,
+        27470518792,
+        27470518793
+      ]
+    },
+    {
+      "case_id": "5dc9dd3c8a76841815f368c9e7b11205d025c72f50308b2dbee5211616bdd916_50",
+      "source_id": "5dc9dd3c8a76841815f368c9e7b11205d025c72f50308b2dbee5211616bdd916",
+      "group_id": "6d8f67a4f02f9de61e7a45f2973fdfaff7bf331e5b5252a2078c752e61f9cc68",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 24728,
+      "gap_end": 25128,
+      "candidate_seeds": [
+        12868695680,
+        12868695681,
+        12868695682,
+        12868695683
+      ]
+    },
+    {
+      "case_id": "b3395458e6cbe121ca76c241b2b08d29df0c75a21bf05efe82de02439aeab024_50",
+      "source_id": "b3395458e6cbe121ca76c241b2b08d29df0c75a21bf05efe82de02439aeab024",
+      "group_id": "fbbd0b04152a7490e8db0340e1c849e561ad27459e0eeb154c77de9a5cac6384",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 20548,
+      "gap_end": 20948,
+      "candidate_seeds": [
+        17016801240,
+        17016801241,
+        17016801242,
+        17016801243
+      ]
+    },
+    {
+      "case_id": "abfe04d77947a0414af5d003160106dbbdf123f9df0e546d4e2392a0bc9f3297_100",
+      "source_id": "abfe04d77947a0414af5d003160106dbbdf123f9df0e546d4e2392a0bc9f3297",
+      "group_id": "95b76f44b171b69049d276b0d1960d5d201302077ca4015441e4a23a4d63e784",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 14280,
+      "gap_end": 15080,
+      "candidate_seeds": [
+        17395150720,
+        17395150721,
+        17395150722,
+        17395150723
+      ]
+    },
+    {
+      "case_id": "e001c2c9baf8c3e0de3b123cec297971f0d369b291d01dce39c2749e3454aa58_500",
+      "source_id": "e001c2c9baf8c3e0de3b123cec297971f0d369b291d01dce39c2749e3454aa58",
+      "group_id": "4ec7d542b0ceb4ad117495d97c3d8a742b73ff6673bc696cbbd7b5a6c5d05abf",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 21930,
+      "gap_end": 25930,
+      "candidate_seeds": [
+        31748972080,
+        31748972081,
+        31748972082,
+        31748972083
+      ]
+    },
+    {
+      "case_id": "22e2fbe7bef038fca0cdf29f09db671e9a836b0c89cb99604a184565f5374234_100",
+      "source_id": "22e2fbe7bef038fca0cdf29f09db671e9a836b0c89cb99604a184565f5374234",
+      "group_id": "cf3203508ad1e5697525e6e16541c92be21a554039f223fec7876852829269a4",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 24394,
+      "gap_end": 25194,
+      "candidate_seeds": [
+        2632199370,
+        2632199371,
+        2632199372,
+        2632199373
+      ]
+    },
+    {
+      "case_id": "80763bf2664da040d2c9fa05ce1224c4e736dbcd13d38d34634214768872c1e4_250",
+      "source_id": "80763bf2664da040d2c9fa05ce1224c4e736dbcd13d38d34634214768872c1e4",
+      "group_id": "dbf35aa80111d1417ddfebb812017368fb06259ae5fd4355efca01dba14b6a64",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 7843,
+      "gap_end": 9843,
+      "candidate_seeds": [
+        19454845670,
+        19454845671,
+        19454845672,
+        19454845673
+      ]
+    },
+    {
+      "case_id": "5495e932be0edafd96675ef565cbbd955a006efd28461bba51010f4569fb770e_100",
+      "source_id": "5495e932be0edafd96675ef565cbbd955a006efd28461bba51010f4569fb770e",
+      "group_id": "a005ec768c5bc5a6e5b86c1dc57c81dd3790e6a37f30a6380b428d6ff1e5bc71",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 11942,
+      "gap_end": 12742,
+      "candidate_seeds": [
+        17643717990,
+        17643717991,
+        17643717992,
+        17643717993
+      ]
+    },
+    {
+      "case_id": "7d5f2e68080eb76a311f5f6672742b22710fdb0c882017629079199f7ee71443_250",
+      "source_id": "7d5f2e68080eb76a311f5f6672742b22710fdb0c882017629079199f7ee71443",
+      "group_id": "c07872031fabe998744a2db0f5a4c35dccf394e9ad9bec6b11b51c940a8b89a4",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 22315,
+      "gap_end": 24315,
+      "candidate_seeds": [
+        185258040,
+        185258041,
+        185258042,
+        185258043
+      ]
+    },
+    {
+      "case_id": "b676977556337916b39861fd9aa6465157f8709214f41537dc4837a409dbe5c2_100",
+      "source_id": "b676977556337916b39861fd9aa6465157f8709214f41537dc4837a409dbe5c2",
+      "group_id": "1d1aea0d7968852f7da1c6126804c49d8df71131a6e6e9ee36943af492d72b7b",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 17895,
+      "gap_end": 18695,
+      "candidate_seeds": [
+        35588055030,
+        35588055031,
+        35588055032,
+        35588055033
+      ]
+    },
+    {
+      "case_id": "ef9306b236a6f2ef9599ecf691fc01205d9399d1ab63c6f18e5761daf1dd736e_100",
+      "source_id": "ef9306b236a6f2ef9599ecf691fc01205d9399d1ab63c6f18e5761daf1dd736e",
+      "group_id": "e1ac7d5ee8fb4afe94e95d92b0c8cf0469cb75142c95711b685847b4fea26c05",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 17855,
+      "gap_end": 18655,
+      "candidate_seeds": [
+        35266030180,
+        35266030181,
+        35266030182,
+        35266030183
+      ]
+    },
+    {
+      "case_id": "02517eca38c816577328cf5c1d6fc51d8f3d1992e938b828584dc766d8df9da4_50",
+      "source_id": "02517eca38c816577328cf5c1d6fc51d8f3d1992e938b828584dc766d8df9da4",
+      "group_id": "d2ebda52b6b4aea687d38d55dc1c04d4f743a96c415a6aa1ed66df2d0762d006",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 20784,
+      "gap_end": 21184,
+      "candidate_seeds": [
+        25083061450,
+        25083061451,
+        25083061452,
+        25083061453
+      ]
+    },
+    {
+      "case_id": "454fd8adb2b845fbb187b52f9a2c60d45246abb42d6c2196f5e6938a1c06c085_100",
+      "source_id": "454fd8adb2b845fbb187b52f9a2c60d45246abb42d6c2196f5e6938a1c06c085",
+      "group_id": "90da7ecc98614b265738e4314036d70950ed814c41fcee198ffc311bb4b9c39a",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 19786,
+      "gap_end": 20586,
+      "candidate_seeds": [
+        42870174140,
+        42870174141,
+        42870174142,
+        42870174143
+      ]
+    },
+    {
+      "case_id": "9006fe2b9cb78e519ff719f2823b3ebcfca4dee461445a4f0424d7d2f1f8981f_500",
+      "source_id": "9006fe2b9cb78e519ff719f2823b3ebcfca4dee461445a4f0424d7d2f1f8981f",
+      "group_id": "be04a5a05642ad21c0954ba23f214167a1765fa6e385a24dab4d9ffab7b42cb8",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 19475,
+      "gap_end": 23475,
+      "candidate_seeds": [
+        33545794550,
+        33545794551,
+        33545794552,
+        33545794553
+      ]
+    },
+    {
+      "case_id": "9ba93a975fe8ff6b5ea5f295d6d191499e0dd26c6b153846c93148c7f2e5360f_100",
+      "source_id": "9ba93a975fe8ff6b5ea5f295d6d191499e0dd26c6b153846c93148c7f2e5360f",
+      "group_id": "22d43e37e4b0f67e85f4ec622d6ef93a26590ecc1543aed21e513343addcaadb",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 15815,
+      "gap_end": 16615,
+      "candidate_seeds": [
+        813158250,
+        813158251,
+        813158252,
+        813158253
+      ]
+    },
+    {
+      "case_id": "c3f461896bbdf2d3b06adbf5ca3954f8f64f61234f9e8f6f425594946a2345b2_50",
+      "source_id": "c3f461896bbdf2d3b06adbf5ca3954f8f64f61234f9e8f6f425594946a2345b2",
+      "group_id": "ee1d0defa203a90442d462d3e4c3a2a9177ad7d702b0882630727caa245cd29d",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 20620,
+      "gap_end": 21020,
+      "candidate_seeds": [
+        6218107620,
+        6218107621,
+        6218107622,
+        6218107623
+      ]
+    },
+    {
+      "case_id": "fbd4b179ccaf52dc1f805d5c6a5285d1275958fe405bfbaff5b95061bc8542f9_50",
+      "source_id": "fbd4b179ccaf52dc1f805d5c6a5285d1275958fe405bfbaff5b95061bc8542f9",
+      "group_id": "6e0b97339bdfaab054d28fd2f85d7acdd9f5999150e330138c3c6fa4832c49d9",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 15869,
+      "gap_end": 16269,
+      "candidate_seeds": [
+        40158298080,
+        40158298081,
+        40158298082,
+        40158298083
+      ]
+    },
+    {
+      "case_id": "dfdba927ad239967631ed06fe603ad9f182046adab4394a46cbe895172562b09_250",
+      "source_id": "dfdba927ad239967631ed06fe603ad9f182046adab4394a46cbe895172562b09",
+      "group_id": "ca8f25191625ade362e19f22b602dc6e27decc1565dda8427b1d8e17e624b280",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 22080,
+      "gap_end": 24080,
+      "candidate_seeds": [
+        28643988340,
+        28643988341,
+        28643988342,
+        28643988343
+      ]
+    },
+    {
+      "case_id": "5a582dd56a927fa1fc13863d3c32b2a854f301da186735c20dd0f371d0dfb951_50",
+      "source_id": "5a582dd56a927fa1fc13863d3c32b2a854f301da186735c20dd0f371d0dfb951",
+      "group_id": "ce8c75bbe108af1ff1939a45d86b8e6c4ac40b97419358ea501c5d9dae53dd01",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 11865,
+      "gap_end": 12265,
+      "candidate_seeds": [
+        32477115510,
+        32477115511,
+        32477115512,
+        32477115513
+      ]
+    },
+    {
+      "case_id": "cb934ffd0884a3ec2841cc8d17920b6c9a181a1a5fe6d6a8dc1ad5aaf6dd370d_50",
+      "source_id": "cb934ffd0884a3ec2841cc8d17920b6c9a181a1a5fe6d6a8dc1ad5aaf6dd370d",
+      "group_id": "d2c2df4c358795dece1fdcafd465c41b87acb83c8b7b98f5cb38af65343b39ac",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 16871,
+      "gap_end": 17271,
+      "candidate_seeds": [
+        31261614290,
+        31261614291,
+        31261614292,
+        31261614293
+      ]
+    },
+    {
+      "case_id": "e58fca93ea8a7a5780cc4a11eb36d248f1048373841952c967847f090208f4a1_250",
+      "source_id": "e58fca93ea8a7a5780cc4a11eb36d248f1048373841952c967847f090208f4a1",
+      "group_id": "445a2a25d7ee9ef61ef558d4bf2606a1d0a6156ce2be9d44cdfb8f5297db9101",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23040,
+      "gap_end": 25040,
+      "candidate_seeds": [
+        10090877840,
+        10090877841,
+        10090877842,
+        10090877843
+      ]
+    },
+    {
+      "case_id": "a4ac5cb535018b2a73f48abddea0f907c40629dce5a2f376b2e03a91c3b7ffac_500",
+      "source_id": "a4ac5cb535018b2a73f48abddea0f907c40629dce5a2f376b2e03a91c3b7ffac",
+      "group_id": "4961f36e2457ce4700fc344b8fa0a98ceef28c8fd711931d17afe9a81b59690b",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 18099,
+      "gap_end": 22099,
+      "candidate_seeds": [
+        12980237970,
+        12980237971,
+        12980237972,
+        12980237973
+      ]
+    },
+    {
+      "case_id": "a04b3f9dd8f6e1a6d944c2d931b3e4bfd036d6314bdd2c02f29792962656eeb2_50",
+      "source_id": "a04b3f9dd8f6e1a6d944c2d931b3e4bfd036d6314bdd2c02f29792962656eeb2",
+      "group_id": "3e3e5456e53aaeb038bc91af4d9ffc25bace89d21f7850bab0ab7b11dffcc273",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23544,
+      "gap_end": 23944,
+      "candidate_seeds": [
+        19323753340,
+        19323753341,
+        19323753342,
+        19323753343
+      ]
+    },
+    {
+      "case_id": "207c4f7928f8ab9122dad003ab24cb9ba867f7c9410b8b43e0036b44748a9025_50",
+      "source_id": "207c4f7928f8ab9122dad003ab24cb9ba867f7c9410b8b43e0036b44748a9025",
+      "group_id": "62c9ac1f4e60202517c24f0d959abd1c9cf13497747a13119c3f11cd9c5cfdf2",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 25009,
+      "gap_end": 25409,
+      "candidate_seeds": [
+        35460150930,
+        35460150931,
+        35460150932,
+        35460150933
+      ]
+    },
+    {
+      "case_id": "9121c210b68ebf11e6cf5f3e5cfa8bfd3ae520f091b1ad507e2c732d860aedb0_500",
+      "source_id": "9121c210b68ebf11e6cf5f3e5cfa8bfd3ae520f091b1ad507e2c732d860aedb0",
+      "group_id": "ead8fff2999819ac61a9354aa775f55e197a4d5b24c80ea609d7e2fe336754b9",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 18486,
+      "gap_end": 22486,
+      "candidate_seeds": [
+        37122572260,
+        37122572261,
+        37122572262,
+        37122572263
+      ]
+    },
+    {
+      "case_id": "e45530aabc3f82eed2ccff9f66022828a2ab47baeb5ce3b143d5152a3698c1ab_100",
+      "source_id": "e45530aabc3f82eed2ccff9f66022828a2ab47baeb5ce3b143d5152a3698c1ab",
+      "group_id": "81aa6888136a6eccb2d929755974f9e22a016ffd47c08b12843f22281af44967",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 22072,
+      "gap_end": 22872,
+      "candidate_seeds": [
+        30745705140,
+        30745705141,
+        30745705142,
+        30745705143
+      ]
+    },
+    {
+      "case_id": "4bbb068863ea6c36263e8b2e823ee5210a4cc682eeed79c1f2cfc6c04fb76e5e_250",
+      "source_id": "4bbb068863ea6c36263e8b2e823ee5210a4cc682eeed79c1f2cfc6c04fb76e5e",
+      "group_id": "130f70115220a06560501403d62e996e0a32b1b8eb49ca33c4252578c187f163",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 14545,
+      "gap_end": 16545,
+      "candidate_seeds": [
+        16744091260,
+        16744091261,
+        16744091262,
+        16744091263
+      ]
+    },
+    {
+      "case_id": "5c81b379266c928d5bfa67e8c4c076926130685a24394d12e1f25074e4963cfc_100",
+      "source_id": "5c81b379266c928d5bfa67e8c4c076926130685a24394d12e1f25074e4963cfc",
+      "group_id": "aedef25bf7c1c5caebf2314bbd605c86295ab49cfb461eec7701ccaf2c2dcc65",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 9492,
+      "gap_end": 10292,
+      "candidate_seeds": [
+        33202468920,
+        33202468921,
+        33202468922,
+        33202468923
+      ]
+    },
+    {
+      "case_id": "e04a44b3c81bce3798005859db36deb8bb47daa5ac8e08809fb35a99df87c9ee_100",
+      "source_id": "e04a44b3c81bce3798005859db36deb8bb47daa5ac8e08809fb35a99df87c9ee",
+      "group_id": "acd0f1cb075603eb10647f397e27484ad3fda18b742754bc82b00dc7e104fcf3",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 25928,
+      "gap_end": 26728,
+      "candidate_seeds": [
+        36061898730,
+        36061898731,
+        36061898732,
+        36061898733
+      ]
+    },
+    {
+      "case_id": "50d90a695dab468051559d1de0d040ce0cd17cf9df684b7304db68ca7bfbd419_100",
+      "source_id": "50d90a695dab468051559d1de0d040ce0cd17cf9df684b7304db68ca7bfbd419",
+      "group_id": "8a12e82a78be7b743058fcab79c62440184c4926b9200f9f8e7b746c2dc54d45",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 21146,
+      "gap_end": 21946,
+      "candidate_seeds": [
+        22638219040,
+        22638219041,
+        22638219042,
+        22638219043
+      ]
+    },
+    {
+      "case_id": "ef9a019530c8a3e687a199d6aa9712ce63db76f3a366dd0d1ff23275d6c3d7fe_500",
+      "source_id": "ef9a019530c8a3e687a199d6aa9712ce63db76f3a366dd0d1ff23275d6c3d7fe",
+      "group_id": "865c43c049c34932d9e790ddfce57c2210c4d09bcfc856b5165dfca0a284054c",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 15575,
+      "gap_end": 19575,
+      "candidate_seeds": [
+        16618707640,
+        16618707641,
+        16618707642,
+        16618707643
+      ]
+    },
+    {
+      "case_id": "f87b4d3cf659658f7030e3b091e6edc6793d590972582d513b6c182d705299c8_250",
+      "source_id": "f87b4d3cf659658f7030e3b091e6edc6793d590972582d513b6c182d705299c8",
+      "group_id": "0f9e183e4b77d705041e0e88902672179956197a2cba7fb444965691dca8c62e",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 7328,
+      "gap_end": 9328,
+      "candidate_seeds": [
+        13782080310,
+        13782080311,
+        13782080312,
+        13782080313
+      ]
+    },
+    {
+      "case_id": "2703a78012ffd636cc8fcea47e777b216c66a8cdede24f04da33ec774870d2fe_500",
+      "source_id": "2703a78012ffd636cc8fcea47e777b216c66a8cdede24f04da33ec774870d2fe",
+      "group_id": "aa4b46e8c782f8bebcc89c12a6c16aea738e49548557db5aecbe9d2f101f93ad",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 13825,
+      "gap_end": 17825,
+      "candidate_seeds": [
+        35508376280,
+        35508376281,
+        35508376282,
+        35508376283
+      ]
+    },
+    {
+      "case_id": "6bba13b1f7ad66cae73134ec63071d0d195b753594d256425603bf03b349997a_50",
+      "source_id": "6bba13b1f7ad66cae73134ec63071d0d195b753594d256425603bf03b349997a",
+      "group_id": "d1737e47106ab336d2340c768b924cfb2451f04a43428a1e928aad8a1d813b34",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 25237,
+      "gap_end": 25637,
+      "candidate_seeds": [
+        37695688070,
+        37695688071,
+        37695688072,
+        37695688073
+      ]
+    },
+    {
+      "case_id": "b5ddd772ab9dca3fe82322c3e7f8105459287ea9491ddf01e02dcaef87ddbadc_100",
+      "source_id": "b5ddd772ab9dca3fe82322c3e7f8105459287ea9491ddf01e02dcaef87ddbadc",
+      "group_id": "a9963f311bd3728126cca0eba93127a2d7ada936677be2120cf4849ed944e916",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 19045,
+      "gap_end": 19845,
+      "candidate_seeds": [
+        22814095820,
+        22814095821,
+        22814095822,
+        22814095823
+      ]
+    },
+    {
+      "case_id": "7100e7a90fc06f2c183df2eef070677719bd088d15a0f59d3309aaedeb25f9dc_500",
+      "source_id": "7100e7a90fc06f2c183df2eef070677719bd088d15a0f59d3309aaedeb25f9dc",
+      "group_id": "63df43cd5db73c543b4d95e3b3f3b390d3de1aa15df04e0abbbf74eef9694bd9",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 19755,
+      "gap_end": 23755,
+      "candidate_seeds": [
+        18490443760,
+        18490443761,
+        18490443762,
+        18490443763
+      ]
+    },
+    {
+      "case_id": "17a3e03ae4bec6634c1b76b49c71af19c633ef6e20d693dcf28958bcf44095f6_100",
+      "source_id": "17a3e03ae4bec6634c1b76b49c71af19c633ef6e20d693dcf28958bcf44095f6",
+      "group_id": "c4b8d739a1b9c69c7f9130d630067c9d15b9d376cb6ce7da2f8ba6d2d63347b6",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 14135,
+      "gap_end": 14935,
+      "candidate_seeds": [
+        35706625660,
+        35706625661,
+        35706625662,
+        35706625663
+      ]
+    },
+    {
+      "case_id": "0707d8d383633daf70a00d76d3efd3e7e3e240972a289ca7a67c541924159448_250",
+      "source_id": "0707d8d383633daf70a00d76d3efd3e7e3e240972a289ca7a67c541924159448",
+      "group_id": "b65e1c2b4543f7d02f267db8bc8b9c104cbf590448e87c8e73ce5c5e9dae82b4",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23679,
+      "gap_end": 25679,
+      "candidate_seeds": [
+        2642424540,
+        2642424541,
+        2642424542,
+        2642424543
+      ]
+    },
+    {
+      "case_id": "b42f42a9b7c1290227abd7b43034b8badad982850f8ed42b672da8e3baf6ebe5_500",
+      "source_id": "b42f42a9b7c1290227abd7b43034b8badad982850f8ed42b672da8e3baf6ebe5",
+      "group_id": "3bfbf8b1b868d406fa40b44815098b01290ee49f27eb58a7d1d24f9af0d48fab",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 11439,
+      "gap_end": 15439,
+      "candidate_seeds": [
+        14647307170,
+        14647307171,
+        14647307172,
+        14647307173
+      ]
+    },
+    {
+      "case_id": "d3af062bba0b8d2e781360042481fe37da80000212d71cb2f2455c663045603c_500",
+      "source_id": "d3af062bba0b8d2e781360042481fe37da80000212d71cb2f2455c663045603c",
+      "group_id": "8f382eee22256b3506797261ecaadace7ee9bdd060c9ae78653cb55abe005bc8",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 18918,
+      "gap_end": 22918,
+      "candidate_seeds": [
+        35271059640,
+        35271059641,
+        35271059642,
+        35271059643
+      ]
+    },
+    {
+      "case_id": "e71822a0886288af89c4a373ffb227eb08801b05abb02fbf33b86afc21995035_50",
+      "source_id": "e71822a0886288af89c4a373ffb227eb08801b05abb02fbf33b86afc21995035",
+      "group_id": "4f5c3db531481815c8fe8e9813df3f331e9e224d4b44c2f6b49a004785015c6c",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 7746,
+      "gap_end": 8146,
+      "candidate_seeds": [
+        18601082970,
+        18601082971,
+        18601082972,
+        18601082973
+      ]
+    },
+    {
+      "case_id": "da890323ba901e965ca75a43437a3026d5c51d906748b2020432317fd7da107d_100",
+      "source_id": "da890323ba901e965ca75a43437a3026d5c51d906748b2020432317fd7da107d",
+      "group_id": "5123bf44bc410a1ba56a0887756a9d724954c889781b5dccca48e5e9bef30f69",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23868,
+      "gap_end": 24668,
+      "candidate_seeds": [
+        6650955460,
+        6650955461,
+        6650955462,
+        6650955463
+      ]
+    },
+    {
+      "case_id": "eb7126175baa9310f1288d82888606a2d84884f2f9f2f82b8bdc82899da4b999_250",
+      "source_id": "eb7126175baa9310f1288d82888606a2d84884f2f9f2f82b8bdc82899da4b999",
+      "group_id": "5d2455da3ae12aa3c2dae17bbe7fe54102290f180f9737be3921ec7173b3170c",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 20273,
+      "gap_end": 22273,
+      "candidate_seeds": [
+        18676407410,
+        18676407411,
+        18676407412,
+        18676407413
+      ]
+    },
+    {
+      "case_id": "f4acef6c85d1eb34a5f36422294804fc747fe1db6d06a134c6c30632fcd1a83a_100",
+      "source_id": "f4acef6c85d1eb34a5f36422294804fc747fe1db6d06a134c6c30632fcd1a83a",
+      "group_id": "d23d5d4da1dd8023a7e533cc2598998dc596b15a4f4878ee678bd313c569f03f",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 8030,
+      "gap_end": 8830,
+      "candidate_seeds": [
+        14819968310,
+        14819968311,
+        14819968312,
+        14819968313
+      ]
+    },
+    {
+      "case_id": "ab28096527d42d1aa9d17b325ed56db1fbf6f475869578f404ebc6e801d6c822_100",
+      "source_id": "ab28096527d42d1aa9d17b325ed56db1fbf6f475869578f404ebc6e801d6c822",
+      "group_id": "8df00f166c159963e4abd5d9ab1eac579ffcd6f8b46d1078617374a42234cd86",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 22989,
+      "gap_end": 23789,
+      "candidate_seeds": [
+        38507951510,
+        38507951511,
+        38507951512,
+        38507951513
+      ]
+    },
+    {
+      "case_id": "073620224b0654f847c91e80946c88f58e6cc74392badcb3bc9ec389df7caf44_100",
+      "source_id": "073620224b0654f847c91e80946c88f58e6cc74392badcb3bc9ec389df7caf44",
+      "group_id": "9b2ca1b97d3688f33618843205851f9f0256e148804bab23263f5425f23ffa17",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 23437,
+      "gap_end": 24237,
+      "candidate_seeds": [
+        37469859730,
+        37469859731,
+        37469859732,
+        37469859733
+      ]
+    },
+    {
+      "case_id": "05a9db0910c937049d2ac09429eab4c52936f985bdd6760b5523418ae06491c4_50",
+      "source_id": "05a9db0910c937049d2ac09429eab4c52936f985bdd6760b5523418ae06491c4",
+      "group_id": "46ca5ca74684748b01ede6b38f4e8b4fc2a0437fe37555ff660fe20bdef7bb2a",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 12766,
+      "gap_end": 13166,
+      "candidate_seeds": [
+        31164738060,
+        31164738061,
+        31164738062,
+        31164738063
+      ]
+    },
+    {
+      "case_id": "a411c7523abf53b20c27c2051802a1729d007bbe0a7ea06d4750d14201c5bb87_500",
+      "source_id": "a411c7523abf53b20c27c2051802a1729d007bbe0a7ea06d4750d14201c5bb87",
+      "group_id": "b41bae543209e89d1e4ec8c1bfd08bf6b7e7f0198f6cc6961c12fb728e6d6b49",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 17007,
+      "gap_end": 21007,
+      "candidate_seeds": [
+        8905201650,
+        8905201651,
+        8905201652,
+        8905201653
+      ]
+    },
+    {
+      "case_id": "f9af496613d4e0c4fe8306a4329d0bad5ffa0abafcf36396ba691cd5e03ddf11_500",
+      "source_id": "f9af496613d4e0c4fe8306a4329d0bad5ffa0abafcf36396ba691cd5e03ddf11",
+      "group_id": "84ab90c95bd08f96ab776afeea6158ecfc0912865f6691b10cc8bf33ed5d326e",
+      "source_partition": "V",
+      "pilot_role": "V",
+      "gap_start": 21428,
+      "gap_end": 25428,
+      "candidate_seeds": [
+        3369604950,
+        3369604951,
+        3369604952,
+        3369604953
+      ]
+    },
+    {
+      "case_id": "164c9b5f689575760352aeedcfb6d10b64fad6a2d75e90a2a15763771ae1259c_50",
+      "source_id": "164c9b5f689575760352aeedcfb6d10b64fad6a2d75e90a2a15763771ae1259c",
+      "group_id": "bd115b17d675d08ca43a2cb21c1928c559e0b36a342f1c64383619d2d78601f5",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 9154,
+      "gap_end": 9554,
+      "candidate_seeds": [
+        31041060660,
+        31041060661,
+        31041060662,
+        31041060663
+      ]
+    },
+    {
+      "case_id": "e25281462e5a986fd1d60fbeaabe11e00f9e5176b3f67457db8326697f651197_250",
+      "source_id": "e25281462e5a986fd1d60fbeaabe11e00f9e5176b3f67457db8326697f651197",
+      "group_id": "2af24607d6b94fbc1060871d438de34ced974d7ea0491736f19b34a87261a398",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 11540,
+      "gap_end": 13540,
+      "candidate_seeds": [
+        6491402180,
+        6491402181,
+        6491402182,
+        6491402183
+      ]
+    },
+    {
+      "case_id": "ac52e3fa04b76c1a628de86253e821d620e49611e0ace2887915e004a2bf4413_50",
+      "source_id": "ac52e3fa04b76c1a628de86253e821d620e49611e0ace2887915e004a2bf4413",
+      "group_id": "cd46610fa2689cf20bed1ad98a4c92df73c71969cbdd66f3a5184e5ba96ca61b",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 21245,
+      "gap_end": 21645,
+      "candidate_seeds": [
+        12125166990,
+        12125166991,
+        12125166992,
+        12125166993
+      ]
+    },
+    {
+      "case_id": "3c97d230996448d86f948794f4395beb392f90b7a1d590e82bee4f93b3849798_500",
+      "source_id": "3c97d230996448d86f948794f4395beb392f90b7a1d590e82bee4f93b3849798",
+      "group_id": "47422b3354a35ee2272ce6b7aa2538ee272414aa8776c6adacbb0b846a2d77d9",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 12903,
+      "gap_end": 16903,
+      "candidate_seeds": [
+        3017835590,
+        3017835591,
+        3017835592,
+        3017835593
+      ]
+    },
+    {
+      "case_id": "4a531c6de5d6b69743f8b87a2711cddf904f9f855b5866655e2a95dad5213618_100",
+      "source_id": "4a531c6de5d6b69743f8b87a2711cddf904f9f855b5866655e2a95dad5213618",
+      "group_id": "fb90b5d19a6b4a2122ac23c4a4152797a7c6534ea0a8d77495b13627954c5dd9",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 21385,
+      "gap_end": 22185,
+      "candidate_seeds": [
+        12358073380,
+        12358073381,
+        12358073382,
+        12358073383
+      ]
+    },
+    {
+      "case_id": "a320a62a189aa44fa55fb40cf7be063037002996754c5e637cb560d8cbaa0150_500",
+      "source_id": "a320a62a189aa44fa55fb40cf7be063037002996754c5e637cb560d8cbaa0150",
+      "group_id": "0a57f7d35e2d521c207ae1079127adef74a1e0a909c29213a01685bec78cbf2d",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 15412,
+      "gap_end": 19412,
+      "candidate_seeds": [
+        29016373380,
+        29016373381,
+        29016373382,
+        29016373383
+      ]
+    },
+    {
+      "case_id": "ba51f3983789d81b0b208da2dfa0821482a5fdd9e55b4517ebfb25d5f5809c5a_50",
+      "source_id": "ba51f3983789d81b0b208da2dfa0821482a5fdd9e55b4517ebfb25d5f5809c5a",
+      "group_id": "8d502a6385bf4473d180140afc536eb5fc70d10b2fe7a679b6277c1f487b7b76",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 7805,
+      "gap_end": 8205,
+      "candidate_seeds": [
+        7438675830,
+        7438675831,
+        7438675832,
+        7438675833
+      ]
+    },
+    {
+      "case_id": "7428b10f49dd1b63a047b7e989cd9dcad67746d55395a6179f7af25469c247bf_500",
+      "source_id": "7428b10f49dd1b63a047b7e989cd9dcad67746d55395a6179f7af25469c247bf",
+      "group_id": "fe492116e6126166fc25fdb3d64782faa6ad9464bb5e628b02a84a321507a461",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10703,
+      "gap_end": 14703,
+      "candidate_seeds": [
+        25671824090,
+        25671824091,
+        25671824092,
+        25671824093
+      ]
+    },
+    {
+      "case_id": "a31dccb0bd6b21845cd91a8622f4ae79807c012c21eb3978016a82d3202d478f_250",
+      "source_id": "a31dccb0bd6b21845cd91a8622f4ae79807c012c21eb3978016a82d3202d478f",
+      "group_id": "f5ec0602edc816d4b57291e96dd31e9e73bbab96d54ebda54df63cb464b4d777",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 23496,
+      "gap_end": 25496,
+      "candidate_seeds": [
+        18268935550,
+        18268935551,
+        18268935552,
+        18268935553
+      ]
+    },
+    {
+      "case_id": "3b6536a258b013b34d30b78059dc14d93cb42e3a1934545e045ffa8803d24b27_100",
+      "source_id": "3b6536a258b013b34d30b78059dc14d93cb42e3a1934545e045ffa8803d24b27",
+      "group_id": "40fc16880e3cf2e5daa8fa9f1bc714efdec2dda32ae0e5e7e44dd75cc291bbae",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 8902,
+      "gap_end": 9702,
+      "candidate_seeds": [
+        42473898300,
+        42473898301,
+        42473898302,
+        42473898303
+      ]
+    },
+    {
+      "case_id": "a25db719511574517b516aef7ba280b1d915d5a6663be01bb1421cc2d1ff3642_100",
+      "source_id": "a25db719511574517b516aef7ba280b1d915d5a6663be01bb1421cc2d1ff3642",
+      "group_id": "2bc6ec60335b56ad2b2f404ac6d4e84bbd58c2847fdf697db6ac7492588817e0",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 17371,
+      "gap_end": 18171,
+      "candidate_seeds": [
+        6701752590,
+        6701752591,
+        6701752592,
+        6701752593
+      ]
+    },
+    {
+      "case_id": "a68e4ebc07879e9d0e40177fbe92ea7b78dafd45241c9a35fbfb77795d4f1f28_100",
+      "source_id": "a68e4ebc07879e9d0e40177fbe92ea7b78dafd45241c9a35fbfb77795d4f1f28",
+      "group_id": "b22601cfb406c70b41816f6941bc9f60fedd9ed4524b21532172c916ea0176bd",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 13139,
+      "gap_end": 13939,
+      "candidate_seeds": [
+        4094278790,
+        4094278791,
+        4094278792,
+        4094278793
+      ]
+    },
+    {
+      "case_id": "daf0de34d8fedab2f47e51b6f8b909082b2bf128c2409fc24d7261c98fc4e3d6_100",
+      "source_id": "daf0de34d8fedab2f47e51b6f8b909082b2bf128c2409fc24d7261c98fc4e3d6",
+      "group_id": "e943b9b40cb20cff49cd45469fbdd98e3dc31f4a82dbb948cc886a7e65f8c40d",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 12124,
+      "gap_end": 12924,
+      "candidate_seeds": [
+        563871560,
+        563871561,
+        563871562,
+        563871563
+      ]
+    },
+    {
+      "case_id": "ff5ee53271a43b820460b6d174405e87a1b17ef86c0301a233ccd93ff7cf94eb_250",
+      "source_id": "ff5ee53271a43b820460b6d174405e87a1b17ef86c0301a233ccd93ff7cf94eb",
+      "group_id": "f00ae8fa9f43e34cebed68b44b72412664cfe096b1166487271e10c697166475",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 7871,
+      "gap_end": 9871,
+      "candidate_seeds": [
+        23035741000,
+        23035741001,
+        23035741002,
+        23035741003
+      ]
+    },
+    {
+      "case_id": "7a03e3f9fa3ce55c9791c940403e4c0eaf576727de4bb1d1fa89811db692abfe_100",
+      "source_id": "7a03e3f9fa3ce55c9791c940403e4c0eaf576727de4bb1d1fa89811db692abfe",
+      "group_id": "ead1a2ba50b5145b7e94444b9e99c667edd4a1463ccb4da3e9b2b0e65a79e2d4",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 12952,
+      "gap_end": 13752,
+      "candidate_seeds": [
+        8290228060,
+        8290228061,
+        8290228062,
+        8290228063
+      ]
+    },
+    {
+      "case_id": "87a937d1a5b33b706c571320f307e854cba94ae692f5c75422ce2b9d0dc4a5b3_100",
+      "source_id": "87a937d1a5b33b706c571320f307e854cba94ae692f5c75422ce2b9d0dc4a5b3",
+      "group_id": "ba7433447d9e12e5b4bb0156747c2768472ec6389f419ca17ad2481fe338e001",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 14409,
+      "gap_end": 15209,
+      "candidate_seeds": [
+        26329103360,
+        26329103361,
+        26329103362,
+        26329103363
+      ]
+    },
+    {
+      "case_id": "e34fd7af3522cc1bf6f33307e6194f45eebb2fc498e13443daa0a8057a4c0282_50",
+      "source_id": "e34fd7af3522cc1bf6f33307e6194f45eebb2fc498e13443daa0a8057a4c0282",
+      "group_id": "fea80bde47946692cbaa75d82aef24e0e06d468fe48506f09302f7f1f26644f0",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 21861,
+      "gap_end": 22261,
+      "candidate_seeds": [
+        19250409340,
+        19250409341,
+        19250409342,
+        19250409343
+      ]
+    },
+    {
+      "case_id": "4b39ffc6ccdbd38aff21da9e911f9f5c386baaeee6d4c7cbdb969e90b7ea51d3_250",
+      "source_id": "4b39ffc6ccdbd38aff21da9e911f9f5c386baaeee6d4c7cbdb969e90b7ea51d3",
+      "group_id": "1f179753064e3033d41536da676e82e6f50b75e5669a17ae55c3a6f65ceb9bed",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 23619,
+      "gap_end": 25619,
+      "candidate_seeds": [
+        33952286190,
+        33952286191,
+        33952286192,
+        33952286193
+      ]
+    },
+    {
+      "case_id": "f1ca131f737a2d6ddf22de2e2063c4d553a000e63c101a9d676d1666201bebfe_50",
+      "source_id": "f1ca131f737a2d6ddf22de2e2063c4d553a000e63c101a9d676d1666201bebfe",
+      "group_id": "c710a1c6894c19a55b16d7cf10d34685e6442644e4e09d11320b55591e12fc40",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 16833,
+      "gap_end": 17233,
+      "candidate_seeds": [
+        29458129930,
+        29458129931,
+        29458129932,
+        29458129933
+      ]
+    },
+    {
+      "case_id": "1962715befd86985c043274cd2affdd30220f81525c55fd5b388c899bd96d6c8_100",
+      "source_id": "1962715befd86985c043274cd2affdd30220f81525c55fd5b388c899bd96d6c8",
+      "group_id": "2947c8c3d6c41308c6dcf6970635971cb00aefc714bc3c7332940e6b30e3bef3",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 6408,
+      "gap_end": 7208,
+      "candidate_seeds": [
+        36822833620,
+        36822833621,
+        36822833622,
+        36822833623
+      ]
+    },
+    {
+      "case_id": "fa7e1b331db73d98e8765d535da21263b5d38f56e0b1c4f037ba258aedf365db_50",
+      "source_id": "fa7e1b331db73d98e8765d535da21263b5d38f56e0b1c4f037ba258aedf365db",
+      "group_id": "b195bb07f6c7f47a67fa8dbf4441658aa5305eb1141b5d4c751a53c953527d70",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 8036,
+      "gap_end": 8436,
+      "candidate_seeds": [
+        25716559740,
+        25716559741,
+        25716559742,
+        25716559743
+      ]
+    },
+    {
+      "case_id": "1b4a73dd3d7b9fd8abafe362e82d01cc6d5247d16c3b312a58bde273863be9b9_50",
+      "source_id": "1b4a73dd3d7b9fd8abafe362e82d01cc6d5247d16c3b312a58bde273863be9b9",
+      "group_id": "41d6db84f73140c04b259718188d9f4d57e0840ac3b7e430f4e12a240d92d3df",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 25355,
+      "gap_end": 25755,
+      "candidate_seeds": [
+        3542737790,
+        3542737791,
+        3542737792,
+        3542737793
+      ]
+    },
+    {
+      "case_id": "319c65d02d794d84ce5450524771ca9d44f5ecd24a97db27a6561bb590a4e307_250",
+      "source_id": "319c65d02d794d84ce5450524771ca9d44f5ecd24a97db27a6561bb590a4e307",
+      "group_id": "858194b473f6f920051ba7f160956e3b0108bb31bb25042b0f7a0eb2aeabfd02",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 22737,
+      "gap_end": 24737,
+      "candidate_seeds": [
+        22161797800,
+        22161797801,
+        22161797802,
+        22161797803
+      ]
+    },
+    {
+      "case_id": "cc38c8a5e8b3caff926ab4b89f93bcfa9891bd7111ec21a6aa5a7f56b9ebe06f_250",
+      "source_id": "cc38c8a5e8b3caff926ab4b89f93bcfa9891bd7111ec21a6aa5a7f56b9ebe06f",
+      "group_id": "578adcb392b175885d1c6349b276c9159eb5632969a433997baae2034a5990ca",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 24106,
+      "gap_end": 26106,
+      "candidate_seeds": [
+        12059755960,
+        12059755961,
+        12059755962,
+        12059755963
+      ]
+    },
+    {
+      "case_id": "65d6307cc67a0a96eee63d492110251257390b5d1fe54f63e398207410db35d9_100",
+      "source_id": "65d6307cc67a0a96eee63d492110251257390b5d1fe54f63e398207410db35d9",
+      "group_id": "29760a358131908b061ed3bb20f510feff2914c6cf3e30c6ed266334e63f77e7",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 17662,
+      "gap_end": 18462,
+      "candidate_seeds": [
+        24467529190,
+        24467529191,
+        24467529192,
+        24467529193
+      ]
+    },
+    {
+      "case_id": "43c13af36d55357d4c62187d1c386bd09e3d3d91b6fbe9f03bab50b546a1d6c5_500",
+      "source_id": "43c13af36d55357d4c62187d1c386bd09e3d3d91b6fbe9f03bab50b546a1d6c5",
+      "group_id": "47e30f61a82a62b3bd6f623d02db3d7d27e52fbfefd07ed047bd91c561bcf957",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 8125,
+      "gap_end": 12125,
+      "candidate_seeds": [
+        30175336590,
+        30175336591,
+        30175336592,
+        30175336593
+      ]
+    },
+    {
+      "case_id": "9d1ee2ffefb59842a75912a7c441db4430b4962e175e742dfc31d831539fbeba_250",
+      "source_id": "9d1ee2ffefb59842a75912a7c441db4430b4962e175e742dfc31d831539fbeba",
+      "group_id": "7e58f3e320c41be9b245650ceffd9d4c8f49fb84a5b20dffa236f3a97477c805",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 22115,
+      "gap_end": 24115,
+      "candidate_seeds": [
+        28396051960,
+        28396051961,
+        28396051962,
+        28396051963
+      ]
+    },
+    {
+      "case_id": "f4156322a87cb052873ba6b81d46c38729fedcdafdd2a4a46c8e4983e8d1b5a4_250",
+      "source_id": "f4156322a87cb052873ba6b81d46c38729fedcdafdd2a4a46c8e4983e8d1b5a4",
+      "group_id": "9ae27dafdfd220599ba7bdafc85779ee96d8d1874524d302d3aa319b8f7c92d6",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 19553,
+      "gap_end": 21553,
+      "candidate_seeds": [
+        29115222870,
+        29115222871,
+        29115222872,
+        29115222873
+      ]
+    },
+    {
+      "case_id": "8956f1040ea5d2542903740fc84852756946fd031ff696bf3d7ea42b7811764d_500",
+      "source_id": "8956f1040ea5d2542903740fc84852756946fd031ff696bf3d7ea42b7811764d",
+      "group_id": "ef532621182e810c529b1c961e689853402cc0edc3776987f0030cc2250bb299",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 13174,
+      "gap_end": 17174,
+      "candidate_seeds": [
+        21652809650,
+        21652809651,
+        21652809652,
+        21652809653
+      ]
+    },
+    {
+      "case_id": "3cb7d77b206c1ba34911469ec1aa9058d08415a27b738b2f2a35897c504eadd2_250",
+      "source_id": "3cb7d77b206c1ba34911469ec1aa9058d08415a27b738b2f2a35897c504eadd2",
+      "group_id": "cd6a30652ef3b9d19fb3850f9c51b39e366faeca3f78cf96eac9bce625459c5f",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 22788,
+      "gap_end": 24788,
+      "candidate_seeds": [
+        41885532020,
+        41885532021,
+        41885532022,
+        41885532023
+      ]
+    },
+    {
+      "case_id": "3385094c920685f26ff09d46a0b9a3a218b3b04e07949445d5d72308135c8f49_250",
+      "source_id": "3385094c920685f26ff09d46a0b9a3a218b3b04e07949445d5d72308135c8f49",
+      "group_id": "bc73616b969c02821f0bf614ed8bd7fd9d3d5ac712cab0fb731a9db9d8b79fd2",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 21996,
+      "gap_end": 23996,
+      "candidate_seeds": [
+        13121764180,
+        13121764181,
+        13121764182,
+        13121764183
+      ]
+    },
+    {
+      "case_id": "919e91002d1234a96da166be93d2e78094b6b44146860e727a782189f841fdb3_100",
+      "source_id": "919e91002d1234a96da166be93d2e78094b6b44146860e727a782189f841fdb3",
+      "group_id": "017df2a7bfdee73f098ec5b63cf1d8d70ea645e7acb152704329d4f6ae20ca60",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 7933,
+      "gap_end": 8733,
+      "candidate_seeds": [
+        8755894170,
+        8755894171,
+        8755894172,
+        8755894173
+      ]
+    },
+    {
+      "case_id": "af4e00984cebbac91b8ecefd322ebff446ccb5583ca78f58a948a6d81891da81_100",
+      "source_id": "af4e00984cebbac91b8ecefd322ebff446ccb5583ca78f58a948a6d81891da81",
+      "group_id": "097abe97180bac78424bb6889d0ffe7df5d72124858553797eb41f17b177d972",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 24475,
+      "gap_end": 25275,
+      "candidate_seeds": [
+        3132810800,
+        3132810801,
+        3132810802,
+        3132810803
+      ]
+    },
+    {
+      "case_id": "ebe4c566437745b1d3f91189072d4fad9ac97b566b2388aa7dc5317329b28986_100",
+      "source_id": "ebe4c566437745b1d3f91189072d4fad9ac97b566b2388aa7dc5317329b28986",
+      "group_id": "9aaec8d323d8499ac953bf630276c06aff02c350e430daad0d82ba6c9bbd11e9",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 19435,
+      "gap_end": 20235,
+      "candidate_seeds": [
+        38487238840,
+        38487238841,
+        38487238842,
+        38487238843
+      ]
+    },
+    {
+      "case_id": "c76d9c46981e2ed3cb4199fd42cc209d61da3bed233a20b209231432857f322d_50",
+      "source_id": "c76d9c46981e2ed3cb4199fd42cc209d61da3bed233a20b209231432857f322d",
+      "group_id": "f6488cd51af7c443ae9a960c7b1f1e81296d08a7f36e5c2873ebbb500ee01ca6",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 21160,
+      "gap_end": 21560,
+      "candidate_seeds": [
+        11023434440,
+        11023434441,
+        11023434442,
+        11023434443
+      ]
+    },
+    {
+      "case_id": "08ec29addac503ce86bcf9d3859f155739c1fdc4ea24b7d59a8bad5063561ef6_250",
+      "source_id": "08ec29addac503ce86bcf9d3859f155739c1fdc4ea24b7d59a8bad5063561ef6",
+      "group_id": "b951a9c1920ecefc36e590ac6e1a12c85f44674d8fdbc8ec948bc26fcfa1bada",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 17059,
+      "gap_end": 19059,
+      "candidate_seeds": [
+        7928971720,
+        7928971721,
+        7928971722,
+        7928971723
+      ]
+    },
+    {
+      "case_id": "ab775df1f099b48defbb46c1344e6d902270d48aaf57e3dbcee36d469b10cb9c_500",
+      "source_id": "ab775df1f099b48defbb46c1344e6d902270d48aaf57e3dbcee36d469b10cb9c",
+      "group_id": "3a6cefc3bd24926a4685e1a0ec24e43c777df2940b46272bc454efdc065dd123",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 13551,
+      "gap_end": 17551,
+      "candidate_seeds": [
+        26922176250,
+        26922176251,
+        26922176252,
+        26922176253
+      ]
+    },
+    {
+      "case_id": "b21bc221d2ac4d5f8725958bd889640396c02e1fe3da229a84fa5611d8d808e2_100",
+      "source_id": "b21bc221d2ac4d5f8725958bd889640396c02e1fe3da229a84fa5611d8d808e2",
+      "group_id": "c59900dd30879b699ed0ba91de1b1e33eb311476924d021b6dd3f33b6e1213e7",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 25233,
+      "gap_end": 26033,
+      "candidate_seeds": [
+        17053802780,
+        17053802781,
+        17053802782,
+        17053802783
+      ]
+    },
+    {
+      "case_id": "780341ed725fa2226b8113cd0383489948d4e1a7a70e6140d6059aed1f7ece2b_500",
+      "source_id": "780341ed725fa2226b8113cd0383489948d4e1a7a70e6140d6059aed1f7ece2b",
+      "group_id": "7a1f24034bd1ff596c03a846242be3f230cd50e00d11c4331684a4de7c806cbf",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 11150,
+      "gap_end": 15150,
+      "candidate_seeds": [
+        8314822110,
+        8314822111,
+        8314822112,
+        8314822113
+      ]
+    },
+    {
+      "case_id": "cb2932ba3312beb507d781b6eefae445f1afe7ed9d89456918664041d6ba7179_50",
+      "source_id": "cb2932ba3312beb507d781b6eefae445f1afe7ed9d89456918664041d6ba7179",
+      "group_id": "ce9678b3d03032e5df6ad289ab0def842fe57a0ec0ae049867e4b6690eff5998",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10357,
+      "gap_end": 10757,
+      "candidate_seeds": [
+        23670510800,
+        23670510801,
+        23670510802,
+        23670510803
+      ]
+    },
+    {
+      "case_id": "f722e43bba7f9690c157705ac4e6cc9e9376a61bb855ba2bd1509ff31769d7ca_100",
+      "source_id": "f722e43bba7f9690c157705ac4e6cc9e9376a61bb855ba2bd1509ff31769d7ca",
+      "group_id": "bc47cd6eafcb76d2064d6b653bf5ecb2eaae5cdaa501534e116f45f8afe6c528",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10694,
+      "gap_end": 11494,
+      "candidate_seeds": [
+        1764186110,
+        1764186111,
+        1764186112,
+        1764186113
+      ]
+    },
+    {
+      "case_id": "374a38e18cc20cbd5acc56ebcdeda84ebb7f101a956be1c47ff4c896f122f23a_250",
+      "source_id": "374a38e18cc20cbd5acc56ebcdeda84ebb7f101a956be1c47ff4c896f122f23a",
+      "group_id": "f1bf1019a8cbd660843f273ca14109a5756056622df7d5824a9cc3309d9aea7a",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 13487,
+      "gap_end": 15487,
+      "candidate_seeds": [
+        20742646300,
+        20742646301,
+        20742646302,
+        20742646303
+      ]
+    },
+    {
+      "case_id": "c8492bdc956e33a1a4f926d7f89697f10a15bfebeaf5b08379ab789c9b641f5f_250",
+      "source_id": "c8492bdc956e33a1a4f926d7f89697f10a15bfebeaf5b08379ab789c9b641f5f",
+      "group_id": "cbe8fe532cb51087a1687ef31697c7a72914cd0c5958e77955eec754e220cde1",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 20253,
+      "gap_end": 22253,
+      "candidate_seeds": [
+        33451572660,
+        33451572661,
+        33451572662,
+        33451572663
+      ]
+    },
+    {
+      "case_id": "401b7663912649b135e6a5cabef715ec3406f5aa09c9a9e2c16f4b3e10b058c6_50",
+      "source_id": "401b7663912649b135e6a5cabef715ec3406f5aa09c9a9e2c16f4b3e10b058c6",
+      "group_id": "ed169122ec7e0c254b5984968274d83d4a666fc1f67dbd1884d1fbb860e92551",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 15063,
+      "gap_end": 15463,
+      "candidate_seeds": [
+        37850543760,
+        37850543761,
+        37850543762,
+        37850543763
+      ]
+    },
+    {
+      "case_id": "7194861896ea94c48f5c38e4c746d2c8e75e33df6062df58d734aa501b01b3c4_250",
+      "source_id": "7194861896ea94c48f5c38e4c746d2c8e75e33df6062df58d734aa501b01b3c4",
+      "group_id": "59103ee1957183a4d0f035df74dc4ae43242af3136546221d904ef31a92bf6b9",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10221,
+      "gap_end": 12221,
+      "candidate_seeds": [
+        27347131470,
+        27347131471,
+        27347131472,
+        27347131473
+      ]
+    },
+    {
+      "case_id": "c0bd1ea31ae7809440c96ae98d052e2ae2f1e9a69a2488b3b79a6bacd110ef6d_100",
+      "source_id": "c0bd1ea31ae7809440c96ae98d052e2ae2f1e9a69a2488b3b79a6bacd110ef6d",
+      "group_id": "888d36481c49c46d009cbfaf92eb3775e91dc9764a982dbdaa7dfa3b28094ce5",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 8919,
+      "gap_end": 9719,
+      "candidate_seeds": [
+        42837121980,
+        42837121981,
+        42837121982,
+        42837121983
+      ]
+    },
+    {
+      "case_id": "36f298e036d8e37b1f2ce40873b514d22a45d898fff6e023aead4608d335b915_500",
+      "source_id": "36f298e036d8e37b1f2ce40873b514d22a45d898fff6e023aead4608d335b915",
+      "group_id": "1ca54a5e7572e61d4b03d0c4a89a51c4c22b48de6223a3a13f2813becc8ff6f8",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 20850,
+      "gap_end": 24850,
+      "candidate_seeds": [
+        31368538030,
+        31368538031,
+        31368538032,
+        31368538033
+      ]
+    },
+    {
+      "case_id": "35810c3999a55d7a8290448b4842428924b7e04661f53c614422b4041263a5f1_100",
+      "source_id": "35810c3999a55d7a8290448b4842428924b7e04661f53c614422b4041263a5f1",
+      "group_id": "5b3ca34f104c2323d8713c4fbff69696b444810b02b28dc0d64ab367f3190540",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10334,
+      "gap_end": 11134,
+      "candidate_seeds": [
+        11378125540,
+        11378125541,
+        11378125542,
+        11378125543
+      ]
+    },
+    {
+      "case_id": "9fea3d7657e0cfa993e38426e823e2b29a4834def137ed4a440c1bde4f2826b0_250",
+      "source_id": "9fea3d7657e0cfa993e38426e823e2b29a4834def137ed4a440c1bde4f2826b0",
+      "group_id": "b7f9d880591d60e16f18ef7ad22e14177ba4f433ead8b00ad9a37acd73b38e40",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 18396,
+      "gap_end": 20396,
+      "candidate_seeds": [
+        28402255500,
+        28402255501,
+        28402255502,
+        28402255503
+      ]
+    },
+    {
+      "case_id": "a31acb618b765b50b7cf6a17058d80487e6147c234270ead7c56983f2dc0c64a_100",
+      "source_id": "a31acb618b765b50b7cf6a17058d80487e6147c234270ead7c56983f2dc0c64a",
+      "group_id": "7e320eef63eed19bac9aaa33f5f5eb9b205573aee4c51deb8431dd8fcf91f4bb",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 7687,
+      "gap_end": 8487,
+      "candidate_seeds": [
+        32322595720,
+        32322595721,
+        32322595722,
+        32322595723
+      ]
+    },
+    {
+      "case_id": "0d28d1700846e47aeab495421d45934401c03111a87ef40db49d8953851bfade_50",
+      "source_id": "0d28d1700846e47aeab495421d45934401c03111a87ef40db49d8953851bfade",
+      "group_id": "84d6b5a706f4ef3ae02024938e5a42312cab54d2ed29fc26f21e7af6f30d3142",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10553,
+      "gap_end": 10953,
+      "candidate_seeds": [
+        4997414460,
+        4997414461,
+        4997414462,
+        4997414463
+      ]
+    },
+    {
+      "case_id": "ced2823b6bbde46362900ea5bc22fb9167cc1179e7358aab298886007b3465a9_250",
+      "source_id": "ced2823b6bbde46362900ea5bc22fb9167cc1179e7358aab298886007b3465a9",
+      "group_id": "16f1f68f8d59c2bfe0be11bd404518a58c698f66bb0f6e2b67ef1c79d4e28c7b",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 22464,
+      "gap_end": 24464,
+      "candidate_seeds": [
+        13831160890,
+        13831160891,
+        13831160892,
+        13831160893
+      ]
+    },
+    {
+      "case_id": "93ae3d1e4c78510b5a262f234600a3d045aebee8393b195b316750c05e2a635e_250",
+      "source_id": "93ae3d1e4c78510b5a262f234600a3d045aebee8393b195b316750c05e2a635e",
+      "group_id": "ff8b5d2b1a70d9ef718741091a3a89d1f1b1ec0a958622b3b5dc0e8c9ea9d549",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 21934,
+      "gap_end": 23934,
+      "candidate_seeds": [
+        7437902450,
+        7437902451,
+        7437902452,
+        7437902453
+      ]
+    },
+    {
+      "case_id": "50b5e42a0a7e338ef1308fa057d13c77d720330f963f9d694d3ff13c995fbc54_50",
+      "source_id": "50b5e42a0a7e338ef1308fa057d13c77d720330f963f9d694d3ff13c995fbc54",
+      "group_id": "35d0c98026e3d5bed8532dab53f7969dd7376b0c529f848dc73442d005184059",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 6321,
+      "gap_end": 6721,
+      "candidate_seeds": [
+        23285768640,
+        23285768641,
+        23285768642,
+        23285768643
+      ]
+    },
+    {
+      "case_id": "738f106cbdf6224cf1498b153b0a62e9b423eef92697b3971fd87f5dd53ad0f3_50",
+      "source_id": "738f106cbdf6224cf1498b153b0a62e9b423eef92697b3971fd87f5dd53ad0f3",
+      "group_id": "9d391dbadc640ed3bd597e05e6f03ca3c1251a359c6d9454e1031cf05a2b25c9",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10518,
+      "gap_end": 10918,
+      "candidate_seeds": [
+        16238021950,
+        16238021951,
+        16238021952,
+        16238021953
+      ]
+    },
+    {
+      "case_id": "f3866a6208f9595a3ef46fb11772ee3e836fb9c6c76a26a2326b95b37ec9d1b1_250",
+      "source_id": "f3866a6208f9595a3ef46fb11772ee3e836fb9c6c76a26a2326b95b37ec9d1b1",
+      "group_id": "939ed177669fab4efd8364ec194a273340cb6fa165ebfe1f27e5128d79e59a6b",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 6447,
+      "gap_end": 8447,
+      "candidate_seeds": [
+        29772180320,
+        29772180321,
+        29772180322,
+        29772180323
+      ]
+    },
+    {
+      "case_id": "7088f8030ed1d6ef649cad0c08acfd3d744ca21238b38088a2bcd31edf69b470_250",
+      "source_id": "7088f8030ed1d6ef649cad0c08acfd3d744ca21238b38088a2bcd31edf69b470",
+      "group_id": "5ff9cc1a7a2dcd306054eff6207f0eade293b7d5027200cd3a409bc944c8c0d5",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 19556,
+      "gap_end": 21556,
+      "candidate_seeds": [
+        35240456230,
+        35240456231,
+        35240456232,
+        35240456233
+      ]
+    },
+    {
+      "case_id": "8d38aa6fe04b172d18bb5bf4e0575491ad3f73ba477a3cbc78b0550b5d938b4b_50",
+      "source_id": "8d38aa6fe04b172d18bb5bf4e0575491ad3f73ba477a3cbc78b0550b5d938b4b",
+      "group_id": "f691932c5634b94eefb9bc776bd0f29110f86e38a1231c2b29d928aca76b5c7b",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 19790,
+      "gap_end": 20190,
+      "candidate_seeds": [
+        2252932420,
+        2252932421,
+        2252932422,
+        2252932423
+      ]
+    },
+    {
+      "case_id": "a3b34e1d7cffb4e5b04d57512554aca8a520f010ccb2862b6d94224e40718796_500",
+      "source_id": "a3b34e1d7cffb4e5b04d57512554aca8a520f010ccb2862b6d94224e40718796",
+      "group_id": "9e850ae7b3a547e9a6fb8791ed6f16c9fc3e59f7280b425119f6d091dd1f13ef",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 7270,
+      "gap_end": 11270,
+      "candidate_seeds": [
+        883194600,
+        883194601,
+        883194602,
+        883194603
+      ]
+    },
+    {
+      "case_id": "f178140714503acad764adbe7818ed11786a7828217a46bdf46e8e89217d3a27_250",
+      "source_id": "f178140714503acad764adbe7818ed11786a7828217a46bdf46e8e89217d3a27",
+      "group_id": "e174d981d5e76e81b32593a95e585584cedac75feac7ced77c906079ae00704e",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 16930,
+      "gap_end": 18930,
+      "candidate_seeds": [
+        7963823110,
+        7963823111,
+        7963823112,
+        7963823113
+      ]
+    },
+    {
+      "case_id": "06c54d5a8c792335b3568777668fe825ef072e109c23921de90a37ab07d49bbf_500",
+      "source_id": "06c54d5a8c792335b3568777668fe825ef072e109c23921de90a37ab07d49bbf",
+      "group_id": "19fb219c059a9339aa3279631a5bcf0c3da88d71a1fe12973ec400d0e437a6ea",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 15919,
+      "gap_end": 19919,
+      "candidate_seeds": [
+        29001631840,
+        29001631841,
+        29001631842,
+        29001631843
+      ]
+    },
+    {
+      "case_id": "0e59856e6309193b80bd77b60413ed45b023d771e27dba4d570b81fbe249b057_50",
+      "source_id": "0e59856e6309193b80bd77b60413ed45b023d771e27dba4d570b81fbe249b057",
+      "group_id": "6e7b2017569415cc500beda888857bf7f00e0e68a5c086742627c979d8747728",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 10714,
+      "gap_end": 11114,
+      "candidate_seeds": [
+        41427415330,
+        41427415331,
+        41427415332,
+        41427415333
+      ]
+    },
+    {
+      "case_id": "d5afc42655c3882d64293295fbafa85b4f19d3c4e554d2eb9a099877cf9d1407_50",
+      "source_id": "d5afc42655c3882d64293295fbafa85b4f19d3c4e554d2eb9a099877cf9d1407",
+      "group_id": "88614270d0d66a5668e746077bdc93e683169fe71546278136eb9fae1a7486d8",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 7789,
+      "gap_end": 8189,
+      "candidate_seeds": [
+        25610803310,
+        25610803311,
+        25610803312,
+        25610803313
+      ]
+    },
+    {
+      "case_id": "d57a78cec877ac3edba9ce18650eacd07464fc16efbe4da01dc2690ee166daee_50",
+      "source_id": "d57a78cec877ac3edba9ce18650eacd07464fc16efbe4da01dc2690ee166daee",
+      "group_id": "784908c1286f706014f1dfab967c68c12ba0454c2741050768ba822f00405095",
+      "source_partition": "V",
+      "pilot_role": "dev_C",
+      "gap_start": 8212,
+      "gap_end": 8612,
+      "candidate_seeds": [
+        6790919160,
+        6790919161,
+        6790919162,
+        6790919163
+      ]
+    },
+    {
+      "case_id": "f9a54d0bdc800d23b33e1ddfa2856b4c688a2824b955444017a2fa48e0b68689_500",
+      "source_id": "f9a54d0bdc800d23b33e1ddfa2856b4c688a2824b955444017a2fa48e0b68689",
+      "group_id": "803d05b1c7d0f9296d723097c3951c9f86202512b2726b3468ca7a78410d87d9",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 19180,
+      "gap_end": 23180,
+      "candidate_seeds": [
+        10941890520,
+        10941890521,
+        10941890522,
+        10941890523
+      ]
+    },
+    {
+      "case_id": "e184550b33c2a41ae52638014b8e406f36bbc2a1bc87ce5accfc049459462bd8_100",
+      "source_id": "e184550b33c2a41ae52638014b8e406f36bbc2a1bc87ce5accfc049459462bd8",
+      "group_id": "14eba8f5ad2a8f4f2307830fb46802d198176c1d8b2512ef1bacab41e039404a",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 9712,
+      "gap_end": 10512,
+      "candidate_seeds": [
+        29130701890,
+        29130701891,
+        29130701892,
+        29130701893
+      ]
+    },
+    {
+      "case_id": "462740e031ea6a5a6d5260083f230a95d3201f3be25bfd823a3fcdd0ab5ec631_250",
+      "source_id": "462740e031ea6a5a6d5260083f230a95d3201f3be25bfd823a3fcdd0ab5ec631",
+      "group_id": "cb0ec4d991ba10aae1039eaab1acb502231ee2f6f1265409e84edf98b3a91b32",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 21127,
+      "gap_end": 23127,
+      "candidate_seeds": [
+        36876388540,
+        36876388541,
+        36876388542,
+        36876388543
+      ]
+    },
+    {
+      "case_id": "a6bfb4c479ed1ad20b6f0db5787e273ec5d261947d90bece1eeea3de2f62f74b_250",
+      "source_id": "a6bfb4c479ed1ad20b6f0db5787e273ec5d261947d90bece1eeea3de2f62f74b",
+      "group_id": "a11ef619fff3460dfddb7132f02b01c3357a17f56c0f6d681b460d0a70c834f7",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 23844,
+      "gap_end": 25844,
+      "candidate_seeds": [
+        35107444360,
+        35107444361,
+        35107444362,
+        35107444363
+      ]
+    },
+    {
+      "case_id": "759feca2de1dcc7751845e353b847eb35c47f857aa2b4afd7a8df8e620d93eb4_100",
+      "source_id": "759feca2de1dcc7751845e353b847eb35c47f857aa2b4afd7a8df8e620d93eb4",
+      "group_id": "49f4ae1999605c7f9ede657e6ae3f98e8795f6c9dfabcb3854bbb436cb28408a",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25504,
+      "gap_end": 26304,
+      "candidate_seeds": [
+        22854718190,
+        22854718191,
+        22854718192,
+        22854718193
+      ]
+    },
+    {
+      "case_id": "f21a8e2f45204e244f4bd2293b803d7eb3c10d51522c7f78071deed73ed03268_50",
+      "source_id": "f21a8e2f45204e244f4bd2293b803d7eb3c10d51522c7f78071deed73ed03268",
+      "group_id": "8b64c41d91fc3de83b240484be7fddb5da8c9f048d9ce9e3938d694fd3e488b0",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 9981,
+      "gap_end": 10381,
+      "candidate_seeds": [
+        4228281000,
+        4228281001,
+        4228281002,
+        4228281003
+      ]
+    },
+    {
+      "case_id": "47979a0ce371ed29a35faf4ade0b7ec4945b38a3d3db7ff1ba2d81504a290601_100",
+      "source_id": "47979a0ce371ed29a35faf4ade0b7ec4945b38a3d3db7ff1ba2d81504a290601",
+      "group_id": "57f2c1ad3389f2b7bd32cf38c23ef2d025a8044a46e61055b308beb3db426b1a",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 6590,
+      "gap_end": 7390,
+      "candidate_seeds": [
+        38703146020,
+        38703146021,
+        38703146022,
+        38703146023
+      ]
+    },
+    {
+      "case_id": "34af2bdf0bddffab798d66421fc8cb13fcab2e4a3d0150f042f85531dca9a649_250",
+      "source_id": "34af2bdf0bddffab798d66421fc8cb13fcab2e4a3d0150f042f85531dca9a649",
+      "group_id": "20bb717215b71135ae913b52db5d09cf2ee58c020853a6951d515236b335725c",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 19589,
+      "gap_end": 21589,
+      "candidate_seeds": [
+        39658689450,
+        39658689451,
+        39658689452,
+        39658689453
+      ]
+    },
+    {
+      "case_id": "c7495e209d5178c3c1dc5255c874cd057206249e025e167c7ccf252e1d404bdc_500",
+      "source_id": "c7495e209d5178c3c1dc5255c874cd057206249e025e167c7ccf252e1d404bdc",
+      "group_id": "ffc220605a8858ef9d953a1a836680957db1201cd61a9c49ab641b86f280cf82",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 19631,
+      "gap_end": 23631,
+      "candidate_seeds": [
+        4169007950,
+        4169007951,
+        4169007952,
+        4169007953
+      ]
+    },
+    {
+      "case_id": "655e7cbbff9b9d73af882bb36664121a9367b87e0dfe63e53479d7bce51a24bb_50",
+      "source_id": "655e7cbbff9b9d73af882bb36664121a9367b87e0dfe63e53479d7bce51a24bb",
+      "group_id": "32e00e6c2a1b0b95aacab17bae09bad04fb67ddf5c8f008ffbc61acdf44745fc",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 26187,
+      "gap_end": 26587,
+      "candidate_seeds": [
+        8933920600,
+        8933920601,
+        8933920602,
+        8933920603
+      ]
+    },
+    {
+      "case_id": "a0a59c11472005f22f4b73bc054368acff7a0c59397a24270370c8c70712fa08_50",
+      "source_id": "a0a59c11472005f22f4b73bc054368acff7a0c59397a24270370c8c70712fa08",
+      "group_id": "4dd715c8df25760ef5340476c1aea498bed1009f05aa6a507105d954fff0ed27",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 7292,
+      "gap_end": 7692,
+      "candidate_seeds": [
+        14533642690,
+        14533642691,
+        14533642692,
+        14533642693
+      ]
+    },
+    {
+      "case_id": "3a1b34698a3c2e290600de4172905c1400d6920641622430600f1131e6a76dda_500",
+      "source_id": "3a1b34698a3c2e290600de4172905c1400d6920641622430600f1131e6a76dda",
+      "group_id": "91e390d11eea782145f5b01e3d3f0e9c519398126cc77ead9e610d57f6e7f6e3",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 11111,
+      "gap_end": 15111,
+      "candidate_seeds": [
+        15849383640,
+        15849383641,
+        15849383642,
+        15849383643
+      ]
+    },
+    {
+      "case_id": "722acaef65aa71e2b2ddff5a317dfb89a5e188899c3c15c28c02934470ea1c2d_100",
+      "source_id": "722acaef65aa71e2b2ddff5a317dfb89a5e188899c3c15c28c02934470ea1c2d",
+      "group_id": "868717b61be1e09ad0d9aca33ace4c043349d0047f5061b56235fa8fcca0f96d",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 8022,
+      "gap_end": 8822,
+      "candidate_seeds": [
+        7515315940,
+        7515315941,
+        7515315942,
+        7515315943
+      ]
+    },
+    {
+      "case_id": "bc151aa07abf7caa8378e49a581cc4f11ba9193c2dc09673632a945f3104b98f_500",
+      "source_id": "bc151aa07abf7caa8378e49a581cc4f11ba9193c2dc09673632a945f3104b98f",
+      "group_id": "849a633c1f8c54fb0c299ea8a89e021b3d95df51ab43de4ae031de36f7d8bafe",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 10159,
+      "gap_end": 14159,
+      "candidate_seeds": [
+        38737162180,
+        38737162181,
+        38737162182,
+        38737162183
+      ]
+    },
+    {
+      "case_id": "f02ed94de71437c61dbfd9cef3312cf35c31feaf25784b7bf6dd649bee24a616_50",
+      "source_id": "f02ed94de71437c61dbfd9cef3312cf35c31feaf25784b7bf6dd649bee24a616",
+      "group_id": "c4863c2cb205ae9f00c9adcfad5eca24edf829fae74037754ce6d09bb7d8b0a6",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 10588,
+      "gap_end": 10988,
+      "candidate_seeds": [
+        22515289960,
+        22515289961,
+        22515289962,
+        22515289963
+      ]
+    },
+    {
+      "case_id": "eeb4f76460759d4cf12995e898fd97456cbbe7c54d6d23e9ad749657c22e343e_250",
+      "source_id": "eeb4f76460759d4cf12995e898fd97456cbbe7c54d6d23e9ad749657c22e343e",
+      "group_id": "c09569dd778762e5843dede00af185672ae7afa0bd4e3cbd460282d1e998b075",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 23992,
+      "gap_end": 25992,
+      "candidate_seeds": [
+        584013620,
+        584013621,
+        584013622,
+        584013623
+      ]
+    },
+    {
+      "case_id": "d7c369e8c98c29dcde648d67079ee948093b81c8cbced77b4fbadaea5f60232c_50",
+      "source_id": "d7c369e8c98c29dcde648d67079ee948093b81c8cbced77b4fbadaea5f60232c",
+      "group_id": "9c59921b1146f079f2f139bbaf93c45da970d17fc81e88b2be041f94146f25a0",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 6358,
+      "gap_end": 6758,
+      "candidate_seeds": [
+        28367644080,
+        28367644081,
+        28367644082,
+        28367644083
+      ]
+    },
+    {
+      "case_id": "7635ae3f7f843d48668d83d5def5b9ff8ca2c25b5d239c6600b9cb5b4388d703_50",
+      "source_id": "7635ae3f7f843d48668d83d5def5b9ff8ca2c25b5d239c6600b9cb5b4388d703",
+      "group_id": "62db8327678e2e6e1e73cc42a2052f0d441b7aa913821c484266482727be7725",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 13447,
+      "gap_end": 13847,
+      "candidate_seeds": [
+        2125672050,
+        2125672051,
+        2125672052,
+        2125672053
+      ]
+    },
+    {
+      "case_id": "72490c29353f2197a455627be8ee6d3b88d7e3097f676a8e769a3d653ddb166a_500",
+      "source_id": "72490c29353f2197a455627be8ee6d3b88d7e3097f676a8e769a3d653ddb166a",
+      "group_id": "39284ea87ab7572f6ce5a2fcb87be373081e596616b0ef1c7a369eafce5ef681",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 14237,
+      "gap_end": 18237,
+      "candidate_seeds": [
+        15800639800,
+        15800639801,
+        15800639802,
+        15800639803
+      ]
+    },
+    {
+      "case_id": "3a7388abf2722e45b9d701db0f60aa83a6226bf3cfe5156f93213aceec202e68_100",
+      "source_id": "3a7388abf2722e45b9d701db0f60aa83a6226bf3cfe5156f93213aceec202e68",
+      "group_id": "466d846b856996091dd36f13a7fe2122d123745cda7d1c88308cc494e2824d24",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 12546,
+      "gap_end": 13346,
+      "candidate_seeds": [
+        37882343020,
+        37882343021,
+        37882343022,
+        37882343023
+      ]
+    },
+    {
+      "case_id": "3d86dba5bb364877769c1d396a1c0960f5f343ddc4d508a2f14cc4fcf11ffd43_50",
+      "source_id": "3d86dba5bb364877769c1d396a1c0960f5f343ddc4d508a2f14cc4fcf11ffd43",
+      "group_id": "56e1840edb1484618cbd6d120cfbb6445bacd5ff35f00fe09ca6b657b75d5a91",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 24759,
+      "gap_end": 25159,
+      "candidate_seeds": [
+        12128371230,
+        12128371231,
+        12128371232,
+        12128371233
+      ]
+    },
+    {
+      "case_id": "ee1be36a51acec30ab1cb9bcdaf66538991b82872403a1b73186d2f8bd4ac9cd_250",
+      "source_id": "ee1be36a51acec30ab1cb9bcdaf66538991b82872403a1b73186d2f8bd4ac9cd",
+      "group_id": "94874d51ed02ab30f5c1a2dbf765781e7838ab30a8effc5d711c7949907bb129",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 9705,
+      "gap_end": 11705,
+      "candidate_seeds": [
+        40822357360,
+        40822357361,
+        40822357362,
+        40822357363
+      ]
+    },
+    {
+      "case_id": "d4c83cbea82967d4d51f73adbb7673823f928e68f16cbd706f92df59186d9c45_500",
+      "source_id": "d4c83cbea82967d4d51f73adbb7673823f928e68f16cbd706f92df59186d9c45",
+      "group_id": "3ef9b59fb4157640e36fb0d7f4585e2b61a0d1ba7e1a7fdd9acb78e8c68f3224",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 18721,
+      "gap_end": 22721,
+      "candidate_seeds": [
+        28164420860,
+        28164420861,
+        28164420862,
+        28164420863
+      ]
+    },
+    {
+      "case_id": "34365c7d7837190a42f115163509eb681b4badf21b3dc1250252bc3e33ca2751_100",
+      "source_id": "34365c7d7837190a42f115163509eb681b4badf21b3dc1250252bc3e33ca2751",
+      "group_id": "b29941dfc8aa63fc7be505b8dd5866705581beaf64169790878bdd374162f928",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 18074,
+      "gap_end": 18874,
+      "candidate_seeds": [
+        40560351630,
+        40560351631,
+        40560351632,
+        40560351633
+      ]
+    },
+    {
+      "case_id": "f1f9559378624a98e477ea821790c328a4d5f4c947fbd4e11cbbc3bd2bbbeb9b_500",
+      "source_id": "f1f9559378624a98e477ea821790c328a4d5f4c947fbd4e11cbbc3bd2bbbeb9b",
+      "group_id": "e58fabf1adc5e804a9d9aa8a40e810056702eb940e1498ffd5c1ce3cdc419fe5",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 22233,
+      "gap_end": 26233,
+      "candidate_seeds": [
+        19363966880,
+        19363966881,
+        19363966882,
+        19363966883
+      ]
+    },
+    {
+      "case_id": "0437189d3588739592b57e1f430290364273a8812fcb44631ffa315d8008c5ef_500",
+      "source_id": "0437189d3588739592b57e1f430290364273a8812fcb44631ffa315d8008c5ef",
+      "group_id": "41b0ebd95bd022be26d9a1ab74c417b9648cddc6924cf1e9fe817030a3bee041",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 18839,
+      "gap_end": 22839,
+      "candidate_seeds": [
+        18972444950,
+        18972444951,
+        18972444952,
+        18972444953
+      ]
+    },
+    {
+      "case_id": "3ce29f2293ff756c0d063d8ae7dcc31429e10e94a87aa79c741873d5114edc69_250",
+      "source_id": "3ce29f2293ff756c0d063d8ae7dcc31429e10e94a87aa79c741873d5114edc69",
+      "group_id": "53b97bd2fd2d7960fcbf3499b1e37e32bb565ebaa16bbfbf635c3023d0e49c15",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 11760,
+      "gap_end": 13760,
+      "candidate_seeds": [
+        19912586530,
+        19912586531,
+        19912586532,
+        19912586533
+      ]
+    },
+    {
+      "case_id": "0c6a2d5de7c6d88fc2ff09fa5f2096af33aebac861a8ec420e358cfcf99bfc7a_500",
+      "source_id": "0c6a2d5de7c6d88fc2ff09fa5f2096af33aebac861a8ec420e358cfcf99bfc7a",
+      "group_id": "83b369c2db64c0907710a82452ba86dc0bb4e7efa0f0e27261f04a60fba0b443",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 6021,
+      "gap_end": 10021,
+      "candidate_seeds": [
+        13136369440,
+        13136369441,
+        13136369442,
+        13136369443
+      ]
+    },
+    {
+      "case_id": "2f576b830011b9ebb7ac2aabb06c46b211ac620542918447d581514ddbb2e954_100",
+      "source_id": "2f576b830011b9ebb7ac2aabb06c46b211ac620542918447d581514ddbb2e954",
+      "group_id": "befde1b7a95daceb29e032c3be1d7468e98d7977c99e7908f881c9aba52e0fe5",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25132,
+      "gap_end": 25932,
+      "candidate_seeds": [
+        28902413890,
+        28902413891,
+        28902413892,
+        28902413893
+      ]
+    },
+    {
+      "case_id": "24c709a7ecd7295bd2d09607ea9a78a51544317097ef46968f7da91eff743a60_500",
+      "source_id": "24c709a7ecd7295bd2d09607ea9a78a51544317097ef46968f7da91eff743a60",
+      "group_id": "96895049c4ac1362a425b722b76213a7ed15d6f469a5e4ebbc747e7857fb45e9",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 18780,
+      "gap_end": 22780,
+      "candidate_seeds": [
+        25832605900,
+        25832605901,
+        25832605902,
+        25832605903
+      ]
+    },
+    {
+      "case_id": "7cbcc11ebb04a62d15141af94ca0efd7ec27ce5783125c5fe7513fc182babf78_100",
+      "source_id": "7cbcc11ebb04a62d15141af94ca0efd7ec27ce5783125c5fe7513fc182babf78",
+      "group_id": "bb79c5045267f2c37b5507db4a68ed9953513769cb58fb47033a8f227e22cfc2",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25648,
+      "gap_end": 26448,
+      "candidate_seeds": [
+        16938612070,
+        16938612071,
+        16938612072,
+        16938612073
+      ]
+    },
+    {
+      "case_id": "471e45f368757679f9437a30e393988d77f5dca8a7209517cf8a90d4961010d2_50",
+      "source_id": "471e45f368757679f9437a30e393988d77f5dca8a7209517cf8a90d4961010d2",
+      "group_id": "59c58ca5cccc3c798240ea290f03bf92b9adefb1a691b848fafed7fc546288df",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 11695,
+      "gap_end": 12095,
+      "candidate_seeds": [
+        11782559800,
+        11782559801,
+        11782559802,
+        11782559803
+      ]
+    },
+    {
+      "case_id": "2962537975b8c582375c132de3d8e326a6623d07e547e2400bead3c4415fe6ee_50",
+      "source_id": "2962537975b8c582375c132de3d8e326a6623d07e547e2400bead3c4415fe6ee",
+      "group_id": "3dd56ca3b3d11a3792ba8cc1bcbc8fef06818b00de7bd03b69dae903f5a60ede",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 12387,
+      "gap_end": 12787,
+      "candidate_seeds": [
+        17860915290,
+        17860915291,
+        17860915292,
+        17860915293
+      ]
+    },
+    {
+      "case_id": "86f4f552c1d1cfe09e2e00f08f2deb51e1010cfdefc42f44eccca389546b650f_50",
+      "source_id": "86f4f552c1d1cfe09e2e00f08f2deb51e1010cfdefc42f44eccca389546b650f",
+      "group_id": "9dd52f5ff2089ddb9c70d032a3076bb94ee7c920de321f7a062d0d5b5ca4fcc9",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 8833,
+      "gap_end": 9233,
+      "candidate_seeds": [
+        26354821150,
+        26354821151,
+        26354821152,
+        26354821153
+      ]
+    },
+    {
+      "case_id": "3ba9279d02b17e716d120138e6d63f1c750ece23d9429586c3cb757d7f6ccff9_100",
+      "source_id": "3ba9279d02b17e716d120138e6d63f1c750ece23d9429586c3cb757d7f6ccff9",
+      "group_id": "6509f3babd48e43e2c1427d74f0ad7c3089b93a70899d467556f6b1423e0cf59",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 17355,
+      "gap_end": 18155,
+      "candidate_seeds": [
+        13015811220,
+        13015811221,
+        13015811222,
+        13015811223
+      ]
+    },
+    {
+      "case_id": "1e5eca1d65fefe4d359860f4e519cbd7bb86dcdcec299fbc011c5901789e51c0_250",
+      "source_id": "1e5eca1d65fefe4d359860f4e519cbd7bb86dcdcec299fbc011c5901789e51c0",
+      "group_id": "dfd6f0aac890c1bb2e34cedbfe1dc00be9ce8a22889a4f2c942a45a08161ca44",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 19069,
+      "gap_end": 21069,
+      "candidate_seeds": [
+        39933661240,
+        39933661241,
+        39933661242,
+        39933661243
+      ]
+    },
+    {
+      "case_id": "168c8885bf74c52d4b79524db98459dfda99d9e34f13ea3220c8836a9dfff80f_500",
+      "source_id": "168c8885bf74c52d4b79524db98459dfda99d9e34f13ea3220c8836a9dfff80f",
+      "group_id": "0a9ae42c4026e08fbdc41309eae1f3fe6a3752f66eb2863a15145081d3c65f9c",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 17103,
+      "gap_end": 21103,
+      "candidate_seeds": [
+        10780390010,
+        10780390011,
+        10780390012,
+        10780390013
+      ]
+    },
+    {
+      "case_id": "ee888bf32a3a9b77203b25ee15fade02ba01f41fcdb5579c0935b2fc436d95f1_100",
+      "source_id": "ee888bf32a3a9b77203b25ee15fade02ba01f41fcdb5579c0935b2fc436d95f1",
+      "group_id": "9e2c55905b80220e20e11e7e8489c033ee0593acad5d377243ff45a29b25ce51",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 6729,
+      "gap_end": 7529,
+      "candidate_seeds": [
+        20874086820,
+        20874086821,
+        20874086822,
+        20874086823
+      ]
+    },
+    {
+      "case_id": "8de5e3b64a37b470a65911e2bc742b606210462501a3ef83e840f49d118d031d_500",
+      "source_id": "8de5e3b64a37b470a65911e2bc742b606210462501a3ef83e840f49d118d031d",
+      "group_id": "1d005758d9df64fcda5a92cd7d27673a358298a018546ad411b0362ebc544242",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 9793,
+      "gap_end": 13793,
+      "candidate_seeds": [
+        5908474870,
+        5908474871,
+        5908474872,
+        5908474873
+      ]
+    },
+    {
+      "case_id": "1c85f9b148e5c0949ff01277580fa4a1c1261ed8b17aeef70f667ff09ad8dc0d_50",
+      "source_id": "1c85f9b148e5c0949ff01277580fa4a1c1261ed8b17aeef70f667ff09ad8dc0d",
+      "group_id": "18239632a48ea602461871d9591f967bf97d87888709c01368208bf435c034b2",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 8223,
+      "gap_end": 8623,
+      "candidate_seeds": [
+        30702965900,
+        30702965901,
+        30702965902,
+        30702965903
+      ]
+    },
+    {
+      "case_id": "4c0abc4243513a4c2daac25d7f8b79110cc70196527e654f9d98077f88a182ae_50",
+      "source_id": "4c0abc4243513a4c2daac25d7f8b79110cc70196527e654f9d98077f88a182ae",
+      "group_id": "d69fecd6f90b16d2dbe17d459854826251008979e039754801e558597e8aa0bc",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 18152,
+      "gap_end": 18552,
+      "candidate_seeds": [
+        27359661460,
+        27359661461,
+        27359661462,
+        27359661463
+      ]
+    },
+    {
+      "case_id": "a81b785038959c6323b86f18e3543b88d63d3bf67aa288cb03c9b6df10a87f10_500",
+      "source_id": "a81b785038959c6323b86f18e3543b88d63d3bf67aa288cb03c9b6df10a87f10",
+      "group_id": "422f6d937ec681c95639b1a8c02ef8285d26fc13604ade5964b128da6be9607e",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 17001,
+      "gap_end": 21001,
+      "candidate_seeds": [
+        5195995320,
+        5195995321,
+        5195995322,
+        5195995323
+      ]
+    },
+    {
+      "case_id": "54019230deac89653d6cea981c84a8de9b26361c9ae4a88e3fef5ff3efebc803_100",
+      "source_id": "54019230deac89653d6cea981c84a8de9b26361c9ae4a88e3fef5ff3efebc803",
+      "group_id": "72748731b0675d0b03532621808add8a73671b69d0c06e54e00fb9675d8849e8",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 14788,
+      "gap_end": 15588,
+      "candidate_seeds": [
+        28194018860,
+        28194018861,
+        28194018862,
+        28194018863
+      ]
+    },
+    {
+      "case_id": "69861e73c1f7d2c68e57eb4f31fe44d94cf4806dd5b377df0ff50158f513c619_250",
+      "source_id": "69861e73c1f7d2c68e57eb4f31fe44d94cf4806dd5b377df0ff50158f513c619",
+      "group_id": "c94cd3182f4b8b41b6f4c2238c3be9b77992f4cd38334da16f9fb05138037197",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 6966,
+      "gap_end": 8966,
+      "candidate_seeds": [
+        8838164430,
+        8838164431,
+        8838164432,
+        8838164433
+      ]
+    },
+    {
+      "case_id": "2ba27b63c989fa37fac49c96aeb16e6ca8f134494a8d72ef027894cf9ef17bdd_100",
+      "source_id": "2ba27b63c989fa37fac49c96aeb16e6ca8f134494a8d72ef027894cf9ef17bdd",
+      "group_id": "f5ab02eaa1f979370b9d8d99c0801dc5e7f600ee598e28a7ff6b13af6aa4ed27",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25946,
+      "gap_end": 26746,
+      "candidate_seeds": [
+        13647648300,
+        13647648301,
+        13647648302,
+        13647648303
+      ]
+    },
+    {
+      "case_id": "96d2ff9f463513eee61aa5e4a65c86959284abc3e301da93e4f981f1e9f4961e_50",
+      "source_id": "96d2ff9f463513eee61aa5e4a65c86959284abc3e301da93e4f981f1e9f4961e",
+      "group_id": "52ea8e58ff040df3b1bde28178a4414f282f75b92ce3219c3c5b5a3a1abacb72",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 12620,
+      "gap_end": 13020,
+      "candidate_seeds": [
+        8230476140,
+        8230476141,
+        8230476142,
+        8230476143
+      ]
+    },
+    {
+      "case_id": "d6ff3da2ea2f46d5e3166e23d16b8d53db5463a4f520fff4aabe19d98d1760a3_500",
+      "source_id": "d6ff3da2ea2f46d5e3166e23d16b8d53db5463a4f520fff4aabe19d98d1760a3",
+      "group_id": "1812ff135881e6eb8e512fe06f2f15f60472940f08938fb64083720c713d7e98",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 14623,
+      "gap_end": 18623,
+      "candidate_seeds": [
+        20356549260,
+        20356549261,
+        20356549262,
+        20356549263
+      ]
+    },
+    {
+      "case_id": "2869e04db2039bdb8076c28e79db4feace71517a0cecdc2e0f99ca98d37f4d29_250",
+      "source_id": "2869e04db2039bdb8076c28e79db4feace71517a0cecdc2e0f99ca98d37f4d29",
+      "group_id": "a149e122a1ff2ac8384f8f23d5b17298fd585aeef7b6cf34f4f184fc4cfbf83b",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 12647,
+      "gap_end": 14647,
+      "candidate_seeds": [
+        14312998400,
+        14312998401,
+        14312998402,
+        14312998403
+      ]
+    },
+    {
+      "case_id": "383b63f94817231f496a0fb8c032618ee6221ed13b896e32300e53d91742b9f5_50",
+      "source_id": "383b63f94817231f496a0fb8c032618ee6221ed13b896e32300e53d91742b9f5",
+      "group_id": "e54df8bc3673ec73864ea7ddcbfd1cbb525149b20f210ca6388627b1061d13ea",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 14458,
+      "gap_end": 14858,
+      "candidate_seeds": [
+        26703988240,
+        26703988241,
+        26703988242,
+        26703988243
+      ]
+    },
+    {
+      "case_id": "9b003b246d2b4e79b255f48032d02527ef9f14c4c287bc49cbee97e26264392a_100",
+      "source_id": "9b003b246d2b4e79b255f48032d02527ef9f14c4c287bc49cbee97e26264392a",
+      "group_id": "d76613393913bd05980cc821c19f7e0e7a9a74ce4df2d380b2762f55274facca",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 8031,
+      "gap_end": 8831,
+      "candidate_seeds": [
+        28015163830,
+        28015163831,
+        28015163832,
+        28015163833
+      ]
+    },
+    {
+      "case_id": "a91615250618118afa2eb3522c65e60bd9129138596162eda7ba7ff5d2ebc7d9_100",
+      "source_id": "a91615250618118afa2eb3522c65e60bd9129138596162eda7ba7ff5d2ebc7d9",
+      "group_id": "d76249485de37d792da5e645c10262a34c0d67ebf3bffdcaae32380ec893d4ff",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 13454,
+      "gap_end": 14254,
+      "candidate_seeds": [
+        40165029170,
+        40165029171,
+        40165029172,
+        40165029173
+      ]
+    },
+    {
+      "case_id": "8776f32362736eb60712a16cd163ad2a6ab5ce2e9a3cdca64bbaa68cf9999424_100",
+      "source_id": "8776f32362736eb60712a16cd163ad2a6ab5ce2e9a3cdca64bbaa68cf9999424",
+      "group_id": "30590950e9dfede11e42bfcf9b30e92d83657f793f81167f0eefba76227190c4",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25806,
+      "gap_end": 26606,
+      "candidate_seeds": [
+        7615600240,
+        7615600241,
+        7615600242,
+        7615600243
+      ]
+    },
+    {
+      "case_id": "e858496b4df7fb41348c799cd3c98b416a3d508b447e4fffd2baeeca6d8b8527_250",
+      "source_id": "e858496b4df7fb41348c799cd3c98b416a3d508b447e4fffd2baeeca6d8b8527",
+      "group_id": "f4f6b29f4be487f0b1549b7217018bb413cb1eeffea15f48955abc0a02f53548",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 19030,
+      "gap_end": 21030,
+      "candidate_seeds": [
+        5398503410,
+        5398503411,
+        5398503412,
+        5398503413
+      ]
+    },
+    {
+      "case_id": "578bcbc92b4a28cdcb161222f93406f0554bff0b1794c5609de635b6a9c7d880_250",
+      "source_id": "578bcbc92b4a28cdcb161222f93406f0554bff0b1794c5609de635b6a9c7d880",
+      "group_id": "1a0cd8059ace97b4f22c7ec4962d88affef1b2b04735e96dac36a894ad196eb6",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 24168,
+      "gap_end": 26168,
+      "candidate_seeds": [
+        6488431790,
+        6488431791,
+        6488431792,
+        6488431793
+      ]
+    },
+    {
+      "case_id": "44a93a6a5ec61891c7f3ae423cbc0e627dbec4479da6988d9340bbedd2970983_250",
+      "source_id": "44a93a6a5ec61891c7f3ae423cbc0e627dbec4479da6988d9340bbedd2970983",
+      "group_id": "cd881aa54a3c67dbe56dea8a9bf08c1e1faf054ce356f552aaaeb8dc3e79c6f5",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 11956,
+      "gap_end": 13956,
+      "candidate_seeds": [
+        1872752410,
+        1872752411,
+        1872752412,
+        1872752413
+      ]
+    },
+    {
+      "case_id": "e54ad3a9a4e5b27242729a6acbe2af11ad3df6c1282c9b646c29580d437e7fec_250",
+      "source_id": "e54ad3a9a4e5b27242729a6acbe2af11ad3df6c1282c9b646c29580d437e7fec",
+      "group_id": "0433b212bb4ed43b6629863b995b52c14e5d81ceda5ab0867bbf6e3344e81f85",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 24619,
+      "gap_end": 26619,
+      "candidate_seeds": [
+        21401060930,
+        21401060931,
+        21401060932,
+        21401060933
+      ]
+    },
+    {
+      "case_id": "ed8d62d08f05f7f72345774f7d6140d96b62b0d82af6bdb69466deb9b292601d_100",
+      "source_id": "ed8d62d08f05f7f72345774f7d6140d96b62b0d82af6bdb69466deb9b292601d",
+      "group_id": "2d4859afbfd7ae3d75b53f4b8891ac807d0f9a180e3d8e3a7020d4ca4cc65d2d",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 14622,
+      "gap_end": 15422,
+      "candidate_seeds": [
+        34402834410,
+        34402834411,
+        34402834412,
+        34402834413
+      ]
+    },
+    {
+      "case_id": "e929aabb3fec75fad6d612aa16e3823cf6f3113a60ac75c038a3a5793a2213df_500",
+      "source_id": "e929aabb3fec75fad6d612aa16e3823cf6f3113a60ac75c038a3a5793a2213df",
+      "group_id": "a0b6f2b022aecc2a70e32bdb5ed5b4afc3c2a64208bdd4512ea27e3aad71749c",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 21053,
+      "gap_end": 25053,
+      "candidate_seeds": [
+        8919433010,
+        8919433011,
+        8919433012,
+        8919433013
+      ]
+    },
+    {
+      "case_id": "da872a251294dca148f6588b0f20465097860175dbadcdf6a8c93b76b75763c8_100",
+      "source_id": "da872a251294dca148f6588b0f20465097860175dbadcdf6a8c93b76b75763c8",
+      "group_id": "069d5ffb44c8814a86619bc039573e28d7012f890b97442da8f42afda6eade05",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 20677,
+      "gap_end": 21477,
+      "candidate_seeds": [
+        40259312950,
+        40259312951,
+        40259312952,
+        40259312953
+      ]
+    },
+    {
+      "case_id": "1a546e36721e33de8a30f8f8a4b339b30114883956779adee1ce4232268cd095_500",
+      "source_id": "1a546e36721e33de8a30f8f8a4b339b30114883956779adee1ce4232268cd095",
+      "group_id": "661995178e812290c2177e26801f81356a97c80f024a87937811ae2cf8fe122b",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 10954,
+      "gap_end": 14954,
+      "candidate_seeds": [
+        38752290460,
+        38752290461,
+        38752290462,
+        38752290463
+      ]
+    },
+    {
+      "case_id": "32720bacb291b22e160e766069693d0f11e1a28f3d15208886c608aefae1528d_50",
+      "source_id": "32720bacb291b22e160e766069693d0f11e1a28f3d15208886c608aefae1528d",
+      "group_id": "f59f9230d32218be507bb34e9372e212749826e48e4ff067bdfe1c61d85a6d3b",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25089,
+      "gap_end": 25489,
+      "candidate_seeds": [
+        34241022140,
+        34241022141,
+        34241022142,
+        34241022143
+      ]
+    },
+    {
+      "case_id": "d38cf4c3f2f75c946653081a9053d59d23514b0128c7c29dc42c7bc9a236694c_100",
+      "source_id": "d38cf4c3f2f75c946653081a9053d59d23514b0128c7c29dc42c7bc9a236694c",
+      "group_id": "058cfaaa4d3a279f37565fd473dff7f07ed17dde5728e2907d5ec758663aa675",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 7630,
+      "gap_end": 8430,
+      "candidate_seeds": [
+        38861970510,
+        38861970511,
+        38861970512,
+        38861970513
+      ]
+    },
+    {
+      "case_id": "7358d5a17cfdaaf9cf6267f3074a6d6c2946be34b3779391961c4af2f7fc0b43_50",
+      "source_id": "7358d5a17cfdaaf9cf6267f3074a6d6c2946be34b3779391961c4af2f7fc0b43",
+      "group_id": "784dde823e117607d8c3d8a5a32db6e4913015af2e30dc158a44d55795919685",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 25835,
+      "gap_end": 26235,
+      "candidate_seeds": [
+        7213207930,
+        7213207931,
+        7213207932,
+        7213207933
+      ]
+    },
+    {
+      "case_id": "0e86afa811e91905ba50e5ed4f0a8fbfd13842a28b9f406fb184b63a5bd73ad7_500",
+      "source_id": "0e86afa811e91905ba50e5ed4f0a8fbfd13842a28b9f406fb184b63a5bd73ad7",
+      "group_id": "f6fdd78bdf3b34e9803d3a5c7ff370f79f3ce0c98300b123d07ab610e9e226d3",
+      "source_partition": "V",
+      "pilot_role": "dev_test",
+      "gap_start": 10327,
+      "gap_end": 14327,
+      "candidate_seeds": [
+        30360576360,
+        30360576361,
+        30360576362,
+        30360576363
+      ]
+    }
+  ]
+}

@@ -40,6 +40,34 @@ def masked_noise_loss(predicted: torch.Tensor, noise: torch.Tensor, mask: torch.
     return (predicted.float()[hidden] - noise.float()[hidden]).square().mean()
 
 
+def diffusion_target(reference: torch.Tensor, noise: torch.Tensor, time: torch.Tensor,
+                     alpha_bar: torch.Tensor, prediction_type: str = "epsilon") -> torch.Tensor:
+    """Noise or velocity target; references are used only during supervised training."""
+    if prediction_type == "epsilon":
+        return noise
+    if prediction_type != "velocity":
+        raise ValueError("Unknown diffusion prediction type")
+    alpha = alpha_bar.to(reference.device)[time].unsqueeze(-1)
+    return alpha.sqrt() * noise - (1 - alpha).sqrt() * reference
+
+
+def prediction_components(state: torch.Tensor, prediction: torch.Tensor,
+                          alpha_bar: torch.Tensor, prediction_type: str = "epsilon"):
+    """Convert a model prediction to clean signal and noise for a DDIM step.
+
+    Velocity uses an orthogonal rotation, avoiding division by near-zero signal
+    scale. The epsilon branch retains the original arithmetic for old checkpoints.
+    """
+    if prediction_type == "epsilon":
+        return (state - (1 - alpha_bar).sqrt() * prediction) / alpha_bar.sqrt(), prediction
+    if prediction_type != "velocity":
+        raise ValueError("Unknown diffusion prediction type")
+    prediction = prediction.to(state.dtype)
+    clean = alpha_bar.sqrt() * state - (1 - alpha_bar).sqrt() * prediction
+    noise = (1 - alpha_bar).sqrt() * state + alpha_bar.sqrt() * prediction
+    return clean, noise
+
+
 @dataclass(frozen=True)
 class Draw:
     waveform: np.ndarray
@@ -72,7 +100,8 @@ def ddim(model: torch.nn.Module, observation: Observation, seed: int,
             context = torch.autocast(device_type="cuda", dtype=torch.bfloat16) if device.type == "cuda" else nullcontext()
             with context:
                 prediction = model(state, torch.tensor([time], device=device), values, mask)
-            clean = (state - (1 - schedule[time]).sqrt() * prediction) / schedule[time].sqrt()
+            clean, prediction = prediction_components(state, prediction, schedule[time],
+                getattr(getattr(model, "config", None), "prediction_type", "epsilon"))
             if clean_clip is not None:
                 clean = clean.clamp(-clean_clip, clean_clip)
                 prediction = (state - schedule[time].sqrt() * clean) / (1 - schedule[time]).sqrt()
@@ -121,7 +150,8 @@ def ddim_batch(model: torch.nn.Module, observations: Sequence[Observation], seed
             context = torch.autocast(device_type="cuda", dtype=torch.bfloat16) if device.type == "cuda" else nullcontext()
             with context:
                 predicted = model(state, torch.full((len(seeds),), time, device=device), values, mask)
-            clean = (state - (1 - schedule[time]).sqrt() * predicted) / schedule[time].sqrt()
+            clean, predicted = prediction_components(state, predicted, schedule[time],
+                getattr(getattr(model, "config", None), "prediction_type", "epsilon"))
             if clean_clip is not None:
                 clean = clean.clamp(-clean_clip, clean_clip)
                 predicted = (state - schedule[time].sqrt() * clean) / (1 - schedule[time]).sqrt()

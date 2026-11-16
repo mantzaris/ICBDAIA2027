@@ -24,7 +24,7 @@ from acoustic_regeneration.data.preprocessing import crop_source, draw_mask
 from acoustic_regeneration.models.diffwave import ModelConfig, WaveformModel
 from acoustic_regeneration.models.losses import deterministic_loss
 from acoustic_regeneration.registry import append_record, file_hash, remaining_seconds
-from acoustic_regeneration.restoration.diffusion import cosine_schedule, masked_noise_loss, noisy_training_input
+from acoustic_regeneration.restoration.diffusion import cosine_schedule, diffusion_target, masked_noise_loss, noisy_training_input
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -96,13 +96,15 @@ def compute_loss(model, reference, mask, floors, schedule):
     state, observed = noisy_training_input(reference, mask, time_steps, noise, schedule)
     with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
         output = model(state, time_steps, observed, mask)
-    return masked_noise_loss(output, noise, mask)
+    target = diffusion_target(reference, noise, time_steps, schedule, model.config.prediction_type)
+    return masked_noise_loss(output, target, mask)
 
 
 def main() -> None:
     os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
     parser = argparse.ArgumentParser()
     parser.add_argument("--kind", choices=["conditional", "deterministic", "unconditional"], default="conditional")
+    parser.add_argument("--prediction-type", choices=["epsilon", "velocity"], default="epsilon")
     parser.add_argument("--updates", type=int, default=5000)
     parser.add_argument("--width", type=int, default=64)
     parser.add_argument("--layers", type=int, default=36)
@@ -144,7 +146,7 @@ def main() -> None:
     valid_audio = [np.load(ROOT / row["processed_path"], allow_pickle=False) for row in validation]
     rms_values = [float(np.std(waveform.astype(np.float64))) for waveform in audio]
     floor = max(float(np.quantile(rms_values, 0.01)) * 0.001, 1e-12)
-    model_config = ModelConfig(args.width, args.layers, 12, 1000, args.kind)
+    model_config = ModelConfig(args.width, args.layers, 12, 1000, args.kind, args.prediction_type)
     config = {key: value for key, value in vars(args).items() if key != "resume"}
     config.update(model=asdict(model_config), rms_floor=floor,
                   rms_floor_definition="max(1e-12, 0.001 * 1st percentile of G source centered RMS)",

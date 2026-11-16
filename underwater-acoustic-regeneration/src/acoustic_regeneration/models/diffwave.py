@@ -25,12 +25,17 @@ class ModelConfig:
     dilation_cycle_length: int = 12
     diffusion_steps: int = 1000
     mode: str = "conditional"
+    prediction_type: str = "epsilon"
 
     def __post_init__(self) -> None:
         if min(self.residual_channels, self.residual_layers, self.dilation_cycle_length, self.diffusion_steps) <= 0:
             raise ValueError("Model dimensions must be positive")
         if self.mode not in {"conditional", "unconditional", "deterministic"}:
             raise ValueError("Unknown model mode")
+        if self.prediction_type not in {"epsilon", "velocity"}:
+            raise ValueError("Unknown diffusion prediction type")
+        if self.prediction_type == "velocity" and self.mode != "conditional":
+            raise ValueError("Velocity prediction is implemented for conditional diffusion only")
 
     @property
     def receptive_field_samples(self) -> int:
