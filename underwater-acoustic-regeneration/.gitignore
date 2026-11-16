@@ -25,3 +25,35 @@ manuscript/*.toc
 logs/*.log
 *.part
 *.tmp
+
+# Rebuildable source inventories; the frozen small pilot manifest remains tracked.
+/manifests/sources.jsonl.gz
+/manifests/source_metadata.jsonl.gz
+/provenance/uniqueship_metadata/
+
+# New runs and diagnostics stay local unless explicitly reviewed and force-added.
+# Existing committed evidence remains tracked despite these directory patterns.
+/results/
+/logs/
+/figures/
+
+# Compile the paper locally; retain only the three figures used by main.tex.
+/manuscript/*.pdf
+!/manuscript/acoustic_case_studies.pdf
+!/manuscript/gpu_agent_comparison.pdf
+!/manuscript/velocity_correction.pdf
+
+# Downloaded models, data archives, and local recovery copies never belong in Git.
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.gguf
+*.zip
+*.z[0-9][0-9]
+*.tar
+*.tar.gz
+*.tar.zst
+*.bundle
+/.local-history/

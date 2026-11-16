@@ -170,3 +170,15 @@ figure data are unchanged. The single-source LaTeX paper remains anonymous and
 ten pages; compilation, manuscript validation, and visual inspection passed.
 Policy records distinguish this chosen placement from the publisher guidance;
 no claim of publisher approval or submission is made.
+
+2026-11-16 repository preservation cleanup: Untracked 39 rebuildable files (32.14 MB)
+without deleting working copies. Retained the paper sources and three active
+figures, code/configurations/tests, compact audit records, all frozen agent inputs
+and traces, and acoustic companions. New results, bulk data/models, generated
+exports, and build outputs are ignored by default. Added a restart guide and a
+tracked-file size check. Updated build/validation scripts for the user's main.tex
+rename and added paper-only validation for fresh clones. An isolated copy containing
+only retained files passed 59 tests, built the ten-page paper, and reproduced all
+three agent analyses and both failure/resource audits byte-for-byte. Full local
+artifact validation also passed. A verified ignored bundle preserves the original
+Git history. No data or model inference was run and nothing was pushed.
