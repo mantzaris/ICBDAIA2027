@@ -48,3 +48,12 @@ for Vessel Classification, v1**, [Zenodo 17233667](https://zenodo.org/records/17
 data DOI [10.14284/723](https://doi.org/10.14284/723). The record metadata confirms
 CC BY 4.0, 26,005,892,324 archive bytes, and MD5
 `8098056c952ff706bdf1adaab7147096`. External evaluation remains unperformed.
+# GPU agent comparison inputs
+
+The observed-only NPZ inputs under `results/gpu_agent_benchmark/inputs/` are
+additional derivatives of the same CC BY 4.0 UniqueShip/Ocean Networks Canada
+recordings credited in this file. The manifest links each to its original source and
+decoded-array hash. They contain 4.096-second 8 kHz crops, observed-only mean/RMS
+normalization, and explicitly erased artificial gaps. No source class, missing
+reference samples, or reference-based restoration score is supplied to agents.
+The fixed observed-cue labels are task-rule outputs, not vessel identifications.
