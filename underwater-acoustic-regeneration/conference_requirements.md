@@ -31,10 +31,17 @@ manual margin or line-spacing overrides. Provenance is in `provenance/latex_temp
 Unsent organizer question: “Do references count within the stated 8–10-page limit,
 and which timezone governs the November 30 deadline?” No message has been sent.
 
-The user instructed: "leave anonymous for submission". The manuscript therefore
-uses "Anonymous submission", without affiliations or email, and anonymous document
-metadata. This resolves the authorship question for this draft; no further names
-are required. The original pilot and its targeted correction remain below the
+The user subsequently requested named authorship if anonymous submission is not
+required. The conference homepage and EasyChair CFP rechecked on 2026-11-16 state
+peer review but contain no anonymity or double-blind requirement. The linked
+Springer full-paper template includes author names, affiliations, and email.
+On that published guidance, the manuscript now lists Alexander V. Mantzaris and
+James H. Korris with the supplied affiliations and email addresses. The supplied
+street abbreviation "Bvld" is normalized to "Blvd". This is an inference from the
+published guidance, not explicit confirmation of the review model. Instructions
+inside the login-only EasyChair submission form were not checked.
+
+The original pilot and its targeted correction remain below the
 unchanged feasibility trigger. The paper presents numerical diagnosis and measured
 improvement on reused development data, with no completed-main-study claim.
 Submission and copyright forms remain the user's responsibility unless separately
@@ -68,7 +75,7 @@ It distinguishes this assistance from the diffusion and Qwen3-8B models evaluate
 in the research. Figures are computed from recorded data and saved results rather
 than produced by an image-generation model. The present interface is GPT-6-based;
 exact earlier backend revisions were not recorded and must not be invented.
-Anonymity is retained: AI tools are disclosed without being named as authors.
+The named human authors are separate from the AI-use declaration.
 
 Human authors must review and verify the work and accept responsibility before
 submission. Automated checks do not establish that this human review has occurred;

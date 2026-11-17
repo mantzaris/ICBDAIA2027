@@ -2,7 +2,7 @@
 
 This project studies two practical checks for acoustic AI: whether generated audio
 preserves useful sound structure, and whether an assistant actually applies and
-verifies the analysis setting it reports. The anonymous paper combines a controlled
+verifies the analysis setting it reports. The paper combines a controlled
 repair diagnosis, three acoustic examples, and a GPU comparison of four agent
 workflows with fixed rules.
 
@@ -18,7 +18,8 @@ restarting experiments.
 
 - [Single LaTeX source](manuscript/main.tex), [references](manuscript/references.bib),
   and three colocated figure PDFs, plus the [compiled paper](manuscript/main.pdf).
-  The paper is anonymous and ten pages including references.
+  The paper lists Alexander V. Mantzaris and James H. Korris and is ten pages
+  including references.
 - [Figure inventory and production commands](figures/README.md), including PDF,
   PNG, and SVG exports and lossless plotting inputs for the acoustic examples.
 - [Claim-to-evidence map](reports/claim_to_evidence.json),

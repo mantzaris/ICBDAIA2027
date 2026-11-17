@@ -15,6 +15,7 @@ AUDIT = ROOT / 'reports/manuscript_audit'
 def main():
     BUILD.mkdir(parents=True, exist_ok=True)
     AUDIT.mkdir(parents=True, exist_ok=True)
+    author_info = json.loads((AUDIT / 'author_info.json').read_text())
     command = ['latexmk', '-pdf', '-interaction=nonstopmode', '-halt-on-error',
                '-file-line-error', '-pdflatex=pdflatex -no-shell-escape %O %S',
                '-outdir=' + str(BUILD), 'main.tex']
@@ -28,7 +29,8 @@ def main():
     figures = re.findall(r'\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}', (PAPER / 'main.tex').read_text())
     paths = ['main.tex', 'references.bib', 'llncs.cls', 'splncs04.bst', *figures, 'main.pdf']
     report = {'format': 'LaTeX', 'canonical_source': 'manuscript/main.tex',
-              'bibliography': 'manuscript/references.bib', 'author': 'Anonymous',
+              'bibliography': 'manuscript/references.bib',
+              'author': author_info['document_metadata_author'],
               'submission_ready': False, 'main_study_complete': False,
               'command': command, 'source_text_regenerated': False,
               'artifact_sha256': {p: hashlib.sha256((PAPER / p).read_bytes()).hexdigest() for p in paths},

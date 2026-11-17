@@ -1,6 +1,6 @@
 % Canonical, editable manuscript. All prose, equations, and tables are in this file.
 % Build: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
-% Anonymous development study; original held-out restoration goals remain untested.
+% Development study; original held-out restoration goals remain untested.
 \documentclass[runningheads,orivec]{llncs}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -11,50 +11,56 @@
 \usepackage{float}
 \usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdfauthor={Anonymous},pdftitle={Checking Sound and Action: Generative AI for Underwater Acoustic Analysis},pdfsubject={Anonymous development study; acoustic correction and GPU agent comparisons}}
+\hypersetup{pdfauthor={Alexander V. Mantzaris and James H. Korris},pdftitle={Checking Sound and Action: Generative AI for Underwater Acoustic Analysis},pdfsubject={Development study of acoustic correction and GPU agent comparisons}}
 
 \begin{document}
 \raggedbottom
 \title{Checking Sound and Action: Generative AI for Underwater Acoustic Analysis}
 \titlerunning{Checking Sound and Action in Underwater Acoustics}
-\author{Anonymous submission}
-\authorrunning{Anonymous}
-\institute{}
+\author{Alexander V. Mantzaris\inst{1} \and James H. Korris\inst{2}}
+\authorrunning{A. V. Mantzaris and J. H. Korris}
+\institute{Dr. Yvette Kanouff School of Data,\\
+Mathematical, and Statistical Sciences\\
+UCF, 4000 University Blvd, Orlando, FL 32816, USA\\
+\email{alexander.mantzaris@ucf.edu}
+\and
+Creative Technologies Inc.\\
+\email{james.korris@cretecinc.com}}
 \maketitle
 
 
 \begin{abstract}
-An acoustic operator needs to distinguish recorded sound from an AI estimate, and a recommended setting from an action actually completed. We present a staged verification approach for underwater acoustic analysis, tested separately on missing-sound repair and tool-using assistants. Controlled experiments locate a numerical failure in a diffusion model. An established alternative training target removes it and lowers combined reconstruction error by about 25\%, although a simpler learned baseline remains better. Acoustic examples explain why recovering sound level need not recover the waveform or justify an object label. Agent comparisons show that more correct cue labels can coexist with fewer completed tasks. A software check prevents invalid display changes; additional thinking fixes one incorrectly applied setting without establishing a general completion gain. The contribution is a reproducible way to locate failures and test targeted remedies. These development findings guide acoustic operator assistance; vessel identification and physical sonar control remain untested.
+Reliable underwater acoustic assistance requires numerical stability, acoustic fidelity, and verified execution of analysis actions. We present a reproducible evaluation protocol that separates these requirements across two tasks, waveform repair and tool-using assistance. A matched change to established velocity prediction removes severe diffusion instability and reduces combined reconstruction error by about 25\% on 64 reserved development cases, although a learned baseline remains better. On 32 agent tasks, reasoning yields 25 correct cue labels versus 16 for direct action selection, yet completes four tasks versus ten. A configuration gate eliminates six infeasible applied changes on sixteen new recordings, while completion rises only from two to three. Additional thinking improves setting correctness. Workflow comparisons and completion gains remain statistically inconclusive. The contribution combines preservation of recorded evidence, controlled interventions, and replayable execution records to identify which failures each remedy resolves and which persist. This supports decisions about model improvement, selective release, and configuration checks. Results concern development recordings. Vessel identification and physical control remain untested.
 \keywords{Generative AI \and Passive acoustics \and Audio inpainting \and Reasoning agents \and Operator decision support}
 \end{abstract}
 
-\section{Recorded sound and completed actions}
+\section{Evaluating sound and action}
 
-Consider an operator examining a low tone interrupted by half a second of missing audio. Filling the gap may make the recording easier to follow, but the fill could invent a sound or hide one. An assistant might also recommend a finer frequency display without actually applying it. Both outputs can look convincing while leaving the operator's question unresolved.
+An operator examining a low tone interrupted by missing audio must distinguish recorded evidence from a generated fill and a recommended setting from an executed action. Vessel recordings contain low-frequency and broadband structure \cite{veirs}, so plausible sound or correct cue labels alone cannot establish useful repair or completed analysis.
 
-We test three distinct requirements: well-behaved generated numbers, recovery of missing acoustic patterns, and completion of reported actions. Vessel recordings contain low-frequency components and broadband energy \cite{veirs}; a restored tone or correct cue label alone cannot establish identity.
+\textbf{Evaluation protocol.} We separate numerical stability, acoustic fidelity, and verified execution. Each task preserves recorded evidence, measures failures against explicit references or rules, and tests a targeted intervention under matched conditions. Component improvements are then checked against required outcomes. Repair and agent tasks are evaluated independently. Agents receive recorded context only, without an integrated repair-to-agent experiment.
 
-We apply controlled verification to two separate tasks: waveform repair and agent actions. Matched interventions test which failure changes. Agents use recorded context only, so generated sound cannot become their evidence. A combined repair-to-agent system is not evaluated.
+\textbf{Contributions.} Controlled repair experiments distinguish numerical failure from remaining acoustic error and assess release feasibility. A comparison of four neural workflows separates cue labels, applied settings, and verified completion. Frozen inputs, prompts, tool returns, and scoring code support replay of all 208 scored agent episodes.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{gpu_agent_comparison.pdf}
-\caption{Recorded sound and executed decisions. A: before/after spectra at 128 ms for the first case (20--160 Hz zoom); frames touching gaps are excluded. The callout compares stated/applied windows. B: complete tasks, with 95\% Wilson intervals for neural workflows. C: individual recordings; orange means correct setting but incomplete task. Two agents means planner--reviewer.}
+\caption{Recorded sound and executed decisions. (A) Before/after spectra at 128 ms, excluding gap frames. The callout compares stated/applied windows. (B) Complete tasks with 95\% Wilson intervals for neural workflows. (C) Individual recordings, with orange indicating correct settings but incomplete tasks. Two agents means planner--reviewer.}
 \label{fig:configuration}
 \end{figure}
 
-In Fig.~\ref{fig:configuration}, the reasoner recommends the required 128 ms window but applies 64 ms. With more thinking it applies 128 ms and verifies the result. The full comparison tests how often such complete execution succeeds.
+In Fig.~\ref{fig:configuration}, the reasoner recommends 128 ms but applies 64 ms. Additional thinking corrects this case. The paired completion gain remains inconclusive.
 
 \section{Related work and recordings}
 
-Prior work generates and repairs general audio \cite{diffwave,csdi,moliner,simdps} and underwater spectrograms \cite{tembo}, estimates uncertainty \cite{cohen}, and calibrates risk \cite{ltt}. We use established velocity prediction \cite{salimans}; the contribution is its controlled investigation in this acoustic workflow.
+Prior work generates and repairs general audio \cite{diffwave,csdi,moliner,simdps} and underwater spectrograms \cite{tembo}, estimates uncertainty \cite{cohen}, and calibrates risk \cite{ltt}. We use established velocity prediction \cite{salimans} to test how correcting numerical instability changes acoustic reconstruction and release feasibility.
 
-Tool-based reasoning \cite{react}, self-review \cite{reflexion}, and multi-agent conversations \cite{autogen} are established. Li et al.\ \cite{signals_evidence} connect acoustic representations to a language model for detection reports. Here, claims are checked against measurements and executed settings. The distinctive contribution is controlled separation of failure points, with acoustic evidence showing which interventions address them.
+Tool-based reasoning \cite{react}, self-review \cite{reflexion}, and multi-agent conversations \cite{autogen} are established. Li et al.\ \cite{signals_evidence} connect acoustic representations to a language model for detection reports. Our bounded tool task checks reported choices against measurements, applied settings, and verification under controlled interventions.
 
-UniqueShip v1 \cite{uniqueship} contains 43,208 mono recordings, twelve classes, and 60.008 hours. Audited headers give 32 kHz sampling. Related recordings stay together to limit learning from one excerpt and testing on another from the same source. Table~\ref{tab:1} separates generator training (G), quality-checker training (D), development (V), calibration (C), and final testing. Actual C/test outcomes remain unopened.
+UniqueShip v1 \cite{uniqueship} contains 43,208 mono recordings, twelve classes, and 60.008 hours at an audited 32 kHz. Related recordings stay in one partition. Table~\ref{tab:1} separates generator training (G), quality-checker training (D), development (V), calibration (C), and final testing. Actual C/test outcomes remain unopened.
 
 \begin{table}[htbp]
-\caption{Audited source partitions; counts describe available data, not evaluated outcomes.}
+\caption{Audited source partitions. Counts describe available data, not evaluated outcomes.}
 \label{tab:1}
 \centering\small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrr@{}}
@@ -78,40 +84,40 @@ Test & 4,477 & 610 & Unopened \\
 \end{tabular*}
 \end{table}
 
-Background groups use hydrophone/date, pooling unknown devices by date. No duplicate files or cross-partition groups are found, but 1,332/1,522 dates span partitions: environmental independence remains unproven. Excerpts are 4.096 s at 8 kHz, with gaps erased after resampling; twelve shorter clips are excluded.
+Background groups use hydrophone/date, pooling unknown devices by date. No duplicate files or cross-partition groups are found. However, 1,332/1,522 dates span partitions, leaving environmental independence unproven. Excerpts are 4.096 s at 8 kHz, with gaps erased after resampling. Twelve shorter clips are excluded.
 
 \section{Repair the gap, preserve the evidence}
 
-A diffusion model proposes missing sound by repeatedly removing artificial noise. We generate four alternatives and compare them with a simpler learned baseline, B, which always gives the same fill for a given input. A separate checker estimates whether a proposal is likely to be better than B. The final output, P, uses a proposal only if a release rule permits it. Every estimated sample remains marked, including baseline fills.
+The repair pipeline compares four diffusion proposals with a deterministic learned baseline B. An observation-only quality predictor selects a proposal. A calibrated release rule accepts it or retains B as output P. All filled samples remain marked as estimates, including baseline fills.
 
-\textbf{Preserve what was recorded.} Let $m=1$ on recorded samples and $m=0$ in gaps; $y=m\odot x$ is the available audio. At every generation step, the following operation restores the recorded samples and changes only the gap:
+\textbf{Preserve recorded evidence.} Let $m=1$ on recorded samples and $m=0$ in gaps, with $y=m\odot x$ the available audio. Every generation step restores recorded samples through the projection
 \begin{equation}
 \Pi_y(z)=m\odot y+(1-m)\odot z.\label{eq:projection}
 \end{equation}
-Mean and root-mean-square scaling use recorded samples only, with a training-fixed floor. The final inverse scaling also preserves those samples exactly. This keeps recorded context intact for later inspection.
+Mean and root-mean-square scaling use recorded samples only, with a training-fixed floor. Inverse scaling preserves those samples exactly for later inspection.
 
-Gaps last 50/100/250/500 ms, with at least 0.75 s context per side. The checker also hides two nearby recorded segments as practice questions with known answers. Four proposals and two practice repairs, each using 32 DDIM steps \cite{ddim}, require 192 model evaluations. Hidden answers and vessel annotations never enter generation.
+Gaps last 50/100/250/500 ms, with at least 0.75 s context per side. Two nearby recorded segments are hidden as self-supervised probes, withholding their answers from each repair. Four proposals and two probe repairs at 32 DDIM steps \cite{ddim} require 192 model evaluations. Hidden gap references and vessel annotations never enter generation.
 
-A predictor trained on 200 D groups ranks proposals using agreement, baseline differences, boundaries, and practice repairs. Release-rule variants retain this selector.
+A predictor fitted on 200 D groups ranks proposals using agreement, baseline differences, boundaries, and probe errors. Duration and dispersion gate controls retain the full selector.
 
 \textbf{Measure the missing part.} We combine normalized waveform error (NMSE) with frequency-pattern error (spectral convergence, SC):
 \begin{equation}
 Q=\tfrac12\min\!\left(\frac{\mathrm{NMSE}_{\mathrm{gap}}}{4},1\right)+\tfrac12\min\!\left(\frac{\mathrm{SC}_{\mathrm{gap}}}{2},1\right).\label{eq:quality}
 \end{equation}
-Lower Q is better. NMSE compares samples relative to the true gap's energy; SC compares frequency magnitudes at three analysis scales. A proposal is worse if Q exceeds B's by over 0.02. These are repair scores, not identification confidence.
+Lower Q is better. NMSE measures waveform error relative to true gap energy. SC compares frequency magnitudes at three scales. A proposal is worse if Q exceeds B's by over 0.02. These scores assess repair quality without establishing identification confidence.
 
 The release rule seeks at most 10\% worse fills using confidence bounds \cite{ltt}, assuming independent groups and matching distributions. Zero acceptances disable release without certifying quality.
 
-\textbf{Implementation.} A 2.72-million-parameter DiffWave adaptation uses a 1,000-step cosine schedule \cite{nichol}, seed 17, batch 16, and 5,000 updates on 1,440 G sources. The same-backbone baseline trains for 2,500 updates with waveform and spectral losses. Both run on an RTX 4090. Saved configurations specify losses, masks, normalization, and sampling details.
+\textbf{Implementation.} A 2.72-million-parameter DiffWave adaptation uses a 1,000-step cosine schedule \cite{nichol}, seed 17, batch 16, and 5,000 updates on 1,440 G sources. The same-backbone baseline trains for 2,500 updates with waveform and spectral losses. Both use an RTX 4090, with configurations preserved.
 
-\section{Why the first generator needs correction}
+\section{Testing whether candidate quality supports release}
 
-Starting generation at the final noise step produces enormous errors on four G recordings. Before development evaluation, an amendment starts at step 934 (last with at least 1\% signal power) and limits generated amplitudes. This earlier Gaussian initialization is approximate \cite{lin}; it defines the original amended sampler.
+Starting at the final noise step produces enormous errors on four G recordings. Before development evaluation, an amendment starts at step 934, the last with at least 1\% signal power, and limits generated amplitudes. This approximate Gaussian initialization \cite{lin} defines the original amended sampler.
 
-V assigns 64 groups each to tuning, practice calibration, and reserved evaluation; eight are unused. The first 32 tuning groups also monitor training. Even selecting the best of four proposals with the answer visible improves on B by 0.02 in only 5/64 groups (7.8\%). This retrospective best choice misses the predeclared 20\% feasibility threshold. Doubling generation steps leaves the count unchanged; the original main study stops.
+V assigns 64 groups each to tuning, practice calibration, and reserved evaluation, leaving eight unused. The first 32 tuning groups also monitor training. Even retrospective best-of-four selection improves on B by 0.02 in only 5/64 tuning groups (7.8\%). This misses the predeclared 20\% feasibility threshold. Doubling generation steps leaves the count unchanged, so the original main study stops.
 
 \begin{table}[htbp]
-\caption{Repair on 64 reserved development groups; lower error is better. AI use: fraction receiving diffusion; Worse: Q above B by over 0.02; Calls: diffusion evaluations (B needs one baseline pass). Velocity rows have no release gate (Sect.~\ref{sec:correction}).}
+\caption{Repair on 64 reserved development groups. Lower error is better. AI use gives diffusion coverage. Worse means Q exceeds B's by over 0.02. Calls lists diffusion evaluations (one baseline pass for B). Velocity rows are ungated (Sect.~\ref{sec:correction}).}
 \label{tab:2}
 \centering\small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
@@ -147,21 +153,21 @@ Velocity: central of four & 0.295 & 1.255 & 1.00 & 0.703 & 128 \\
 \end{tabular*}
 \end{table}
 
-All four release rules accept nothing. Always using selected AI worsens 52/64 reserved gaps; P equals B. Proposal quality therefore limits even a perfect selector. Scoring unchanged context alongside a gap would dilute this failure.
+All four release rules retain B. Selected AI worsens 52/64 reserved gaps. For acoustic inspection, retaining the baseline avoids substituting these poorer fills, while leaving every estimate marked. Too few proposals help even with perfect selection, so generation needs improvement first. Gap-only scoring prevents intact context from hiding repair errors.
 
-\section{A targeted correction: stability before sound quality}
+\section{Separating numerical stability from acoustic fidelity}
 \label{sec:correction}
 
-\textbf{Why small mistakes become large waveform errors.} Diffusion training adds noise $\epsilon$ to a clean sample $x_0$, giving $z_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon$. Here $\bar\alpha_t$ is the fraction of signal power left at step $t$. The original model predicts the noise, then subtracts it and divides by the remaining signal scale:
+\textbf{Locate error amplification.} Diffusion forms $z_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon$ from clean signal $x_0$ and noise $\epsilon$. Here $\bar\alpha_t$ is the remaining signal-power fraction. Noise prediction reconstructs the signal through subtraction and division by its scale:
 \begin{equation}
 \begin{aligned}
 \hat x_0^{\epsilon}&=\frac{z_t-\sqrt{1-\bar\alpha_t}\hat\epsilon_\theta}{\sqrt{\bar\alpha_t}},\\
 \|\hat x_0^{\epsilon}-x_0\|_2^2&=\frac{1-\bar\alpha_t}{\bar\alpha_t}\|\hat\epsilon_\theta-\epsilon\|_2^2.
 \end{aligned}\label{eq:amplification}
 \end{equation}
-The second line shows noise-estimation error amplified by $(1-\bar\alpha_t)/\bar\alpha_t$, about $4.12\times10^8$ at step 999. It magnifies the small residue after subtracting two large quantities. This known identity describes a fixed noisy state, not a full generation trajectory. Four fixed G cases show that full precision still fails; clipping bounds amplitude but leaves Q at one.
+Equation~\ref{eq:amplification} gives squared-error amplification of $(1-\bar\alpha_t)/\bar\alpha_t$, about $4.12\times10^8$ at step 999. This known identity concerns a fixed noisy state, not a full generation trajectory. Full precision still fails on four G cases. Clipping bounds amplitude but leaves Q at one.
 
-\textbf{Remove the unstable division.} Established velocity prediction \cite{salimans} learns a mixture of signal and noise and reconstructs them by a rotation:
+\textbf{Remove the unstable division.} Established velocity prediction \cite{salimans} learns a mixture of signal and noise and reconstructs them by a rotation
 \begin{equation}
 \begin{aligned}
 v_t&=\sqrt{\bar\alpha_t}\epsilon-\sqrt{1-\bar\alpha_t}x_0,\\
@@ -169,7 +175,7 @@ v_t&=\sqrt{\bar\alpha_t}\epsilon-\sqrt{1-\bar\alpha_t}x_0,\\
 \hat\epsilon^{v}&=\sqrt{1-\bar\alpha_t}z_t+\sqrt{\bar\alpha_t}\hat v_\theta.
 \end{aligned}\label{eq:velocity}
 \end{equation}
-This form avoids dividing by a nearly zero signal scale. The corresponding fixed-state error multiplier is $(1-\bar\alpha_t)$, at most one. ``Velocity'' names a diffusion training target; it is unrelated to vessel speed. Training scores only missing samples:
+This avoids division by a nearly zero signal scale. The fixed-state error multiplier becomes $(1-\bar\alpha_t)$, at most one. Velocity names the diffusion target, unrelated to vessel speed. Training scores only missing samples
 \begin{equation}
 \mathcal L_v=\mathbb E_{t,\epsilon}\!\left[
 \frac{\|(1-m)\odot(\hat v_\theta-v_t)\|_2^2}{\|1-m\|_1}
@@ -177,58 +183,58 @@ This form avoids dividing by a nearly zero signal scale. The corresponding fixed
 \end{equation}
 The target also changes training emphasis, so acoustic gains reflect both learning and reconstruction, not conversion arithmetic alone.
 
-\textbf{Keep the comparison controlled.} A pre-run protocol fixes 5,000 updates, seed 17, and the final checkpoint. Data, initialization, random streams, optimizer, and schedule match the original. Matching final random-generator states checks those streams. Sampling starts at 999 unclipped; a second condition retains 934/clipping. Terminal signal power remains near-zero \cite{lin}.
+\textbf{Keep the comparison controlled.} A pre-run protocol fixes 5,000 updates, seed 17, and the final checkpoint. Data, initialization, random streams, optimizer, and schedule match the original. Matching final random-generator states checks those streams. Sampling starts at 999 unclipped, with a second condition retaining 934/clipping. Terminal signal power remains near-zero \cite{lin}.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{velocity_correction.pdf}
-\caption{Test stability, then acoustic quality. A: reconstruction of known noisy signals on four G recordings; solid/dashed curves use full/reduced precision. B: repair on 64 tuning groups; below-diagonal points favor correction.}
+\caption{Stability and acoustic quality. (A) Reconstruction of known noisy signals on four G recordings at full/reduced precision (solid/dashed). (B) Repair on 64 tuning groups. Below-diagonal points favor correction.}
 \label{fig:correction}
 \end{figure}
 
-On four G cases, full-precision gap NMSE falls from $5.18\times10^6$ for the original terminal sampler to 1.03 for unclipped velocity. Clipping alone gives 22.55; the original amendment gives 1.84. The controlled correction lets acoustic quality be judged without numerical failure dominating the result.
+On four G cases, full-precision gap NMSE falls from $5.18\times10^6$ for the terminal sampler to 1.03 for unclipped velocity. Clipping alone gives 22.55, and the original amendment 1.84. The correction removes extreme artificial amplitudes that would otherwise dominate inspection of the repaired sound.
 
-All 192 V groups retain identical gaps and four seeds. Selectors take the first proposal or most representative frequency pattern (spectral medoid); reference-based best-of-four is retrospective. Reserved-development first-proposal Q falls from 0.412 to 0.308, about 25\%. The paired change is $-0.103$ (exploratory 95\% interval $-0.129$ to $-0.077$, 2,000 group-bootstrap draws); balancing 63 dates gives $-0.104$ ($-0.132$ to $-0.077$).
+All 192 V groups retain identical gaps and four seeds. Selection uses the first proposal or spectral medoid (most representative frequency pattern). Best-of-four is retrospective. Reserved-development first-proposal Q falls from 0.412 to 0.308, about 25\%. The paired change is $-0.103$ (exploratory 95\% interval $-0.129$ to $-0.077$, 2,000 group-bootstrap draws). Balancing 63 dates gives $-0.104$ ($-0.132$ to $-0.077$).
 
-B remains better at 0.239. Best-of-four beats B by 0.02 on only 7/64 tuning groups, below the unchanged 20\% trigger. Numerical stability is restored, but acoustic recovery remains difficult. This follow-up reuses inspected V data; no new release rule is fitted and C/test outcomes remain unopened.
+B still scores better at 0.239. Only 7/64 tuning groups beat B by 0.02 even with best-of-four selection, missing the 20\% trigger. Thus corrected fills better match the withheld sound, but remain too inaccurate to replace B. This follow-up reuses inspected V data, fits no new release rule, and leaves C/test outcomes unopened.
 
-\section{Three recordings explain the remaining errors}
+\section{Acoustic evidence behind aggregate scores}
 
-Figure~\ref{fig:acoustic_cases} makes the distinction visible. A/B are the original method's best/worst differences from B among 64 reserved cases; C has the most tonal context among seventeen 500 ms gaps. Selection predates the correction. C3 is a selected proposal; the correction uses its first proposal. Table~\ref{tab:2} also compares first proposals directly. Class names are dataset annotations, not agent predictions.
+Figure~\ref{fig:acoustic_cases} explains why aggregate improvement needs acoustic inspection. A/B give the original method's best/worst differences from B among 64 reserved cases. C has the most tonal context among seventeen 500 ms gaps. Selection predates correction. C3 uses the selected original proposal, correction its first proposal. Table~\ref{tab:2} also compares first proposals. Class names are dataset annotations.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{acoustic_case_studies.pdf}
-\caption{Complete reference, baseline B, original selected C3, and corrected first proposal. Dashed lines mark gaps; brightness shares a scale within each row. C enlarges low frequencies. Windows are 32 ms (4 ms hop) and may cross boundaries. Reference audio is unavailable during real loss. Corrected proposals have no release gate.}
+\caption{Reference, baseline B, original selected C3, and corrected first proposal. Dashed lines mark gaps. Each row shares a brightness scale, and C enlarges low frequencies. The 32 ms windows (4 ms hops) may cross boundaries. References are unavailable during real loss. Corrected proposals are ungated.}
 \label{fig:acoustic_cases}
 \end{figure}
 
-\noindent\textbf{A: A better score can change the sound pattern.} The cargo example's original 50 ms fill lowers Q from 0.364 to 0.340 while frequency-pattern error worsens. The correction reduces that frequency error. Different scores favor different outputs; a lower overall score is not identification confidence.
+\noindent\textbf{A. A better score can hide a changed sound pattern.} In the 50 ms cargo gap, C3 lowers Q from B's 0.364 to 0.340 but worsens frequency-pattern error. Correction reduces that error. Inspecting the frequency pattern reveals a change that the combined score hides.
 
-\noindent\textbf{B: A louder fill is not a stronger recorded event.} The other-vessel example's original 50 ms fill is 3.38 dB above reference; the correction is 1.73 dB below. Excess energy and overall error fall, although B remains better. Generated levels cannot justify an acquisition-gain change.
+\noindent\textbf{B. A fill can suggest a louder event.} The original 50 ms other-vessel fill is 3.38 dB above reference. Correction is 1.73 dB below. Excess energy and overall error fall, although B remains better. A louder fill cannot establish a stronger recorded event or justify changing recording gain.
 
-\noindent\textbf{C: Recovering level does not recover the waveform.} A component near 78 Hz continues through the tanker recording's 500 ms gap. B/C3 underfill overall gap level by 14.48/7.13 dB; the correction is only 1.14 dB below reference. Yet Q rises from 0.364 to 0.412. Level improves while waveform error increases; neither fill proves silence or identity.
+\noindent\textbf{C. Restored level can hide the wrong waveform.} A component near 78 Hz continues through the tanker's 500 ms gap. B/C3 underfill overall gap level by 14.48/7.13 dB. Correction is only 1.14 dB below reference, yet Q rises from 0.364 to 0.412. Recovering sound level alone cannot establish what crossed the gap.
 
-In 400 synthetic comparisons, identical available inputs and seeds give identical outputs even when hidden events differ. These original-method tests exclude the correction and ocean propagation. They illustrate why a missing event cannot be verified from a fill.
+In 400 synthetic comparisons, identical available inputs and seeds give identical outputs despite different hidden events. These original-method tests exclude correction and ocean propagation. They illustrate why a fill cannot verify an unobserved event or establish identity.
 
-One seed and shared environments limit interpretation. Three-seed training, waveform RePaint \cite{repaint}, classification, and external validation were not run. Tonal/onset metrics were not fixed in advance; these examples explain behavior rather than validate those capabilities.
+One seed and shared environments limit interpretation. Three-seed training, waveform RePaint \cite{repaint}, classification, and external validation were not run. Tonal/onset metrics were not fixed in advance, so the examples explain behavior without validating those capabilities.
 
-\section{Check the action behind the explanation}
+\section{Measuring verified agent execution}
 
-An agent here requests measurements and changes a virtual analysis display. We compare fixed rules, direct action selection, intermediate reasoning before action, self-review, and a planner--reviewer pair. Agents see task text and numeric measurements of recorded context, not audio embeddings, vessel annotations, or generated fills.
+The second task applies the protocol to agents measuring recorded context and configuring a virtual display. Fixed rules, direct action selection, reasoning, self-review, and a planner--reviewer pair share the task. Inputs are numeric measurements, without audio embeddings, vessel annotations, or generated fills.
 
-A fixed hash order selects 32 V recordings, one per group/date, excluding the anecdotes. Eight tasks each request frequency detail, timing detail, incompatible limits, or fragmented-audio analysis. Each hides 500 ms; fragmented cases erase more samples. Rules precede evaluated responses; two separate G transport tests are excluded. These are new agent outcomes on reused development audio.
+A fixed hash order selects 32 V recordings, one per group/date, excluding the anecdotes. Eight tasks each request frequency detail, timing detail, incompatible limits, or fragmented-audio analysis. All hide 500 ms, with additional erasures in fragmented cases. Rules precede responses. Two G transport tests are excluded. Outcomes use development audio.
 
-\textbf{Make the choice concrete.} A longer analysis window gives a finer frequency grid but less precise timing. For $T$ ms, grid spacing is $1000/T$ Hz, not a guarantee of separating physical sources. Agents choose the shortest feasible 32/64/128/256 ms window, with three fully recorded frames per region. Four tools inspect, measure, configure, and read back the result. Twenty tasks allow a change; twelve require refusal.
+\textbf{Define the required action.} Longer windows give a finer frequency grid but less precise timing. For $T$ ms, spacing is $1000/T$ Hz, without guaranteeing physical-source separation. Agents choose the shortest feasible 32/64/128/256 ms window with three fully recorded frames per region. Four tools inspect, measure, configure, and read back the result. Twenty tasks permit a change and twelve require refusal.
 
-A \emph{stable} cue requires peaks at least 10 dB above each region's median spectrum, peaks within one selected-window bin, and band levels within 6 dB. A supported comparison outside these limits is \emph{changed}; weak peaks or no feasible setting give \emph{insufficient}. Hann-window measurements cover 20--600 Hz. These labels describe recorded patterns, not vessel identity or continuity inside the gap.
+A \emph{stable} cue requires peaks at least 10 dB above each region's median spectrum, peaks within one selected-window bin, and band levels within 6 dB. A supported comparison outside these limits is \emph{changed}. Weak peaks or no feasible setting give \emph{insufficient}. Hann-window measurements cover 20--600 Hz. Labels describe recorded patterns, without establishing identity or continuity inside gaps.
 
-\textbf{Control the model and allowance.} All neural workflows use Qwen3-8B \cite{qwen3}, BF16, on an RTX PRO 4500. Self-review continues the conversation; a separate reviewer gets task, executed trace, and draft in fresh context. Both use identical weights without evaluator feedback. Review starts at a draft or four turns; the planner gets half the shared allowance at most. Limits are eight turns, sixteen tool calls, and 6,144 generated tokens (pieces of text), with 512 thinking and 512 action tokens per turn. Capped thinking is closed. Base seed 17 has fixed case/turn offsets. Equal limits allow unequal cost.
+\textbf{Control the model and allowance.} All neural workflows use Qwen3-8B \cite{qwen3}, BF16, on an RTX PRO 4500. Self-review continues the conversation. A separate reviewer receives task, executed trace, and draft in fresh context, using identical weights without evaluator feedback. Review starts at a draft or four turns, reserving at least half the shared allowance for review. Limits are eight turns, sixteen tool calls, and 6,144 generated tokens, with 512 thinking and 512 action tokens per turn. Capped thinking is closed. Seed 17 has fixed case/turn offsets. Actual costs may differ.
 
-Success requires the correct choice and actual state, cue label, supported numbers/citations, verification after configuration, unknown identity, and intact input/gap flags. Refusal must leave the display unchanged; citations must identify successful tool returns. Fixed rules encode this policy ceiling. All failures remain included. Paired uncertainty uses 10,000 group-bootstrap draws and exact McNemar tests, Holm-adjusted across three predefined contrasts.
+\textbf{Score the completed task.} Success requires correct reported choice and actual state, cue label, supported numbers/citations, post-configuration verification, unknown identity, and intact input/gap flags. Refusal leaves the display unchanged. Citations identify successful tool returns. Fixed rules encode the policy ceiling. All failures are retained. Paired uncertainty uses 10,000 group-bootstrap draws and exact McNemar tests, Holm-adjusted across three predefined contrasts.
 
 \begin{table}[htbp]
-\caption{Agent outcomes. Setting checks the reported choice and actual state; Complete adds all remaining task checks. Tokens: mean generated text length; Seconds: median episode time excluding model loading. Primary rows share 32 tasks; follow-ups are separate.}
+\caption{Agent outcomes. Setting checks reported choice and actual state. Complete adds remaining task checks. Tokens gives mean generated length and Seconds median episode time excluding model loading. Primary rows share 32 tasks. Follow-ups are separate.}
 \label{tab:3}
 \centering\small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
@@ -252,26 +258,26 @@ Budget: longer & 12 & 13 & 5 & 6278 & 187.2 \\
 \end{tabular*}
 \end{table}
 
-\textbf{Better labels do not ensure a completed task.} Reasoning labels 25/32 cues correctly versus 16/32 for direct mode, but completes 4/32 tasks versus 10/32. Paired tests compare reasoning with direct mode, self-review with reasoning, and paired agents with self-review. None is conclusive after Holm adjustment ($p\geq0.328$). Verification occurs in 5/20 feasible reasoning cases versus 20/20 direct cases. Both review workflows reach handoff without a draft in 23/32 cases; ten paired-agent episodes lack a valid final report. Review therefore includes finishing incomplete work.
+\textbf{Correct labels can leave acoustic work unfinished.} Reasoning gives 25/32 correct cue labels versus 16/32 for direct mode, yet completes 4/32 tasks versus 10/32. Contrasts of reasoning/direct, self-review/reasoning, and paired agents/self-review are inconclusive after Holm adjustment ($p\geq0.328$). Verification occurs in 5/20 feasible reasoning cases versus 20/20 direct cases. Both review workflows lack drafts at 23/32 handoffs. Ten paired-agent episodes lack valid reports. A correct label can leave the operator with an incorrect or unverified display.
 
-\textbf{Enforce known limits at the tool.} The Fig.~\ref{fig:configuration} discrepancy motivates a separate test on sixteen new groups/dates, four per family. Its 8 Hz grid-spacing and 160 ms limits require 128 ms (7.81 Hz), not 64 ms (15.63 Hz). Conditions share model, prompts, and budgets; one tool rejects measured infeasible settings without supplying the answer or verification.
+\textbf{Protect frequency and timing detail.} Figure~\ref{fig:configuration} motivates a test on sixteen new groups/dates, four per family. The 8 Hz spacing and 160 ms limits require 128 ms (7.81 Hz), rather than 64 ms (15.63 Hz). Model, prompts, and budgets are matched. One tool rejects infeasible settings without supplying answers or verification.
 
-Invalid applied changes fall from six to zero, with nine rejections. That protection follows from construction. Complete success changes from 2/16 to 3/16 ($+6.25$ percentage points; exploratory 95\% paired interval $[0,18.75]$; exact $p=1$). Both label 9/16 cues correctly and verify 4/10 feasible tasks. Two guarded reports fail only by citing genuine rejection messages, excluded by the frozen citation rule. These are not fabricated evidence: enforcement helps, while completion and evidence handling remain separate problems.
+The gate blocks nine requests, eliminating infeasible applied changes (six to zero). Complete success changes from 2/16 to 3/16 ($+6.25$ percentage points, exploratory 95\% paired interval $[0,18.75]$, exact $p=1$). Both label 9/16 cues correctly and verify 4/10 feasible tasks. Two guarded reports fail solely for citing genuine rejections, excluded by the frozen rule. Display limits are protected, but the operator still needs a completed, verified acoustic assessment.
 
-\textbf{Test the thinking allowance separately.} Forced closure on 520/585 reasoning turns motivates a fixed check on the first sixteen primary tasks, reusing original controls. Thinking increases to 2,048 tokens per turn and total generation to 12,288. Model, prompts, tools, seeds, action limits, and scoring stay fixed. Both caps change; no independent recordings are added.
+\textbf{Allow more thinking time.} Frequent truncation (520/585 primary reasoning turns overall) motivates a check on the first sixteen tasks and original controls. The thinking cap rises to 2,048 tokens per turn and total generation to 12,288 tokens. Other settings and scoring stay fixed. No recordings are added.
 
-Closure falls from 87.8\% (79/90 turns) to 27.3\% (21/77). Correct settings rise from 8/16 to 12/16; complete success rises from 3/16 to 5/16 ($+12.5$ percentage points; exploratory 95\% interval $[-18.75,43.75]$; exact $p=0.6875$). Generated text roughly doubles; median time rises from 111.6 to 187.2 s. Two episodes exhaust their allowance. The first case now applies its reported 128 ms and passes every check; the overall completion gain remains inconclusive.
+Turns reaching the limit fall from 87.8\% (79/90 turns) to 27.3\% (21/77). Correct settings rise from 8/16 to 12/16 and complete success from 3/16 to 5/16 ($+12.5$ percentage points, exploratory 95\% interval $[-18.75,43.75]$, exact $p=0.6875$). Generated text roughly doubles, and median time rises from 111.6 to 187.2 s. Two episodes exhaust their allowance. Extra thinking improves some settings at a time cost, without establishing dependable acoustic analysis.
 
-Primary/gate sets each contain one changed cue; stable/insufficient counts are 16/15 and 3/12. One model/base seed, explicit rules, and reused V audio limit generalization. Paired agents share weights and run sequentially. Gate/budget changes are tested separately; classification and physical control remain untested.
+Primary/gate sets each contain one changed cue, with stable/insufficient counts of 16/15 and 3/12. One model/base seed, explicit rules, and reused V audio limit generalization. Paired agents share weights and run sequentially. Gate/budget changes are tested separately. Classification and physical control remain untested.
 
-\section{Conclusion: what the checks reveal}
+\section{Conclusion}
 
-The method separates failures that otherwise look like one unsuccessful acoustic AI system. Correcting numerical instability exposes a remaining sound-reconstruction problem; better cue labels expose a separate gap between an answer and its execution. The targeted tests show where a software gate or additional thinking helps, without establishing reliable completion.
+Controlled tests separate numerical stability, acoustic fidelity, and verified execution. Velocity prediction lowers reconstruction error by about 25\%, while the baseline advantage and low candidate opportunity identify a remaining modeling problem. Agent traces locate incomplete execution behind correct cue labels. Configuration checks prevent infeasible changes, while extra thinking improves some settings without establishing reliable completion.
 
-For system designers, the findings identify concrete checks: preserve recorded samples and mark estimates, assess acoustic structure after stabilizing generation, enforce known setting limits, and read back what was applied. This controlled diagnosis supplies new empirical evidence for developing acoustic assistance. Independent sites, richer cue classes, identification, and physical equipment outcomes are the next tests.
+These results support marking estimated sound, inspecting level and frequency pattern, and verifying the display used. Frozen inputs and replayable traces make the evaluation reusable. Independent sites, richer cue classes, multiple seeds, identification, and physical trials are needed to establish broader utility.
 
 \clearpage
-\paragraph{AI Use Declaration.} OpenAI Codex assisted planning, code, execution, analysis, literature checks, figure/table preparation, and writing in November 2026. This revision used a GPT-6-based interface; exact earlier backend revisions were not recorded. Evaluated diffusion and Qwen3-8B methods are described above. Figures plot recorded data and saved outputs; no image-generation model produced them. Experimental artifacts retain code, evaluated-agent prompts, and outcomes. Human authors remain responsible for verification, interpretation, and the submitted manuscript.
+\paragraph{AI Use Declaration.} OpenAI Codex assisted in the code production, and manuscript draft editing.
 
 \bibliographystyle{splncs04}
 \bibliography{references}

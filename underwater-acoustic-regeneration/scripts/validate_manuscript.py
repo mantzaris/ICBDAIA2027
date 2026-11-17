@@ -21,7 +21,12 @@ def main():
     assert [p.name for p in PAPER.glob('*.tex')] == ['main.tex']
     assert not re.search(r'\\(?:input|include)\s*\{', source), 'All manuscript text must be in main.tex'
     assert r'\bibliography{references}' in source and r'\bibliographystyle{splncs04}' in source
-    assert r'\author{Anonymous submission}' in source
+    author_info = json.loads((AUDIT / 'author_info.json').read_text())
+    author_names = [author['name'] for author in author_info['authors']]
+    expected_author = r' \and '.join(name + r'\inst{' + str(i) + '}'
+                                   for i, name in enumerate(author_names, 1))
+    assert r'\author{' + expected_author + '}' in source
+    assert 'Anonymous' not in source
     abstract = source.split(r'\begin{abstract}', 1)[1].split(r'\keywords', 1)[0]
     assert 150 <= len(abstract.split()) <= 250
     assert r'\thanks{' not in source
@@ -142,9 +147,14 @@ def main():
     info = subprocess.check_output(['pdfinfo', str(PAPER / 'main.pdf')], text=True)
     pages = int(re.search(r'^Pages:\s+(\d+)', info, re.MULTILINE)[1])
     assert pages <= 10, pages
-    assert re.search(r'^Author:\s+Anonymous\s*$', info, re.MULTILINE)
+    assert re.search(r'^Author:\s+' + re.escape(author_info['document_metadata_author'])
+                     + r'\s*$', info, re.MULTILINE)
     text = subprocess.check_output(['pdftotext', str(PAPER / 'main.pdf'), '-'], text=True)
-    assert 'Anonymous submission' in text and 'References' in text
+    assert 'References' in text and 'Anonymous' not in text
+    normalized_text = ' '.join(text.split())
+    for author in author_info['authors']:
+        for value in (author['name'], author['email'], *author['affiliation_lines']):
+            assert value in normalized_text, value
     assert 'AI tools assisted the research and manuscript' not in text
     assert text.count('AI Use Declaration') == 1
     assert not any(value in text for value in ('LAYOUT PREVIEW', '[PENDING', '\ufffd'))
@@ -182,7 +192,8 @@ def main():
             actual = line.split('&')[column].strip().rstrip('\\').strip()
             assert formatted == actual, (cell,line)
     assert not re.search(r'% GPU_[A-Z_]+',source), 'Unfilled experiment result placeholder'
-    report = {'status': 'passed', 'format': 'LaTeX', 'pages': pages, 'author': 'Anonymous',
+    report = {'status': 'passed', 'format': 'LaTeX', 'pages': pages,
+              'author': author_info['document_metadata_author'],
               'validation_scope': 'paper_and_retained_companion_assets' if args.paper_only else 'paper_and_archived_research_artifacts',
               'canonical_source': 'manuscript/main.tex',
               'single_manuscript_tex': True, 'bibtex_entries': len(entries), 'resolved_citations': len(citations),

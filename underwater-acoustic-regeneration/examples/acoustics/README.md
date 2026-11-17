@@ -7,9 +7,7 @@ proposal, and `velocity_first` contains the corrected diffusion model’s first 
 The methods and selection rules are described in `../../manuscript/mainj.tex`.
 Estimated sound is not a recording of the missing event or evidence of vessel identity.
 
-OpenAI Codex assisted the research, analysis, and code that prepared these clips
-in November 2026. Exact earlier backend revisions were not recorded; the manuscript’s
-AI Use Declaration documents the available model information and broader assistance.
+OpenAI Codex assisted in the code production, and manuscript draft editing.
 The clips derive from recorded inputs and saved experimental waveform outputs, not
 new audio generated for this writing revision. No listening study is claimed.
 
