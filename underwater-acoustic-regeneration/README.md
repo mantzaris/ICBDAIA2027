@@ -8,16 +8,19 @@ workflows with fixed rules.
 
 The repository keeps the paper sources, code, pinned configurations, frozen
 experimental inputs and outcomes, and evidence needed to inspect the results. Large
-downloads, model weights, training checkpoints, candidate arrays, duplicate figure
-exports, and the compiled paper are kept outside Git. See
+downloads, model weights, training checkpoints, and full candidate arrays are kept
+outside Git. The compiled paper, all figure exports, figure-production code, and
+compact inputs needed to redraw the three current figures are included. See
 [REPRODUCING.md](REPRODUCING.md) for paper compilation, recorded-agent replay, and
 restarting experiments.
 
 ## Paper and evidence
 
 - [Single LaTeX source](manuscript/main.tex), [references](manuscript/references.bib),
-  and three colocated figure PDFs. Build `manuscript/main.pdf` locally; it is ignored
-  by Git. The paper is anonymous and ten pages including references.
+  and three colocated figure PDFs, plus the [compiled paper](manuscript/main.pdf).
+  The paper is anonymous and ten pages including references.
+- [Figure inventory and production commands](figures/README.md), including PDF,
+  PNG, and SVG exports and lossless plotting inputs for the acoustic examples.
 - [Claim-to-evidence map](reports/claim_to_evidence.json),
   [table-cell sources](reports/manuscript_audit/table_cells.json),
   [experiment ledger](reports/experiment_ledger.json), and
@@ -80,6 +83,11 @@ python3 scripts/build_manuscript.py
 python3 scripts/validate_manuscript.py --paper-only
 ```
 
+To regenerate all three current figures from committed inputs, run
+`PYTHONPATH=src python3 scripts/rebuild_paper_figures.py` before building the paper.
+This needs Matplotlib and the numerical dependencies, but no GPU, model weights,
+or full source archive. Original research and figure-audit scripts remain included.
+
 These commands work from a fresh clone without audio downloads or a GPU. The
 paper-only check verifies the manuscript and retained evidence; it does not repeat
 the archived waveform audits. The default full validator additionally requires
@@ -88,13 +96,13 @@ replay are described in [REPRODUCING.md](REPRODUCING.md).
 
 ## Storage and future work
 
-The `.gitignore` policy keeps future runs and generated artifacts out of Git by
+The `.gitignore` policy keeps future runs and bulk research artifacts out of Git by
 default. Existing frozen results are retained explicitly so that an ordinary
-`git add` does not add every new experiment. The fifteen short WAV examples and
-three paper figure PDFs are intentional portable deliverables.
+`git add` does not add every new experiment. Manuscript files, all figure exports,
+plotting inputs, and the fifteen short WAV examples are intentional deliverables.
 
 Before committing, run `python3 scripts/check_repository_size.py` to check the
-tracked snapshot against the 40 MiB total and 2 MiB per-file limits. This checks
+tracked snapshot against the 50 MiB total and 2 MiB per-file limits. This checks
 the current files, not older Git history.
 
 Files removed from tracking during repository cleanup remain on the current

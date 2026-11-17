@@ -7,6 +7,7 @@ or rerunning a model.
 | Mode | What is needed | What it establishes |
 | --- | --- | --- |
 | Compile and check the paper | Tracked manuscript, figures, evidence records; Python, TeX, Poppler | The source builds and agrees with the retained paper records |
+| Redraw the three current figures | Tracked plot inputs and production code; Matplotlib and numerical dependencies | The published plots can be regenerated without a GPU or full audio archive |
 | Replay recorded agents | Tracked frozen NPZ inputs, tasks, JSON/JSONL traces; analysis dependencies | Tool measurements and scored outcomes can be recomputed without model inference |
 | Recheck waveform repair | Preserved processed audio, candidate arrays, and checkpoint evidence in addition to tracked files | Saved reconstruction scores and diagnostic controls can be independently recomputed |
 | Start a new experiment | Downloaded data/model weights or preserved checkpoints, a suitable GPU, and a new run record | A new execution, which must remain distinct from the reported study |
@@ -15,7 +16,8 @@ or rerunning a model.
 
 The editable manuscript is `manuscript/main.tex`; `references.bib`, `llncs.cls`,
 `splncs04.bst`, and its three figure PDFs are in the same directory. There are no
-separate section files. The compiled `main.pdf` and TeX auxiliaries are ignored.
+separate section files. The compiled `main.pdf` is committed alongside all manuscript
+figure PDFs. TeX auxiliaries remain ignored.
 
 Install `latexmk`, pdfLaTeX, BibTeX, NewTX, `booktabs`, `float`, `microtype`, and
 `hyperref`, plus Poppler tools `pdfinfo` and `pdftotext`, using your TeX/system
@@ -37,6 +39,24 @@ Direct compilation is also possible from `manuscript/`:
 ```bash
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
+
+All PDF/PNG/SVG figure exports and their production code are retained. To redraw
+the three figures used in `main.tex` from a fresh clone:
+
+```bash
+PYTHONPATH=src python3 scripts/rebuild_paper_figures.py
+python3 scripts/build_manuscript.py
+python3 scripts/validate_manuscript.py --paper-only
+```
+
+The compact `figures/data/acoustic_examples.npz` contains lossless reference and
+gap samples for the three frozen examples, with provenance and signal hashes in
+its JSON companion. Numerical correction plots use the tracked measured results;
+the agent plot uses the retained tasks and executed traces. These rendering paths
+do not rerun selection, training, or the full archived waveform audit. Original
+production/audit scripts remain unchanged. See [the figure inventory](figures/README.md).
+The recorded plotting environment is `provenance/word_environment.lock`; different
+Matplotlib or font versions can change export bytes without changing the data.
 
 ## 2. Check code and replay recorded agents
 
@@ -79,7 +99,8 @@ language-model inference.
 ## 3. Restore full waveform artifacts
 
 Git deliberately omits `data/raw/`, `data/processed/`, `checkpoints/`,
-`results/pools/`, caches, full source-manifest exports, and duplicate plot exports.
+`results/pools/`, caches, and full source-manifest exports. All figure exports and
+the compact inputs for the three current paper figures are included.
 The current working machine retains these files. Preservation records are:
 
 - `manifests/verified_raw_backup.json` and `manifests/uniqueship_archives.json`:
@@ -178,8 +199,9 @@ in the reported experiments and is unnecessary for rebuilding this paper.
 
 ## Keep future commits small
 
-New experiment outputs, runtime logs, model/data downloads, and generated PDFs or
-plot exports are ignored by default. The existing frozen result files and selected
+New experiment outputs, runtime logs, and model/data downloads are ignored by
+default. Paper PDFs, figure exports, plotting inputs, and production code must be
+committed. The existing frozen result files and selected
 audit logs are explicitly retained; adding another run requires choosing which
 compact protocol, input, outcome, and provenance records are worth versioning.
 Keep the three active figure PDFs beside `main.tex` and retain attribution with
@@ -190,7 +212,7 @@ python3 scripts/check_repository_size.py
 git status --short
 ```
 
-The size check limits the tracked snapshot to 40 MiB total and 2 MiB per file;
+The size check limits the tracked snapshot to 50 MiB total and 2 MiB per file;
 it does not measure older history. Avoid force adding caches or bulk data.
 Removing files from the current tree does not itself remove their older versions
 from Git history.

@@ -182,3 +182,16 @@ only retained files passed 59 tests, built the ten-page paper, and reproduced al
 three agent analyses and both failure/resource audits byte-for-byte. Full local
 artifact validation also passed. A verified ignored bundle preserves the original
 Git history. No data or model inference was run and nothing was pushed.
+
+2026-11-16 complete paper asset preservation: At the user's explicit request,
+restored the compiled manuscript, all thirty PDF/PNG/SVG figure exports, and the
+previous manuscript figure PDFs to tracking. All original production scripts
+remain unchanged. Added a lossless 0.81 MB acoustic plotting bundle and a portable
+renderer for the three current figures, so a fresh clone needs neither a GPU nor
+the full audio/candidate archives to redraw them. All nine regenerated current
+figure exports match the existing files byte-for-byte. The isolated paper build
+and paper-only validation pass; full local artifact validation also passes. The
+scientific text is unchanged; only its build-command comment was corrected. The
+tracked-size budget is 50 MiB with a 2 MiB per-file limit, and the size checker now
+requires every inventoried paper asset to remain tracked. Bulk models/data and
+TeX intermediate files remain ignored.

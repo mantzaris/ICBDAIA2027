@@ -6,9 +6,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MIB = 1024 * 1024
-PAPER_FIGURES = {
-    'acoustic_case_studies.pdf', 'gpu_agent_comparison.pdf', 'velocity_correction.pdf'
-}
 
 
 def excluded(path):
@@ -20,16 +17,12 @@ def excluded(path):
         return True
     if name in {'manifests/sources.jsonl.gz', 'manifests/source_metadata.jsonl.gz'}:
         return True
-    if name.startswith('figures/') and path.suffix in {'.pdf', '.png', '.svg'}:
-        return True
-    if name.startswith('manuscript/') and path.suffix == '.pdf':
-        return path.name not in PAPER_FIGURES
     return path.suffix in {'.pt', '.pth', '.ckpt', '.safetensors', '.onnx', '.gguf', '.bundle', '.zip'}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--max-total-mib', type=float, default=40)
+    parser.add_argument('--max-total-mib', type=float, default=50)
     parser.add_argument('--max-file-mib', type=float, default=2)
     args = parser.parse_args()
     paths = [Path(p.decode()) for p in subprocess.check_output(
@@ -47,6 +40,13 @@ def main():
         if size > args.max_file_mib * MIB:
             errors.append('File exceeds size budget: ' + path.as_posix())
     total = sum(row['bytes'] for row in files)
+    paper_manifest = ROOT / 'reports/paper_assets.json'
+    if paper_manifest.exists():
+        tracked = {path.as_posix() for path in paths}
+        required = json.loads(paper_manifest.read_text())['required_files']
+        for name in required:
+            if name not in tracked:
+                errors.append('Paper asset is not tracked: ' + name)
     if total > args.max_total_mib * MIB:
         errors.append('Tracked files exceed total size budget')
     print(json.dumps({'status': 'failed' if errors else 'passed',
