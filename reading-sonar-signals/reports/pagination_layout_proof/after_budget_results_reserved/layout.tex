@@ -1,0 +1,166 @@
+% Canonical editable manuscript. AI eligibility is frozen; final experiments remain pending.
+% Build: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+% Set finalresultstrue after inserting frozen results; missing figures then fail.
+\documentclass[runningheads,orivec]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\pending}[1]{\iffinalresults
+  \PackageError{research-results}{Unresolved result or protocol marker}{Resolve the marked item from recorded evidence before submission.}%
+  \else\textbf{[Pending: #1]}\fi}
+\newif\iffinalresults
+\finalresultsfalse
+\newcommand{\researchfigure}[3]{%
+  \IfFileExists{#1}{%
+    \begin{figure}[tbp]\centering
+    \includegraphics[width=\linewidth]{#1}
+    \caption{#2}\label{#3}\end{figure}}{%
+    \iffinalresults
+      \PackageError{research-results}{Required recorded-output figure #1 missing}{Generate the actual artifact before submission.}%
+    \else
+      \PackageWarning{research-results}{Recorded-output figure #1 omitted from incomplete draft}%
+    \fi}}
+\newcommand{\requiredartifact}[1]{%
+  \IfFileExists{#1}{}{%
+    \iffinalresults
+      \PackageError{research-results}{Required standalone artifact #1 missing}{Generate the recorded artifact before completion.}%
+    \else
+      \PackageWarning{research-results}{Standalone artifact #1 pending}%
+    \fi}}
+\hypersetup{pdfauthor={Alexander V. Mantzaris and James H. Korris},pdftitle={Bounded Inspection of Underwater Acoustic Spectrograms: A Feasibility Study},pdfsubject={Acoustic inspection with AI-reference agreement and separate exact synthetic evaluation}}
+
+\usepackage{eso-pic}
+\usepackage{xcolor}
+\AddToShipoutPictureFG{\AtPageLowerLeft{\raisebox{14pt}{%
+  \makebox[\paperwidth]{\color{red}\footnotesize LAYOUT PROOF ONLY: proxy bounds, no scientific figures}}}}
+\hypersetup{pdftitle={LAYOUT PROOF ONLY: measured and proxy figure bounds}}
+\newcommand{\layoutproxy}[4]{%
+  \begin{figure}[tbp]\centering
+  \setlength{\fboxsep}{0pt}%
+  \fbox{\parbox[c][\dimexpr #4\linewidth-2\fboxrule\relax][c]{\dimexpr\linewidth-2\fboxrule\relax}{%
+    \centering\textbf{LAYOUT PROXY ONLY}\\[6pt]
+    #1\\[6pt]No scientific image or result is represented.\\
+    Measured/proxy bounds; final recorded figure pending.}}%
+  \caption{#2}\label{#3}\end{figure}}
+
+\begin{document}
+\raggedbottom
+% Permit readable full-width figures to share pages with short text blocks.
+% Class, margins, text size, and graphic width remain unchanged.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\title{Bounded Inspection of Underwater Acoustic Spectrograms: A Feasibility Study}
+\titlerunning{LAYOUT PROOF ONLY: proxy figure bounds}
+\author{Alexander V. Mantzaris\inst{1} \and James H. Korris\inst{2}}
+\authorrunning{A. V. Mantzaris and J. H. Korris}
+\institute{Dr. Yvette Kanouff School of Data,\\
+Mathematical, and Statistical Sciences\\
+UCF, 4000 University Blvd, Orlando, FL 32816, USA\\
+\email{alexander.mantzaris@ucf.edu}
+\and
+Creative Technologies Inc.\\
+\email{james.korris@cretecinc.com}}
+\maketitle
+
+\begin{abstract}
+We test bounded reinspection of underwater acoustic waveforms using linked spectrograms, numerical proposals, component memory, and a vision-language controller. Five policies share one backbone; classification and localization provide separate comparisons. The inventory contains 210 real, 35 mixed, and 35 synthetic scenes. Both AI annotation checkpoints failed morphology qualification, making primary real agreement unavailable. On twelve exact synthetic test cases, adaptive F achieved event F1 0.511 versus fixed G3's 0.478 and heuristic G4's 0.642. All 570 main episodes executed, but schema-invalid and empty reports remained. These controls do not establish adaptive benefit or real physical accuracy. \pending{Secondary results.}
+\keywords{Underwater acoustics \and Spectrogram interpretation \and Tool-using agents}
+\end{abstract}
+
+\section{Question and approach}
+LOFAR/DEMON fusion supports frequency estimation~\cite{li2022lofar} and classification~\cite{najamuddin2026fusion}; vision-language models also interpret marine-mammal spectrograms~\cite{nihal2025knowledge}. \emph{From Signals to Evidence} produces structured simulated-vessel descriptions~\cite{zhang2026evidence1} and multichannel detections~\cite{li2026evidence2}. We test bounded reinspection; fusion and evidence reports are established. ReAct provides the decision/action pattern~\cite{yao2023react}; UA-Bench motivates synthetic and silent-input controls~\cite{sun2026uabench}.
+
+\textbf{Measurements.} LOFAR (low-frequency analysis and recording) uses a Hann, one-sided, power-normalized STFT: uncalibrated digital power/Hz. Global windows/hops are 1/0.25\,s over 0--1800\,Hz after anti-aliased resampling to at most 4\,kHz; inspections offer 0.25/1/4\,s windows. DEMON (detection of envelope modulation on noise) analyzes the filtered analytic envelope, with 4/0.5\,s windows/hops and 0.5--200\,Hz modulation. Carriers are initially 500--2000\,Hz, additionally 2000--5000/5000--8000\,Hz when sampling/filter margins permit. Both views retain original time; neither identifies a source.
+
+CUDA measurements propose tones, chirps, transients, broadband regions, and modulation. Memory retains trajectories, resolution, carriers, and evidence IDs; intersecting boxes alone do not merge crossing ridges. Graph edges retain temporal overlap and unresolved associations. Numerical checks require cited measurements, matching morphology/domain/carrier, endpoints within two native bins, time boundaries, and ordered tracks. Claims cite retained components, but prose is not semantically verified. Raw reports/rejections survive; retention means measurement consistency.
+
+\layoutproxy{figure01.pdf}{Computation and first three recorded F attempts; complete traces remain in the artifact.}{fig:method}{0.693094629}
+
+\textbf{Policies and comparisons.}\label{sec:controllers}
+Pinned Qwen3-VL-8B-Instruct~\cite{qwen3vl} uses bfloat16 and greedy decoding: 160 selection tokens, 2048 report tokens, and six components. JSON grammar constrains syntax, not correctness. G1 reads global LOFAR; G2 reads paired views and measurements; G3 orders inspections; G4 prioritizes unseen tools/carriers and unresolved relations; F generates selections from the valid menu. G2--G4/F share proposals and checking. Labels/simulator parameters are hidden. Six slots count invalid/unavailable calls and finalization; tools inspect, measure, track, test harmonics/overlap, or compare intervals.
+
+Ablations remove DEMON, tables, graph, LOFAR-resolution adaptation, or numerical filtering, enforce exclusivity, or randomize actions. Removing tables retains graph values/axes; DEMON remains 4\,s. F without numerical filtering retains schema checks. Separate P1/P2 LOFAR/dual-view CNNs train on weak labels. Localizers use 192/48 exact synthetic training/validation scenes (including broadband bursts) and validation thresholds under six components. Both comparisons use three seeds. Models are not parameter-matched. P1's shared preparation computes DEMON; its timing is not standalone LOFAR cost. Training details are recorded in the package.
+
+\section{Data and reference feasibility}
+The 210 intact 30\,s excerpts comprise 150 DeepShip~\cite{deepshipdata} (90/30/30 train/validation/test) and 60 test-only MBARI days~\cite{mbari}, with offsets/hashes. Real splits contain 26/9/69 recording/day groups. Missing vessel/session IDs preclude vessel-disjoint claims; MBARI lacks class truth. Accessible QiandaoEar22 clips lacked proven continuity~\cite{du2024qiandao}. A bounded 13,500-pair similarity screen found no cross-split candidates, without ruling out shared sources.
+
+\layoutproxy{figure02.pdf}{Real recording and model proposals; qualified tonal labels are unavailable. Overview log-PSD limits use per-view 5th/99.5th percentiles.}{fig:tonal}{1.046683717}
+
+Another 35 real mixtures and 35 synthetic scenes each split 17/6/12; thus the main cohort has 90 real, twelve mixed, and twelve synthetic cases. Intact recordings are 75\% of inventory. Mixtures span 30--60\,s, five overlap fractions (0--100\%), and $-10/0/+10$\,dB power ratios. Test mixtures form one connected provenance group; sparse cells do not support replicated-factorial inference. Parent timing is not component truth.
+
+\layoutproxy{figure03.pdf}{Second real recording with model proposals. Temporal coexistence does not establish multiple sources; qualified overlap labels are unavailable.}{fig:overlap}{1.046683717}
+
+\textbf{AI reference protocol.}\label{sec:references}
+A pre-test amendment replaced human annotation with blinded InternVL 3.5 4B/8B~\cite{wang2025internvl35}. Four fixed views are prompted separately, with disjoint training demonstrations and a full 1\,Hz DEMON mean-PSD grid. Method outputs/labels are hidden; shared InternVL/Qwen ancestry permits correlated errors. Qualification requires at least three gold events and matches per morphology/domain, precision/recall $\geq0.5$, and $\geq80\%$ valid relevant views. Fixed 4\,Hz matching cannot be relaxed by model bins; rejected typed rows count against precision.
+
+Pilots exposed all twelve calibration controls; later interface trials reused two, and the final prompt added demonstrations. Calibration is development evidence. Twelve separate controls audit the frozen protocol without retuning. Neither checkpoint recovered chirps/modulation in calibration or audit; transient/broadband had only two/zero gold events and could not qualify. The freeze admits no morphology (Table~\ref{tab:annotation}).
+
+\begin{table}[tb]
+\caption{Tonal controls (4\,Hz rule) and final schema completion; neither is real accuracy.}
+\label{tab:annotation}\centering\small
+\begin{tabular}{@{}lrrr@{}}\toprule
+Checkpoint & \shortstack{Calibration\\TP/FP/FN} & \shortstack{Separate audit\\TP/FP/FN} & \shortstack{Complete\\records/257} \\\midrule
+InternVL 4B & 2/12/13 & 4/18/11 & 237 \\
+InternVL 8B & 2/9/13 & 2/4/13 & 231 \\\bottomrule
+\end{tabular}
+\end{table}
+
+All 514 raw records survive. Across 245 real/mixture scenes, 4B retained 113 events and 8B none. Empty consensus is disagreement, not 113 physical errors; missing labels are not negatives.
+
+\layoutproxy{figure04.pdf}{Recorded F inspections and G3/F report excerpts. Overview uses percentile limits; thumbnails preserve original tool rasters, coordinates, and evidence IDs.}{fig:adaptive}{1.158520467}
+
+\section{Evaluation and execution}
+Primary real AI-reference agreement and H1 (F versus validation-selected G3/G4) and H4 (raw-to-filtered agreement/coverage) are unavailable; no comparator is selected. Exact synthetic recovery is separate. Greedy one-to-one matching requires morphology/domain agreement, temporal IoU $\geq0.3$, and track error within 2\,Hz; regions require time--frequency IoU $\geq0.3$ and modulation requires compatible carriers. Duplicates stay unmatched. Modulation truth is exhaustive only for amplitude-modulated noise, beating, mixed, and noise/silence cases; compatible higher beat harmonics are optional. Training/test seeds are disjoint.
+
+Bootstrap units are recording/day, connected-mixture, or generator-case groups, not model seeds. Planned H1/H4 use Holm correction. The original ablation design specified 80 real scenes; a pre-main amendment proposed twelve synthetic cases. During real ablations after main scoring, the user imposed a runtime cap. The first 33 frozen scenes (30 DeepShip, three MBARI; twelve recording/day groups) completed all six variants: 198 episodes, comprising 156 preserved from the interrupted run and 42 resumed, with no execution failures. This change was not preregistered; the prefix is domain-imbalanced. All 72 proposed new synthetic-variant episodes were omitted. Synthetic comparisons reuse only F, G4, and F without numerical filtering from main, without new generation. Budget comparisons pair six real and twelve synthetic cases. Manifests define 54 interventions and thirty duration, view-mismatch, attenuation, and removal probes. These are secondary; waveform changes regenerate views, while image mismatch retains target numerical evidence. Blank-input success requires valid empty reports; contrast ranking is uncalibrated.
+
+DSP, synthesis, model forward/backpropagation, and metrics use a 48\,GB RTX 6000 Ada. Pinned image preprocessing runs on CPU, contrary to plan; frozen settings remain unchanged. Mixed batches divide CUDA spans equally; verification shares the GPU lock but lacks a separate timer. Accounting is incomplete and schedule-dependent, not standalone latency or marginal/billable cost. Wall time includes preparation/verification/waiting. Failures remain in denominators; defective pilots supply historical timing only.
+
+\layoutproxy{figure05.pdf}{Recorded failure/abstention or declared fallback: report schema errors and numerical filtering are distinct. Raw components can belong to an invalid report.}{fig:failure}{1.015345269}
+
+\section{Results and limitations}
+All 570 main episodes executed without execution failures. Exact-synthetic F1 for G1/G2/G3/G4/F was 0.024/0.529/0.478/0.642/0.511; F's 95\% generator-case interval was [0.286,0.700]. These descriptive comparisons neither select a post-test primary comparator nor establish adaptive benefit or equivalence. Synthetic G2/F had two/one schema failures; real G3/G4 had two each. Real empty reports numbered 14/43/46/42/39, respectively; F returned 14/30 DeepShip and 25/60 MBARI empty. Emission is not calibrated abstention or accuracy.
+
+F's synthetic TP/FP/FN changed from raw 13/32/11 to retained 12/11/12. The lost match came from an entire schema-invalid report: this combines schema gating and numerical filtering. Real mean recorded spans were F 125.2\,s versus G3/G4 24.0/27.4\,s; F wall median/p95 were 1403/1779\,s, under the accounting limits above.
+
+\layoutproxy{figure06.pdf}{Separate real report production, exact synthetic controller/localizer recovery, and weak-label classification. Primary real agreement is unavailable.}{fig:quantitative}{0.984375000}
+
+P1/P2 present-class macro F1 was $0.350\pm0.210$/$0.245\pm0.007$ (three-seed mean$\pm$SD); four-label F1 was 0.262/0.184. Paired four-label P2-minus-P1 was $-0.078$ (recording-group 95\% interval $[-0.135,0.052]$, conditional on seeds). Nine test recordings, with no Tug, establish neither dual-view superiority nor four-class generalization. Synthetic localizer F1 was 0.143/0.165/0.163 (P1) and 0.161/0.193/0.190 (P2), seeds 17/29/43; malformed P1 seed-43 track output was rejected.
+
+\layoutproxy{figure07.pdf}{Post-main user cap: real variants and a separate three-policy synthetic reuse comparison. No new synthetic variants ran; F without numerical filtering retains schema checks.}{fig:ablation}{1.046875000}
+
+Graph/table removal yielded 33/33 empty retained real reports, versus F's 16/33. Retained emptiness includes rejection and is not purely model-chosen abstention; real accuracy remains unavailable. On twelve reused synthetic cases, F without numerical filtering had TP/FP/FN 12/27/12 (F1 0.381), versus F's 12/11/12 (0.511). Both conditions retain the same report schema gate. These descriptive comparisons reuse generations and do not test the six omitted synthetic variants.
+
+Budget F1 (2/4/6 slots) on the same twelve controls was F 0.613/0.613/0.511, G3 0.613/0.586/0.478, and G4 0.556/0.455/0.642: no consistent gain. F's two/four-slot aggregates match despite different empty counts (4/5); schema failures remain included.
+
+\pending{Add intervention, morphology/relation results and review final figures.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 1.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 2.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 3.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 4.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 5.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 6.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 7.}
+\par\noindent\textit{LAYOUT-ONLY: reserved secondary-results line 8.}
+
+
+% Actual standalone figure08.pdf remains required in canonical source.
+% Actual standalone figure09.pdf remains required in canonical source.
+Robustness/efficiency artifacts 8/9 remain required. Frozen morphology/ID rules declare case fallbacks. The viewer preserves evidence/action links and separate corrections.
+
+The gate failure limits this small, development-exposed protocol, not model capacity generally. Mono ambiguity, weak labels, domain shift, and one backbone limit generalization. Disjoint parameter seeds are not unseen generator families; recording/day checks cannot exclude pretrained-corpus overlap. Neither execution nor controlled recovery establishes real physical accuracy. \pending{Integrate secondary conclusions.}
+
+\paragraph{Availability.} The local package retains protocols, full comparisons, manifests/hashes, trained checkpoints and pinned model revisions, outputs/actions, references, scores, and figure inputs. Audio rights remain with providers.
+
+\paragraph{AI Use Declaration.} OpenAI Codex wrote/revised code/text, orchestrated experiments, checked sources, and prepared figure code in November 2026. Local-model use appears in Sects.~\ref{sec:controllers} and~\ref{sec:references}; no human component labels were collected. Authors remain responsible for review before submission.
+
+\bibliographystyle{splncs04}
+\bibliography{references}
+\end{document}

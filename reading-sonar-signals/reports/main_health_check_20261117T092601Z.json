@@ -1,0 +1,111 @@
+{
+  "observed_at_utc": "2026-11-17T09:26:01.409Z",
+  "mode": "read_only_operational_check; no GPU numerical work, no source/configuration changes, no remote writes",
+  "phase": "main",
+  "queue_pid": 9200,
+  "inference_pid": 9685,
+  "progress": {
+    "completed": 149,
+    "expected": 570,
+    "failed_episode_files": 0,
+    "method_completions": {
+      "G1": 32,
+      "G2": 33,
+      "G3": 29,
+      "G4": 28,
+      "F": 27
+    },
+    "phase_elapsed_seconds": 6068.365604400635,
+    "completions_last_10_minutes": 11,
+    "completions_last_30_minutes": 41,
+    "last_completed_episode_age_seconds": 115.26571345329285,
+    "active_episode_workers": 16
+  },
+  "resource_snapshot": {
+    "gpu_utilization_percent": 70,
+    "gpu_memory_used_MiB": 31336,
+    "gpu_memory_total_MiB": 49140,
+    "gpu_temperature_C": 67,
+    "gpu_power_W": 268.27,
+    "inference_process_cpu_percent": 100,
+    "inference_process_threads": 105,
+    "container_disk_capacity": "50G",
+    "container_disk_used": "18G",
+    "container_disk_available": "33G",
+    "container_disk_use_percent": 36
+  },
+  "timing_evidence": {
+    "last_10_batch_sizes": [
+      6,
+      3,
+      6,
+      4,
+      7,
+      4,
+      4,
+      5,
+      2,
+      5
+    ],
+    "last_10_batch_wall_seconds": [
+      98.17691864800145,
+      60.16884177200336,
+      145.4649364470024,
+      89.54316431700136,
+      253.65856566100047,
+      11.135955828998704,
+      100.11460832999728,
+      82.0516418119987,
+      6.42659221500071,
+      100.96747024400247
+    ],
+    "recent_F_examples": [
+      {
+        "scene_id": "ds_af26a7e3db2cd976",
+        "actions": 6,
+        "generations": 7,
+        "wall_seconds": 1362.6470165499995,
+        "amortized_model_gpu_seconds": 139.83490411086308
+      },
+      {
+        "scene_id": "ds_86e8ef11316ea409",
+        "actions": 6,
+        "generations": 7,
+        "wall_seconds": 1360.2986487950002,
+        "amortized_model_gpu_seconds": 159.39153470284597
+      },
+      {
+        "scene_id": "ds_8c7cdbf9c31ef2af",
+        "actions": 6,
+        "generations": 7,
+        "wall_seconds": 1121.252120762998,
+        "amortized_model_gpu_seconds": 116.7765508812314
+      }
+    ],
+    "interpretation": "Adaptive episodes take seven model generations including six action decisions, and worker wall time includes shared queue/lock delays. Amortized batch CUDA spans are not serial episode latency."
+  },
+  "checks": {
+    "failed_batches": 0,
+    "traceback_log_occurrences": 0,
+    "cuda_out_of_memory_log_occurrences": 0,
+    "OutOfMemoryError_log_occurrences": 0,
+    "final_freeze_files": 56,
+    "final_freeze_mismatches": []
+  },
+  "conclusion": "Observed progress is consistent with normal adaptive multi-round inference. No stuck-thread/request symptom or imminent memory/disk risk was found. This is a point-in-time operational check, not a proof of future liveness; no thread backtrace or experimental recomputation was performed.",
+  "supervisor_issue": {
+    "detected": "Local reports/automatic_preservation_status.json last updated 2026-11-17T08:05:34.890936+00:00, about81minutesold.",
+    "root_confirmation": "Parent directly polled managed supervisor session24783 and confirmed exit143. Cause not established.",
+    "root_resolution": "Parent restarted identical supervisor in managed session93630 with fresh09:26:32UTCstatus; committed to polling supervisor93630 and watcher21936 each minute.",
+    "gpu_queue_interrupted": false,
+    "stop_requested": false
+  },
+  "provenance": {
+    "phase_log": "reports/study_phases/main.1794901493.log",
+    "batch_ledger": "results/main/batch_ledger.json",
+    "phase_state": "reports/study_phases/active.json",
+    "freeze": "configs/final_protocol_freeze.json",
+    "preservation_status": "reports/automatic_preservation_status.json"
+  },
+  "report_written_locally_only": true
+}

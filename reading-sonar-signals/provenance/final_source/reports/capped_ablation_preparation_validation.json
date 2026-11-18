@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-11-17T17:20:34.168941+00:00",
+  "scope": "CPU-only administrative cap-preparation fixtures; no model, acoustic transforms or scientific calculations.",
+  "source_sha256": {
+    "scripts/prepare_capped_ablation.py": "04a999eec3ee8011b2190dd7b9cf278d52a0cfd65f8bd9a00648f3e39df1c07d",
+    "tests/test_prepare_capped_ablation.py": "56a70f921d254bfd481634e61ab242c6f51f15d564343fbf31c8af9bdbded640",
+    "data/manifests/ablation_test_capped.jsonl": "250ca42998ec70aeea4803b6b6c0c71c9f13f94acbecae9fb976c3d9140bca37"
+  },
+  "authorization": {
+    "path": "configs/ablation_user_cap.json",
+    "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345"
+  },
+  "validation_command": "python3 -m unittest discover -s tests -p test_prepare_capped_ablation.py -v",
+  "test_count": 7,
+  "failures": 0,
+  "checks": [
+    "Exact original-manifest prefix selected without reading original run outcomes",
+    "Explicit writer-stopped confirmation and live PID refusal",
+    "Complete episode and asset bytes retained, including schema-invalid completed reports",
+    "Interrupted JSON and partial action files remain untouched in original run; not copied into resume",
+    "Derived immutable configuration changes only manifest, manifest_sha256, scene_count and started_at_unix",
+    "Actual frozen runner freeze_or_resume helper accepts the derived configuration without altering scientific source",
+    "Existing destination is never reused by preparation",
+    "Already completed outside-prefix jobs cannot silently exceed authorized cap",
+    "Original inventory before/after copying detects a still-active writer",
+    "Frozen source hash mismatch fails before publishing derived output"
+  ],
+  "real_manifest_check": {
+    "path": "data/manifests/ablation_test_capped.jsonl",
+    "scene_count": 33,
+    "methods": 6,
+    "expected_episodes": 198,
+    "exact_first_33_source_lines": true,
+    "expected_sha256_matches_authorized_config": true
+  },
+  "frozen_source_integrity": {
+    "entries_checked": 56,
+    "mismatches": []
+  },
+  "operations": {
+    "remote_signals": false,
+    "uploads": false,
+    "gpu_jobs": false,
+    "actual_original_run_prepared_locally": false,
+    "original_research_records_changed": false
+  },
+  "remote_execution_pending_coordinator": ".venv/bin/python scripts/prepare_capped_ablation.py --writers-stopped --writer-pid 20730",
+  "scientific_scope": "Runtime-driven method-balanced prefix, not domain-balanced or preregistered. Original partial work and costs are preserved; resumed/inherited costs remain separately attributable."
+}

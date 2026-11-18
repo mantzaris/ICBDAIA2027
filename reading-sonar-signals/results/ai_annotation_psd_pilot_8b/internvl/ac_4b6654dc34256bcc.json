@@ -1,0 +1,99 @@
+{
+  "scene_id": "ac_4b6654dc34256bcc",
+  "prompt": "Inspect this acoustic spectrogram. Time is horizontal in seconds; acoustic frequency is vertical in Hz.\n\nFind bright thin horizontal or diagonal lines, distinct from the speckled background.\nIgnore the speckled background and do not label the whole image as an event.\nRead the visible axes to estimate each line's starting/ending time and frequency.\nEach event extends over its whole visible continuous line. Do not split one continuous line into adjacent short segments.\nReturn ONLY a JSON object with one key named events. Its value is a list of at most six arrays.\nEach array contains four measured numbers followed by one type string, in this order:\nstarting time, ending time, starting frequency, ending frequency, type.\nReturn an empty list when no bright persistent line is visible. Do not discuss sources.\nThe type string is tone for a horizontal line, or chirp for a sloping line.\n",
+  "generation": {
+    "raw_text": "{\"events\":[[1.0,28.0,200.0,200.0,\"tone\"],[7.0,24.0,360.0,360.0,\"tone\"]]",
+    "input_tokens": 1967,
+    "output_tokens": 52,
+    "gpu_seconds": 1.7536241455078125,
+    "wall_seconds": 1.853168067000297,
+    "peak_allocated_bytes": 17613583872,
+    "max_new_tokens": 512,
+    "at_generation_limit": false,
+    "decode": "greedy",
+    "model_id": "OpenGVLab/InternVL3_5-8B-HF",
+    "model_revision": "741a7d03020411e666c6109218ab71e08151ef86",
+    "device_audit": {
+      "all_parameters_cuda": true,
+      "all_buffers_cuda": true,
+      "dtype": "bfloat16",
+      "hf_device_map": {
+        "": "cuda:0"
+      },
+      "parameter_count": 8528318464
+    },
+    "input_tensor_shapes": {
+      "input_ids": [
+        1,
+        1967
+      ],
+      "attention_mask": [
+        1,
+        1967
+      ],
+      "pixel_values": [
+        6,
+        3,
+        448,
+        448
+      ]
+    },
+    "training_examples": [
+      {
+        "image": "results/ai_annotation_psd_pilot_8b/internvl/training_demo_acoustic.png",
+        "image_sha256": "45cf3662908e8163596f9b2216bd3de44842588689b424ac548e0829873ec1bf",
+        "answer": {
+          "events": [
+            [
+              2.0,
+              28.0,
+              120.0,
+              120.0,
+              "tone"
+            ],
+            [
+              10.0,
+              20.0,
+              440.0,
+              440.0,
+              "tone"
+            ]
+          ]
+        },
+        "prompt": "Inspect this acoustic spectrogram. Time is horizontal in seconds; acoustic frequency is vertical in Hz.\n\nFind bright thin horizontal or diagonal lines, distinct from the speckled background.\nIgnore the speckled background and do not label the whole image as an event.\nRead the visible axes to estimate each line's starting/ending time and frequency.\nEach event extends over its whole visible continuous line. Do not split one continuous line into adjacent short segments.\nReturn ONLY a JSON object with one key named events. Its value is a list of at most six arrays.\nEach array contains four measured numbers followed by one type string, in this order:\nstarting time, ending time, starting frequency, ending frequency, type.\nReturn an empty list when no bright persistent line is visible. Do not discuss sources.\nThe type string is tone for a horizontal line, or chirp for a sloping line.\n",
+        "provenance": {
+          "role": "separate_exact_training_demonstration",
+          "seed": 920000,
+          "target_truth_used": false
+        }
+      }
+    ],
+    "parsed": null,
+    "parse_error": "The first JSON object is incomplete or invalid"
+  },
+  "events": [],
+  "errors": [],
+  "metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 2,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matches": [],
+    "matching_algorithm": "greedy_descending_quality",
+    "exhaustive": true
+  },
+  "display_scale": {
+    "policy": "peak_60db",
+    "vmin_db": -75.19736671447754,
+    "vmax_db": -15.197366714477539,
+    "constant_view": false,
+    "raw_psd_unchanged": true,
+    "scale_numeric_device": "cuda:0",
+    "display_frequency_bin_width_hz": 5.002777777777778,
+    "display_aggregation": "GPU_frequency_max_pool"
+  },
+  "scope": "training calibration only; no real/test labels",
+  "localization_tolerance": "max(4 Hz, two displayed frequency bins); exact errors retained in matches"
+}

@@ -1,0 +1,2099 @@
+{
+  "method": "G4",
+  "scene_id": "mb_20710add9f5b906a",
+  "action_budget": 6,
+  "prompt_serialization": {
+    "version": "compact_measurements_v2",
+    "max_components": 16,
+    "max_measurements": 12,
+    "max_relations": 24,
+    "track_points": 3,
+    "max_peaks_per_measurement": 6,
+    "geometry_decimal_places": 3,
+    "other_float_significant_digits": 6,
+    "sampling": "track_first_middle_last; first_six_peaks_in_detector_return_order; no outcome_based_selection",
+    "meaning": "detector_proposals_and_internal_measurements_not_independent_truth"
+  },
+  "rendering": {
+    "colormap": "magma",
+    "dynamic_range_db": 60,
+    "frequency_max_pool_bins": 256,
+    "quantitative_measurements_from_unpooled_PSD": true
+  },
+  "actions_attempted": 6,
+  "actions": [
+    {
+      "step": 0,
+      "action": {
+        "name": "inspect_modulation",
+        "time_s": [
+          64860.0,
+          64890.0
+        ],
+        "carrier_band_hz": [
+          2000.0,
+          5000.0
+        ],
+        "window_s": 4.0
+      },
+      "reason": "Frozen novelty and unresolved cross-view/harmonic-conflict priority; not learned information gain.",
+      "status": "completed",
+      "gpu_seconds": 0.0328271369934082,
+      "result": {
+        "status": "ok",
+        "tool": "inspect_modulation",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.25,
+          64887.75
+        ],
+        "frequency_hz": [
+          0.5,
+          200.0
+        ],
+        "frequency_domain": "modulation",
+        "carrier_band_hz": [
+          2000.0,
+          5000.0
+        ],
+        "configuration": {
+          "sample_rate_hz": 500.0,
+          "window_samples": 2000,
+          "hop_samples": 250,
+          "window_s": 4.0,
+          "hop_s": 0.5,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "modulation",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.25,
+          "source_duration_s": 29.5,
+          "device": "cuda:0",
+          "carrier_band_hz": [
+            2000.0,
+            5000.0
+          ],
+          "source_sample_rate_hz": 16000.0,
+          "carrier_fir_taps": 513,
+          "envelope_resampler": "Hann_sinc_FIR_linear",
+          "edge_guard_s": 0.25,
+          "calibrated": false,
+          "mechanism": "periodic_envelope_not_source_identity",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.5,
+            200.0
+          ]
+        },
+        "peaks": [],
+        "band_power": {
+          "mean_square": 7.2758322804122866e-12,
+          "level_db": -111.38117980957031,
+          "frequency_hz": [
+            0.5,
+            200.0
+          ],
+          "frame_center_time_s": [
+            64862.25,
+            64887.75
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0002",
+        "component_ids": [],
+        "observed_components": []
+      }
+    },
+    {
+      "step": 1,
+      "action": {
+        "name": "inspect_region",
+        "time_s": [
+          64860.0,
+          64890.0
+        ],
+        "frequency_hz": [
+          0.0,
+          800.0
+        ],
+        "window_s": 4.0
+      },
+      "reason": "Frozen novelty and unresolved cross-view/harmonic-conflict priority; not learned information gain.",
+      "status": "completed",
+      "gpu_seconds": 0.018392831802368163,
+      "result": {
+        "status": "ok",
+        "tool": "inspect_region",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.0,
+          64888.0
+        ],
+        "frequency_hz": [
+          0.0,
+          800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 16000,
+          "hop_samples": 4000,
+          "window_s": 4.0,
+          "hop_s": 1.0,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.0,
+          "source_duration_s": 30.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 78.04875183105469,
+            "psd": 3.0297465855255723e-05,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 24.309173583984375,
+            "psd": 1.280702488504204e-10,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 16.5,
+            "contrast_db": 20.38383674621582,
+            "psd": 5.186984175509224e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 41.25,
+            "contrast_db": 20.330657958984375,
+            "psd": 5.123855853494952e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 38.25,
+            "contrast_db": 20.20906639099121,
+            "psd": 4.9823898479184336e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 56.0,
+            "contrast_db": 20.123546600341797,
+            "psd": 4.885239088259219e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 71.25,
+            "contrast_db": 19.983200073242188,
+            "psd": 4.7298904376491535e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 35.75,
+            "contrast_db": 19.88994789123535,
+            "psd": 4.629412478363015e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 76.25,
+            "contrast_db": 19.71402931213379,
+            "psd": 4.445637261096813e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 23.5,
+            "contrast_db": 19.670217514038086,
+            "psd": 4.401015316068957e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 73.75,
+            "contrast_db": 19.23295021057129,
+            "psd": 3.9794768175172024e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 49.0,
+            "contrast_db": 19.213266372680664,
+            "psd": 3.961482530900895e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1365031241439283e-05,
+          "level_db": -49.444297790527344,
+          "frequency_hz": [
+            0.0,
+            800.0
+          ],
+          "frame_center_time_s": [
+            64862.0,
+            64888.0
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0003",
+        "component_ids": [],
+        "observed_components": []
+      }
+    },
+    {
+      "step": 2,
+      "action": {
+        "name": "measure_peaks",
+        "time_s": [
+          64860.0,
+          64890.0
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "window_s": 1.0
+      },
+      "reason": "Frozen novelty and unresolved cross-view/harmonic-conflict priority; not learned information gain.",
+      "status": "completed",
+      "gpu_seconds": 0.06957392120361328,
+      "result": {
+        "status": "ok",
+        "tool": "measure_peaks",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64860.5,
+          64889.5
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 4000,
+          "hop_samples": 1000,
+          "window_s": 1.0,
+          "hop_s": 0.25,
+          "bin_spacing_hz": 1.0,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.0,
+          "source_duration_s": 30.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            1800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 76.21466064453125,
+            "psd": 7.5739508247352205e-06,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 23.807636260986328,
+            "psd": 4.351311672090574e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 25.0,
+            "contrast_db": 22.6651668548584,
+            "psd": 3.344823376605355e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 36.0,
+            "contrast_db": 22.50530433654785,
+            "psd": 3.2239419467394725e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 41.0,
+            "contrast_db": 22.11658477783203,
+            "psd": 2.9479155227996046e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 56.0,
+            "contrast_db": 22.10565185546875,
+            "psd": 2.940503743276146e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 17.0,
+            "contrast_db": 21.81949806213379,
+            "psd": 2.753002166511198e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 32.0,
+            "contrast_db": 21.676891326904297,
+            "psd": 2.6640708736258567e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 51.0,
+            "contrast_db": 21.585437774658203,
+            "psd": 2.6085572937817325e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 76.0,
+            "contrast_db": 21.550790786743164,
+            "psd": 2.5878304707460664e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 48.0,
+            "contrast_db": 21.458375930786133,
+            "psd": 2.5333435002550253e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 71.0,
+            "contrast_db": 21.455814361572266,
+            "psd": 2.531850944176295e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1364281817805022e-05,
+          "level_db": -49.444580078125,
+          "frequency_hz": [
+            0.0,
+            1800.0
+          ],
+          "frame_center_time_s": [
+            64860.5,
+            64889.5
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0004",
+        "component_ids": [],
+        "observed_components": []
+      }
+    },
+    {
+      "step": 3,
+      "action": {
+        "name": "compare_intervals",
+        "intervals_s": [
+          [
+            64860.0,
+            64875.0
+          ],
+          [
+            64875.0,
+            64890.0
+          ]
+        ],
+        "frequency_hz": [
+          0.0,
+          1000.0
+        ],
+        "window_s": 1.0
+      },
+      "reason": "Frozen novelty and unresolved cross-view/harmonic-conflict priority; not learned information gain.",
+      "status": "completed",
+      "gpu_seconds": 0.003436959981918335,
+      "result": {
+        "status": "ok",
+        "tool": "compare_intervals",
+        "intervals_s": [
+          [
+            64860.0,
+            64875.0
+          ],
+          [
+            64875.0,
+            64890.0
+          ]
+        ],
+        "frequency_hz": [
+          0.0,
+          1000.0
+        ],
+        "band_powers": [
+          {
+            "mean_square": 1.1389148312446196e-05,
+            "level_db": -49.435089111328125,
+            "frequency_hz": [
+              0.0,
+              1000.0
+            ],
+            "frame_center_time_s": [
+              64860.5,
+              64874.5
+            ],
+            "units": "digital_amplitude_squared",
+            "calibrated": false
+          },
+          {
+            "mean_square": 1.134875765274046e-05,
+            "level_db": -49.45051574707031,
+            "frequency_hz": [
+              0.0,
+              1000.0
+            ],
+            "frame_center_time_s": [
+              64875.5,
+              64889.5
+            ],
+            "units": "digital_amplitude_squared",
+            "calibrated": false
+          }
+        ],
+        "received_level_change_db": -0.015429267659783363,
+        "interpretation": "received_band_power; not emitted source power",
+        "id": "E0005",
+        "scene_id": "mb_20710add9f5b906a",
+        "component_ids": [],
+        "observed_components": []
+      }
+    },
+    {
+      "step": 4,
+      "action": {
+        "name": "inspect_region",
+        "time_s": [
+          64875.0,
+          64890.0
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "window_s": 0.25
+      },
+      "reason": "Frozen novelty and unresolved cross-view/harmonic-conflict priority; not learned information gain.",
+      "status": "completed",
+      "gpu_seconds": 0.24654383850097655,
+      "result": {
+        "status": "ok",
+        "tool": "inspect_region",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64875.125,
+          64889.875
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 1000,
+          "hop_samples": 250,
+          "window_s": 0.25,
+          "hop_s": 0.0625,
+          "bin_spacing_hz": 4.0,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64875.0,
+          "source_duration_s": 15.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            1800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 70.39127349853516,
+            "psd": 1.8920170532510383e-06,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 36.0,
+            "contrast_db": 22.199661254882812,
+            "psd": 2.869220139256612e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 60.0,
+            "contrast_db": 21.81417465209961,
+            "psd": 2.6255182056234005e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 72.0,
+            "contrast_db": 21.655160903930664,
+            "psd": 2.5311261767080317e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 20.326648712158203,
+            "psd": 1.864070876822499e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 108.0,
+            "contrast_db": 14.409295082092285,
+            "psd": 4.772293237670366e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 116.0,
+            "contrast_db": 14.224661827087402,
+            "psd": 4.57365959341538e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 140.0,
+            "contrast_db": 13.706501960754395,
+            "psd": 4.059267678935274e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 128.0,
+            "contrast_db": 12.569751739501953,
+            "psd": 3.1244444965300433e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 152.0,
+            "contrast_db": 9.914626121520996,
+            "psd": 1.6953533845884272e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 180.0,
+            "contrast_db": 9.800911903381348,
+            "psd": 1.6515391484950293e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 192.0,
+            "contrast_db": 8.105511665344238,
+            "psd": 1.117760506548493e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1354726666468196e-05,
+          "level_db": -49.448238372802734,
+          "frequency_hz": [
+            0.0,
+            1800.0
+          ],
+          "frame_center_time_s": [
+            64875.125,
+            64889.875
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0006",
+        "component_ids": [],
+        "observed_components": []
+      }
+    },
+    {
+      "step": 5,
+      "action": {
+        "name": "inspect_modulation",
+        "time_s": [
+          64860.0,
+          64890.0
+        ],
+        "carrier_band_hz": [
+          500.0,
+          2000.0
+        ],
+        "window_s": 4.0
+      },
+      "reason": "Frozen novelty and unresolved cross-view/harmonic-conflict priority; not learned information gain.",
+      "status": "completed",
+      "gpu_seconds": 0.0319149112701416,
+      "result": {
+        "status": "ok",
+        "tool": "inspect_modulation",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.25,
+          64887.75
+        ],
+        "frequency_hz": [
+          0.5,
+          200.0
+        ],
+        "frequency_domain": "modulation",
+        "carrier_band_hz": [
+          500.0,
+          2000.0
+        ],
+        "configuration": {
+          "sample_rate_hz": 500.0,
+          "window_samples": 2000,
+          "hop_samples": 250,
+          "window_s": 4.0,
+          "hop_s": 0.5,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "modulation",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.25,
+          "source_duration_s": 29.5,
+          "device": "cuda:0",
+          "carrier_band_hz": [
+            500.0,
+            2000.0
+          ],
+          "source_sample_rate_hz": 16000.0,
+          "carrier_fir_taps": 513,
+          "envelope_resampler": "Hann_sinc_FIR_linear",
+          "edge_guard_s": 0.25,
+          "calibrated": false,
+          "mechanism": "periodic_envelope_not_source_identity",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.5,
+            200.0
+          ]
+        },
+        "peaks": [],
+        "band_power": {
+          "mean_square": 2.925612183068971e-11,
+          "level_db": -105.33783721923828,
+          "frequency_hz": [
+            0.5,
+            200.0
+          ],
+          "frame_center_time_s": [
+            64862.25,
+            64887.75
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0007",
+        "component_ids": [],
+        "observed_components": []
+      }
+    }
+  ],
+  "raw_report": {
+    "components": [],
+    "relations": [],
+    "claims": [],
+    "unresolved_questions": [],
+    "abstained": true
+  },
+  "report": {
+    "components": [],
+    "relations": [],
+    "claims": [],
+    "unresolved_questions": [],
+    "abstained": true
+  },
+  "verification_audit": [],
+  "verification_meaning": "Internal measurement consistency, not independent correctness.",
+  "initial_state": {
+    "scene_id": "mb_20710add9f5b906a",
+    "time_s": [
+      64860.0,
+      64890.0
+    ],
+    "sample_rate_hz": 16000.0,
+    "components": [],
+    "measurements": [
+      {
+        "tool": "global_lofar",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64860.5,
+          64889.5
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 4000,
+          "hop_samples": 1000,
+          "window_s": 1.0,
+          "hop_s": 0.25,
+          "bin_spacing_hz": 1.0,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.0,
+          "source_duration_s": 30.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            1800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 76.21466064453125,
+            "psd": 7.5739508247352205e-06,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 23.807636260986328,
+            "psd": 4.351311672090574e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 25.0,
+            "contrast_db": 22.6651668548584,
+            "psd": 3.344823376605355e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 36.0,
+            "contrast_db": 22.50530433654785,
+            "psd": 3.2239419467394725e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 41.0,
+            "contrast_db": 22.11658477783203,
+            "psd": 2.9479155227996046e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 56.0,
+            "contrast_db": 22.10565185546875,
+            "psd": 2.940503743276146e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 17.0,
+            "contrast_db": 21.81949806213379,
+            "psd": 2.753002166511198e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 32.0,
+            "contrast_db": 21.676891326904297,
+            "psd": 2.6640708736258567e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 51.0,
+            "contrast_db": 21.585437774658203,
+            "psd": 2.6085572937817325e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 76.0,
+            "contrast_db": 21.550790786743164,
+            "psd": 2.5878304707460664e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 48.0,
+            "contrast_db": 21.458375930786133,
+            "psd": 2.5333435002550253e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 71.0,
+            "contrast_db": 21.455814361572266,
+            "psd": 2.531850944176295e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1364281817805022e-05,
+          "level_db": -49.444580078125,
+          "frequency_hz": [
+            0.0,
+            1800.0
+          ],
+          "frame_center_time_s": [
+            64860.5,
+            64889.5
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0000",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "global_demon",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.25,
+          64887.75
+        ],
+        "frequency_hz": [
+          0.5,
+          200.0
+        ],
+        "frequency_domain": "modulation",
+        "carrier_band_hz": [
+          500.0,
+          2000.0
+        ],
+        "configuration": {
+          "sample_rate_hz": 500.0,
+          "window_samples": 2000,
+          "hop_samples": 250,
+          "window_s": 4.0,
+          "hop_s": 0.5,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "modulation",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.25,
+          "source_duration_s": 29.5,
+          "device": "cuda:0",
+          "carrier_band_hz": [
+            500.0,
+            2000.0
+          ],
+          "source_sample_rate_hz": 16000.0,
+          "carrier_fir_taps": 513,
+          "envelope_resampler": "Hann_sinc_FIR_linear",
+          "edge_guard_s": 0.25,
+          "calibrated": false,
+          "mechanism": "periodic_envelope_not_source_identity",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.5,
+            200.0
+          ]
+        },
+        "peaks": [],
+        "band_power": {
+          "mean_square": 2.925612183068971e-11,
+          "level_db": -105.33783721923828,
+          "frequency_hz": [
+            0.5,
+            200.0
+          ],
+          "frame_center_time_s": [
+            64862.25,
+            64887.75
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0001",
+        "component_ids": [],
+        "observed_components": []
+      }
+    ],
+    "relations": [],
+    "available_actions": [
+      "inspect_region",
+      "inspect_modulation",
+      "measure_peaks",
+      "track_component",
+      "compare_intervals",
+      "test_harmonic_relation",
+      "inspect_overlap",
+      "finalize_or_abstain"
+    ],
+    "limitations": [
+      "No calibrated pressure or source-level estimate",
+      "Acoustic Hz and envelope-modulation Hz are different quantities",
+      "Measurement consistency is not independently assessed correctness",
+      "Contrast scores are not calibrated probabilities"
+    ],
+    "actions_attempted": 0
+  },
+  "final_state": {
+    "scene_id": "mb_20710add9f5b906a",
+    "time_s": [
+      64860.0,
+      64890.0
+    ],
+    "sample_rate_hz": 16000.0,
+    "components": [],
+    "measurements": [
+      {
+        "tool": "global_lofar",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64860.5,
+          64889.5
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 4000,
+          "hop_samples": 1000,
+          "window_s": 1.0,
+          "hop_s": 0.25,
+          "bin_spacing_hz": 1.0,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.0,
+          "source_duration_s": 30.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            1800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 76.21466064453125,
+            "psd": 7.5739508247352205e-06,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 23.807636260986328,
+            "psd": 4.351311672090574e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 25.0,
+            "contrast_db": 22.6651668548584,
+            "psd": 3.344823376605355e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 36.0,
+            "contrast_db": 22.50530433654785,
+            "psd": 3.2239419467394725e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 41.0,
+            "contrast_db": 22.11658477783203,
+            "psd": 2.9479155227996046e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 56.0,
+            "contrast_db": 22.10565185546875,
+            "psd": 2.940503743276146e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 17.0,
+            "contrast_db": 21.81949806213379,
+            "psd": 2.753002166511198e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 32.0,
+            "contrast_db": 21.676891326904297,
+            "psd": 2.6640708736258567e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 51.0,
+            "contrast_db": 21.585437774658203,
+            "psd": 2.6085572937817325e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 76.0,
+            "contrast_db": 21.550790786743164,
+            "psd": 2.5878304707460664e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 48.0,
+            "contrast_db": 21.458375930786133,
+            "psd": 2.5333435002550253e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 71.0,
+            "contrast_db": 21.455814361572266,
+            "psd": 2.531850944176295e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1364281817805022e-05,
+          "level_db": -49.444580078125,
+          "frequency_hz": [
+            0.0,
+            1800.0
+          ],
+          "frame_center_time_s": [
+            64860.5,
+            64889.5
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0000",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "global_demon",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.25,
+          64887.75
+        ],
+        "frequency_hz": [
+          0.5,
+          200.0
+        ],
+        "frequency_domain": "modulation",
+        "carrier_band_hz": [
+          500.0,
+          2000.0
+        ],
+        "configuration": {
+          "sample_rate_hz": 500.0,
+          "window_samples": 2000,
+          "hop_samples": 250,
+          "window_s": 4.0,
+          "hop_s": 0.5,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "modulation",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.25,
+          "source_duration_s": 29.5,
+          "device": "cuda:0",
+          "carrier_band_hz": [
+            500.0,
+            2000.0
+          ],
+          "source_sample_rate_hz": 16000.0,
+          "carrier_fir_taps": 513,
+          "envelope_resampler": "Hann_sinc_FIR_linear",
+          "edge_guard_s": 0.25,
+          "calibrated": false,
+          "mechanism": "periodic_envelope_not_source_identity",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.5,
+            200.0
+          ]
+        },
+        "peaks": [],
+        "band_power": {
+          "mean_square": 2.925612183068971e-11,
+          "level_db": -105.33783721923828,
+          "frequency_hz": [
+            0.5,
+            200.0
+          ],
+          "frame_center_time_s": [
+            64862.25,
+            64887.75
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0001",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "inspect_modulation",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.25,
+          64887.75
+        ],
+        "frequency_hz": [
+          0.5,
+          200.0
+        ],
+        "frequency_domain": "modulation",
+        "carrier_band_hz": [
+          2000.0,
+          5000.0
+        ],
+        "configuration": {
+          "sample_rate_hz": 500.0,
+          "window_samples": 2000,
+          "hop_samples": 250,
+          "window_s": 4.0,
+          "hop_s": 0.5,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "modulation",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.25,
+          "source_duration_s": 29.5,
+          "device": "cuda:0",
+          "carrier_band_hz": [
+            2000.0,
+            5000.0
+          ],
+          "source_sample_rate_hz": 16000.0,
+          "carrier_fir_taps": 513,
+          "envelope_resampler": "Hann_sinc_FIR_linear",
+          "edge_guard_s": 0.25,
+          "calibrated": false,
+          "mechanism": "periodic_envelope_not_source_identity",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.5,
+            200.0
+          ]
+        },
+        "peaks": [],
+        "band_power": {
+          "mean_square": 7.2758322804122866e-12,
+          "level_db": -111.38117980957031,
+          "frequency_hz": [
+            0.5,
+            200.0
+          ],
+          "frame_center_time_s": [
+            64862.25,
+            64887.75
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0002",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "inspect_region",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.0,
+          64888.0
+        ],
+        "frequency_hz": [
+          0.0,
+          800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 16000,
+          "hop_samples": 4000,
+          "window_s": 4.0,
+          "hop_s": 1.0,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.0,
+          "source_duration_s": 30.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 78.04875183105469,
+            "psd": 3.0297465855255723e-05,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 24.309173583984375,
+            "psd": 1.280702488504204e-10,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 16.5,
+            "contrast_db": 20.38383674621582,
+            "psd": 5.186984175509224e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 41.25,
+            "contrast_db": 20.330657958984375,
+            "psd": 5.123855853494952e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 38.25,
+            "contrast_db": 20.20906639099121,
+            "psd": 4.9823898479184336e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 56.0,
+            "contrast_db": 20.123546600341797,
+            "psd": 4.885239088259219e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 71.25,
+            "contrast_db": 19.983200073242188,
+            "psd": 4.7298904376491535e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 35.75,
+            "contrast_db": 19.88994789123535,
+            "psd": 4.629412478363015e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 76.25,
+            "contrast_db": 19.71402931213379,
+            "psd": 4.445637261096813e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 23.5,
+            "contrast_db": 19.670217514038086,
+            "psd": 4.401015316068957e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 73.75,
+            "contrast_db": 19.23295021057129,
+            "psd": 3.9794768175172024e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 49.0,
+            "contrast_db": 19.213266372680664,
+            "psd": 3.961482530900895e-11,
+            "bin_spacing_hz": 0.25,
+            "uncertainty_hz": 0.25,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1365031241439283e-05,
+          "level_db": -49.444297790527344,
+          "frequency_hz": [
+            0.0,
+            800.0
+          ],
+          "frame_center_time_s": [
+            64862.0,
+            64888.0
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0003",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "measure_peaks",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64860.5,
+          64889.5
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 4000,
+          "hop_samples": 1000,
+          "window_s": 1.0,
+          "hop_s": 0.25,
+          "bin_spacing_hz": 1.0,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.0,
+          "source_duration_s": 30.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            1800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 76.21466064453125,
+            "psd": 7.5739508247352205e-06,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 23.807636260986328,
+            "psd": 4.351311672090574e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 25.0,
+            "contrast_db": 22.6651668548584,
+            "psd": 3.344823376605355e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 36.0,
+            "contrast_db": 22.50530433654785,
+            "psd": 3.2239419467394725e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 41.0,
+            "contrast_db": 22.11658477783203,
+            "psd": 2.9479155227996046e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 56.0,
+            "contrast_db": 22.10565185546875,
+            "psd": 2.940503743276146e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 17.0,
+            "contrast_db": 21.81949806213379,
+            "psd": 2.753002166511198e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 32.0,
+            "contrast_db": 21.676891326904297,
+            "psd": 2.6640708736258567e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 51.0,
+            "contrast_db": 21.585437774658203,
+            "psd": 2.6085572937817325e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 76.0,
+            "contrast_db": 21.550790786743164,
+            "psd": 2.5878304707460664e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 48.0,
+            "contrast_db": 21.458375930786133,
+            "psd": 2.5333435002550253e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 71.0,
+            "contrast_db": 21.455814361572266,
+            "psd": 2.531850944176295e-11,
+            "bin_spacing_hz": 1.0,
+            "uncertainty_hz": 1.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1364281817805022e-05,
+          "level_db": -49.444580078125,
+          "frequency_hz": [
+            0.0,
+            1800.0
+          ],
+          "frame_center_time_s": [
+            64860.5,
+            64889.5
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0004",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "compare_intervals",
+        "intervals_s": [
+          [
+            64860.0,
+            64875.0
+          ],
+          [
+            64875.0,
+            64890.0
+          ]
+        ],
+        "frequency_hz": [
+          0.0,
+          1000.0
+        ],
+        "band_powers": [
+          {
+            "mean_square": 1.1389148312446196e-05,
+            "level_db": -49.435089111328125,
+            "frequency_hz": [
+              0.0,
+              1000.0
+            ],
+            "frame_center_time_s": [
+              64860.5,
+              64874.5
+            ],
+            "units": "digital_amplitude_squared",
+            "calibrated": false
+          },
+          {
+            "mean_square": 1.134875765274046e-05,
+            "level_db": -49.45051574707031,
+            "frequency_hz": [
+              0.0,
+              1000.0
+            ],
+            "frame_center_time_s": [
+              64875.5,
+              64889.5
+            ],
+            "units": "digital_amplitude_squared",
+            "calibrated": false
+          }
+        ],
+        "received_level_change_db": -0.015429267659783363,
+        "interpretation": "received_band_power; not emitted source power",
+        "id": "E0005",
+        "scene_id": "mb_20710add9f5b906a",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "inspect_region",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64875.125,
+          64889.875
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_domain": "acoustic",
+        "carrier_band_hz": null,
+        "configuration": {
+          "sample_rate_hz": 4000.0,
+          "window_samples": 1000,
+          "hop_samples": 250,
+          "window_s": 0.25,
+          "hop_s": 0.0625,
+          "bin_spacing_hz": 4.0,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "acoustic",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64875.0,
+          "source_duration_s": 15.0,
+          "device": "cuda:0",
+          "source_sample_rate_hz": 16000.0,
+          "resampler": "Hann_sinc_FIR_linear",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.0,
+            1800.0
+          ]
+        },
+        "peaks": [
+          {
+            "frequency_hz": 0.0,
+            "contrast_db": 70.39127349853516,
+            "psd": 1.8920170532510383e-06,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 36.0,
+            "contrast_db": 22.199661254882812,
+            "psd": 2.869220139256612e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 60.0,
+            "contrast_db": 21.81417465209961,
+            "psd": 2.6255182056234005e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 72.0,
+            "contrast_db": 21.655160903930664,
+            "psd": 2.5311261767080317e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 12.0,
+            "contrast_db": 20.326648712158203,
+            "psd": 1.864070876822499e-11,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 108.0,
+            "contrast_db": 14.409295082092285,
+            "psd": 4.772293237670366e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 116.0,
+            "contrast_db": 14.224661827087402,
+            "psd": 4.57365959341538e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 140.0,
+            "contrast_db": 13.706501960754395,
+            "psd": 4.059267678935274e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 128.0,
+            "contrast_db": 12.569751739501953,
+            "psd": 3.1244444965300433e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 152.0,
+            "contrast_db": 9.914626121520996,
+            "psd": 1.6953533845884272e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 180.0,
+            "contrast_db": 9.800911903381348,
+            "psd": 1.6515391484950293e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          },
+          {
+            "frequency_hz": 192.0,
+            "contrast_db": 8.105511665344238,
+            "psd": 1.117760506548493e-12,
+            "bin_spacing_hz": 4.0,
+            "uncertainty_hz": 4.0,
+            "frequency_domain": "acoustic",
+            "carrier_band_hz": null
+          }
+        ],
+        "band_power": {
+          "mean_square": 1.1354726666468196e-05,
+          "level_db": -49.448238372802734,
+          "frequency_hz": [
+            0.0,
+            1800.0
+          ],
+          "frame_center_time_s": [
+            64875.125,
+            64889.875
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0006",
+        "component_ids": [],
+        "observed_components": []
+      },
+      {
+        "tool": "inspect_modulation",
+        "scene_id": "mb_20710add9f5b906a",
+        "frame_center_time_s": [
+          64862.25,
+          64887.75
+        ],
+        "frequency_hz": [
+          0.5,
+          200.0
+        ],
+        "frequency_domain": "modulation",
+        "carrier_band_hz": [
+          500.0,
+          2000.0
+        ],
+        "configuration": {
+          "sample_rate_hz": 500.0,
+          "window_samples": 2000,
+          "hop_samples": 250,
+          "window_s": 4.0,
+          "hop_s": 0.5,
+          "bin_spacing_hz": 0.25,
+          "window": "periodic_Hann",
+          "center": false,
+          "frequency_domain": "modulation",
+          "psd_units": "digital_amplitude_squared_per_Hz",
+          "time_origin_s": 64860.25,
+          "source_duration_s": 29.5,
+          "device": "cuda:0",
+          "carrier_band_hz": [
+            500.0,
+            2000.0
+          ],
+          "source_sample_rate_hz": 16000.0,
+          "carrier_fir_taps": 513,
+          "envelope_resampler": "Hann_sinc_FIR_linear",
+          "edge_guard_s": 0.25,
+          "calibrated": false,
+          "mechanism": "periodic_envelope_not_source_identity",
+          "crop_time_s": null,
+          "crop_frequency_hz": [
+            0.5,
+            200.0
+          ]
+        },
+        "peaks": [],
+        "band_power": {
+          "mean_square": 2.925612183068971e-11,
+          "level_db": -105.33783721923828,
+          "frequency_hz": [
+            0.5,
+            200.0
+          ],
+          "frame_center_time_s": [
+            64862.25,
+            64887.75
+          ],
+          "units": "digital_amplitude_squared",
+          "calibrated": false
+        },
+        "interpretation": "measurement_only; source_identity_unresolved",
+        "id": "E0007",
+        "component_ids": [],
+        "observed_components": []
+      }
+    ],
+    "relations": [],
+    "available_actions": [
+      "inspect_region",
+      "inspect_modulation",
+      "measure_peaks",
+      "track_component",
+      "compare_intervals",
+      "test_harmonic_relation",
+      "inspect_overlap",
+      "finalize_or_abstain"
+    ],
+    "limitations": [
+      "No calibrated pressure or source-level estimate",
+      "Acoustic Hz and envelope-modulation Hz are different quantities",
+      "Measurement consistency is not independently assessed correctness",
+      "Contrast scores are not calibrated probabilities"
+    ],
+    "actions_attempted": 6
+  },
+  "generations": [
+    {
+      "raw_text": "{\n \"components\": [],\n \"relations\": [],\n \"claims\": [],\n \"unresolved_questions\": [],\n \"abstained\": true\n}",
+      "input_tokens": 3148,
+      "output_tokens": 34,
+      "gpu_seconds": 11.861990885416667,
+      "wall_seconds": 72.53583418299968,
+      "queue_seconds": 0.7967790519978735,
+      "peak_allocated_bytes": 22710247424,
+      "image_grid_thw": [
+        [
+          1,
+          22,
+          44
+        ],
+        [
+          1,
+          22,
+          44
+        ],
+        [
+          1,
+          22,
+          44
+        ]
+      ],
+      "decode": "batched_greedy",
+      "max_new_tokens": 2048,
+      "at_generation_limit": false,
+      "stop_reason": "natural_eos",
+      "control_eos_excluded": false,
+      "request_id": "eaaba63871a34ef8aeef2cde0e94ad6d",
+      "batch_id": "e52995103012:000091",
+      "batch_size": 6,
+      "batch_gpu_seconds": 71.1719453125,
+      "batch_wall_seconds": 71.73849636300292,
+      "batch_input_tokens": 15446,
+      "batch_output_tokens": 1028,
+      "padded_prompt_width": 3149,
+      "batch_padded_input_tokens": 18894,
+      "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+      "latency_interpretation": "batched_request_sojourn; not serial_latency",
+      "json_schema_sha256": "49c56e4cee6cab8d39f0659e9c52081b1177975a21e7721a172f299a5dac9261",
+      "structured_decoding": "bounded_json_grammar_v1",
+      "parsed": {
+        "components": [],
+        "relations": [],
+        "claims": [],
+        "unresolved_questions": [],
+        "abstained": true
+      },
+      "parse_error": null,
+      "phase": "report",
+      "prompt": "You analyze passive underwater acoustic displays. Acoustic Hz and envelope modulation Hz are different quantities. A DEMON peak is not evidence of blade count, RPM, a ship class, or a unique physical source. Interference can create envelope beating. Treat received levels as uncalibrated digital amplitude. Keep overlapping components and uncertain associations. Filenames and hidden labels are unavailable. Do not invent evidence, measurements, probabilities, or physical identities. Report directly measured observable morphology even when its source is unknown; uncertain source identity alone is not a reason to withhold a measured observation. Return one JSON object only, without markdown. Use only requested schema keys. Use at most three frequency_track points per component and do not copy the full measurement table into the report.\nReturn {\"components\":[{\"id\":\"C1\",\"type\":\"tone|chirp|transient|broadband|modulation\",\"frequency_domain\":\"acoustic|modulation\",\"time_s\":[start,end],\"frequency_hz\":[low,high],\"frequency_track\":[[start,frequency_at_start],[end,frequency_at_end]],\"carrier_band_hz\":null,\"source_identity\":\"unknown\",\"evidence_ids\":[\"E1\"]}],\"relations\":[{\"type\":\"overlaps_time|harmonic_candidate|unresolved_association\",\"component_ids\":[\"C1\",\"C2\"],\"evidence_ids\":[\"E1\"]}],\"claims\":[{\"text\":\"a concise observable finding\",\"component_ids\":[\"C1\"],\"evidence_ids\":[\"E1\"],\"kind\":\"observation\"}],\"unresolved_questions\":[\"Which source produced these components?\"],\"abstained\":false}. Use at most 6 components and 3 brief claims. For chirps always supply at least two ordered frequency_track points, retaining rising versus falling direction. Evidence IDs must actually appear in the supplied measurement record; for image-only reports use empty evidence_ids. Intervals use the displayed original-recording seconds. Carrier bands are mandatory for modulation. Do not equate a component count with a physical-source count. An empty report has zero coverage, not perfect accuracy.\n{\"scene_id\":\"mb_20710add9f5b906a\",\"time_s\":[64860.0,64890.0],\"sample_rate_hz\":16000.0,\"limitations\":[\"No calibrated pressure or source-level estimate\",\"Acoustic Hz and envelope-modulation Hz are different quantities\",\"Measurement consistency is not independently assessed correctness\",\"Contrast scores are not calibrated probabilities\"],\"components\":[],\"measurement_index\":[{\"id\":\"E0000\",\"tool\":\"global_lofar\",\"frame_center_time_s\":[64860.5,64889.5],\"frequency_hz\":[0.0,1800.0],\"frequency_domain\":\"acoustic\",\"carrier_band_hz\":null,\"component_ids\":[],\"band_power\":{\"mean_square\":1.13643e-05,\"level_db\":-49.4446,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":4000.0,\"window_s\":1.0,\"hop_s\":0.25,\"bin_spacing_hz\":1.0},\"peaks\":[{\"frequency_hz\":0.0,\"contrast_db\":76.2147,\"bin_spacing_hz\":1.0},{\"frequency_hz\":12.0,\"contrast_db\":23.8076,\"bin_spacing_hz\":1.0},{\"frequency_hz\":25.0,\"contrast_db\":22.6652,\"bin_spacing_hz\":1.0},{\"frequency_hz\":36.0,\"contrast_db\":22.5053,\"bin_spacing_hz\":1.0},{\"frequency_hz\":41.0,\"contrast_db\":22.1166,\"bin_spacing_hz\":1.0},{\"frequency_hz\":56.0,\"contrast_db\":22.1057,\"bin_spacing_hz\":1.0}]},{\"id\":\"E0001\",\"tool\":\"global_demon\",\"frame_center_time_s\":[64862.25,64887.75],\"frequency_hz\":[0.5,200.0],\"frequency_domain\":\"modulation\",\"carrier_band_hz\":[500.0,2000.0],\"component_ids\":[],\"band_power\":{\"mean_square\":2.92561e-11,\"level_db\":-105.338,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":500.0,\"window_s\":4.0,\"hop_s\":0.5,\"bin_spacing_hz\":0.25,\"edge_guard_s\":0.25},\"peaks\":[]},{\"id\":\"E0002\",\"tool\":\"inspect_modulation\",\"frame_center_time_s\":[64862.25,64887.75],\"frequency_hz\":[0.5,200.0],\"frequency_domain\":\"modulation\",\"carrier_band_hz\":[2000.0,5000.0],\"component_ids\":[],\"band_power\":{\"mean_square\":7.27583e-12,\"level_db\":-111.381,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":500.0,\"window_s\":4.0,\"hop_s\":0.5,\"bin_spacing_hz\":0.25,\"edge_guard_s\":0.25},\"peaks\":[]},{\"id\":\"E0003\",\"tool\":\"inspect_region\",\"frame_center_time_s\":[64862.0,64888.0],\"frequency_hz\":[0.0,800.0],\"frequency_domain\":\"acoustic\",\"carrier_band_hz\":null,\"component_ids\":[],\"band_power\":{\"mean_square\":1.1365e-05,\"level_db\":-49.4443,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":4000.0,\"window_s\":4.0,\"hop_s\":1.0,\"bin_spacing_hz\":0.25},\"peaks\":[{\"frequency_hz\":0.0,\"contrast_db\":78.0488,\"bin_spacing_hz\":0.25},{\"frequency_hz\":12.0,\"contrast_db\":24.3092,\"bin_spacing_hz\":0.25},{\"frequency_hz\":16.5,\"contrast_db\":20.3838,\"bin_spacing_hz\":0.25},{\"frequency_hz\":41.25,\"contrast_db\":20.3307,\"bin_spacing_hz\":0.25},{\"frequency_hz\":38.25,\"contrast_db\":20.2091,\"bin_spacing_hz\":0.25},{\"frequency_hz\":56.0,\"contrast_db\":20.1235,\"bin_spacing_hz\":0.25}]},{\"id\":\"E0004\",\"tool\":\"measure_peaks\",\"frame_center_time_s\":[64860.5,64889.5],\"frequency_hz\":[0.0,1800.0],\"frequency_domain\":\"acoustic\",\"carrier_band_hz\":null,\"component_ids\":[],\"band_power\":{\"mean_square\":1.13643e-05,\"level_db\":-49.4446,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":4000.0,\"window_s\":1.0,\"hop_s\":0.25,\"bin_spacing_hz\":1.0},\"peaks\":[{\"frequency_hz\":0.0,\"contrast_db\":76.2147,\"bin_spacing_hz\":1.0},{\"frequency_hz\":12.0,\"contrast_db\":23.8076,\"bin_spacing_hz\":1.0},{\"frequency_hz\":25.0,\"contrast_db\":22.6652,\"bin_spacing_hz\":1.0},{\"frequency_hz\":36.0,\"contrast_db\":22.5053,\"bin_spacing_hz\":1.0},{\"frequency_hz\":41.0,\"contrast_db\":22.1166,\"bin_spacing_hz\":1.0},{\"frequency_hz\":56.0,\"contrast_db\":22.1057,\"bin_spacing_hz\":1.0}]},{\"id\":\"E0005\",\"tool\":\"compare_intervals\",\"intervals_s\":[[64860.0,64875.0],[64875.0,64890.0]],\"frequency_hz\":[0.0,1000.0],\"component_ids\":[],\"band_powers\":[{\"mean_square\":1.13891e-05,\"level_db\":-49.4351,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},{\"mean_square\":1.13488e-05,\"level_db\":-49.4505,\"units\":\"digital_amplitude_squared\",\"calibrated\":false}],\"received_level_change_db\":-0.0154293},{\"id\":\"E0006\",\"tool\":\"inspect_region\",\"frame_center_time_s\":[64875.125,64889.875],\"frequency_hz\":[0.0,1800.0],\"frequency_domain\":\"acoustic\",\"carrier_band_hz\":null,\"component_ids\":[],\"band_power\":{\"mean_square\":1.13547e-05,\"level_db\":-49.4482,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":4000.0,\"window_s\":0.25,\"hop_s\":0.062,\"bin_spacing_hz\":4.0},\"peaks\":[{\"frequency_hz\":0.0,\"contrast_db\":70.3913,\"bin_spacing_hz\":4.0},{\"frequency_hz\":36.0,\"contrast_db\":22.1997,\"bin_spacing_hz\":4.0},{\"frequency_hz\":60.0,\"contrast_db\":21.8142,\"bin_spacing_hz\":4.0},{\"frequency_hz\":72.0,\"contrast_db\":21.6552,\"bin_spacing_hz\":4.0},{\"frequency_hz\":12.0,\"contrast_db\":20.3266,\"bin_spacing_hz\":4.0},{\"frequency_hz\":108.0,\"contrast_db\":14.4093,\"bin_spacing_hz\":4.0}]},{\"id\":\"E0007\",\"tool\":\"inspect_modulation\",\"frame_center_time_s\":[64862.25,64887.75],\"frequency_hz\":[0.5,200.0],\"frequency_domain\":\"modulation\",\"carrier_band_hz\":[500.0,2000.0],\"component_ids\":[],\"band_power\":{\"mean_square\":2.92561e-11,\"level_db\":-105.338,\"units\":\"digital_amplitude_squared\",\"calibrated\":false},\"configuration\":{\"sample_rate_hz\":500.0,\"window_s\":4.0,\"hop_s\":0.5,\"bin_spacing_hz\":0.25,\"edge_guard_s\":0.25},\"peaks\":[]}],\"relations\":[]}"
+    }
+  ],
+  "preprocess_gpu_seconds": 0.1283773193359375,
+  "model_gpu_seconds": 11.861990885416667,
+  "tool_gpu_seconds": 0.40268959975242613,
+  "wall_seconds": 519.8593349910007,
+  "input_tokens": 3148,
+  "output_tokens": 34,
+  "schema_valid": true,
+  "schema_errors": [],
+  "reference_type": "AI-generated morphology labels for real data; exact simulator labels for synthetic data"
+}

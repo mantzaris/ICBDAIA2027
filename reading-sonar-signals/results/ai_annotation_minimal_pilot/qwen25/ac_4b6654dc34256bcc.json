@@ -1,0 +1,71 @@
+{
+  "scene_id": "ac_4b6654dc34256bcc",
+  "prompt": "Inspect this acoustic spectrogram. Time is horizontal in seconds; acoustic frequency is vertical in Hz.\n\nFind bright thin horizontal or diagonal lines, distinct from the speckled background.\nIgnore the speckled background and do not label the whole image as an event.\nRead the visible axes to estimate each line's starting/ending time and frequency.\nReturn ONLY a JSON object with one key named events. Its value is a list of at most six arrays.\nEach array contains four measured numbers followed by one type string, in this order:\nstarting time, ending time, starting frequency, ending frequency, type.\nReturn an empty list when no bright persistent line is visible. Do not discuss sources.\nThe type string is tone for a horizontal line, or chirp for a sloping line.\n",
+  "generation": {
+    "raw_text": "```json\n[\n  []\n]\n```",
+    "input_tokens": 477,
+    "output_tokens": 9,
+    "gpu_seconds": 0.5714696044921875,
+    "wall_seconds": 0.7792983030003597,
+    "peak_allocated_bytes": 7583319552,
+    "max_new_tokens": 512,
+    "at_generation_limit": false,
+    "decode": "greedy",
+    "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "device_audit": {
+      "all_parameters_cuda": true,
+      "all_buffers_cuda": true,
+      "dtype": "bfloat16",
+      "hf_device_map": {
+        "": "cuda:0"
+      },
+      "parameter_count": 3754622976
+    },
+    "input_tensor_shapes": {
+      "input_ids": [
+        1,
+        477
+      ],
+      "attention_mask": [
+        1,
+        477
+      ],
+      "pixel_values": [
+        1200,
+        1176
+      ],
+      "image_grid_thw": [
+        1,
+        3
+      ]
+    },
+    "parsed": null,
+    "parse_error": "Model output contains no JSON object"
+  },
+  "events": [],
+  "errors": [],
+  "metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 2,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matches": [],
+    "matching_algorithm": "greedy_descending_quality",
+    "exhaustive": true
+  },
+  "display_scale": {
+    "policy": "peak_60db",
+    "vmin_db": -75.19736671447754,
+    "vmax_db": -15.197366714477539,
+    "constant_view": false,
+    "raw_psd_unchanged": true,
+    "scale_numeric_device": "cuda:0",
+    "display_frequency_bin_width_hz": 5.002777777777778,
+    "display_aggregation": "GPU_frequency_max_pool"
+  },
+  "scope": "training calibration only; no real/test labels",
+  "localization_tolerance": "max(4 Hz, two displayed frequency bins); exact errors retained in matches"
+}

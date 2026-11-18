@@ -1,0 +1,4985 @@
+{
+  "evaluated_at": "2026-11-17T14:39:04.853345+00:00",
+  "status": "complete_evaluation",
+  "run": "/workspace/reading-sonar-signals/results/main",
+  "run_configuration_sha256": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+  "manifest_sha256": "3c0d0527a0aec2fcff1b2197bbcec7a30693c4f19c06b3ba0f2657f4e4128bc2",
+  "metrics_code_sha256": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+  "evaluator_code_sha256": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+  "reference_source": "results/ai_annotations/diagnostic_internvl4b.jsonl",
+  "reference_source_sha256": "6f2549bb83c8318c8a219c89a274bd1c522076d68fcaab311115fc876fcdbae7",
+  "device": "NVIDIA RTX 6000 Ada Generation",
+  "numerical_execution": "cuda_only",
+  "methods": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "F"
+  ],
+  "results": {
+    "real": {
+      "all": {
+        "G1": {
+          "expected_episodes": 90,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 90,
+          "partial_reference_diagnostic_episodes": 90,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 454,
+            "fn": 14,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 90
+          },
+          "independent_groups": 69,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 14,
+            "declared_abstention": 14,
+            "source_identity_assertions": 0,
+            "reported_component_count": 456,
+            "valid_component_count": 456,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 90,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.8444444537162781,
+          "duplicate_candidates": 168,
+          "compute": {
+            "wall_seconds": {
+              "total": 20685.016412722012,
+              "mean_per_expected_episode": 229.83351569691126,
+              "median": 201.69663425600083,
+              "p95": 445.91462962685233
+            },
+            "preprocess_gpu_seconds": {
+              "total": 13.373132926940919,
+              "mean_per_expected_episode": 0.1485903658548991,
+              "median": 0.11347824096679687,
+              "p95": 0.24794192657470698
+            },
+            "model_gpu_seconds": {
+              "total": 1886.7104547665551,
+              "mean_per_expected_episode": 20.96344949740617,
+              "median": 16.697187500000002,
+              "p95": 41.757556171874995
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 68110.0,
+              "mean_per_expected_episode": 756.7777777777778,
+              "median": 758.0,
+              "p95": 761.0
+            },
+            "output_tokens": {
+              "total": 48524.0,
+              "mean_per_expected_episode": 539.1555555555556,
+              "median": 621.0,
+              "p95": 687.65
+            },
+            "cuda_event_seconds": {
+              "total": 1900.083587693496,
+              "mean_per_expected_episode": 21.112039863261067
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G2": {
+          "expected_episodes": 90,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 90,
+          "partial_reference_diagnostic_episodes": 90,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 226,
+            "fn": 13,
+            "precision": 0.0044052861630916595,
+            "recall": 0.0714285746216774,
+            "f1": 0.008298755623400211,
+            "scenes": 90
+          },
+          "independent_groups": 69,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 43,
+            "declared_abstention": 43,
+            "source_identity_assertions": 0,
+            "reported_component_count": 227,
+            "valid_component_count": 227,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 90,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5222222208976746,
+          "duplicate_candidates": 9,
+          "compute": {
+            "wall_seconds": {
+              "total": 21178.32760841301,
+              "mean_per_expected_episode": 235.314751204589,
+              "median": 216.89150727000015,
+              "p95": 456.7640380566492
+            },
+            "preprocess_gpu_seconds": {
+              "total": 15.021725372314453,
+              "mean_per_expected_episode": 0.16690805969238282,
+              "median": 0.13808546447753905,
+              "p95": 0.2677304306030273
+            },
+            "model_gpu_seconds": {
+              "total": 1934.3168848167784,
+              "mean_per_expected_episode": 21.49240983129754,
+              "median": 17.417484375,
+              "p95": 43.8441323046875
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 211403.0,
+              "mean_per_expected_episode": 2348.9222222222224,
+              "median": 1997.0,
+              "p95": 5053.45
+            },
+            "output_tokens": {
+              "total": 35534.0,
+              "mean_per_expected_episode": 394.82222222222225,
+              "median": 602.0,
+              "p95": 928.4499999999999
+            },
+            "cuda_event_seconds": {
+              "total": 1949.3386101890928,
+              "mean_per_expected_episode": 21.65931789098992
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G3": {
+          "expected_episodes": 90,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 90,
+          "partial_reference_diagnostic_episodes": 90,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 228,
+            "fn": 13,
+            "precision": 0.0043668122962117195,
+            "recall": 0.0714285746216774,
+            "f1": 0.008230452425777912,
+            "scenes": 90
+          },
+          "independent_groups": 69,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 46,
+            "declared_abstention": 46,
+            "source_identity_assertions": 0,
+            "reported_component_count": 231,
+            "valid_component_count": 231,
+            "actions_attempted": 540,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 90,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.48888885974884033,
+          "duplicate_candidates": 6,
+          "compute": {
+            "wall_seconds": {
+              "total": 83349.87690508501,
+              "mean_per_expected_episode": 926.1097433898335,
+              "median": 950.7561198090007,
+              "p95": 1293.85863379325
+            },
+            "preprocess_gpu_seconds": {
+              "total": 16.264992195129395,
+              "mean_per_expected_episode": 0.18072213550143773,
+              "median": 0.14992127990722656,
+              "p95": 0.2896024261474609
+            },
+            "model_gpu_seconds": {
+              "total": 2083.796868166388,
+              "mean_per_expected_episode": 23.15329853518209,
+              "median": 19.124115624999998,
+              "p95": 45.64211333333333
+            },
+            "tool_gpu_seconds": {
+              "total": 61.348847595095634,
+              "mean_per_expected_episode": 0.6816538621677293,
+              "median": 0.6581183471679688,
+              "p95": 1.0840823826789856
+            },
+            "input_tokens": {
+              "total": 499192.0,
+              "mean_per_expected_episode": 5546.577777777778,
+              "median": 6128.0,
+              "p95": 7650.65
+            },
+            "output_tokens": {
+              "total": 47819.0,
+              "mean_per_expected_episode": 531.3222222222222,
+              "median": 648.0,
+              "p95": 1426.1
+            },
+            "cuda_event_seconds": {
+              "total": 2161.410707956613,
+              "mean_per_expected_episode": 24.015674532851257
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G4": {
+          "expected_episodes": 90,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 90,
+          "partial_reference_diagnostic_episodes": 90,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 259,
+            "fn": 13,
+            "precision": 0.003846153849735856,
+            "recall": 0.0714285746216774,
+            "f1": 0.007299270015209913,
+            "scenes": 90
+          },
+          "independent_groups": 69,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 42,
+            "declared_abstention": 42,
+            "source_identity_assertions": 0,
+            "reported_component_count": 262,
+            "valid_component_count": 262,
+            "actions_attempted": 540,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 90,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5333333015441895,
+          "duplicate_candidates": 11,
+          "compute": {
+            "wall_seconds": {
+              "total": 69798.484249767,
+              "mean_per_expected_episode": 775.5387138863001,
+              "median": 745.4328413600015,
+              "p95": 1252.9476760898526
+            },
+            "preprocess_gpu_seconds": {
+              "total": 14.949970222473144,
+              "mean_per_expected_episode": 0.1661107802497016,
+              "median": 0.1435075225830078,
+              "p95": 0.27836883392333983
+            },
+            "model_gpu_seconds": {
+              "total": 2397.450647412109,
+              "mean_per_expected_episode": 26.638340526801212,
+              "median": 22.342265625,
+              "p95": 49.3478625
+            },
+            "tool_gpu_seconds": {
+              "total": 56.392359168291094,
+              "mean_per_expected_episode": 0.6265817685365678,
+              "median": 0.5539972852468491,
+              "p95": 1.1871413441538807
+            },
+            "input_tokens": {
+              "total": 484356.0,
+              "mean_per_expected_episode": 5381.733333333334,
+              "median": 5753.0,
+              "p95": 7486.0
+            },
+            "output_tokens": {
+              "total": 61591.0,
+              "mean_per_expected_episode": 684.3444444444444,
+              "median": 704.0,
+              "p95": 1537.3999999999999
+            },
+            "cuda_event_seconds": {
+              "total": 2468.7929768028735,
+              "mean_per_expected_episode": 27.431033075587482
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "F": {
+          "expected_episodes": 90,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 90,
+          "partial_reference_diagnostic_episodes": 90,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 274,
+            "fn": 13,
+            "precision": 0.003636363660916686,
+            "recall": 0.0714285746216774,
+            "f1": 0.0069204154424369335,
+            "scenes": 90
+          },
+          "independent_groups": 69,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 39,
+            "declared_abstention": 39,
+            "source_identity_assertions": 0,
+            "reported_component_count": 275,
+            "valid_component_count": 275,
+            "actions_attempted": 540,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 90,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5666666626930237,
+          "duplicate_candidates": 11,
+          "compute": {
+            "wall_seconds": {
+              "total": 123019.15835027801,
+              "mean_per_expected_episode": 1366.8795372253112,
+              "median": 1403.1183895930008,
+              "p95": 1779.0391072234509
+            },
+            "preprocess_gpu_seconds": {
+              "total": 16.454042556762694,
+              "mean_per_expected_episode": 0.18282269507514104,
+              "median": 0.153691650390625,
+              "p95": 0.3002508728027344
+            },
+            "model_gpu_seconds": {
+              "total": 11195.36757546038,
+              "mean_per_expected_episode": 124.39297306067088,
+              "median": 124.37645776367188,
+              "p95": 170.2068210574777
+            },
+            "tool_gpu_seconds": {
+              "total": 58.549042204022406,
+              "mean_per_expected_episode": 0.6505449133780268,
+              "median": 0.6293290882110596,
+              "p95": 0.9897413330316542
+            },
+            "input_tokens": {
+              "total": 2960038.0,
+              "mean_per_expected_episode": 32889.311111111114,
+              "median": 35222.0,
+              "p95": 46873.5
+            },
+            "output_tokens": {
+              "total": 71368.0,
+              "mean_per_expected_episode": 792.9777777777778,
+              "median": 888.0,
+              "p95": 1671.95
+            },
+            "cuda_event_seconds": {
+              "total": 11270.370660221164,
+              "mean_per_expected_episode": 125.22634066912406
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        }
+      },
+      "deepship": {
+        "G1": {
+          "expected_episodes": 30,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 30,
+          "partial_reference_diagnostic_episodes": 30,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 180,
+            "fn": 12,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 30
+          },
+          "independent_groups": 9,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 0,
+            "declared_abstention": 0,
+            "source_identity_assertions": 0,
+            "reported_component_count": 180,
+            "valid_component_count": 180,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 30,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 1.0,
+          "duplicate_candidates": 82,
+          "compute": {
+            "wall_seconds": {
+              "total": 6023.241340369996,
+              "mean_per_expected_episode": 200.77471134566653,
+              "median": 183.63626867799758,
+              "p95": 342.9801445074486
+            },
+            "preprocess_gpu_seconds": {
+              "total": 4.7225411529541015,
+              "mean_per_expected_episode": 0.15741803843180338,
+              "median": 0.12082438659667968,
+              "p95": 0.25435132827758783
+            },
+            "model_gpu_seconds": {
+              "total": 568.5573296688988,
+              "mean_per_expected_episode": 18.95191098896329,
+              "median": 16.068971354166667,
+              "p95": 39.96321940104166
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 22584.0,
+              "mean_per_expected_episode": 752.8,
+              "median": 753.0,
+              "p95": 755.0
+            },
+            "output_tokens": {
+              "total": 17829.0,
+              "mean_per_expected_episode": 594.3,
+              "median": 594.0,
+              "p95": 626.5
+            },
+            "cuda_event_seconds": {
+              "total": 573.2798708218529,
+              "mean_per_expected_episode": 19.1093290273951
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G2": {
+          "expected_episodes": 30,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 30,
+          "partial_reference_diagnostic_episodes": 30,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 113,
+            "fn": 11,
+            "precision": 0.008771929889917374,
+            "recall": 0.0833333358168602,
+            "f1": 0.01587301678955555,
+            "scenes": 30
+          },
+          "independent_groups": 9,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 7,
+            "declared_abstention": 7,
+            "source_identity_assertions": 0,
+            "reported_component_count": 114,
+            "valid_component_count": 114,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 30,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.7666666507720947,
+          "duplicate_candidates": 2,
+          "compute": {
+            "wall_seconds": {
+              "total": 5945.968886889001,
+              "mean_per_expected_episode": 198.19896289630003,
+              "median": 183.91183566499967,
+              "p95": 350.4744552926499
+            },
+            "preprocess_gpu_seconds": {
+              "total": 5.5831577072143554,
+              "mean_per_expected_episode": 0.1861052569071452,
+              "median": 0.16390025329589844,
+              "p95": 0.2919573532104492
+            },
+            "model_gpu_seconds": {
+              "total": 565.9320294735863,
+              "mean_per_expected_episode": 18.864400982452878,
+              "median": 16.978764062499998,
+              "p95": 27.921475572916666
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 85268.0,
+              "mean_per_expected_episode": 2842.2666666666664,
+              "median": 2603.0,
+              "p95": 5053.45
+            },
+            "output_tokens": {
+              "total": 17053.0,
+              "mean_per_expected_episode": 568.4333333333333,
+              "median": 649.0,
+              "p95": 960.5499999999998
+            },
+            "cuda_event_seconds": {
+              "total": 571.5151871808007,
+              "mean_per_expected_episode": 19.050506239360022
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G3": {
+          "expected_episodes": 30,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 30,
+          "partial_reference_diagnostic_episodes": 30,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 70,
+            "fn": 11,
+            "precision": 0.014084506779909134,
+            "recall": 0.0833333358168602,
+            "f1": 0.024096384644508362,
+            "scenes": 30
+          },
+          "independent_groups": 9,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 17,
+            "declared_abstention": 17,
+            "source_identity_assertions": 0,
+            "reported_component_count": 73,
+            "valid_component_count": 73,
+            "actions_attempted": 180,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 30,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.43333327770233154,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 25757.312017748,
+              "mean_per_expected_episode": 858.5770672582667,
+              "median": 896.476827085,
+              "p95": 1133.4831783339996
+            },
+            "preprocess_gpu_seconds": {
+              "total": 5.7443526763916015,
+              "mean_per_expected_episode": 0.19147842254638672,
+              "median": 0.1717211456298828,
+              "p95": 0.2922705963134765
+            },
+            "model_gpu_seconds": {
+              "total": 563.1084191429502,
+              "mean_per_expected_episode": 18.77028063809834,
+              "median": 16.3359482421875,
+              "p95": 38.07691869791667
+            },
+            "tool_gpu_seconds": {
+              "total": 25.0420553188324,
+              "mean_per_expected_episode": 0.8347351772944133,
+              "median": 0.8455424461364747,
+              "p95": 1.190627177619934
+            },
+            "input_tokens": {
+              "total": 205049.0,
+              "mean_per_expected_episode": 6834.966666666666,
+              "median": 7126.0,
+              "p95": 7808.0
+            },
+            "output_tokens": {
+              "total": 10748.0,
+              "mean_per_expected_episode": 358.26666666666665,
+              "median": 41.0,
+              "p95": 1026.85
+            },
+            "cuda_event_seconds": {
+              "total": 593.8948271381742,
+              "mean_per_expected_episode": 19.79649423793914
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G4": {
+          "expected_episodes": 30,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 30,
+          "partial_reference_diagnostic_episodes": 30,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 92,
+            "fn": 11,
+            "precision": 0.01075268816202879,
+            "recall": 0.0833333358168602,
+            "f1": 0.01904761977493763,
+            "scenes": 30
+          },
+          "independent_groups": 9,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 14,
+            "declared_abstention": 14,
+            "source_identity_assertions": 0,
+            "reported_component_count": 95,
+            "valid_component_count": 95,
+            "actions_attempted": 180,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 30,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5333333015441895,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 20164.363552122002,
+              "mean_per_expected_episode": 672.1454517374001,
+              "median": 658.9754128989989,
+              "p95": 1023.4028146847999
+            },
+            "preprocess_gpu_seconds": {
+              "total": 5.2724684066772465,
+              "mean_per_expected_episode": 0.17574894688924156,
+              "median": 0.15147964477539064,
+              "p95": 0.2678386306762695
+            },
+            "model_gpu_seconds": {
+              "total": 692.703651374163,
+              "mean_per_expected_episode": 23.090121712472097,
+              "median": 21.513317708333332,
+              "p95": 41.237580729166666
+            },
+            "tool_gpu_seconds": {
+              "total": 20.537905716061594,
+              "mean_per_expected_episode": 0.6845968572020531,
+              "median": 0.5724927789568901,
+              "p95": 1.541827825146912
+            },
+            "input_tokens": {
+              "total": 194618.0,
+              "mean_per_expected_episode": 6487.266666666666,
+              "median": 6913.0,
+              "p95": 7514.8
+            },
+            "output_tokens": {
+              "total": 15759.0,
+              "mean_per_expected_episode": 525.3,
+              "median": 634.0,
+              "p95": 1327.7499999999998
+            },
+            "cuda_event_seconds": {
+              "total": 718.5140254969017,
+              "mean_per_expected_episode": 23.95046751656339
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "F": {
+          "expected_episodes": 30,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 30,
+          "partial_reference_diagnostic_episodes": 30,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 93,
+            "fn": 11,
+            "precision": 0.010638297535479069,
+            "recall": 0.0833333358168602,
+            "f1": 0.01886792480945587,
+            "scenes": 30
+          },
+          "independent_groups": 9,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 14,
+            "declared_abstention": 14,
+            "source_identity_assertions": 0,
+            "reported_component_count": 94,
+            "valid_component_count": 94,
+            "actions_attempted": 180,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 30,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5333333015441895,
+          "duplicate_candidates": 1,
+          "compute": {
+            "wall_seconds": {
+              "total": 36345.03087581499,
+              "mean_per_expected_episode": 1211.5010291938331,
+              "median": 1191.2997829470005,
+              "p95": 1552.9475525446483
+            },
+            "preprocess_gpu_seconds": {
+              "total": 6.46312116241455,
+              "mean_per_expected_episode": 0.215437372080485,
+              "median": 0.17601225280761718,
+              "p95": 0.3144713973999023
+            },
+            "model_gpu_seconds": {
+              "total": 3454.21674343378,
+              "mean_per_expected_episode": 115.14055811445932,
+              "median": 115.69316783854167,
+              "p95": 160.8151969464983
+            },
+            "tool_gpu_seconds": {
+              "total": 22.36145772266388,
+              "mean_per_expected_episode": 0.745381924088796,
+              "median": 0.6414234838485717,
+              "p95": 1.4973809894561758
+            },
+            "input_tokens": {
+              "total": 1175629.0,
+              "mean_per_expected_episode": 39187.63333333333,
+              "median": 42134.0,
+              "p95": 46532.55
+            },
+            "output_tokens": {
+              "total": 19642.0,
+              "mean_per_expected_episode": 654.7333333333333,
+              "median": 805.0,
+              "p95": 1372.3999999999992
+            },
+            "cuda_event_seconds": {
+              "total": 3483.041322318858,
+              "mean_per_expected_episode": 116.1013774106286
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        }
+      },
+      "mbari": {
+        "G1": {
+          "expected_episodes": 60,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 60,
+          "partial_reference_diagnostic_episodes": 60,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 274,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 60
+          },
+          "independent_groups": 60,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 14,
+            "declared_abstention": 14,
+            "source_identity_assertions": 0,
+            "reported_component_count": 276,
+            "valid_component_count": 276,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 60,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.7666666507720947,
+          "duplicate_candidates": 86,
+          "compute": {
+            "wall_seconds": {
+              "total": 14661.775072352018,
+              "mean_per_expected_episode": 244.36291787253364,
+              "median": 218.47945241100024,
+              "p95": 473.57794617810197
+            },
+            "preprocess_gpu_seconds": {
+              "total": 8.650591773986818,
+              "mean_per_expected_episode": 0.14417652956644697,
+              "median": 0.10700873565673828,
+              "p95": 0.23935726165771481
+            },
+            "model_gpu_seconds": {
+              "total": 1318.1531250976564,
+              "mean_per_expected_episode": 21.969218751627604,
+              "median": 16.87131138392857,
+              "p95": 47.11542819010417
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 45526.0,
+              "mean_per_expected_episode": 758.7666666666667,
+              "median": 759.0,
+              "p95": 761.0
+            },
+            "output_tokens": {
+              "total": 30695.0,
+              "mean_per_expected_episode": 511.5833333333333,
+              "median": 651.0,
+              "p95": 693.05
+            },
+            "cuda_event_seconds": {
+              "total": 1326.8037168716432,
+              "mean_per_expected_episode": 22.113395281194055
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G2": {
+          "expected_episodes": 60,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 60,
+          "partial_reference_diagnostic_episodes": 60,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 113,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 60
+          },
+          "independent_groups": 60,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 36,
+            "declared_abstention": 36,
+            "source_identity_assertions": 0,
+            "reported_component_count": 113,
+            "valid_component_count": 113,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 60,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.3999999761581421,
+          "duplicate_candidates": 7,
+          "compute": {
+            "wall_seconds": {
+              "total": 15232.358721524008,
+              "mean_per_expected_episode": 253.87264535873345,
+              "median": 256.8911500899994,
+              "p95": 484.77822442770207
+            },
+            "preprocess_gpu_seconds": {
+              "total": 9.438567665100097,
+              "mean_per_expected_episode": 0.1573094610850016,
+              "median": 0.13435296630859375,
+              "p95": 0.2416731750488281
+            },
+            "model_gpu_seconds": {
+              "total": 1368.384855343192,
+              "mean_per_expected_episode": 22.806414255719865,
+              "median": 17.417484375,
+              "p95": 44.64930394345237
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 126135.0,
+              "mean_per_expected_episode": 2102.25,
+              "median": 1651.0,
+              "p95": 4938.049999999999
+            },
+            "output_tokens": {
+              "total": 18481.0,
+              "mean_per_expected_episode": 308.01666666666665,
+              "median": 34.0,
+              "p95": 750.3
+            },
+            "cuda_event_seconds": {
+              "total": 1377.823423008292,
+              "mean_per_expected_episode": 22.963723716804864
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G3": {
+          "expected_episodes": 60,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 60,
+          "partial_reference_diagnostic_episodes": 60,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 158,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 60
+          },
+          "independent_groups": 60,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 29,
+            "declared_abstention": 29,
+            "source_identity_assertions": 0,
+            "reported_component_count": 158,
+            "valid_component_count": 158,
+            "actions_attempted": 360,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 60,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5166666507720947,
+          "duplicate_candidates": 6,
+          "compute": {
+            "wall_seconds": {
+              "total": 57592.56488733701,
+              "mean_per_expected_episode": 959.8760814556168,
+              "median": 972.656804168997,
+              "p95": 1318.900669275751
+            },
+            "preprocess_gpu_seconds": {
+              "total": 10.520639518737791,
+              "mean_per_expected_episode": 0.1753439919789632,
+              "median": 0.13923184204101563,
+              "p95": 0.2877422882080078
+            },
+            "model_gpu_seconds": {
+              "total": 1520.6884490234374,
+              "mean_per_expected_episode": 25.344807483723958,
+              "median": 21.612708984375,
+              "p95": 48.471698372395835
+            },
+            "tool_gpu_seconds": {
+              "total": 36.30679227626324,
+              "mean_per_expected_episode": 0.6051132046043873,
+              "median": 0.5607700915336609,
+              "p95": 0.9189966811478135
+            },
+            "input_tokens": {
+              "total": 294143.0,
+              "mean_per_expected_episode": 4902.383333333333,
+              "median": 4194.0,
+              "p95": 7419.05
+            },
+            "output_tokens": {
+              "total": 37071.0,
+              "mean_per_expected_episode": 617.85,
+              "median": 739.0,
+              "p95": 1434.05
+            },
+            "cuda_event_seconds": {
+              "total": 1567.5158808184385,
+              "mean_per_expected_episode": 26.125264680307307
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G4": {
+          "expected_episodes": 60,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 60,
+          "partial_reference_diagnostic_episodes": 60,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 167,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 60
+          },
+          "independent_groups": 60,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 28,
+            "declared_abstention": 28,
+            "source_identity_assertions": 0,
+            "reported_component_count": 167,
+            "valid_component_count": 167,
+            "actions_attempted": 360,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 60,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5333333015441895,
+          "duplicate_candidates": 11,
+          "compute": {
+            "wall_seconds": {
+              "total": 49634.120697645005,
+              "mean_per_expected_episode": 827.23534496075,
+              "median": 800.3208188829994,
+              "p95": 1266.644897814451
+            },
+            "preprocess_gpu_seconds": {
+              "total": 9.6775018157959,
+              "mean_per_expected_episode": 0.16129169692993167,
+              "median": 0.13547421264648438,
+              "p95": 0.28122297210693353
+            },
+            "model_gpu_seconds": {
+              "total": 1704.7469960379462,
+              "mean_per_expected_episode": 28.41244993396577,
+              "median": 23.241396875,
+              "p95": 49.45888962053571
+            },
+            "tool_gpu_seconds": {
+              "total": 35.8544534522295,
+              "mean_per_expected_episode": 0.597574224203825,
+              "median": 0.552373818039894,
+              "p95": 1.1166823485732078
+            },
+            "input_tokens": {
+              "total": 289738.0,
+              "mean_per_expected_episode": 4828.966666666666,
+              "median": 4133.0,
+              "p95": 7371.45
+            },
+            "output_tokens": {
+              "total": 45832.0,
+              "mean_per_expected_episode": 763.8666666666667,
+              "median": 745.0,
+              "p95": 1595.0
+            },
+            "cuda_event_seconds": {
+              "total": 1750.2789513059718,
+              "mean_per_expected_episode": 29.17131585509953
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "F": {
+          "expected_episodes": 60,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 60,
+          "partial_reference_diagnostic_episodes": 60,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 181,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 60
+          },
+          "independent_groups": 60,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 25,
+            "declared_abstention": 25,
+            "source_identity_assertions": 0,
+            "reported_component_count": 181,
+            "valid_component_count": 181,
+            "actions_attempted": 360,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 60,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5833333134651184,
+          "duplicate_candidates": 10,
+          "compute": {
+            "wall_seconds": {
+              "total": 86674.12747446302,
+              "mean_per_expected_episode": 1444.5687912410503,
+              "median": 1494.3383691659983,
+              "p95": 1819.779246790849
+            },
+            "preprocess_gpu_seconds": {
+              "total": 9.990921394348144,
+              "mean_per_expected_episode": 0.16651535657246905,
+              "median": 0.15127772521972657,
+              "p95": 0.24825676345825187
+            },
+            "model_gpu_seconds": {
+              "total": 7741.1508320266,
+              "mean_per_expected_episode": 129.01918053377668,
+              "median": 130.56034420572917,
+              "p95": 172.77051623232884
+            },
+            "tool_gpu_seconds": {
+              "total": 36.18758448135853,
+              "mean_per_expected_episode": 0.6031264080226422,
+              "median": 0.5733096008300781,
+              "p95": 0.9094631799697874
+            },
+            "input_tokens": {
+              "total": 1784409.0,
+              "mean_per_expected_episode": 29740.149999999998,
+              "median": 25787.0,
+              "p95": 47620.25
+            },
+            "output_tokens": {
+              "total": 51726.0,
+              "mean_per_expected_episode": 862.1,
+              "median": 906.0,
+              "p95": 1715.3
+            },
+            "cuda_event_seconds": {
+              "total": 7787.329337902307,
+              "mean_per_expected_episode": 129.78882229837177
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        }
+      }
+    },
+    "semi_synthetic": {
+      "all": {
+        "G1": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 72,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 0,
+            "declared_abstention": 0,
+            "source_identity_assertions": 0,
+            "reported_component_count": 72,
+            "valid_component_count": 72,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 1.0,
+          "duplicate_candidates": 38,
+          "compute": {
+            "wall_seconds": {
+              "total": 3174.0701818049856,
+              "mean_per_expected_episode": 264.50584848374876,
+              "median": 231.29617008700006,
+              "p95": 491.6895957550484
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.2400101242065427,
+              "mean_per_expected_episode": 0.1866675103505452,
+              "median": 0.17414335632324218,
+              "p95": 0.2915435272216797
+            },
+            "model_gpu_seconds": {
+              "total": 248.96715751488094,
+              "mean_per_expected_episode": 20.747263126240078,
+              "median": 17.193617187500003,
+              "p95": 34.93062034040179
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 9023.0,
+              "mean_per_expected_episode": 751.9166666666666,
+              "median": 752.0,
+              "p95": 753.0
+            },
+            "output_tokens": {
+              "total": 7112.0,
+              "mean_per_expected_episode": 592.6666666666666,
+              "median": 586.0,
+              "p95": 626.7
+            },
+            "cuda_event_seconds": {
+              "total": 251.2071676390875,
+              "mean_per_expected_episode": 20.933930636590624
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G2": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 49,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 2,
+            "declared_abstention": 2,
+            "source_identity_assertions": 0,
+            "reported_component_count": 49,
+            "valid_component_count": 49,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.8333333134651184,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 2810.9284543580143,
+              "mean_per_expected_episode": 234.24403786316785,
+              "median": 218.0200010280023,
+              "p95": 399.0022017209521
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.926768600463867,
+              "mean_per_expected_episode": 0.2438973833719889,
+              "median": 0.19507142639160155,
+              "p95": 0.3929798919677734
+            },
+            "model_gpu_seconds": {
+              "total": 257.38075239955356,
+              "mean_per_expected_episode": 21.448396033296127,
+              "median": 17.38853515625,
+              "p95": 35.42228600260416
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 35223.0,
+              "mean_per_expected_episode": 2935.25,
+              "median": 2373.0,
+              "p95": 4788.7
+            },
+            "output_tokens": {
+              "total": 8194.0,
+              "mean_per_expected_episode": 682.8333333333333,
+              "median": 650.0,
+              "p95": 837.6
+            },
+            "cuda_event_seconds": {
+              "total": 260.30752100001746,
+              "mean_per_expected_episode": 21.69229341666812
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G3": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 24,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 8,
+            "declared_abstention": 8,
+            "source_identity_assertions": 0,
+            "reported_component_count": 24,
+            "valid_component_count": 24,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.3333333134651184,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 11306.841156952003,
+              "mean_per_expected_episode": 942.2367630793335,
+              "median": 993.5247857569993,
+              "p95": 1235.6535616910983
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.9233295288085936,
+              "mean_per_expected_episode": 0.24361079406738279,
+              "median": 0.1933038330078125,
+              "p95": 0.3841465911865234
+            },
+            "model_gpu_seconds": {
+              "total": 236.46881850818454,
+              "mean_per_expected_episode": 19.705734875682044,
+              "median": 14.658055803571429,
+              "p95": 39.8366724609375
+            },
+            "tool_gpu_seconds": {
+              "total": 10.868100582242011,
+              "mean_per_expected_episode": 0.9056750485201676,
+              "median": 0.9221675813198089,
+              "p95": 1.2036291431427002
+            },
+            "input_tokens": {
+              "total": 81518.0,
+              "mean_per_expected_episode": 6793.166666666666,
+              "median": 6955.0,
+              "p95": 7389.05
+            },
+            "output_tokens": {
+              "total": 3849.0,
+              "mean_per_expected_episode": 320.75,
+              "median": 41.0,
+              "p95": 1091.9999999999998
+            },
+            "cuda_event_seconds": {
+              "total": 250.26024861923514,
+              "mean_per_expected_episode": 20.855020718269593
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G4": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 34,
+            "fn": 22,
+            "precision": 0.02857142873108387,
+            "recall": 0.043478261679410934,
+            "f1": 0.03448275849223137,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 35,
+            "valid_component_count": 35,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 9714.095191642009,
+              "mean_per_expected_episode": 809.5079326368341,
+              "median": 778.0126976430038,
+              "p95": 1161.3576359330987
+            },
+            "preprocess_gpu_seconds": {
+              "total": 3.151637176513672,
+              "mean_per_expected_episode": 0.26263643137613935,
+              "median": 0.2524253692626953,
+              "p95": 0.40578696136474596
+            },
+            "model_gpu_seconds": {
+              "total": 299.45333491443455,
+              "mean_per_expected_episode": 24.954444576202878,
+              "median": 26.581240625,
+              "p95": 42.3797421875
+            },
+            "tool_gpu_seconds": {
+              "total": 9.22918912577629,
+              "mean_per_expected_episode": 0.7690990938146909,
+              "median": 0.656684897184372,
+              "p95": 1.4110581719934931
+            },
+            "input_tokens": {
+              "total": 79634.0,
+              "mean_per_expected_episode": 6636.166666666666,
+              "median": 6779.0,
+              "p95": 7279.5
+            },
+            "output_tokens": {
+              "total": 6900.0,
+              "mean_per_expected_episode": 575.0,
+              "median": 41.0,
+              "p95": 1289.6
+            },
+            "cuda_event_seconds": {
+              "total": 311.8341612167245,
+              "mean_per_expected_episode": 25.986180101393707
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "F": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 36,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 36,
+            "valid_component_count": 36,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 15884.804031001004,
+              "mean_per_expected_episode": 1323.7336692500835,
+              "median": 1425.8286434539987,
+              "p95": 1653.8949290902494
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.8902290725708006,
+              "mean_per_expected_episode": 0.24085242271423338,
+              "median": 0.2300750732421875,
+              "p95": 0.3725429153442383
+            },
+            "model_gpu_seconds": {
+              "total": 1733.574015857515,
+              "mean_per_expected_episode": 144.46450132145958,
+              "median": 135.17796837797619,
+              "p95": 187.551140578497
+            },
+            "tool_gpu_seconds": {
+              "total": 9.522428215622902,
+              "mean_per_expected_episode": 0.7935356846352418,
+              "median": 0.7088252184391022,
+              "p95": 1.1850652060389517
+            },
+            "input_tokens": {
+              "total": 489310.0,
+              "mean_per_expected_episode": 40775.83333333333,
+              "median": 42120.0,
+              "p95": 45516.299999999996
+            },
+            "output_tokens": {
+              "total": 9272.0,
+              "mean_per_expected_episode": 772.6666666666666,
+              "median": 240.0,
+              "p95": 1540.8
+            },
+            "cuda_event_seconds": {
+              "total": 1745.9866731457087,
+              "mean_per_expected_episode": 145.49888942880904
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        }
+      },
+      "deepship_mixture": {
+        "G1": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 72,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 0,
+            "declared_abstention": 0,
+            "source_identity_assertions": 0,
+            "reported_component_count": 72,
+            "valid_component_count": 72,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 1.0,
+          "duplicate_candidates": 38,
+          "compute": {
+            "wall_seconds": {
+              "total": 3174.0701818049856,
+              "mean_per_expected_episode": 264.50584848374876,
+              "median": 231.29617008700006,
+              "p95": 491.6895957550484
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.2400101242065427,
+              "mean_per_expected_episode": 0.1866675103505452,
+              "median": 0.17414335632324218,
+              "p95": 0.2915435272216797
+            },
+            "model_gpu_seconds": {
+              "total": 248.96715751488094,
+              "mean_per_expected_episode": 20.747263126240078,
+              "median": 17.193617187500003,
+              "p95": 34.93062034040179
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 9023.0,
+              "mean_per_expected_episode": 751.9166666666666,
+              "median": 752.0,
+              "p95": 753.0
+            },
+            "output_tokens": {
+              "total": 7112.0,
+              "mean_per_expected_episode": 592.6666666666666,
+              "median": 586.0,
+              "p95": 626.7
+            },
+            "cuda_event_seconds": {
+              "total": 251.2071676390875,
+              "mean_per_expected_episode": 20.933930636590624
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G2": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 49,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 2,
+            "declared_abstention": 2,
+            "source_identity_assertions": 0,
+            "reported_component_count": 49,
+            "valid_component_count": 49,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.8333333134651184,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 2810.9284543580143,
+              "mean_per_expected_episode": 234.24403786316785,
+              "median": 218.0200010280023,
+              "p95": 399.0022017209521
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.926768600463867,
+              "mean_per_expected_episode": 0.2438973833719889,
+              "median": 0.19507142639160155,
+              "p95": 0.3929798919677734
+            },
+            "model_gpu_seconds": {
+              "total": 257.38075239955356,
+              "mean_per_expected_episode": 21.448396033296127,
+              "median": 17.38853515625,
+              "p95": 35.42228600260416
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 35223.0,
+              "mean_per_expected_episode": 2935.25,
+              "median": 2373.0,
+              "p95": 4788.7
+            },
+            "output_tokens": {
+              "total": 8194.0,
+              "mean_per_expected_episode": 682.8333333333333,
+              "median": 650.0,
+              "p95": 837.6
+            },
+            "cuda_event_seconds": {
+              "total": 260.30752100001746,
+              "mean_per_expected_episode": 21.69229341666812
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G3": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 24,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 8,
+            "declared_abstention": 8,
+            "source_identity_assertions": 0,
+            "reported_component_count": 24,
+            "valid_component_count": 24,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.3333333134651184,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 11306.841156952003,
+              "mean_per_expected_episode": 942.2367630793335,
+              "median": 993.5247857569993,
+              "p95": 1235.6535616910983
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.9233295288085936,
+              "mean_per_expected_episode": 0.24361079406738279,
+              "median": 0.1933038330078125,
+              "p95": 0.3841465911865234
+            },
+            "model_gpu_seconds": {
+              "total": 236.46881850818454,
+              "mean_per_expected_episode": 19.705734875682044,
+              "median": 14.658055803571429,
+              "p95": 39.8366724609375
+            },
+            "tool_gpu_seconds": {
+              "total": 10.868100582242011,
+              "mean_per_expected_episode": 0.9056750485201676,
+              "median": 0.9221675813198089,
+              "p95": 1.2036291431427002
+            },
+            "input_tokens": {
+              "total": 81518.0,
+              "mean_per_expected_episode": 6793.166666666666,
+              "median": 6955.0,
+              "p95": 7389.05
+            },
+            "output_tokens": {
+              "total": 3849.0,
+              "mean_per_expected_episode": 320.75,
+              "median": 41.0,
+              "p95": 1091.9999999999998
+            },
+            "cuda_event_seconds": {
+              "total": 250.26024861923514,
+              "mean_per_expected_episode": 20.855020718269593
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "G4": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 1,
+            "fp": 34,
+            "fn": 22,
+            "precision": 0.02857142873108387,
+            "recall": 0.043478261679410934,
+            "f1": 0.03448275849223137,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 35,
+            "valid_component_count": 35,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 9714.095191642009,
+              "mean_per_expected_episode": 809.5079326368341,
+              "median": 778.0126976430038,
+              "p95": 1161.3576359330987
+            },
+            "preprocess_gpu_seconds": {
+              "total": 3.151637176513672,
+              "mean_per_expected_episode": 0.26263643137613935,
+              "median": 0.2524253692626953,
+              "p95": 0.40578696136474596
+            },
+            "model_gpu_seconds": {
+              "total": 299.45333491443455,
+              "mean_per_expected_episode": 24.954444576202878,
+              "median": 26.581240625,
+              "p95": 42.3797421875
+            },
+            "tool_gpu_seconds": {
+              "total": 9.22918912577629,
+              "mean_per_expected_episode": 0.7690990938146909,
+              "median": 0.656684897184372,
+              "p95": 1.4110581719934931
+            },
+            "input_tokens": {
+              "total": 79634.0,
+              "mean_per_expected_episode": 6636.166666666666,
+              "median": 6779.0,
+              "p95": 7279.5
+            },
+            "output_tokens": {
+              "total": 6900.0,
+              "mean_per_expected_episode": 575.0,
+              "median": 41.0,
+              "p95": 1289.6
+            },
+            "cuda_event_seconds": {
+              "total": 311.8341612167245,
+              "mean_per_expected_episode": 25.986180101393707
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        },
+        "F": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 0,
+          "reference_missing_episodes": 12,
+          "partial_reference_diagnostic_episodes": 12,
+          "partial_reference_diagnostic_metrics": {
+            "tp": 0,
+            "fp": 36,
+            "fn": 23,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "independent_groups": 1,
+          "reference_kinds": [],
+          "reference_statuses": [
+            "partial"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": [
+                [
+                  500,
+                  2000
+                ],
+                [
+                  2000,
+                  5000
+                ]
+              ],
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": null,
+          "event_metrics_regional_iou05": null,
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": null,
+          "geometric_overlap_metrics": null,
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 36,
+            "valid_component_count": 36,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 15884.804031001004,
+              "mean_per_expected_episode": 1323.7336692500835,
+              "median": 1425.8286434539987,
+              "p95": 1653.8949290902494
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.8902290725708006,
+              "mean_per_expected_episode": 0.24085242271423338,
+              "median": 0.2300750732421875,
+              "p95": 0.3725429153442383
+            },
+            "model_gpu_seconds": {
+              "total": 1733.574015857515,
+              "mean_per_expected_episode": 144.46450132145958,
+              "median": 135.17796837797619,
+              "p95": 187.551140578497
+            },
+            "tool_gpu_seconds": {
+              "total": 9.522428215622902,
+              "mean_per_expected_episode": 0.7935356846352418,
+              "median": 0.7088252184391022,
+              "p95": 1.1850652060389517
+            },
+            "input_tokens": {
+              "total": 489310.0,
+              "mean_per_expected_episode": 40775.83333333333,
+              "median": 42120.0,
+              "p95": 45516.299999999996
+            },
+            "output_tokens": {
+              "total": 9272.0,
+              "mean_per_expected_episode": 772.6666666666666,
+              "median": 240.0,
+              "p95": 1540.8
+            },
+            "cuda_event_seconds": {
+              "total": 1745.9866731457087,
+              "mean_per_expected_episode": 145.49888942880904
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": null,
+          "reference_event_coverage": null
+        }
+      }
+    },
+    "synthetic": {
+      "all": {
+        "G1": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 1,
+            "fp": 59,
+            "fn": 23,
+            "precision": 0.01666666753590107,
+            "recall": 0.0416666679084301,
+            "f1": 0.02380952425301075,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 1,
+            "fp": 59,
+            "fn": 23,
+            "precision": 0.01666666753590107,
+            "recall": 0.0416666679084301,
+            "f1": 0.02380952425301075,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 1,
+            "fp": 59,
+            "fn": 23,
+            "precision": 0.01666666753590107,
+            "recall": 0.0416666679084301,
+            "f1": 0.02380952425301075,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 0,
+            "fp": 110,
+            "fn": 20,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 2,
+            "declared_abstention": 2,
+            "source_identity_assertions": 0,
+            "reported_component_count": 60,
+            "valid_component_count": 60,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.8333333134651184,
+          "duplicate_candidates": 17,
+          "compute": {
+            "wall_seconds": {
+              "total": 2154.7801066739994,
+              "mean_per_expected_episode": 179.56500888949995,
+              "median": 158.3676335429991,
+              "p95": 325.45697953885275
+            },
+            "preprocess_gpu_seconds": {
+              "total": 1.77803751039505,
+              "mean_per_expected_episode": 0.14816979253292084,
+              "median": 0.15318595886230468,
+              "p95": 0.2463679481506347
+            },
+            "model_gpu_seconds": {
+              "total": 181.35506080729166,
+              "mean_per_expected_episode": 15.112921733940972,
+              "median": 14.7698375,
+              "p95": 26.03860947265624
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 9017.0,
+              "mean_per_expected_episode": 751.4166666666666,
+              "median": 751.0,
+              "p95": 753.45
+            },
+            "output_tokens": {
+              "total": 6165.0,
+              "mean_per_expected_episode": 513.75,
+              "median": 599.0,
+              "p95": 663.1999999999999
+            },
+            "cuda_event_seconds": {
+              "total": 183.13309831768672,
+              "mean_per_expected_episode": 15.261091526473892
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 1,
+            "frequency_matched_components": 1,
+            "mean_frequency_error_hz": 0.0,
+            "median_frequency_error_hz": 0.0,
+            "mean_temporal_iou": 0.9166666865348816,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.041666666666666664,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.0,
+                  0.05555555555555555
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.0,
+                  0.13333333333333333
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.0,
+                  0.0759493670886076
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G2": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 9,
+            "fp": 1,
+            "fn": 15,
+            "precision": 0.8999999761581421,
+            "recall": 0.375,
+            "f1": 0.529411792755127,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 9,
+            "fp": 1,
+            "fn": 15,
+            "precision": 0.8999999761581421,
+            "recall": 0.375,
+            "f1": 0.529411792755127,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 15,
+            "fp": 29,
+            "fn": 9,
+            "precision": 0.34090909361839294,
+            "recall": 0.625,
+            "f1": 0.44117647409439087,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 15,
+            "precision": 0.7142857313156128,
+            "recall": 0.25,
+            "f1": 0.37037035822868347,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 8,
+            "declared_abstention": 8,
+            "source_identity_assertions": 0,
+            "reported_component_count": 14,
+            "valid_component_count": 14,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.3333333134651184,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 2184.6789735050043,
+              "mean_per_expected_episode": 182.056581125417,
+              "median": 175.57697357099823,
+              "p95": 282.3173087110019
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.007451919555664,
+              "mean_per_expected_episode": 0.167287659962972,
+              "median": 0.16488528442382813,
+              "p95": 0.2582077941894531
+            },
+            "model_gpu_seconds": {
+              "total": 177.76003951822918,
+              "mean_per_expected_episode": 14.813336626519098,
+              "median": 15.373537109375,
+              "p95": 19.74504044921875
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 22901.0,
+              "mean_per_expected_episode": 1908.4166666666665,
+              "median": 1831.0,
+              "p95": 2891.949999999999
+            },
+            "output_tokens": {
+              "total": 5630.0,
+              "mean_per_expected_episode": 469.16666666666663,
+              "median": 593.0,
+              "p95": 881.5
+            },
+            "cuda_event_seconds": {
+              "total": 179.76749143778483,
+              "mean_per_expected_episode": 14.980624286482069
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 9,
+            "frequency_matched_components": 9,
+            "mean_frequency_error_hz": 0.2727668285369873,
+            "median_frequency_error_hz": 0.323333740234375,
+            "mean_temporal_iou": 0.8961283564567566,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.375,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.6666666666666666,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.9930000305175781
+              },
+              "recall": {
+                "ci95": [
+                  0.1,
+                  0.6470588235294118
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.18181818181818182,
+                  0.7659574468085106
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.3333333333333333,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.9930000305175781
+              },
+              "recall": {
+                "ci95": [
+                  0.07136699507389163,
+                  0.5454545454545454
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.11764705882352941,
+                  0.7
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G3": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 11,
+            "fp": 11,
+            "fn": 13,
+            "precision": 0.5,
+            "recall": 0.4583333432674408,
+            "f1": 0.47826087474823,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 10,
+            "fp": 12,
+            "fn": 14,
+            "precision": 0.4545454680919647,
+            "recall": 0.4166666567325592,
+            "f1": 0.43478259444236755,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 11,
+            "fp": 29,
+            "fn": 13,
+            "precision": 0.2750000059604645,
+            "recall": 0.4583333432674408,
+            "f1": 0.34375,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 6,
+            "fp": 37,
+            "fn": 14,
+            "precision": 0.13953489065170288,
+            "recall": 0.30000001192092896,
+            "f1": 0.190476194024086,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 22,
+            "valid_component_count": 22,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 2,
+          "compute": {
+            "wall_seconds": {
+              "total": 8418.341287476993,
+              "mean_per_expected_episode": 701.5284406230827,
+              "median": 694.276593251001,
+              "p95": 868.1974399259502
+            },
+            "preprocess_gpu_seconds": {
+              "total": 1.933378881454468,
+              "mean_per_expected_episode": 0.16111490678787233,
+              "median": 0.1620103302001953,
+              "p95": 0.23054922485351562
+            },
+            "model_gpu_seconds": {
+              "total": 170.03061382533485,
+              "mean_per_expected_episode": 14.169217818777904,
+              "median": 12.702830729166665,
+              "p95": 21.496583984375
+            },
+            "tool_gpu_seconds": {
+              "total": 8.06808624714613,
+              "mean_per_expected_episode": 0.6723405205955109,
+              "median": 0.6634431357383729,
+              "p95": 0.983144655919075
+            },
+            "input_tokens": {
+              "total": 47840.0,
+              "mean_per_expected_episode": 3986.6666666666665,
+              "median": 3960.0,
+              "p95": 5646.4
+            },
+            "output_tokens": {
+              "total": 5639.0,
+              "mean_per_expected_episode": 469.91666666666663,
+              "median": 512.0,
+              "p95": 1020.05
+            },
+            "cuda_event_seconds": {
+              "total": 180.0320789539354,
+              "mean_per_expected_episode": 15.002673246161283
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 11,
+            "frequency_matched_components": 10,
+            "mean_frequency_error_hz": 0.363230437040329,
+            "median_frequency_error_hz": 0.34521484375,
+            "mean_temporal_iou": 0.8596013188362122,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.4583333333333333,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.3939393939393939,
+                  0.75
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.2,
+                  0.7693181818181813
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.2857142857142857,
+                  0.6129652605459054
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.07142857142857142,
+                  0.23809523809523808
+                ],
+                "defined_resample_fraction": 0.9910000562667847
+              },
+              "recall": {
+                "ci95": [
+                  0.07142857142857142,
+                  0.6666666666666666
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.09085858585858586,
+                  0.27906976744186046
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G4": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 17,
+            "fp": 12,
+            "fn": 7,
+            "precision": 0.5862069129943848,
+            "recall": 0.7083333134651184,
+            "f1": 0.6415094137191772,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 17,
+            "fp": 12,
+            "fn": 7,
+            "precision": 0.5862069129943848,
+            "recall": 0.7083333134651184,
+            "f1": 0.6415094137191772,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 17,
+            "fp": 30,
+            "fn": 7,
+            "precision": 0.3617021143436432,
+            "recall": 0.7083333134651184,
+            "f1": 0.47887325286865234,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 12,
+            "fp": 40,
+            "fn": 8,
+            "precision": 0.23076923191547394,
+            "recall": 0.6000000238418579,
+            "f1": 0.3333333432674408,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 4,
+            "declared_abstention": 4,
+            "source_identity_assertions": 0,
+            "reported_component_count": 32,
+            "valid_component_count": 32,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.6666666269302368,
+          "duplicate_candidates": 6,
+          "compute": {
+            "wall_seconds": {
+              "total": 6904.185879805009,
+              "mean_per_expected_episode": 575.348823317084,
+              "median": 569.4724785060025,
+              "p95": 736.2865630387972
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.3384517784118652,
+              "mean_per_expected_episode": 0.19487098153432209,
+              "median": 0.17683433532714843,
+              "p95": 0.32564308166503897
+            },
+            "model_gpu_seconds": {
+              "total": 204.3980338378906,
+              "mean_per_expected_episode": 17.033169486490884,
+              "median": 18.311959375,
+              "p95": 23.588456445312495
+            },
+            "tool_gpu_seconds": {
+              "total": 6.571206951797009,
+              "mean_per_expected_episode": 0.5476005793164174,
+              "median": 0.5569411149024963,
+              "p95": 0.7624847850978375
+            },
+            "input_tokens": {
+              "total": 42061.0,
+              "mean_per_expected_episode": 3505.083333333333,
+              "median": 3399.0,
+              "p95": 4818.249999999999
+            },
+            "output_tokens": {
+              "total": 6825.0,
+              "mean_per_expected_episode": 568.75,
+              "median": 651.0,
+              "p95": 975.2499999999999
+            },
+            "cuda_event_seconds": {
+              "total": 213.3076925680995,
+              "mean_per_expected_episode": 17.775641047341622
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 17,
+            "frequency_matched_components": 17,
+            "mean_frequency_error_hz": 0.3235336244106293,
+            "median_frequency_error_hz": 0.323333740234375,
+            "mean_temporal_iou": 0.8911910653114319,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.7083333333333334,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.45447214076246334,
+                  0.7894736842105263
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.3998214285714286,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.4614754098360656,
+                  0.7942647058823521
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.1111111111111111,
+                  0.5
+                ],
+                "defined_resample_fraction": 0.999500036239624
+              },
+              "recall": {
+                "ci95": [
+                  0.21428571428571427,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.1621081081081081,
+                  0.5581395348837209
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "F": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 12,
+            "fp": 11,
+            "fn": 12,
+            "precision": 0.52173912525177,
+            "recall": 0.5,
+            "f1": 0.5106382966041565,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 11,
+            "fp": 12,
+            "fn": 13,
+            "precision": 0.47826087474823,
+            "recall": 0.4583333432674408,
+            "f1": 0.4680851101875305,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 13,
+            "fp": 32,
+            "fn": 11,
+            "precision": 0.2888889014720917,
+            "recall": 0.5416666865348816,
+            "f1": 0.37681159377098083,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 8,
+            "fp": 40,
+            "fn": 12,
+            "precision": 0.1666666716337204,
+            "recall": 0.4000000059604645,
+            "f1": 0.23529411852359772,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 1,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 26,
+            "valid_component_count": 26,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 3,
+          "compute": {
+            "wall_seconds": {
+              "total": 12078.855885474994,
+              "mean_per_expected_episode": 1006.5713237895827,
+              "median": 988.2295311580019,
+              "p95": 1185.650264451752
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.406797149896622,
+              "mean_per_expected_episode": 0.2005664291580518,
+              "median": 0.18095529174804686,
+              "p95": 0.3206738616943359
+            },
+            "model_gpu_seconds": {
+              "total": 1093.5477569649834,
+              "mean_per_expected_episode": 91.12897974708194,
+              "median": 88.19831412760416,
+              "p95": 112.68616390159971
+            },
+            "tool_gpu_seconds": {
+              "total": 7.935583812594413,
+              "mean_per_expected_episode": 0.6612986510495344,
+              "median": 0.6684365048408508,
+              "p95": 0.878609903717041
+            },
+            "input_tokens": {
+              "total": 282779.0,
+              "mean_per_expected_episode": 23564.916666666664,
+              "median": 23526.0,
+              "p95": 33025.95
+            },
+            "output_tokens": {
+              "total": 8926.0,
+              "mean_per_expected_episode": 743.8333333333333,
+              "median": 820.0,
+              "p95": 1326.2999999999997
+            },
+            "cuda_event_seconds": {
+              "total": 1103.8901379274744,
+              "mean_per_expected_episode": 91.99084482728952
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 12,
+            "frequency_matched_components": 11,
+            "mean_frequency_error_hz": 0.30846431851387024,
+            "median_frequency_error_hz": 0.33441162109375,
+            "mean_temporal_iou": 0.8695365190505981,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.5,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.375,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.999500036239624
+              },
+              "recall": {
+                "ci95": [
+                  0.2,
+                  0.8571428571428571
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.2857142857142857,
+                  0.7
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.06666666666666667,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.9905000329017639
+              },
+              "recall": {
+                "ci95": [
+                  0.07142857142857142,
+                  0.8501785714285705
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.06896551724137931,
+                  0.4507269422989549
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        }
+      },
+      "controlled": {
+        "G1": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 1,
+            "fp": 59,
+            "fn": 23,
+            "precision": 0.01666666753590107,
+            "recall": 0.0416666679084301,
+            "f1": 0.02380952425301075,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 1,
+            "fp": 59,
+            "fn": 23,
+            "precision": 0.01666666753590107,
+            "recall": 0.0416666679084301,
+            "f1": 0.02380952425301075,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 1,
+            "fp": 59,
+            "fn": 23,
+            "precision": 0.01666666753590107,
+            "recall": 0.0416666679084301,
+            "f1": 0.02380952425301075,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 0,
+            "fp": 110,
+            "fn": 20,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 2,
+            "declared_abstention": 2,
+            "source_identity_assertions": 0,
+            "reported_component_count": 60,
+            "valid_component_count": 60,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.8333333134651184,
+          "duplicate_candidates": 17,
+          "compute": {
+            "wall_seconds": {
+              "total": 2154.7801066739994,
+              "mean_per_expected_episode": 179.56500888949995,
+              "median": 158.3676335429991,
+              "p95": 325.45697953885275
+            },
+            "preprocess_gpu_seconds": {
+              "total": 1.77803751039505,
+              "mean_per_expected_episode": 0.14816979253292084,
+              "median": 0.15318595886230468,
+              "p95": 0.2463679481506347
+            },
+            "model_gpu_seconds": {
+              "total": 181.35506080729166,
+              "mean_per_expected_episode": 15.112921733940972,
+              "median": 14.7698375,
+              "p95": 26.03860947265624
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 9017.0,
+              "mean_per_expected_episode": 751.4166666666666,
+              "median": 751.0,
+              "p95": 753.45
+            },
+            "output_tokens": {
+              "total": 6165.0,
+              "mean_per_expected_episode": 513.75,
+              "median": 599.0,
+              "p95": 663.1999999999999
+            },
+            "cuda_event_seconds": {
+              "total": 183.13309831768672,
+              "mean_per_expected_episode": 15.261091526473892
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 1,
+            "frequency_matched_components": 1,
+            "mean_frequency_error_hz": 0.0,
+            "median_frequency_error_hz": 0.0,
+            "mean_temporal_iou": 0.9166666865348816,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.041666666666666664,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.0,
+                  0.05555555555555555
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.0,
+                  0.13333333333333333
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.0,
+                  0.0759493670886076
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.0,
+                  0.0
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G2": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 9,
+            "fp": 1,
+            "fn": 15,
+            "precision": 0.8999999761581421,
+            "recall": 0.375,
+            "f1": 0.529411792755127,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 9,
+            "fp": 1,
+            "fn": 15,
+            "precision": 0.8999999761581421,
+            "recall": 0.375,
+            "f1": 0.529411792755127,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 15,
+            "fp": 29,
+            "fn": 9,
+            "precision": 0.34090909361839294,
+            "recall": 0.625,
+            "f1": 0.44117647409439087,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 15,
+            "precision": 0.7142857313156128,
+            "recall": 0.25,
+            "f1": 0.37037035822868347,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 8,
+            "declared_abstention": 8,
+            "source_identity_assertions": 0,
+            "reported_component_count": 14,
+            "valid_component_count": 14,
+            "actions_attempted": 0,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.3333333134651184,
+          "duplicate_candidates": 0,
+          "compute": {
+            "wall_seconds": {
+              "total": 2184.6789735050043,
+              "mean_per_expected_episode": 182.056581125417,
+              "median": 175.57697357099823,
+              "p95": 282.3173087110019
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.007451919555664,
+              "mean_per_expected_episode": 0.167287659962972,
+              "median": 0.16488528442382813,
+              "p95": 0.2582077941894531
+            },
+            "model_gpu_seconds": {
+              "total": 177.76003951822918,
+              "mean_per_expected_episode": 14.813336626519098,
+              "median": 15.373537109375,
+              "p95": 19.74504044921875
+            },
+            "tool_gpu_seconds": {
+              "total": 0.0,
+              "mean_per_expected_episode": 0.0,
+              "median": 0.0,
+              "p95": 0.0
+            },
+            "input_tokens": {
+              "total": 22901.0,
+              "mean_per_expected_episode": 1908.4166666666665,
+              "median": 1831.0,
+              "p95": 2891.949999999999
+            },
+            "output_tokens": {
+              "total": 5630.0,
+              "mean_per_expected_episode": 469.16666666666663,
+              "median": 593.0,
+              "p95": 881.5
+            },
+            "cuda_event_seconds": {
+              "total": 179.76749143778483,
+              "mean_per_expected_episode": 14.980624286482069
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 9,
+            "frequency_matched_components": 9,
+            "mean_frequency_error_hz": 0.2727668285369873,
+            "median_frequency_error_hz": 0.323333740234375,
+            "mean_temporal_iou": 0.8961283564567566,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.375,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.6666666666666666,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.9930000305175781
+              },
+              "recall": {
+                "ci95": [
+                  0.1,
+                  0.6470588235294118
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.18181818181818182,
+                  0.7659574468085106
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.3333333333333333,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.9930000305175781
+              },
+              "recall": {
+                "ci95": [
+                  0.07136699507389163,
+                  0.5454545454545454
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.11764705882352941,
+                  0.7
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G3": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 11,
+            "fp": 11,
+            "fn": 13,
+            "precision": 0.5,
+            "recall": 0.4583333432674408,
+            "f1": 0.47826087474823,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 10,
+            "fp": 12,
+            "fn": 14,
+            "precision": 0.4545454680919647,
+            "recall": 0.4166666567325592,
+            "f1": 0.43478259444236755,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 11,
+            "fp": 29,
+            "fn": 13,
+            "precision": 0.2750000059604645,
+            "recall": 0.4583333432674408,
+            "f1": 0.34375,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 6,
+            "fp": 37,
+            "fn": 14,
+            "precision": 0.13953489065170288,
+            "recall": 0.30000001192092896,
+            "f1": 0.190476194024086,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 22,
+            "valid_component_count": 22,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 2,
+          "compute": {
+            "wall_seconds": {
+              "total": 8418.341287476993,
+              "mean_per_expected_episode": 701.5284406230827,
+              "median": 694.276593251001,
+              "p95": 868.1974399259502
+            },
+            "preprocess_gpu_seconds": {
+              "total": 1.933378881454468,
+              "mean_per_expected_episode": 0.16111490678787233,
+              "median": 0.1620103302001953,
+              "p95": 0.23054922485351562
+            },
+            "model_gpu_seconds": {
+              "total": 170.03061382533485,
+              "mean_per_expected_episode": 14.169217818777904,
+              "median": 12.702830729166665,
+              "p95": 21.496583984375
+            },
+            "tool_gpu_seconds": {
+              "total": 8.06808624714613,
+              "mean_per_expected_episode": 0.6723405205955109,
+              "median": 0.6634431357383729,
+              "p95": 0.983144655919075
+            },
+            "input_tokens": {
+              "total": 47840.0,
+              "mean_per_expected_episode": 3986.6666666666665,
+              "median": 3960.0,
+              "p95": 5646.4
+            },
+            "output_tokens": {
+              "total": 5639.0,
+              "mean_per_expected_episode": 469.91666666666663,
+              "median": 512.0,
+              "p95": 1020.05
+            },
+            "cuda_event_seconds": {
+              "total": 180.0320789539354,
+              "mean_per_expected_episode": 15.002673246161283
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 11,
+            "frequency_matched_components": 10,
+            "mean_frequency_error_hz": 0.363230437040329,
+            "median_frequency_error_hz": 0.34521484375,
+            "mean_temporal_iou": 0.8596013188362122,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.4583333333333333,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.3939393939393939,
+                  0.75
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.2,
+                  0.7693181818181813
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.2857142857142857,
+                  0.6129652605459054
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.07142857142857142,
+                  0.23809523809523808
+                ],
+                "defined_resample_fraction": 0.9910000562667847
+              },
+              "recall": {
+                "ci95": [
+                  0.07142857142857142,
+                  0.6666666666666666
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.09085858585858586,
+                  0.27906976744186046
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G4": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 17,
+            "fp": 12,
+            "fn": 7,
+            "precision": 0.5862069129943848,
+            "recall": 0.7083333134651184,
+            "f1": 0.6415094137191772,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 17,
+            "fp": 12,
+            "fn": 7,
+            "precision": 0.5862069129943848,
+            "recall": 0.7083333134651184,
+            "f1": 0.6415094137191772,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 17,
+            "fp": 30,
+            "fn": 7,
+            "precision": 0.3617021143436432,
+            "recall": 0.7083333134651184,
+            "f1": 0.47887325286865234,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 12,
+            "fp": 40,
+            "fn": 8,
+            "precision": 0.23076923191547394,
+            "recall": 0.6000000238418579,
+            "f1": 0.3333333432674408,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 0,
+            "empty_report": 4,
+            "declared_abstention": 4,
+            "source_identity_assertions": 0,
+            "reported_component_count": 32,
+            "valid_component_count": 32,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.6666666269302368,
+          "duplicate_candidates": 6,
+          "compute": {
+            "wall_seconds": {
+              "total": 6904.185879805009,
+              "mean_per_expected_episode": 575.348823317084,
+              "median": 569.4724785060025,
+              "p95": 736.2865630387972
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.3384517784118652,
+              "mean_per_expected_episode": 0.19487098153432209,
+              "median": 0.17683433532714843,
+              "p95": 0.32564308166503897
+            },
+            "model_gpu_seconds": {
+              "total": 204.3980338378906,
+              "mean_per_expected_episode": 17.033169486490884,
+              "median": 18.311959375,
+              "p95": 23.588456445312495
+            },
+            "tool_gpu_seconds": {
+              "total": 6.571206951797009,
+              "mean_per_expected_episode": 0.5476005793164174,
+              "median": 0.5569411149024963,
+              "p95": 0.7624847850978375
+            },
+            "input_tokens": {
+              "total": 42061.0,
+              "mean_per_expected_episode": 3505.083333333333,
+              "median": 3399.0,
+              "p95": 4818.249999999999
+            },
+            "output_tokens": {
+              "total": 6825.0,
+              "mean_per_expected_episode": 568.75,
+              "median": 651.0,
+              "p95": 975.2499999999999
+            },
+            "cuda_event_seconds": {
+              "total": 213.3076925680995,
+              "mean_per_expected_episode": 17.775641047341622
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 17,
+            "frequency_matched_components": 17,
+            "mean_frequency_error_hz": 0.3235336244106293,
+            "median_frequency_error_hz": 0.323333740234375,
+            "mean_temporal_iou": 0.8911910653114319,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.7083333333333334,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.45447214076246334,
+                  0.7894736842105263
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.3998214285714286,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.4614754098360656,
+                  0.7942647058823521
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.1111111111111111,
+                  0.5
+                ],
+                "defined_resample_fraction": 0.999500036239624
+              },
+              "recall": {
+                "ci95": [
+                  0.21428571428571427,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.1621081081081081,
+                  0.5581395348837209
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "F": {
+          "expected_episodes": 12,
+          "reference_scored_episodes": 12,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 12,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 12,
+            "fp": 11,
+            "fn": 12,
+            "precision": 0.52173912525177,
+            "recall": 0.5,
+            "f1": 0.5106382966041565,
+            "scenes": 12
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 11,
+            "fp": 12,
+            "fn": 13,
+            "precision": 0.47826087474823,
+            "recall": 0.4583333432674408,
+            "f1": 0.4680851101875305,
+            "scenes": 12
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 13,
+            "fp": 32,
+            "fn": 11,
+            "precision": 0.2888889014720917,
+            "recall": 0.5416666865348816,
+            "f1": 0.37681159377098083,
+            "scenes": 12
+          },
+          "geometric_overlap_metrics": {
+            "tp": 8,
+            "fp": 40,
+            "fn": 12,
+            "precision": 0.1666666716337204,
+            "recall": 0.4000000059604645,
+            "f1": 0.23529411852359772,
+            "scenes": 12
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 1,
+            "empty_report": 6,
+            "declared_abstention": 6,
+            "source_identity_assertions": 0,
+            "reported_component_count": 26,
+            "valid_component_count": 26,
+            "actions_attempted": 72,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 12,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.5,
+          "duplicate_candidates": 3,
+          "compute": {
+            "wall_seconds": {
+              "total": 12078.855885474994,
+              "mean_per_expected_episode": 1006.5713237895827,
+              "median": 988.2295311580019,
+              "p95": 1185.650264451752
+            },
+            "preprocess_gpu_seconds": {
+              "total": 2.406797149896622,
+              "mean_per_expected_episode": 0.2005664291580518,
+              "median": 0.18095529174804686,
+              "p95": 0.3206738616943359
+            },
+            "model_gpu_seconds": {
+              "total": 1093.5477569649834,
+              "mean_per_expected_episode": 91.12897974708194,
+              "median": 88.19831412760416,
+              "p95": 112.68616390159971
+            },
+            "tool_gpu_seconds": {
+              "total": 7.935583812594413,
+              "mean_per_expected_episode": 0.6612986510495344,
+              "median": 0.6684365048408508,
+              "p95": 0.878609903717041
+            },
+            "input_tokens": {
+              "total": 282779.0,
+              "mean_per_expected_episode": 23564.916666666664,
+              "median": 23526.0,
+              "p95": 33025.95
+            },
+            "output_tokens": {
+              "total": 8926.0,
+              "mean_per_expected_episode": 743.8333333333333,
+              "median": 820.0,
+              "p95": 1326.2999999999997
+            },
+            "cuda_event_seconds": {
+              "total": 1103.8901379274744,
+              "mean_per_expected_episode": 91.99084482728952
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 12,
+            "frequency_matched_components": 11,
+            "mean_frequency_error_hz": 0.30846431851387024,
+            "median_frequency_error_hz": 0.33441162109375,
+            "mean_temporal_iou": 0.8695365190505981,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.5,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.375,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.999500036239624
+              },
+              "recall": {
+                "ci95": [
+                  0.2,
+                  0.8571428571428571
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.2857142857142857,
+                  0.7
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 12,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.06666666666666667,
+                  1.0
+                ],
+                "defined_resample_fraction": 0.9905000329017639
+              },
+              "recall": {
+                "ci95": [
+                  0.07142857142857142,
+                  0.8501785714285705
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.06896551724137931,
+                  0.4507269422989549
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "primary_comparisons": {
+    "endpoint_interpretation": "agreement with blinded AI reference labels, not independently validated physical correctness",
+    "H1": {
+      "status": "fixed_comparator_not_selected_on_validation",
+      "holm_adjusted_p_value": null
+    },
+    "H4": {
+      "status": "no_eligible_real_reference_scores",
+      "holm_adjusted_p_value": null
+    },
+    "family": [
+      "H1 adaptive inspection",
+      "H4 verifier component-agreement proxy"
+    ],
+    "excluded_reference_ineligible_scene_ids": [
+      "ds_0c5c23f3aefbdcae",
+      "ds_170b373ce769810a",
+      "ds_214fc193a560c1e3",
+      "ds_26e0e7e39102b8ee",
+      "ds_44b5e66d28cced46",
+      "ds_4fc1d27b095e518c",
+      "ds_77bdc8d9c64d3013",
+      "ds_80d7ff1c97ddd850",
+      "ds_8457d8e8de2a237d",
+      "ds_86e8ef11316ea409",
+      "ds_88a3a626b0205c7f",
+      "ds_8c7cdbf9c31ef2af",
+      "ds_950b01a97c267d79",
+      "ds_a897d1f2fbdf2048",
+      "ds_a9d3b5bcc1523768",
+      "ds_aae80cfe9b315ced",
+      "ds_ac8dc43fada4ae61",
+      "ds_ae7c99af3d079ecb",
+      "ds_af26a7e3db2cd976",
+      "ds_b39fbab0ef32f73f",
+      "ds_b5c9e6d15bd85d41",
+      "ds_bf59d940e1d15502",
+      "ds_c58c39ce3b7c3d64",
+      "ds_c64c229f17265ef2",
+      "ds_cf92106b1e6fe405",
+      "ds_d87a75ca217ed4e7",
+      "ds_de69803a034fde56",
+      "ds_e0a930662078b8d6",
+      "ds_f3e3f730285c7c81",
+      "ds_fc422369d677b6b8",
+      "mb_020dc567758f45b0",
+      "mb_19337c7e2ac071e2",
+      "mb_1e5e9a9711079336",
+      "mb_1ebcf8c17118bb8c",
+      "mb_20710add9f5b906a",
+      "mb_273cb857fe8719ec",
+      "mb_2992f23c67b9806f",
+      "mb_2bece8f115c32b3d",
+      "mb_2d612172dc078d6a",
+      "mb_2e575c21fd2d649d",
+      "mb_2fb14a13e027ee45",
+      "mb_31a43982e0d54d2b",
+      "mb_34f01cf922764242",
+      "mb_40f9e22e18924072",
+      "mb_415736075e7e61ba",
+      "mb_4c76a45ba23d57e8",
+      "mb_5168fa8d53ef2edb",
+      "mb_5612b3ec38125fd5",
+      "mb_57ed9e8ac8a1f778",
+      "mb_582af47dce3ff1db",
+      "mb_5959bf821144fcff",
+      "mb_5aa8f6733fb80e42",
+      "mb_5ce3e6c19932e649",
+      "mb_67c45a835cec98f5",
+      "mb_6873487ee8ce7e9d",
+      "mb_8064d34457d0c9d9",
+      "mb_8220b55fa5c1ae04",
+      "mb_83c2e31962af4614",
+      "mb_83f1427ac6d573de",
+      "mb_83f7b23810d4e3d4",
+      "mb_8f47300dde27c726",
+      "mb_9014637d27250368",
+      "mb_91eae51d454f9f7b",
+      "mb_9831e790b9c11eb4",
+      "mb_984eff16584f7828",
+      "mb_99bf76fd65fd2798",
+      "mb_9e218a2d8c2367d2",
+      "mb_9e3f8e7cb1d62f53",
+      "mb_a0ba31af4d75e263",
+      "mb_a6d1b3cbfd094aee",
+      "mb_a71013bbe508821c",
+      "mb_b026b837589b1d84",
+      "mb_b244bafd27e7ca6e",
+      "mb_b3c9ca9884e98031",
+      "mb_b4481bbf40cd5a67",
+      "mb_be466eca06bee5bc",
+      "mb_cacbb8f22711302c",
+      "mb_ccd2b01bf1a2bcf9",
+      "mb_cfb9df36c68f7b17",
+      "mb_d1f943e65be5f8a9",
+      "mb_d8ff11a68794e931",
+      "mb_d9bf022b5ecbe348",
+      "mb_dc4cfe6c754f1f2c",
+      "mb_e14d6fa23c97ac09",
+      "mb_ed013ccfe222000b",
+      "mb_f0ba1b09f8d580a4",
+      "mb_f2b76b5aeda5c50c",
+      "mb_f30eae71165174c7",
+      "mb_f46aab2deb28c052",
+      "mb_ffb2dd2f002dd018"
+    ],
+    "holm_missing_test_policy": "Unavailable primary tests occupy a prespecified family slot with p=1; no test family is shrunk."
+  },
+  "matching": {
+    "algorithm": "greedy_descending_quality_one_to_one",
+    "time_iou": 0.3,
+    "box_iou": 0.3,
+    "exact_synthetic_minimum_frequency_tolerance_hz": 2.0,
+    "ai_reference_minimum_frequency_tolerance_hz": 4.0,
+    "maximum_uncalibrated_ai_reference_frequency_uncertainty_hz": 8.0,
+    "AI_reference_eligibility": "Per-record eligible morphology/domain scopes filter both predictions and gold. Unqualified types receive neither credit nor penalty; empty scope produces unavailable metrics and cannot select a primary comparator.",
+    "ridge_tolerance": "max(minimum tolerance, 2Hz from the shared 1Hz assessment grid, reference frequency uncertainty); model-declared bins cannot relax acceptance",
+    "optional_synthetic_events": "Known optional beat-envelope harmonics give neither TP credit nor FP/FN penalty.",
+    "modulation_scope": "Synthetic modulation is scored only for am_noise, beating, mixed, noise and silence. For truth.modulation_exhaustive=false, modulation predictions and references are excluded without credit or penalty.",
+    "time_uncertainty": "Temporal IoU rule is fixed; stated boundary uncertainty is retained in annotations, not silently used to enlarge boxes."
+  },
+  "grouping": {
+    "rule": "connected components of shared parent provenance within each stratum",
+    "cluster_members": {
+      "real:cluster:5ac869730793e248": [
+        "deepship:Cargo/110.wav"
+      ],
+      "real:cluster:c6df1c6cce3ef680": [
+        "deepship:Cargo/78.wav"
+      ],
+      "real:cluster:a8589924eafc4bb2": [
+        "deepship:Passengership/1.wav"
+      ],
+      "real:cluster:aa0d8528052a6f0c": [
+        "deepship:Passengership/14.wav"
+      ],
+      "real:cluster:f0d46d09e4948356": [
+        "deepship:Passengership/23.wav"
+      ],
+      "real:cluster:38c133807dc39530": [
+        "deepship:Passengership/37.wav"
+      ],
+      "real:cluster:2cc6a6e222cd6c8b": [
+        "deepship:Passengership/50.wav"
+      ],
+      "real:cluster:76479b344b9fadd0": [
+        "deepship:Passengership/6.wav"
+      ],
+      "real:cluster:75e8db7865c8470b": [
+        "deepship:Tanker/6.wav"
+      ],
+      "real:cluster:15d723514773384d": [
+        "mbari:day:20160101"
+      ],
+      "real:cluster:afb8a9a9c4af147c": [
+        "mbari:day:20160106"
+      ],
+      "real:cluster:6e270ec199e2a96f": [
+        "mbari:day:20160112"
+      ],
+      "real:cluster:d05edd6138b2f29e": [
+        "mbari:day:20160118"
+      ],
+      "real:cluster:367d69aab9864adc": [
+        "mbari:day:20160126"
+      ],
+      "real:cluster:71fc1cfba7eafe2c": [
+        "mbari:day:20160201"
+      ],
+      "real:cluster:ec25dfa031db9142": [
+        "mbari:day:20160212"
+      ],
+      "real:cluster:39692a265c0bb064": [
+        "mbari:day:20160219"
+      ],
+      "real:cluster:a0bf8e5af94c1d65": [
+        "mbari:day:20160225"
+      ],
+      "real:cluster:d1d3e5af8d9e7fc2": [
+        "mbari:day:20160301"
+      ],
+      "real:cluster:72c77b5f8e21197a": [
+        "mbari:day:20160307"
+      ],
+      "real:cluster:b94ec58ec2cdbc30": [
+        "mbari:day:20160313"
+      ],
+      "real:cluster:0182f0e3ecbd21b4": [
+        "mbari:day:20160319"
+      ],
+      "real:cluster:f3554ed58aa03550": [
+        "mbari:day:20160325"
+      ],
+      "real:cluster:5e49ebb0a195995c": [
+        "mbari:day:20160331"
+      ],
+      "real:cluster:cd11c4e493bfec97": [
+        "mbari:day:20160406"
+      ],
+      "real:cluster:27dabf9e95bea40b": [
+        "mbari:day:20160412"
+      ],
+      "real:cluster:b482d615d2d03900": [
+        "mbari:day:20160417"
+      ],
+      "real:cluster:2900081e80d7d871": [
+        "mbari:day:20160423"
+      ],
+      "real:cluster:e0ca56ab83b693ce": [
+        "mbari:day:20160429"
+      ],
+      "real:cluster:7fc3ad6b3f289785": [
+        "mbari:day:20160505"
+      ],
+      "real:cluster:41dd0390b73c4867": [
+        "mbari:day:20160511"
+      ],
+      "real:cluster:3b8ace7dfa0062cc": [
+        "mbari:day:20160517"
+      ],
+      "real:cluster:5af93ed117831e8f": [
+        "mbari:day:20160523"
+      ],
+      "real:cluster:fdb6f35c2728cc4a": [
+        "mbari:day:20160529"
+      ],
+      "real:cluster:1bef40e4d958b07d": [
+        "mbari:day:20160606"
+      ],
+      "real:cluster:cb4a6822868c20c9": [
+        "mbari:day:20160612"
+      ],
+      "real:cluster:8be9c725f2eb8cd8": [
+        "mbari:day:20160618"
+      ],
+      "real:cluster:23292a4834f0343c": [
+        "mbari:day:20160624"
+      ],
+      "real:cluster:cd5f75ba074c67cd": [
+        "mbari:day:20160630"
+      ],
+      "real:cluster:daa91554fbda1f7e": [
+        "mbari:day:20160706"
+      ],
+      "real:cluster:3ffa047334898451": [
+        "mbari:day:20160712"
+      ],
+      "real:cluster:89a7c7cb360b5038": [
+        "mbari:day:20160718"
+      ],
+      "real:cluster:ea17d41d34d65c0e": [
+        "mbari:day:20160724"
+      ],
+      "real:cluster:52075b4ef044f4fc": [
+        "mbari:day:20160729"
+      ],
+      "real:cluster:7473dfbde730d188": [
+        "mbari:day:20160804"
+      ],
+      "real:cluster:3b74265268e5664d": [
+        "mbari:day:20160810"
+      ],
+      "real:cluster:d54473c6a4e90d4f": [
+        "mbari:day:20160816"
+      ],
+      "real:cluster:1fc437a62a98c600": [
+        "mbari:day:20160824"
+      ],
+      "real:cluster:b5c3f480d3f3492a": [
+        "mbari:day:20160830"
+      ],
+      "real:cluster:0f0385ff31f4c24f": [
+        "mbari:day:20160906"
+      ],
+      "real:cluster:f83c309409e5f8cd": [
+        "mbari:day:20160912"
+      ],
+      "real:cluster:13eef0a38a879def": [
+        "mbari:day:20160918"
+      ],
+      "real:cluster:74c67e63285f2645": [
+        "mbari:day:20160923"
+      ],
+      "real:cluster:147d69a025254e81": [
+        "mbari:day:20160929"
+      ],
+      "real:cluster:9042a02c8fa20f20": [
+        "mbari:day:20161005"
+      ],
+      "real:cluster:c53a02b249d885d5": [
+        "mbari:day:20161011"
+      ],
+      "real:cluster:704e5a64f6afaf2f": [
+        "mbari:day:20161016"
+      ],
+      "real:cluster:35251c396eb6b065": [
+        "mbari:day:20161022"
+      ],
+      "real:cluster:7a1d6aa22eff3f14": [
+        "mbari:day:20161102"
+      ],
+      "real:cluster:3e618ce5ac1f119a": [
+        "mbari:day:20161108"
+      ],
+      "real:cluster:651c1a4a80c22252": [
+        "mbari:day:20161113"
+      ],
+      "real:cluster:fd80a50960732530": [
+        "mbari:day:20161119"
+      ],
+      "real:cluster:507f6e24fb6cc1a2": [
+        "mbari:day:20161125"
+      ],
+      "real:cluster:819f75e57ed6747c": [
+        "mbari:day:20161201"
+      ],
+      "real:cluster:72b4831934af1eb0": [
+        "mbari:day:20161207"
+      ],
+      "real:cluster:84b822a69e314f62": [
+        "mbari:day:20161213"
+      ],
+      "real:cluster:ad4f439f2b70c5d2": [
+        "mbari:day:20161219"
+      ],
+      "real:cluster:65037cafe1a82636": [
+        "mbari:day:20161225"
+      ],
+      "real:cluster:6168975ae2788bbf": [
+        "mbari:day:20161231"
+      ],
+      "semi_synthetic:cluster:48b6164afe48e61d": [
+        "deepship:Cargo/110.wav",
+        "deepship:Cargo/78.wav",
+        "deepship:Passengership/1.wav",
+        "deepship:Passengership/14.wav",
+        "deepship:Passengership/23.wav",
+        "deepship:Passengership/37.wav",
+        "deepship:Passengership/50.wav",
+        "deepship:Tanker/6.wav"
+      ],
+      "synthetic:cluster:95950b5585d51af8": [
+        "synthetic:test:3000"
+      ],
+      "synthetic:cluster:1eafa1ac3e162f59": [
+        "synthetic:test:3001"
+      ],
+      "synthetic:cluster:282309a97f5a6c3e": [
+        "synthetic:test:3002"
+      ],
+      "synthetic:cluster:daf77762693eb9c8": [
+        "synthetic:test:3003"
+      ],
+      "synthetic:cluster:74210ba490829447": [
+        "synthetic:test:3004"
+      ],
+      "synthetic:cluster:11b528c6a6201e2e": [
+        "synthetic:test:3005"
+      ],
+      "synthetic:cluster:df9e010ac6a45b9b": [
+        "synthetic:test:3006"
+      ],
+      "synthetic:cluster:af0bb3aa3c924a28": [
+        "synthetic:test:3007"
+      ],
+      "synthetic:cluster:f676c94a6cc6d8a8": [
+        "synthetic:test:3008"
+      ],
+      "synthetic:cluster:c3211c592338460f": [
+        "synthetic:test:3009"
+      ],
+      "synthetic:cluster:aa692055cbacc3fd": [
+        "synthetic:test:3010"
+      ],
+      "synthetic:cluster:98aff67499e45ade": [
+        "synthetic:test:3011"
+      ]
+    }
+  },
+  "annotation_calibration_on_exact_synthetic": {
+    "scenes": [],
+    "aggregate": null
+  },
+  "interpretation": [
+    "Real and real-mixture scores measure agreement with AI references, not independently validated physical correctness.",
+    "The distinct annotation checkpoints share Qwen-family language backbones; blind passes are not statistically independent and correlated errors remain possible.",
+    "Unmatched predictions in disputed or unreviewed real regions are disagreements with the reference set, not certified false positives.",
+    "Exact synthetic metrics apply only to the declared generator and cannot validate real source identity.",
+    "Schema/model failures remain in all applicable denominators as unsuccessful or empty reports.",
+    "Data strata are never pooled into a headline accuracy value.",
+    "No free-text claim fidelity or calibrated probability score is inferred from the verifier.",
+    "Repeated frozen deterministic generations do not establish independent model-seed variability."
+  ]
+}

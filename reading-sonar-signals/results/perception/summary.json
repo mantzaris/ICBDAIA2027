@@ -1,0 +1,739 @@
+{
+  "started_at": "2026-11-17T06:08:23.330281+00:00",
+  "completed_at": "2026-11-17T06:08:27.806063+00:00",
+  "status": "complete",
+  "task": "weak_scene_classification_only",
+  "protocol": "protocol.json",
+  "feature_timing": {
+    "wall_seconds": 1.6416201419997378,
+    "cpu_decode_seconds": 0.09015507599724515,
+    "cuda_feature_seconds": 0.9706418831348419,
+    "cache_reused": false
+  },
+  "classes": [
+    "Cargo",
+    "Passengership",
+    "Tanker",
+    "Tug"
+  ],
+  "split_scenes": {
+    "train": 90,
+    "val": 30,
+    "test": 30
+  },
+  "split_independent_groups": {
+    "train": 26,
+    "val": 9,
+    "test": 9
+  },
+  "test_group_order": [
+    "deepship:Cargo/110.wav",
+    "deepship:Cargo/78.wav",
+    "deepship:Passengership/1.wav",
+    "deepship:Passengership/14.wav",
+    "deepship:Passengership/23.wav",
+    "deepship:Passengership/37.wav",
+    "deepship:Passengership/50.wav",
+    "deepship:Passengership/6.wav",
+    "deepship:Tanker/6.wav"
+  ],
+  "test_class_support": {
+    "Cargo": 10,
+    "Passengership": 16,
+    "Tanker": 4,
+    "Tug": 0
+  },
+  "test_label_interpretation": "Present-class macro F1 averages only classes with reference support in the evaluated sample. All-vocabulary macro F1 also includes unsupported classes as zero. Neither establishes generalization for a class absent from test truth.",
+  "runs": [
+    {
+      "method": "P1",
+      "task": "weak_scene_classification_only",
+      "seed": 1729,
+      "architecture": "three_convolutions_per_view_groupnorm_gelu_4x4_pool_128unit_head",
+      "parameter_count": 155492,
+      "dual_view": false,
+      "epochs_completed": 9,
+      "selected_epoch": 1,
+      "selected_validation_ce": 1.6064116954803467,
+      "wall_seconds": 0.5282677349996447,
+      "cuda_elapsed_seconds": 0.5282186279296875,
+      "cuda_timing_note": "CUDA event elapsed span includes gaps between queued work; not an occupancy-derived active time",
+      "peak_allocated_bytes": 121065984,
+      "peak_reserved_bytes": 159383552,
+      "checkpoint": "P1_seed1729.pt",
+      "checkpoint_sha256": "413fb23d15585f4165a922c17368db6b0987b238ccaf795bf35c9c6e2b987b9b",
+      "parameters_and_buffers_cuda": true,
+      "test_metrics": {
+        "accuracy": 0.6000000238418579,
+        "macro_f1": 0.43391287326812744,
+        "macro_f1_all_frozen_classes": 0.43391287326812744,
+        "macro_f1_present_reference_classes": 0.5785505175590515,
+        "balanced_accuracy": 0.5625,
+        "per_class_precision": [
+          0.4166666567325592,
+          0.7333333492279053,
+          0.6666666865348816,
+          0.0
+        ],
+        "per_class_recall": [
+          0.5,
+          0.6875,
+          0.5,
+          0.0
+        ],
+        "per_class_f1": [
+          0.4545454680919647,
+          0.7096773982048035,
+          0.5714285969734192,
+          0.0
+        ],
+        "per_class_support": [
+          10.0,
+          16.0,
+          4.0,
+          0.0
+        ]
+      },
+      "test_confusion": [
+        [
+          5,
+          4,
+          1,
+          0
+        ],
+        [
+          5,
+          11,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "test_wall_seconds": 0.002058541000224068
+    },
+    {
+      "method": "P1",
+      "task": "weak_scene_classification_only",
+      "seed": 2718,
+      "architecture": "three_convolutions_per_view_groupnorm_gelu_4x4_pool_128unit_head",
+      "parameter_count": 155492,
+      "dual_view": false,
+      "epochs_completed": 9,
+      "selected_epoch": 1,
+      "selected_validation_ce": 1.5439587831497192,
+      "wall_seconds": 0.20855725099954725,
+      "cuda_elapsed_seconds": 0.20852195739746093,
+      "cuda_timing_note": "CUDA event elapsed span includes gaps between queued work; not an occupancy-derived active time",
+      "peak_allocated_bytes": 121065984,
+      "peak_reserved_bytes": 138412032,
+      "checkpoint": "P1_seed2718.pt",
+      "checkpoint_sha256": "bbb3559bf57f409e895c72d03a7d11b61c2255b1f056b31ed2d6ef2dee06ab89",
+      "parameters_and_buffers_cuda": true,
+      "test_metrics": {
+        "accuracy": 0.3333333432674408,
+        "macro_f1": 0.125,
+        "macro_f1_all_frozen_classes": 0.125,
+        "macro_f1_present_reference_classes": 0.1666666716337204,
+        "balanced_accuracy": 0.3333333432674408,
+        "per_class_precision": [
+          0.3333333432674408,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_class_recall": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_class_f1": [
+          0.5,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_class_support": [
+          10.0,
+          16.0,
+          4.0,
+          0.0
+        ]
+      },
+      "test_confusion": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "test_wall_seconds": 0.0016430149998996058
+    },
+    {
+      "method": "P1",
+      "task": "weak_scene_classification_only",
+      "seed": 3141,
+      "architecture": "three_convolutions_per_view_groupnorm_gelu_4x4_pool_128unit_head",
+      "parameter_count": 155492,
+      "dual_view": false,
+      "epochs_completed": 21,
+      "selected_epoch": 13,
+      "selected_validation_ce": 1.203351378440857,
+      "wall_seconds": 0.4480539679998401,
+      "cuda_elapsed_seconds": 0.4480188903808594,
+      "cuda_timing_note": "CUDA event elapsed span includes gaps between queued work; not an occupancy-derived active time",
+      "peak_allocated_bytes": 121065984,
+      "peak_reserved_bytes": 138412032,
+      "checkpoint": "P1_seed3141.pt",
+      "checkpoint_sha256": "62f132874fe1808957b4495273c5bde5198769b9b4cf6118ad4ba16ffcb0caa3",
+      "parameters_and_buffers_cuda": true,
+      "test_metrics": {
+        "accuracy": 0.3333333432674408,
+        "macro_f1": 0.2278766632080078,
+        "macro_f1_all_frozen_classes": 0.2278766632080078,
+        "macro_f1_present_reference_classes": 0.30383554100990295,
+        "balanced_accuracy": 0.4208333492279053,
+        "per_class_precision": [
+          0.5,
+          1.0,
+          0.13333334028720856,
+          0.0
+        ],
+        "per_class_recall": [
+          0.699999988079071,
+          0.0625,
+          0.5,
+          0.0
+        ],
+        "per_class_f1": [
+          0.5833333134651184,
+          0.11764705926179886,
+          0.21052631735801697,
+          0.0
+        ],
+        "per_class_support": [
+          10.0,
+          16.0,
+          4.0,
+          0.0
+        ]
+      },
+      "test_confusion": [
+        [
+          7,
+          0,
+          3,
+          0
+        ],
+        [
+          5,
+          1,
+          10,
+          0
+        ],
+        [
+          2,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "test_wall_seconds": 0.0016270140004053246
+    },
+    {
+      "method": "P2",
+      "task": "weak_scene_classification_only",
+      "seed": 1729,
+      "architecture": "three_convolutions_per_view_groupnorm_gelu_4x4_pool_128unit_head",
+      "parameter_count": 310340,
+      "dual_view": true,
+      "epochs_completed": 9,
+      "selected_epoch": 1,
+      "selected_validation_ce": 1.4727691411972046,
+      "wall_seconds": 0.3149681029999556,
+      "cuda_elapsed_seconds": 0.3149287109375,
+      "cuda_timing_note": "CUDA event elapsed span includes gaps between queued work; not an occupancy-derived active time",
+      "peak_allocated_bytes": 146236928,
+      "peak_reserved_bytes": 165675008,
+      "checkpoint": "P2_seed1729.pt",
+      "checkpoint_sha256": "2c077776af4e31a8bee181bd5624ef9039fac1d5b385a30e42b85918afdc8ce5",
+      "parameters_and_buffers_cuda": true,
+      "test_metrics": {
+        "accuracy": 0.23333333432674408,
+        "macro_f1": 0.1779811829328537,
+        "macro_f1_all_frozen_classes": 0.1779811829328537,
+        "macro_f1_present_reference_classes": 0.23730824887752533,
+        "balanced_accuracy": 0.2958333194255829,
+        "per_class_precision": [
+          0.1538461595773697,
+          1.0,
+          0.1428571492433548,
+          0.0
+        ],
+        "per_class_recall": [
+          0.20000000298023224,
+          0.1875,
+          0.5,
+          0.0
+        ],
+        "per_class_f1": [
+          0.17391304671764374,
+          0.31578946113586426,
+          0.2222222238779068,
+          0.0
+        ],
+        "per_class_support": [
+          10.0,
+          16.0,
+          4.0,
+          0.0
+        ]
+      },
+      "test_confusion": [
+        [
+          2,
+          0,
+          8,
+          0
+        ],
+        [
+          9,
+          3,
+          4,
+          0
+        ],
+        [
+          2,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "test_wall_seconds": 0.0022694340004818514
+    },
+    {
+      "method": "P2",
+      "task": "weak_scene_classification_only",
+      "seed": 2718,
+      "architecture": "three_convolutions_per_view_groupnorm_gelu_4x4_pool_128unit_head",
+      "parameter_count": 310340,
+      "dual_view": true,
+      "epochs_completed": 11,
+      "selected_epoch": 3,
+      "selected_validation_ce": 1.5742461681365967,
+      "wall_seconds": 0.3597426469996208,
+      "cuda_elapsed_seconds": 0.3596935729980469,
+      "cuda_timing_note": "CUDA event elapsed span includes gaps between queued work; not an occupancy-derived active time",
+      "peak_allocated_bytes": 146236928,
+      "peak_reserved_bytes": 167772160,
+      "checkpoint": "P2_seed2718.pt",
+      "checkpoint_sha256": "f4a616f1a7ea9765033651f690fa1888001533fdc0dcf963eaa069bd699b1330",
+      "parameters_and_buffers_cuda": true,
+      "test_metrics": {
+        "accuracy": 0.4000000059604645,
+        "macro_f1": 0.1871345043182373,
+        "macro_f1_all_frozen_classes": 0.1871345043182373,
+        "macro_f1_present_reference_classes": 0.2495126724243164,
+        "balanced_accuracy": 0.375,
+        "per_class_precision": [
+          0.3571428656578064,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "per_class_recall": [
+          1.0,
+          0.125,
+          0.0,
+          0.0
+        ],
+        "per_class_f1": [
+          0.5263158082962036,
+          0.2222222238779068,
+          0.0,
+          0.0
+        ],
+        "per_class_support": [
+          10.0,
+          16.0,
+          4.0,
+          0.0
+        ]
+      },
+      "test_confusion": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          2,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "test_wall_seconds": 0.002849453000635549
+    },
+    {
+      "method": "P2",
+      "task": "weak_scene_classification_only",
+      "seed": 3141,
+      "architecture": "three_convolutions_per_view_groupnorm_gelu_4x4_pool_128unit_head",
+      "parameter_count": 310340,
+      "dual_view": true,
+      "epochs_completed": 11,
+      "selected_epoch": 3,
+      "selected_validation_ce": 1.8128712177276611,
+      "wall_seconds": 0.30310291400019196,
+      "cuda_elapsed_seconds": 0.30307373046875,
+      "cuda_timing_note": "CUDA event elapsed span includes gaps between queued work; not an occupancy-derived active time",
+      "peak_allocated_bytes": 146236928,
+      "peak_reserved_bytes": 167772160,
+      "checkpoint": "P2_seed3141.pt",
+      "checkpoint_sha256": "941e50aee0d844562d1cdbe56465e5e9ae775611e000350e5df4d2ebb68a4f7c",
+      "parameters_and_buffers_cuda": true,
+      "test_metrics": {
+        "accuracy": 0.4000000059604645,
+        "macro_f1": 0.1871345043182373,
+        "macro_f1_all_frozen_classes": 0.1871345043182373,
+        "macro_f1_present_reference_classes": 0.2495126724243164,
+        "balanced_accuracy": 0.375,
+        "per_class_precision": [
+          0.3571428656578064,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "per_class_recall": [
+          1.0,
+          0.125,
+          0.0,
+          0.0
+        ],
+        "per_class_f1": [
+          0.5263158082962036,
+          0.2222222238779068,
+          0.0,
+          0.0
+        ],
+        "per_class_support": [
+          10.0,
+          16.0,
+          4.0,
+          0.0
+        ]
+      },
+      "test_confusion": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          2,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "test_wall_seconds": 0.002562898000178393
+    }
+  ],
+  "seed_variability": {
+    "P1": {
+      "accuracy": {
+        "values": [
+          0.6000000238418579,
+          0.3333333432674408,
+          0.3333333432674408
+        ],
+        "mean": 0.4222222566604614,
+        "sample_sd": 0.15396007895469666
+      },
+      "macro_f1": {
+        "values": [
+          0.43391287326812744,
+          0.125,
+          0.2278766632080078
+        ],
+        "mean": 0.2622631788253784,
+        "sample_sd": 0.15730103850364685
+      },
+      "macro_f1_all_frozen_classes": {
+        "values": [
+          0.43391287326812744,
+          0.125,
+          0.2278766632080078
+        ],
+        "mean": 0.2622631788253784,
+        "sample_sd": 0.15730103850364685
+      },
+      "macro_f1_present_reference_classes": {
+        "values": [
+          0.5785505175590515,
+          0.1666666716337204,
+          0.30383554100990295
+        ],
+        "mean": 0.3496842384338379,
+        "sample_sd": 0.2097347229719162
+      },
+      "balanced_accuracy": {
+        "values": [
+          0.5625,
+          0.3333333432674408,
+          0.4208333492279053
+        ],
+        "mean": 0.43888890743255615,
+        "sample_sd": 0.11564532667398453
+      }
+    },
+    "P2": {
+      "accuracy": {
+        "values": [
+          0.23333333432674408,
+          0.4000000059604645,
+          0.4000000059604645
+        ],
+        "mean": 0.3444444537162781,
+        "sample_sd": 0.09622505307197571
+      },
+      "macro_f1": {
+        "values": [
+          0.1779811829328537,
+          0.1871345043182373,
+          0.1871345043182373
+        ],
+        "mean": 0.18408340215682983,
+        "sample_sd": 0.005284670274704695
+      },
+      "macro_f1_all_frozen_classes": {
+        "values": [
+          0.1779811829328537,
+          0.1871345043182373,
+          0.1871345043182373
+        ],
+        "mean": 0.18408340215682983,
+        "sample_sd": 0.005284670274704695
+      },
+      "macro_f1_present_reference_classes": {
+        "values": [
+          0.23730824887752533,
+          0.2495126724243164,
+          0.2495126724243164
+        ],
+        "mean": 0.24544453620910645,
+        "sample_sd": 0.007046225015074015
+      },
+      "balanced_accuracy": {
+        "values": [
+          0.2958333194255829,
+          0.375,
+          0.375
+        ],
+        "mean": 0.34861111640930176,
+        "sample_sd": 0.04570689797401428
+      }
+    }
+  },
+  "group_bootstrap": {
+    "status": "complete",
+    "draws": 2000,
+    "seed": 89731,
+    "n_groups": 9,
+    "resampling_unit": "original_recording_group",
+    "uncertainty": "recording-group sampling conditional on the matched trained seeds; seeds are not resampled",
+    "statistic": "mean of per-seed metrics on pooled sampled recording groups",
+    "device": "cuda:0",
+    "methods": {
+      "P1": {
+        "accuracy": {
+          "point": 0.4222222566604614,
+          "ci95": [
+            0.2345370501279831,
+            0.638888955116272
+          ]
+        },
+        "macro_f1": {
+          "point": 0.2622631788253784,
+          "ci95": [
+            0.11707906424999237,
+            0.34046971797943115
+          ]
+        },
+        "macro_f1_all_frozen_classes": {
+          "point": 0.2622631788253784,
+          "ci95": [
+            0.11707906424999237,
+            0.34046971797943115
+          ]
+        },
+        "macro_f1_present_reference_classes": {
+          "point": 0.3496842384338379,
+          "ci95": [
+            0.2456684410572052,
+            0.5416103005409241
+          ]
+        },
+        "balanced_accuracy": {
+          "point": 0.43888890743255615,
+          "ci95": [
+            0.26811593770980835,
+            0.6095238327980042
+          ]
+        }
+      },
+      "P2": {
+        "accuracy": {
+          "point": 0.3444444537162781,
+          "ci95": [
+            0.10663158446550369,
+            0.6126126646995544
+          ]
+        },
+        "macro_f1": {
+          "point": 0.18408340215682983,
+          "ci95": [
+            0.06690216064453125,
+            0.3283909857273102
+          ]
+        },
+        "macro_f1_all_frozen_classes": {
+          "point": 0.18408340215682983,
+          "ci95": [
+            0.06690216064453125,
+            0.3283909857273102
+          ]
+        },
+        "macro_f1_present_reference_classes": {
+          "point": 0.24544453620910645,
+          "ci95": [
+            0.11471687257289886,
+            0.5733470320701599
+          ]
+        },
+        "balanced_accuracy": {
+          "point": 0.34861111640930176,
+          "ci95": [
+            0.125,
+            0.5762301683425903
+          ]
+        }
+      }
+    },
+    "paired_P2_minus_P1": {
+      "accuracy": {
+        "point": -0.07777778804302216,
+        "ci95": [
+          -0.18095234036445618,
+          0.06897753477096558
+        ]
+      },
+      "macro_f1": {
+        "point": -0.07817977666854858,
+        "ci95": [
+          -0.13480836153030396,
+          0.05157017335295677
+        ]
+      },
+      "macro_f1_all_frozen_classes": {
+        "point": -0.07817977666854858,
+        "ci95": [
+          -0.13480836153030396,
+          0.05157017335295677
+        ]
+      },
+      "macro_f1_present_reference_classes": {
+        "point": -0.10423970222473145,
+        "ci95": [
+          -0.19133572280406952,
+          0.09422313421964645
+        ]
+      },
+      "balanced_accuracy": {
+        "point": -0.0902777910232544,
+        "ci95": [
+          -0.16812241077423096,
+          0.06060612201690674
+        ]
+      }
+    }
+  },
+  "predictions_sha256": "349e6648b7607d8ff2d74be7b138a3cdf1aa8fcf01f5f02c42ca9f8ee565f9d6",
+  "limitations": [
+    "Recording-disjoint, not proven vessel-disjoint.",
+    "No component localization head; these do not fully instantiate the plan's localization baselines.",
+    "Weak scene labels do not identify the source of individual acoustic components.",
+    "P2 has more parameters; architecture is not parameter-matched to P1.",
+    "Some held-out classes can lack reference support; report both all-vocabulary and present-reference-class macro F1, not a four-class generalization claim.",
+    "No unseen-domain vessel classification claim; external domain lacks a shared verified label set."
+  ]
+}

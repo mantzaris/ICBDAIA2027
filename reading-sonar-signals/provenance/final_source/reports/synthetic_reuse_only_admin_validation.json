@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-11-17T17:24:14.660427+00:00",
+  "scope": "Isolated 12-scene CPU administrative fixture. Actual unchanged compose_ablations.py executes as a subprocess; only final evaluate_benchmark.py GPU invocation is mocked. No scientific numeric calculations or model inference.",
+  "source_sha256": {
+    "scripts/run_synthetic_reuse_only.py": "e22d0025e9b3f052a465422c8aa07a7bc355e11c3a6a03c7a1fa07fc63ce8b63",
+    "scripts/compose_ablations.py": "4e07f3d585b414551c1353213bb1d15cf8ff456271438d67608202881674151c",
+    "tests/test_synthetic_reuse_only_admin.py": "4e0a81d563c8a3e660ab1e7f0d06e905a43137f7a292e8f78916784c12647bc8"
+  },
+  "command": "python3 -m unittest discover -s tests -p test_synthetic_reuse_only_admin.py -v",
+  "tests": 8,
+  "failures": 0,
+  "log": "test_36_reports_schema_gate_truth_hashes_and_zero_inference (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nok\ntest_frozen_source_tamper_is_rejected_before_composition (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... ok\ntest_rerun_is_byte_idempotent (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nSYNTHETIC_REUSE_ONLY_FINISHED\nok\ntest_tampered_composition_provenance_rejected_by_actual_composer (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nok\ntest_tampered_reuse_proof_is_rejected (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nok\ntest_tampered_stub_source_provenance_is_rejected (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nok\ntest_tampered_truth_bytes_are_not_overwritten (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nok\ntest_tampered_truth_inventory_is_rejected_before_evaluation (test_synthetic_reuse_only_admin.SyntheticReuseOnly) ... SYNTHETIC_REUSE_ONLY_FINISHED\nok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.646s\n\nOK\n",
+  "fixtures": {
+    "temporary_root": "/tmp/sonar-synthetic-reuse-admin-* (removed after each test)",
+    "source_scenes": 12,
+    "source_methods": [
+      "F",
+      "G4"
+    ],
+    "source_episode_records": 24,
+    "schema_invalid_F_fixture": true,
+    "zero_method_stub": true,
+    "composed_methods": [
+      "F",
+      "G4",
+      "no_verifier"
+    ],
+    "composed_episode_records": 36,
+    "sealed_truth_records": 12,
+    "labels_and_timing": "Inert handcrafted file fixtures, not experiment observations or estimated scientific values."
+  },
+  "checks": [
+    "All 36 exact scene/method reports exist after actual frozen composition",
+    "Source F/G4 episode bytes remain unchanged and composed F/G4 bytes match",
+    "Invalid-schema F retains raw report but derived no_verifier report is null",
+    "Valid-schema no_verifier exposes raw F report and preserves original accounting",
+    "Stub methods are empty and additional inference/new episode declarations equal zero",
+    "No stub inference episodes are fabricated",
+    "All 12 sealed-truth files and source/destination provenance hashes match byte-for-byte",
+    "Second invocation preserves every result file hash",
+    "Tampered reuse proof, stub source-config hash, truth inventory, truth bytes and composition provenance are rejected",
+    "Frozen composer-source tampering is rejected before composition",
+    "No torch import or inference subprocess is permitted in this test harness"
+  ],
+  "static_review": {
+    "concrete_blockers_found": [],
+    "scope_note": "The reuse stub completion records zero generated episodes; final composed evaluation and queue completion remain separate required steps. Existing episode costs remain inherited rather than reset to zero. Final numerical evaluator is intentionally untested here."
+  },
+  "frozen_source_integrity": {
+    "entries_checked": 56,
+    "mismatches": []
+  },
+  "operations": {
+    "script_under_review_edited": false,
+    "frozen_composer_edited": false,
+    "gpu_jobs": false,
+    "uploads": false,
+    "actual_research_records_written": false,
+    "new_repository_files": [
+      "tests/test_synthetic_reuse_only_admin.py",
+      "reports/synthetic_reuse_only_admin_validation.json"
+    ]
+  }
+}

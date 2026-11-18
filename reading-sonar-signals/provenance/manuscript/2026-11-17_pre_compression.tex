@@ -1,0 +1,179 @@
+% Canonical editable manuscript. AI eligibility is frozen; final experiments remain pending.
+% Build: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+% Set finalresultstrue after inserting frozen results; missing figures then fail.
+\documentclass[runningheads,orivec]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\pending}[1]{\iffinalresults
+  \PackageError{research-results}{Unresolved result or protocol marker}{Resolve the marked item from recorded evidence before submission.}%
+  \else\textbf{[Pending: #1]}\fi}
+\newif\iffinalresults
+\finalresultsfalse
+\newcommand{\researchfigure}[3]{%
+  \IfFileExists{#1}{%
+    \begin{figure}[tb]\centering
+    \includegraphics[width=\linewidth,height=.34\textheight,keepaspectratio]{#1}
+    \caption{#2}\label{#3}\end{figure}}{%
+    \iffinalresults
+      \PackageError{research-results}{Required recorded-output figure #1 missing}{Generate the actual artifact before submission.}%
+    \else
+      \PackageWarning{research-results}{Recorded-output figure #1 omitted from incomplete draft}%
+    \fi}}
+\hypersetup{pdfauthor={Alexander V. Mantzaris and James H. Korris},pdftitle={Evidence-Grounded Adaptive Inspection of Underwater Acoustic Spectrograms},pdfsubject={Acoustic inspection with AI-reference agreement and separate exact synthetic evaluation}}
+
+\begin{document}
+\raggedbottom
+\title{Evidence-Grounded Adaptive Inspection of Underwater Acoustic Spectrograms}
+\titlerunning{Adaptive Inspection of Underwater Acoustic Spectrograms}
+\author{Alexander V. Mantzaris\inst{1} \and James H. Korris\inst{2}}
+\authorrunning{A. V. Mantzaris and J. H. Korris}
+\institute{Dr. Yvette Kanouff School of Data,\\
+Mathematical, and Statistical Sciences\\
+UCF, 4000 University Blvd, Orlando, FL 32816, USA\\
+\email{alexander.mantzaris@ucf.edu}
+\and
+Creative Technologies Inc.\\
+\email{james.korris@cretecinc.com}}
+\maketitle
+
+\begin{abstract}
+A persistent acoustic line and a periodic envelope need not identify a common physical source. We study bounded reinspection using deterministic measurements, an overlap-preserving graph, generative action selection, and numerical report checks. Five controllers share a local vision-language backbone; supervised classifiers and synthetic-trained localizers provide separate comparisons. The inventory contains 210 real scenes from two domains, 35 real mixtures, and 35 synthetic scenes. Both candidate AI annotation models failed the declared morphology qualification gate: each matched only two of fifteen controlled tonal events. Consequently, primary real-scene agreement is unavailable, rather than zero accuracy. Exact synthetic recovery, report production, and cost remain separately evaluable. \pending{Insert completed controlled comparisons and held-out annotation audit.}
+\keywords{Passive underwater acoustics \and Spectrogram interpretation \and Tool-using agents \and Evidence grounding \and Envelope modulation}
+\end{abstract}
+
+\section{From recording labels to localized evidence}
+A vessel label does not identify which line persists, which transient overlaps it, or whether periodic structures share a source. We compare additional waveform inspections against fixed and deterministic policies using the same report model. Low-frequency analysis and recording (LOFAR) and detection of envelope modulation on noise (DEMON) supply complementary displays. A DEMON peak indicates periodic envelope structure within its carrier band, not blade count or propulsion mechanism. The contribution is an auditable comparison of inspection, component provenance, and filtering. Observable morphology, internal consistency, and physical identification remain distinct.
+
+\section{Related work}
+Li et al. combine LOFAR and DEMON for target counting and fundamental-frequency estimation~\cite{li2022lofar}; Najamuddin et al. combine machinery and propeller features for classification~\cite{najamuddin2026fusion}. Dual-view fusion is therefore an established comparison.
+
+Nihal et al. study knowledge-augmented vision-language interpretation of marine-mammal spectrograms~\cite{nihal2025knowledge}. Zhang et al. couple complementary acoustic representations to a language model for structured descriptions of simulated vessel signals~\cite{zhang2026evidence1}. The companion passive-detection study combines multichannel evidence and identifies field validation as future work~\cite{li2026evidence2}. Evidence-bearing acoustic reports precede this study; our narrower question concerns additional waveform inspections and unresolved associations.
+
+Interleaved decisions and external actions follow ReAct~\cite{yao2023react}. UA-Bench motivates synthetic and silent-audio controls~\cite{sun2026uabench}. These controls and AI-reference agreement do not establish real physical correctness.
+
+\section{Measurements, memory, and report checking}
+\subsection{Linked views retain distinct frequency meanings}
+For a sampled observation $x[n]$, a Hann window $w[n]$ of length $N$, and hop $H$,
+\begin{equation}
+X[m,k]=\sum_{n=0}^{N-1}x[n+mH]w[n]e^{-2\pi\mathrm{i}kn/N},
+\qquad
+P[m,k]=\frac{c_k|X[m,k]|^2}{f_s\sum_nw[n]^2}.
+\end{equation}
+The one-sided factor $c_k$ is two at interior positive frequencies and one at DC/Nyquist. Frame centers retain original coordinates. PSD uses uncalibrated digital amplitude squared per hertz; bin spacing does not guarantee component resolution.
+
+Global LOFAR uses a 1\,s window and 0.25\,s hop over 0--1800\,Hz after anti-aliased resampling to at most 4\,kHz; inspections offer 0.25, 1, and 4\,s windows. For carrier-filtered $u_b$, the envelope $e_b=|u_b+\mathrm{i}\mathcal H\{u_b\}|$ is filtered, resampled, and analyzed with a 4\,s window and 0.5\,s hop. DEMON displays modulation frequencies of 0.5--200\,Hz with a separate carrier label. Duration, carrier margins, and edge guards determine availability.
+
+Deterministic CUDA measurements propose tone, chirp, transient, broadband, and modulation components from unpooled PSD; learned localizers are separate baselines. Display pooling does not determine numeric resolution. The linked views are correlated transforms of one waveform.
+
+\subsection{Provenance and overlap-preserving memory}
+Components retain morphology, domain, coordinates, optional trajectory, resolution, carrier, and evidence identifiers. Raw observations survive canonical merging, which requires compatible geometry and trajectories; crossing ridges are not merged merely because their boxes coincide. Graph edges record temporal overlap and unresolved cross-domain association. Harmonic fits are compatibility measurements, not source identities.
+
+The verifier checks cited-component morphology/domain, frequency endpoints within two measured bins, temporal boundaries, modulation carriers, and ordered chirp trajectories. Unsupported identities are withheld; raw reports and rejection reasons remain. Text claims must reference retained components, but their prose is not semantically verified. Passing means \emph{measurement-consistent}, not independently correct.
+
+\researchfigure{figure01.pdf}{Implemented computation path and a recorded F action trace. Conceptual arrows and observed tool calls are distinguished; failed calls remain part of the trace.}{fig:method}
+
+\section{Controllers and supervised comparisons}\label{sec:controllers}
+Qwen3-VL-8B-Instruct~\cite{qwen3vl} uses a pinned revision, CUDA bfloat16, and greedy decoding. Inputs contain opaque IDs, views, and permitted state, excluding reference labels and simulator parameters. Selection returns a valid-menu index with a 160-token allowance. Reports allow 2048 tokens, six components, three claims, relations, unresolved questions, and abstention. Full revisions and prompts accompany the code.
+
+\begin{table}[tb]
+\caption{Main comparisons. G2--G4 and F share numerical proposal and verification rules; their inspection policy differs.}
+\label{tab:methods}\centering\small
+\begin{tabular}{@{}lp{9.1cm}@{}}\toprule
+ID & Implemented policy \\\midrule
+G1 & One-pass global LOFAR image; no numerical-component verification. \\
+G2 & One-pass global paired views and quantitative evidence. \\
+G3 & Fixed ordering of available inspections, followed by the report model. \\
+G4 & Deterministic priority for unseen tools, unexplored carriers, and unresolved overlap or harmonic relationships. \\
+F & Generative selection of inspections or finalization from the valid menu, followed by the same report model. \\\bottomrule
+\end{tabular}
+\end{table}
+
+Tools inspect regions/carriers, measure peaks, track components, test harmonics/overlap, or compare intervals. Six attempted slots include invalid selections, unavailable calls, and finalization; two/four-call runs test cost sensitivity. G4 uses heuristic novelty/conflict priorities. Ablations remove DEMON, numeric state, graph, resolution adaptation, or verification; others enforce exclusivity or randomize valid actions. Equal call ceilings do not imply equal runtime.
+
+\textbf{Learned comparisons.} P1/P2 classifiers use LOFAR-only/dual-view CNN branches (16/32/64 channels; 155,492/310,340 parameters), training-only normalization, weighted cross-entropy, AdamW, and validation stopping. Seeds 1729/2718/3141 distinguish optimization from recording variation. These weak-label tasks imply no localization; parameter counts are not matched.
+
+Separate P1/P2 localizers learn exact masks from 192 auxiliary synthetic training and 48 validation scenes, including an auxiliary broadband-burst condition absent from the main generator. Compact CNNs use domain-specific grids, weighted binary cross-entropy plus Dice loss, and seeds 17/29/43. Fusion supplies context without equating acoustic/modulation pixels. Validation selects thresholds under a six-component cap; predictions are measured on native PSD grids. Unknown real regions are never negative labels.
+
+\section{Recordings and reference protocol}
+\subsection{Contiguous scenes and auditable grouping}
+We acquired 210 untouched 30\,s excerpts from public DeepShip and MBARI recordings~\cite{deepshipdata,mbari}, preserving source offsets and hashes. Table~\ref{tab:data} gives splits. Real partitions contain 26/9/69 recording/day groups; MBARI contributes 60 distinct external-test days. DeepShip lacks vessel/session identifiers: file-disjointness does not establish vessel-disjointness.
+
+\begin{table}[tb]
+\caption{Inventory and main evaluation are different denominators. Auxiliary localizer training is excluded from this inventory.}
+\label{tab:data}\centering\small
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Stratum & Training & Validation & Test & Total \\\midrule
+Untouched DeepShip & 90 & 30 & 30 & 150 \\
+Untouched MBARI & 0 & 0 & 60 & 60 \\
+Declared real mixtures & 17 & 6 & 12 & 35 \\
+Fully synthetic & 17 & 6 & 12 & 35 \\\midrule
+Total & 124 & 42 & 114 & 280 \\\bottomrule
+\end{tabular}
+\end{table}
+
+Untouched real data comprise 75\% of the inventory; the main cohort contains 90 real, 12 mixture, and 12 synthetic scenes. Mixtures retain within-split parent provenance, span 30--60\,s, and sample 0/25/50/75/100\% temporal overlap with $-10/0/+10$\,dB excerpt-power ratios. The sparse test grid uses different parents, preventing replicated factorial inference; parent timing does not supply exhaustive component truth. Accessible QiandaoEar22~\cite{du2024qiandao} target clips were 3\,s; unproven continuity excluded them from this benchmark.
+
+Hashes matched and split groups did not intersect. A CUDA 0--180\,Hz screen found no candidates among 13,500 cross-split pairs; bounded lags cannot exclude all duplication or shared vessels. DeepShip test lacks Tug, requiring present-class and four-label macro F1 to be distinguished. MBARI has no vessel-class truth. Audio redistribution follows provider rights.
+
+\subsection{AI references replace human annotation}\label{sec:references}
+The pre-test amendment replaces human annotation with blinded AI references. InternVL 3.5 models~\cite{wang2025internvl35} (4B and 8B) receive separately prompted fixed views and disjoint training demonstrations, excluding method outputs and vessel labels. DEMON prompts also include the complete 1\,Hz mean-PSD grid, without selected peaks. A morphology/domain gate requires at least three gold events and matches, precision/recall each at least 0.5, and 80\% valid relevant views. Unqualified types are unscored, not negative truth. Shared InternVL/Qwen ancestry allows correlated errors.
+
+Twelve controls determine feasibility. Earlier pilots exposed all twelve; later interface experiments reused two, and the final prompt added morphology demonstrations. Calibration is development evidence, not untouched generalization. Twelve separate controls audit the frozen protocol without retuning. Qualification uses fixed 4\,Hz tolerance, unaffected by display bins; rejected typed rows count against precision. The protocol froze on 17 November 2026 with no eligible type. Raw annotations and consensus remain unqualified diagnostics.
+
+Exact generated truth scopes modulation to amplitude-modulated noise, beating, mixed scenes, and noise/silence negatives. Other kinds contain unenumerated derived beating and receive neither modulation credit nor penalty. Higher compatible beat harmonics are optional. Test seeds and parameters remain separate from auxiliary training.
+
+\section{Evaluation and computation}
+The planned real precision/recall/F1 endpoint was an \emph{AI-reference agreement proxy}; qualification failure makes it unavailable. Raw AI disagreement does not certify physical error. Failed/missing runs remain in execution denominators. For exact synthetic scoring, invalid emitted components remain failures and empty precision is undefined.
+
+One-to-one greedy matching requires morphology/domain agreement. Narrowband events need temporal IoU $\geq0.3$ and trajectory error within 2\,Hz for synthetic truth, or $\max(4\,\mathrm{Hz},u)$ with AI uncertainty $u$ capped at 8\,Hz. Model-declared bins cannot relax this shared tolerance. Regional events need time--frequency box IoU $\geq0.3$; modulation requires carrier compatibility. Duplicates remain unmatched. Overlap scores derive from matched intervals, not free-text relation truth.
+
+Planned H1 compares F with validation-selected G3/G4; H4 measures raw-to-filtered disagreement alongside coverage. Neither real-reference test is estimable without eligible labels, and no comparator is selected from missing scores. The evaluator preserves recording/day bootstrap groups and connected shared-parent mixture groups, with planned Holm adjustment. Deterministic model repetitions are not independent seeds.
+
+Frozen subsets contain 80 ablation scenes, 18 budget scenes, and 54 interventions on gain, seeded white noise, bandwidth, known components, silence, or colormap. Thirty additional probes cover 10\,s duration, mismatched initial DEMON images, paired real spectral attenuation, and real-excerpt removal with unchanged gains. Attenuation at 200--400\,Hz and a matched 1000--1200\,Hz sham use the same 10--20\,s interval; neither establishes causal source attribution. Waveform changes recompute views. The labelled image-mismatch probe retains target numerical evidence and later reinspection. Blank outcomes include valid-empty-report rate. Contrast-ranked risk--coverage is uncalibrated and groups ties.
+
+Numerical work executes on a 48\,GB RTX 6000 Ada; the pod has 188\,GB RAM, 50\,GB disk, and a recorded US\$1.09/hour rate. Host decoding, metadata, orchestration, and rendering are permitted; numerical CPU fallback is disabled. Logs distinguish serial latency, batch throughput, tokens, and CUDA accounting. Twenty-five implementation tests and batching smoke checks passed. A development-only truncated-JSON parser defect was corrected before main testing; affected pilots remain excluded.
+
+\section{Results and recorded cases}
+\textbf{Automatic reference construction failed its feasibility gate.} Table~\ref{tab:annotation} records the frozen development calibration. Both checkpoints matched only two tonal events and no required chirp or modulation events. Transient and broadband types had only two and zero gold events, respectively, and could not meet the minimum-three rule. Schema completion did not establish numerical localization. No primary real agreement, H1/H4 conclusion, or independent physical-accuracy estimate follows from these annotations.
+
+\begin{table}[tb]
+\caption{AI-reference development calibration on twelve controls. Counts are exact-control matches, not real accuracy; TP/FP/FN denotes matched, unmatched, and missed events.}
+\label{tab:annotation}\centering\small
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Checkpoint & Complete/12 & Tone TP/FP/FN & Chirp TP/4 & Modulation TP/3 \\\midrule
+InternVL 4B & 10 & 2/12/13 & 0 & 0 \\
+InternVL 8B & 9 & 2/9/13 & 0 & 0 \\\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Weak scene classification.} Across three training seeds, P1/P2 present-class macro F1 was $0.350\pm0.210$/$0.245\pm0.007$ (mean$\pm$sample SD); four-label macro F1 was 0.262/0.184. The paired P2-minus-P1 difference was $-0.104$, with a recording-group bootstrap 95\% interval $[-0.191,0.094]$ conditional on these trained seeds. Nine test recording groups and no Tug examples support neither a general dual-view advantage nor four-class generalization. These results do not score component recovery.
+
+\pending{Insert completed controlled outcomes, held-out annotation audit, execution failures, localizer results, and measured runtime. No adaptive-inspection performance conclusion is yet asserted.}
+
+The frozen case rule prefers eligible tonal/overlap references, then opaque IDs across originals/domains. With no eligible types, those reference criteria fail explicitly; actual recordings remain descriptive cases. Action and failure selections retain their declared rules. The offline viewer links time cursors, overlapping components, carrier bands, evidence, and recorded actions. Unqualified AI layers and local corrections remain separate. Optional bounded CUDA reinspection writes exploratory outputs outside the benchmark.
+
+\researchfigure{figure02.pdf}{Recorded real-scene LOFAR and carrier-labelled DEMON evidence with reported components. No AI-reference morphology passed qualification; the intended reference-based tonal criterion remains unmet.}{fig:tonal}
+\researchfigure{figure03.pdf}{A second recorded real case. Reported temporal coexistence, if present, does not establish physical multi-source truth; no qualified overlap annotation is claimed.}{fig:overlap}
+\researchfigure{figure04.pdf}{Adaptive inspection from an actual F action log. Saved tool images preserve original coordinates, windows, and evidence identifiers; a recorded inspection alone is not an accuracy gain.}{fig:adaptive}
+\researchfigure{figure05.pdf}{Declared failure, abstention, or high-disagreement case, with raw findings and retained or withheld components. Internal consistency checks do not establish correctness.}{fig:failure}
+\researchfigure{figure06.pdf}{Real primary agreement is unavailable. Recorded report-production diagnostics, exact synthetic outcomes, and weak-label classification remain distinct measured quantities.}{fig:quantitative}
+\researchfigure{figure07.pdf}{Ablations on their common cohort: report emission, schema validity, and measured CUDA cost. Without qualified references, these are execution diagnostics rather than accuracy differences.}{fig:ablation}
+\researchfigure{figure08.pdf}{Controlled synthetic interventions and the sparse real-mixture overlap/level grid. Blank inputs use valid-empty-report rate; synthetic conditions use scoped exact F1. Unavailable real-reference cells remain undefined.}{fig:robustness}
+\researchfigure{figure09.pdf}{Matched budget comparisons and execution accounting. Primary real risk--coverage is unavailable after reference qualification failed; contrast rankings are not probabilities. Serial latency differs from concurrent throughput.}{fig:efficiency}
+
+\section{Discussion and limitations}
+The failed reference gate prevents plausible AI labels from becoming assumed truth. Increasing checkpoint size did not recover the missing calibration morphologies, but the small, development-exposed controls cannot establish universal model inability. The verifier may also reject useful findings missed by its proposals. Mono ambiguity, weak labels, incomplete grouping, the small DeepShip subset, domain shift, and one frozen backbone limit generalization. MBARI adds a recording domain, not vessel-class truth. \pending{Conclude from completed controlled comparisons.} Execution success and synthetic recovery cannot replace independent real accuracy.
+
+\paragraph{Availability.} The local package preserves manifests, hashes, checkpoints, generations, action logs, disputed references, scores, and figure inputs. Audio follows provider permissions; model revisions are pinned.
+
+\paragraph{AI Use Declaration.} OpenAI Codex assisted code production, experiments, literature verification, and manuscript editing in November 2026. Local model use and AI-generated references are described in Sects.~\ref{sec:controllers} and~\ref{sec:references}; human acoustic annotations were not used. Authors retain responsibility for the final submission.
+
+\bibliographystyle{splncs04}
+\bibliography{references}
+\end{document}

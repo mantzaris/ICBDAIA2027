@@ -1,0 +1,89 @@
+{
+  "scene_id": "ac_21fec10936227615",
+  "prompt": "Inspect this envelope-modulation spectrogram. Time is horizontal in seconds; modulation frequency is vertical in Hz.\n\nFind bright thin horizontal or diagonal lines, distinct from the speckled background.\nIgnore the speckled background and do not label the whole image as an event.\nRead the visible axes to estimate each line's starting/ending time and frequency.\nReturn ONLY a JSON object with one key named events. Its value is a list of at most six arrays.\nEach array contains four measured numbers followed by one type string, in this order:\nstarting time, ending time, starting frequency, ending frequency, type.\nReturn an empty list when no bright persistent line is visible. Do not discuss sources.\nThe type string must be modulation. Carrier-band numbers in the title are NOT modulation frequencies.\n",
+  "generation": {
+    "raw_text": "```json\n{\n  \"events\": [\n    [2, 3, 2000, 2000, \"modulation\"],\n    [25, 26, 2000, 2000, \"modulation\"]\n  ]\n}\n```",
+    "input_tokens": 936,
+    "output_tokens": 62,
+    "gpu_seconds": 1.323765380859375,
+    "wall_seconds": 1.4129404780001096,
+    "peak_allocated_bytes": 9733769216,
+    "max_new_tokens": 512,
+    "at_generation_limit": false,
+    "decode": "greedy",
+    "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+    "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+    "device_audit": {
+      "all_parameters_cuda": true,
+      "all_buffers_cuda": true,
+      "dtype": "bfloat16",
+      "hf_device_map": {
+        "": "cuda:0"
+      },
+      "parameter_count": 4732489216
+    },
+    "input_tensor_shapes": {
+      "input_ids": [
+        1,
+        936
+      ],
+      "attention_mask": [
+        1,
+        936
+      ],
+      "pixel_values": [
+        3,
+        3,
+        448,
+        448
+      ]
+    },
+    "parsed": {
+      "events": [
+        [
+          2,
+          3,
+          2000,
+          2000,
+          "modulation"
+        ],
+        [
+          25,
+          26,
+          2000,
+          2000,
+          "modulation"
+        ]
+      ]
+    },
+    "parse_error": null
+  },
+  "events": [],
+  "errors": [
+    "Invalid geometry",
+    "Invalid geometry"
+  ],
+  "metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matches": [],
+    "matching_algorithm": "greedy_descending_quality",
+    "exhaustive": true
+  },
+  "display_scale": {
+    "policy": "peak_60db",
+    "vmin_db": -77.61480522155762,
+    "vmax_db": -17.614805221557617,
+    "constant_view": false,
+    "raw_psd_unchanged": true,
+    "scale_numeric_device": "cuda:0",
+    "display_frequency_bin_width_hz": 0.5548611111111111,
+    "display_aggregation": "GPU_frequency_max_pool"
+  },
+  "scope": "training calibration only; no real/test labels",
+  "localization_tolerance": "max(4 Hz, two displayed frequency bins); exact errors retained in matches"
+}

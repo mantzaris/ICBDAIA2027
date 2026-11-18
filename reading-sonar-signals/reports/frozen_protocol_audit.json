@@ -1,0 +1,110 @@
+{
+  "audit_time_utc": "2026-11-17 06:29:50 UTC",
+  "audit_stage": "After learned-baseline completion and final source freeze; before evaluated-model main inference",
+  "audit_author": "Independent read-only agent review requested by study coordinator",
+  "execution_scope": "Source inspection, JSON metadata inspection, file hashes and declared provenance intersections only. No GPU use, new inference, numerical metric recomputation, training, or behavior/configuration edits.",
+  "overall_assessment": "No observed checkpoint-selection leakage or frozen-source/checkpoint mismatch. One inaccurate localizer schema flag requires authoritative evaluator handling. Real primary hypotheses remain unavailable because reference qualification failed; the study cannot claim validated real-scene localization or explanation correctness. Other findings limit interpretation or concern a proposed separate supplement.",
+  "verified_checks": {
+    "final_freeze": "configs/final_protocol_freeze.json",
+    "frozen_source_config_hash_mismatches": [],
+    "perception_checkpoint_hash_mismatches": [],
+    "localization_checkpoint_hash_mismatches": [],
+    "perception_checkpoint_count": 6,
+    "localization_checkpoint_count": 6,
+    "perception_prediction_rows": 180,
+    "perception_unique_scene_method_seed_rows": 180,
+    "localization_episode_count": 684,
+    "localization_component_count": 2204,
+    "localization_predictions_exceeding_six_component_cap": 0,
+    "localization_structural_track_issues_found": 1,
+    "declared_recording_groups_shared_across_train_validation_test": [],
+    "auxiliary_generator_seed_intersections_train_validation_test": [],
+    "all_intended_localization_channels_have_positive_valid_training_masks": true,
+    "localizer_freeze_timestamp_precedes_prediction_run_timestamp": true,
+    "checkpoint_selection_source_review": "Perception selects every checkpoint before label_indices is called for test; localizer selects all checkpoints and thresholds before read_manifest of the evaluation cohort and load_waveform of its scenes. Training-only normalization is used in both.",
+    "common_evaluator_tolerance_review": "report_events and score_events overwrite prediction-declared bin spacing with the shared 1-Hz assessment grid. Exact synthetic narrowband tolerance therefore stays at the declared 2-Hz minimum. Native localizer bins are 1 Hz acoustic and 0.25 Hz modulation, which do not enlarge this minimum.",
+    "synthetic_scope_review": "Unenumerated modulation is excluded in both localizer internal scoring and the common evaluator. Optional beat-envelope harmonics receive neither required-event credit nor false-positive/false-negative penalty. Scores refer to declared generator observables, not real source identity."
+  },
+  "findings": [
+    {
+      "id": "A01",
+      "severity": "high_claim_limitation_not_new_implementation_failure",
+      "finding": "No qualified real reference exists, and the frozen ablation cohort contains 80 real scenes only.",
+      "evidence": ["configs/ai_reference_freeze.json", "configs/execution.json:primary_test_status", "data/manifests/ablation_test.jsonl", "scripts/run_study_phases.py:55", "scripts/run_study_phases.py:59"],
+      "consequence": "H1/H4 and real ablation event-quality conclusions are unavailable. The existing phase runner computes unqualified diagnostics for main only; its real ablation evaluation can establish operation, report production and cost, not accuracy changes. A failed-reference diagnostic must never be promoted to physical correctness or a confirmatory primary result.",
+      "handling": "Retain unavailable primary endpoints. Coordinator is considering a separately documented all-12 synthetic ablation supplement, motivated by qualification failure and without outcome-based scene selection. No supplement was executed or added by this audit."
+    },
+    {
+      "id": "A02",
+      "severity": "medium_metadata_error",
+      "finding": "Localizer episode.schema_valid is hard-coded true, including one emitted chirp with only a single trajectory point.",
+      "evidence": ["scripts/train_localization.py:233", "src/sonar/localization.py:206", "results/localization/predictions/syn_d24f037070b5756a/P1_localizer_seed43/episode.json"],
+      "concrete_case": {"component_id": "predicted:7", "component_index": 4, "type": "chirp", "frequency_track": [[3.249875068664551, 998.0]], "saved_direct_score": {"tp": 0, "fp": 6, "fn": 3}},
+      "consequence": "The artifact's schema flag is inaccurate. The saved direct event score already counted this prediction as false positive, so this case does not inflate its stored TP count. Other direct summaries still lack the common evaluator's structural validation.",
+      "handling": "Preserve the completed artifact unchanged. Use scripts/evaluate_benchmark.py report_events/validate_events for paper schema rates and common event metrics; it rejects a chirp track with fewer than two points and counts malformed emitted components as false positives. Do not claim all localizer reports were schema-valid."
+    },
+    {
+      "id": "A03",
+      "severity": "medium_declared_metric_limitation",
+      "finding": "Greedy descending-quality matching is not maximum-cardinality bipartite matching and may depend on arbitrary ordering in ambiguous ties.",
+      "evidence": ["src/sonar/metrics.py:113", "src/sonar/metrics.py:116", "src/sonar/metrics.py:123"],
+      "consequence": "An ambiguous prediction may consume the only valid gold match of another prediction even when a two-match assignment exists. Thus the metric can undercount recoverable events around ambiguous overlaps. This was identified by source reasoning, not a new experiment or an estimate of its incidence in study outputs.",
+      "handling": "Coordinator explicitly elected to retain the declared frozen greedy metric and completed scores. Disclose the matching rule; do not describe it as optimal assignment. Any future alternative matching analysis must be separately labelled, not silently substituted."
+    },
+    {
+      "id": "A04",
+      "severity": "medium_compute_interpretation_limit",
+      "finding": "P1 consumes only LOFAR features, but the shared learned-baseline feature pipeline computes DEMON too. Localizer preprocessing timing is repeated in each of six episode records.",
+      "evidence": ["src/sonar/localization.py:61", "src/sonar/localization.py:62", "scripts/train_localization.py:218", "scripts/train_localization.py:241", "scripts/train_perception.py:prepare_features"],
+      "consequence": "The existing artifacts do not directly measure a standalone LOFAR-only preprocessing latency for P1. Summing six copies of the shared preprocessing field would overstate actual executed work. Model-only timings are not end-to-end deployment latency.",
+      "handling": "Report model/decoder timing and shared feature extraction separately. Preserve the explicit shared-preprocessing accounting note. Batch-amortized generative CUDA timing is throughput accounting, not serial request latency; composed no-verifier/F/G4 costs must not be counted as additional billed inference."
+    },
+    {
+      "id": "A05",
+      "severity": "medium_comparison_interpretation_limit",
+      "finding": "Several method differences are composite interventions rather than isolated DEMON effects.",
+      "evidence": ["src/sonar/controller.py:235", "src/sonar/controller.py:350", "results/perception/protocol.json", "results/perception/summary.json"],
+      "consequence": "G1 to G2 adds DEMON, numerical evidence and verification together. P2 scene classification has 310340 parameters versus P1's 155492. F versus G3/G4 matches an action-attempt ceiling, not total language-model calls, generated tokens or GPU cost. These comparisons cannot independently identify a DEMON-only causal benefit or a matched-total-compute benefit.",
+      "handling": "Describe the concrete method bundles and report actual action/token/compute usage. Treat learned baselines as the declared secondary supervised comparisons and retain the parameter-count limitation already present in their protocol."
+    },
+    {
+      "id": "A06",
+      "severity": "medium_small_sample_statistical_scope",
+      "finding": "Weak-class testing contains nine recording groups, one Tanker recording group, and no Tug truth. Present-reference-class bootstrap metrics recompute their class mask in each resample.",
+      "evidence": ["results/perception/summary.json:test_group_order", "results/perception/summary.json:test_class_support", "src/sonar/perception.py:metric_tensors", "src/sonar/perception.py:192"],
+      "consequence": "Present-class bootstrap resamples can omit the only Tanker group, changing the classes averaged. These intervals should not be described as a fixed three-class stratified interval or evidence of four-class generalization. Seed variability remains conditional on this same small test cohort.",
+      "handling": "Keep present-class point estimates, all-vocabulary estimates and their definitions distinct. The current figure correctly labels three-seed mean/SD rather than a recording confidence interval; preserve that distinction and the missing-class limitation."
+    },
+    {
+      "id": "A07",
+      "severity": "low_nomenclature_scope",
+      "finding": "The synthetic kind named occlusion is two separately gated same-frequency tone supports plus another tone; it does not simulate a continuously emitting source hidden by a physical masker. fixed_resolution fixes the acoustic inspection windows while DEMON already uses its fixed 4-second window.",
+      "evidence": ["src/sonar/synthetic.py:104", "src/sonar/controller.py:134", "src/sonar/controller.py:144"],
+      "handling": "Call the waveform an interrupted/gated-tone control, without asserting a common physical source or physical occlusion. Describe the resolution ablation as fixed acoustic/LOFAR resolution; do not claim evidence for adaptive DEMON-resolution selection. No waveform or truth alteration is needed."
+    },
+    {
+      "id": "A08",
+      "severity": "high_prospective_integration_requirement",
+      "finding": "Existing compose_ablations.py does not copy sealed_truth, which was harmless for the existing real-only cohort but would omit exact references in a synthetic supplement.",
+      "evidence": ["scripts/compose_ablations.py", "scripts/evaluate_benchmark.py:resolve_reference"],
+      "consequence": "Adding synthetic scenes to a composed run without their sealed truth would silently make those event references unavailable to the evaluator.",
+      "handling": "If the proposed supplement proceeds, explicitly preserve each matching sealed_truth/<scene_id>.json and its source hash in the supplemental composition. Keep the original 80-real cohort and old freeze unchanged. This audit did not modify the composer or any completed output."
+    }
+  ],
+  "reviewed_artifacts_sha256": {
+    "configs/final_protocol_freeze.json": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a",
+    "configs/ai_reference_freeze.json": "09771ec4332e82764bfe52fdbdc9b07ae2774d3c8a90213437829219f2173fcb",
+    "configs/protocol_amendments.json": "fe5ade8afa7ee03f676a803411f206a79e7ceb745d8235228619464c80758be9",
+    "results/perception/protocol.json": "6ff06f1d8b8b394f9ebb3446bab1b4a5a1791f5f0241bcf6c4a3ec58581b7c81",
+    "results/perception/checkpoint_selection_complete.json": "5262a1e0cae501f79ddf9807fe93bb3c9332aa7fbb3456d198e794407099bed2",
+    "results/perception/summary.json": "adc142937d7371fbdaf0d1e534f81a210b99dabbe116ffffbeac1299c4ae5590",
+    "results/localization/configuration.json": "31ada8328c57d39bff7aa432f045211e8da33b0b41a5fa6374d69a5aec1bc213",
+    "results/localization/FROZEN_MODELS.json": "94d6436ffce5711ceba0c20bb93696a8b3ace126d96d9aed3ab100c313e13f39",
+    "results/localization/synthetic_summary.json": "12d850717a971a5af177935b051829bd528889c96c77a9f034934885f5d95ea4",
+    "results/localization/training_label_accounting.json": "06936a94425d774379ca17c2720985c88e5f1638f8fa0150704fe9f474e2d415",
+    "results/localization/predictions/run.json": "e9af988b691ca6aa8b991ca80e1ac214b06e839d65842a5918f1e16bee5016af",
+    "results/localization/predictions/syn_d24f037070b5756a/P1_localizer_seed43/episode.json": "23734be9e33a08ef8b817f5986558c38022b2f0c52571d664cc6c19464791d51"
+  },
+  "completed_output_policy": "No completed prediction, checkpoint, score, frozen source, or configuration was rewritten by this audit. Corrections or supplements require a documented amendment and separate provenance.",
+  "reporting_priority": "Use the common evaluator as authoritative; retain unavailable primary claims, failed calibration, malformed outputs, negative baseline results, and the difference between exact synthetic truth and unqualified AI-reference diagnostics."
+}

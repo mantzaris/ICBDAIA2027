@@ -1,0 +1,85 @@
+[
+  {
+    "image": "results/ai_reference_training_execution_smoke/internvl4b/training_examples/lofar_1s/lines.png",
+    "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+    "answer": {
+      "events": [
+        [
+          2.0,
+          28.0,
+          120.0,
+          120.0,
+          "tone"
+        ],
+        [
+          10.0,
+          20.0,
+          440.0,
+          440.0,
+          "tone"
+        ]
+      ]
+    },
+    "provenance": {
+      "role": "exact_separate_synthetic_training_demonstration",
+      "seed": 920000,
+      "target_truth_used": false,
+      "display_scale": {
+        "policy": "peak_60db",
+        "vmin_db": -69.18989562988281,
+        "vmax_db": -9.189895629882812,
+        "constant_view": false,
+        "raw_psd_unchanged": true,
+        "scale_numeric_device": "cuda:0",
+        "display_frequency_bin_width_hz": 5.002777777777778,
+        "display_aggregation": "GPU_frequency_max_pool"
+      },
+      "raw_grid": null
+    }
+  },
+  {
+    "image": "results/ai_reference_training_execution_smoke/internvl4b/training_examples/lofar_1s/morphology.png",
+    "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+    "answer": {
+      "events": [
+        [
+          4.0,
+          26.0,
+          250.0,
+          550.0,
+          "chirp"
+        ],
+        [
+          15.0,
+          15.6,
+          900.0,
+          1500.0,
+          "transient"
+        ],
+        [
+          8.0,
+          20.0,
+          600.0,
+          850.0,
+          "broadband"
+        ]
+      ]
+    },
+    "provenance": {
+      "role": "exact_separate_synthetic_training_demonstration",
+      "seed": 920001,
+      "target_truth_used": false,
+      "display_scale": {
+        "policy": "peak_60db",
+        "vmin_db": -75.57894897460938,
+        "vmax_db": -15.578948974609375,
+        "constant_view": false,
+        "raw_psd_unchanged": true,
+        "scale_numeric_device": "cuda:0",
+        "display_frequency_bin_width_hz": 5.002777777777778,
+        "display_aggregation": "GPU_frequency_max_pool"
+      },
+      "raw_grid": null
+    }
+  }
+]

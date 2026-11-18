@@ -1,0 +1,84 @@
+{
+  "scene_id": "ac_ba3de81f97f6b2bb",
+  "events": [],
+  "annotation_origin": "two_distinct_local_AI_reference_models",
+  "reference_status": "partial",
+  "ai_interannotator_agreement": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": null,
+    "f1": 0.0,
+    "matches": [],
+    "matching_algorithm": "greedy_descending_quality",
+    "exhaustive": true
+  },
+  "disputed_events": {
+    "annotator_a": [
+      {
+        "id": "a0",
+        "type": "transient",
+        "frequency_domain": "acoustic",
+        "time_s": [
+          15.0,
+          16.0
+        ],
+        "frequency_hz": [
+          1200.0,
+          1200.0
+        ],
+        "frequency_track": null,
+        "carrier_band_hz": null,
+        "frequency_uncertainty_hz": 4.0,
+        "boundary_uncertainty_s": 1.0,
+        "confidence": "uncertain",
+        "description": "vertical transient at 1200 Hz",
+        "annotation_origin": "AI_reference",
+        "independent_ground_truth": false
+      }
+    ],
+    "annotator_b": []
+  },
+  "disputed_regions": [
+    {
+      "time_s": [
+        15.0,
+        16.0
+      ],
+      "frequency_hz": [
+        1200.0,
+        1200.0
+      ],
+      "frequency_domain": "acoustic",
+      "carrier_band_hz": null
+    }
+  ],
+  "independently_exhaustive": false,
+  "independent_ground_truth": false,
+  "negative_region_certification": false,
+  "shared_backbone_with_controller": "Qwen2.5-VL shares the Qwen family; InternVL3.5 uses an InternVL vision encoder and Qwen3 text decoder. Distinct checkpoints are not statistically independent judges.",
+  "event_count_a": 1,
+  "event_count_b": 0,
+  "consensus_event_count": 0,
+  "annotators": [
+    {
+      "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+      "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+      "annotation_file": "results/ai_annotation_pilot_v2/internvl/ac_ba3de81f97f6b2bb.json",
+      "annotation_sha256": "8611ae644328ab29a09417f058150e91319c5ff8235ca093a20638d41d465c04"
+    },
+    {
+      "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+      "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+      "annotation_file": "results/ai_annotation_pilot_v2/qwen25/ac_ba3de81f97f6b2bb.json",
+      "annotation_sha256": "77b37874a5c4c11deeb95f6345d758cdaab5b675549501160a988d7785c34993"
+    }
+  ],
+  "scene_interval_s": [
+    0.0,
+    30.0
+  ],
+  "stratum": "synthetic",
+  "annotation_control": true
+}

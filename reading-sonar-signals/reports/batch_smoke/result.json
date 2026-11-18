@@ -1,0 +1,246 @@
+{
+  "passed": true,
+  "checks": {
+    "single_batch": true,
+    "caps_respected": true,
+    "short_prefix_exact_cap": true,
+    "truncated_outer_json_not_salvaged": true,
+    "serial_batched_json_agreement": [
+      true,
+      true
+    ],
+    "expected_structures_returned": true,
+    "different_image_counts_preserved": true
+  },
+  "serial": [
+    {
+      "raw_text": "{\"action_index\":0,\"reason\":\"inspect tone\"}",
+      "input_tokens": 231,
+      "output_tokens": 12,
+      "gpu_seconds": 0.769149658203125,
+      "wall_seconds": 0.9511517800001457,
+      "peak_allocated_bytes": 17628209152,
+      "image_grid_thw": [
+        [
+          1,
+          20,
+          40
+        ]
+      ],
+      "decode": "greedy",
+      "max_new_tokens": 160,
+      "at_generation_limit": false,
+      "parsed": {
+        "action_index": 0,
+        "reason": "inspect tone"
+      },
+      "parse_error": null
+    },
+    {
+      "raw_text": "{\"components\":[],\"claims\":[],\"abstained\":true}",
+      "input_tokens": 233,
+      "output_tokens": 14,
+      "gpu_seconds": 0.3453562316894531,
+      "wall_seconds": 0.3587161830000696,
+      "peak_allocated_bytes": 17628595200,
+      "image_grid_thw": [
+        [
+          1,
+          20,
+          40
+        ]
+      ],
+      "decode": "greedy",
+      "max_new_tokens": 2048,
+      "at_generation_limit": false,
+      "parsed": {
+        "components": [],
+        "claims": [],
+        "abstained": true
+      },
+      "parse_error": null
+    }
+  ],
+  "batched": [
+    {
+      "raw_text": "{\"action_index\":0,\"reason\":\"inspect tone\"}",
+      "input_tokens": 231,
+      "output_tokens": 12,
+      "gpu_seconds": 0.1693981475830078,
+      "wall_seconds": 0.7502830230000654,
+      "queue_seconds": 0.0004912370000056399,
+      "peak_allocated_bytes": 18062466048,
+      "image_grid_thw": [
+        [
+          1,
+          20,
+          40
+        ]
+      ],
+      "decode": "batched_greedy",
+      "max_new_tokens": 160,
+      "at_generation_limit": false,
+      "stop_reason": "natural_eos",
+      "control_eos_excluded": false,
+      "request_id": "e16dd21593b34fc5b17e13b05f6bb84d",
+      "batch_id": "47f895c76499:000001",
+      "batch_size": 4,
+      "batch_gpu_seconds": 0.6775925903320312,
+      "batch_wall_seconds": 0.7497700250000889,
+      "batch_input_tokens": 1127,
+      "batch_output_tokens": 41,
+      "padded_prompt_width": 428,
+      "batch_padded_input_tokens": 1712,
+      "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+      "latency_interpretation": "batched_request_sojourn; not serial_latency",
+      "parsed": {
+        "action_index": 0,
+        "reason": "inspect tone"
+      },
+      "parse_error": null
+    },
+    {
+      "raw_text": "{\"components\":[],\"claims\":[],\"abstained\":true}",
+      "input_tokens": 233,
+      "output_tokens": 14,
+      "gpu_seconds": 0.1693981475830078,
+      "wall_seconds": 0.7501424500001121,
+      "queue_seconds": 0.0002343529999961902,
+      "peak_allocated_bytes": 18062466048,
+      "image_grid_thw": [
+        [
+          1,
+          20,
+          40
+        ]
+      ],
+      "decode": "batched_greedy",
+      "max_new_tokens": 2048,
+      "at_generation_limit": false,
+      "stop_reason": "natural_eos",
+      "control_eos_excluded": false,
+      "request_id": "ab7be4d8d8cd40d1895f3c506b37dd72",
+      "batch_id": "47f895c76499:000001",
+      "batch_size": 4,
+      "batch_gpu_seconds": 0.6775925903320312,
+      "batch_wall_seconds": 0.7497700250000889,
+      "batch_input_tokens": 1127,
+      "batch_output_tokens": 41,
+      "padded_prompt_width": 428,
+      "batch_padded_input_tokens": 1712,
+      "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+      "latency_interpretation": "batched_request_sojourn; not serial_latency",
+      "parsed": {
+        "components": [],
+        "claims": [],
+        "abstained": true
+      },
+      "parse_error": null
+    },
+    {
+      "raw_text": "{\n  \"numbers\": [\n    ",
+      "input_tokens": 235,
+      "output_tokens": 8,
+      "gpu_seconds": 0.1693981475830078,
+      "wall_seconds": 0.7501867009996204,
+      "queue_seconds": 0.00035637499968288466,
+      "peak_allocated_bytes": 18062466048,
+      "image_grid_thw": [
+        [
+          1,
+          20,
+          40
+        ]
+      ],
+      "decode": "batched_greedy",
+      "max_new_tokens": 8,
+      "at_generation_limit": true,
+      "stop_reason": "max_new_tokens",
+      "control_eos_excluded": true,
+      "request_id": "d43ff96ba7204986b397b871fbf75162",
+      "batch_id": "47f895c76499:000001",
+      "batch_size": 4,
+      "batch_gpu_seconds": 0.6775925903320312,
+      "batch_wall_seconds": 0.7497700250000889,
+      "batch_input_tokens": 1127,
+      "batch_output_tokens": 41,
+      "padded_prompt_width": 428,
+      "batch_padded_input_tokens": 1712,
+      "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+      "latency_interpretation": "batched_request_sojourn; not serial_latency",
+      "parsed": null,
+      "parse_error": "The first JSON object is incomplete or invalid"
+    },
+    {
+      "raw_text": "{\"image_count\":2}",
+      "input_tokens": 428,
+      "output_tokens": 7,
+      "gpu_seconds": 0.1693981475830078,
+      "wall_seconds": 0.750461315999928,
+      "queue_seconds": 0.0005621889999929408,
+      "peak_allocated_bytes": 18062466048,
+      "image_grid_thw": [
+        [
+          1,
+          20,
+          40
+        ],
+        [
+          1,
+          20,
+          40
+        ]
+      ],
+      "decode": "batched_greedy",
+      "max_new_tokens": 80,
+      "at_generation_limit": false,
+      "stop_reason": "natural_eos",
+      "control_eos_excluded": false,
+      "request_id": "b5784c87b6a24cf9b101601e495369b7",
+      "batch_id": "47f895c76499:000001",
+      "batch_size": 4,
+      "batch_gpu_seconds": 0.6775925903320312,
+      "batch_wall_seconds": 0.7497700250000889,
+      "batch_input_tokens": 1127,
+      "batch_output_tokens": 41,
+      "padded_prompt_width": 428,
+      "batch_padded_input_tokens": 1712,
+      "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+      "latency_interpretation": "batched_request_sojourn; not serial_latency",
+      "parsed": {
+        "image_count": 2
+      },
+      "parse_error": null
+    }
+  ],
+  "batch_ledger": [
+    {
+      "status": "complete",
+      "batch_id": "47f895c76499:000001",
+      "batch_size": 4,
+      "batch_gpu_seconds": 0.6775925903320312,
+      "batch_wall_seconds": 0.7497700250000889,
+      "batch_input_tokens": 1127,
+      "batch_output_tokens": 41,
+      "padded_prompt_width": 428,
+      "batch_padded_input_tokens": 1712,
+      "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+      "latency_interpretation": "batched_request_sojourn; not serial_latency",
+      "max_new_tokens": [
+        160,
+        8,
+        80,
+        2048
+      ],
+      "request_ids": [
+        "e16dd21593b34fc5b17e13b05f6bb84d",
+        "d43ff96ba7204986b397b871fbf75162",
+        "b5784c87b6a24cf9b101601e495369b7",
+        "ab7be4d8d8cd40d1895f3c506b37dd72"
+      ],
+      "peak_allocated_bytes": 18062466048,
+      "token_count_convention": "natural_EOS_included; padding_and_forced_control_EOS_excluded"
+    }
+  ],
+  "interpretation": "Compatibility fixture only; greedy equality is checked on these prompts, not guaranteed for all floating-point batches"
+}

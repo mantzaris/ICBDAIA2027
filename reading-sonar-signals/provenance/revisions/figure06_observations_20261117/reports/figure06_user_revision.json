@@ -1,0 +1,81 @@
+{
+  "created_at_utc": "2026-11-17T22:07:13.338053+00:00",
+  "status": "passed",
+  "request": "Fix Figure6 outside-looking point and show more existing observations",
+  "changes": [
+    "Padded fraction axes around0\u20131 with normal marker clipping",
+    "Replaced floating figure-level legend with labelled panel-specific legends",
+    "Added50positive-support controller case scores and60localizer case/seed scores",
+    "Displayed all6classifier seed scores and retained saved means and seedSD",
+    "Marked schema-failed reports with foreground red crosses",
+    "Clarified case support, pooled denominators and interval/SD distinctions in caption"
+  ],
+  "paper": {
+    "path": "manuscript/main.pdf",
+    "sha256": "08a8ef45c93796400a15429878d78cf097f60cc5f3b450c71126982a1bd7794d",
+    "pages": 10
+  },
+  "tex": {
+    "path": "manuscript/main.tex",
+    "sha256": "bbb3c22da2a819c267e6355672ca89fcf3518b0bb291567b61692350ea277721"
+  },
+  "figure_manifest": {
+    "path": "figures/manifest.json",
+    "sha256": "d8ddde1dbe548e894d9aefe0c1653e8481729c06f139d717d7ac33f72e84aee6"
+  },
+  "expanded_inputs": {
+    "path": "figures/inputs/figure06_observations_revision.json",
+    "sha256": "d8e28f88ba663ec57c81b90cbeb64214346b911a6eedd7c99b2fda6ad0e40cf3"
+  },
+  "display_counts": {
+    "real_summary_markers": 10,
+    "controller_case_dots": 50,
+    "controller_pooled_diamonds": 5,
+    "localizer_case_dots": 60,
+    "localizer_seed_pooled_diamonds": 6,
+    "classifier_seed_dots": 6,
+    "classifier_mean_diamonds": 2
+  },
+  "source_files_unchanged": {
+    "figures/inputs/figure06.json": "9107db19c552b418d31ac94b11cfe4c090c6ce131a5dc8819a780f9e9af83a75",
+    "results/main/evaluation/per_episode.jsonl": "f22140ebb9e5c2165f170b602d4ba6cc43db37bf240615752e4077cb7053cef9",
+    "results/localization/predictions/evaluation/per_episode.jsonl": "c090dbf224c31f394e064bfba2ae92d19587ac545df6b94c7a1c289345b04644",
+    "results/perception/summary.json": "adc142937d7371fbdaf0d1e534f81a210b99dabbe116ffffbeac1299c4ae5590"
+  },
+  "numerical_policy": "Read previously computed CUDA scores only; no experiment, metric aggregation, or new scientific computation. CPU drawing and typography only.",
+  "verification": {
+    "path": "reports/figure06_revision_verification.json",
+    "sha256": "ce5bcf206d078b317d535c2b5cf96ee58594ca820216c8a2f1977f2276592c83",
+    "passed_sections": 34,
+    "failed_sections": []
+  },
+  "independent_review": {
+    "case_record_bindings_checked": 132,
+    "classifier_seed_pointers_checked": 6,
+    "source_hashes_checked": 4,
+    "mismatches": 0,
+    "reviewer": "figure6_data_review"
+  },
+  "visual_review": {
+    "png": "figures/figure06.png",
+    "actual_pdf_page": {
+      "path": "reports/figure06_revision_page08.png",
+      "sha256": "84f4cf1f287b03940a0af2f8a4b5bfcb79257859d45e42188437086706d620be"
+    },
+    "status": "passed",
+    "note": "Marks inside padded plot limits; each legend belongs to its panel; allclassifierseeds separated; redcrosses visible; caption fits page8."
+  },
+  "compilation": {
+    "path": "reports/figure06_revision_compile.log",
+    "final_log_has_overfull_or_undefined_references": false
+  },
+  "scope": "Ten shared positive-gold controls supply case dots. Noise and silence are N/A for recovery dots; their false positives remain in all12control pooledscores. Localizer repetitions across seeds are not independent scenes.",
+  "preserved_prior_version": "provenance/presentation_versions/figure06_before_user_review",
+  "original_final_snapshot_unchanged": {
+    "path": "provenance/final_source/manifest.json",
+    "sha256": "bd43901c8d2790764f37a3c4e7129e7595de84747f89239bffef393602d5aa92"
+  },
+  "supersedes": "Earlier manuscript/figure6 presentation hashes in manuscript_finalization.json, final_manuscript_figure_copy.json and final_source only; their experiment results and historical records are preserved.",
+  "gpu_or_network_calls": false,
+  "revision_snapshot_receipt": "reports/figure06_revision_snapshot.json"
+}

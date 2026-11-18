@@ -1,0 +1,100 @@
+{
+  "reviewed_at_utc": "2026-11-17T11:44:03.200Z",
+  "status": "passed",
+  "scope": "CPU-only review and isolated administrative fault injection for the local progress observer; not a scientific experiment.",
+  "reviewed_source": "scripts/watch_study.py",
+  "source_sha256": "89f5d8359e5c6e18d3f9cbf51c3bf8d1f9efd3e6919643704d8f6eabb05a4217",
+  "context": "Parent reported the previous watcher exited on an unhandled SSH TimeoutExpired. The repair adds retries for subprocess/OSError/JSON failures and transient preservation-status JSON reads; main GPU work continued independently.",
+  "review_findings": [
+    "TimeoutExpired is covered by subprocess.SubprocessError, so an SSH timeout becomes progress_read_retry and proceeds to the next iteration.",
+    "Nonzero SSH exits remain connection_check_needed progress states instead of terminating the observer.",
+    "Malformed or temporarily unreadable preservation-status JSON becomes preservation_status_read_retry, allowing subsequent reads to recover.",
+    "Successful later progress replaces progress_latest.json and appends to progress_history.jsonl with a fresh observed_at timestamp.",
+    "The observer invokes only the existing read-only remote status probe; its change does not launch GPU work or control pod lifecycle."
+  ],
+  "smoke": {
+    "status": "passed",
+    "checks": {
+      "exactly_two_mocked_SSH_attempts": true,
+      "timeout_recorded_without_termination": true,
+      "transient_preservation_JSON_read_retried": true,
+      "next_success_replaced_latest_progress": true,
+      "successful_progress_appended_after_error": true,
+      "recovered_preservation_state_recorded": true,
+      "fresh_UTC_observation_present": true,
+      "60_second_retry_intervals_requested_without_sleeping": true,
+      "synthetic_completion_exits_cleanly": true,
+      "mocked_calls_only_read_only_probe": true
+    },
+    "mock_attempts": [
+      {
+        "argv": [
+          "bash",
+          "/tmp/sonar-watcher-retry-lqf7afrm/scripts/remote.sh",
+          "bash -s"
+        ],
+        "timeout": 45,
+        "input_is_read_only_probe": true
+      },
+      {
+        "argv": [
+          "bash",
+          "/tmp/sonar-watcher-retry-lqf7afrm/scripts/remote.sh",
+          "bash -s"
+        ],
+        "timeout": 45,
+        "input_is_read_only_probe": true
+      }
+    ],
+    "progress_history": [
+      {
+        "phase": "progress_read_retry",
+        "error_type": "TimeoutExpired",
+        "error": "Command '['bash', '/tmp/sonar-watcher-retry-lqf7afrm/scripts/remote.sh', 'bash -s']' timed out after 45 seconds",
+        "observed_at": "2026-11-17T11:43:35.887141+00:00",
+        "preservation_phase": "preservation_status_read_retry"
+      },
+      {
+        "phase": "isolated_main_fixture",
+        "elapsed_minutes": 1,
+        "queue_complete": false,
+        "finished": 1,
+        "expected": 2,
+        "execution_failures": 0,
+        "observed_at": "2026-11-17T11:43:35.887505+00:00",
+        "preservation_phase": "waiting_for_complete_GPU_queue"
+      }
+    ],
+    "final_console_message": {
+      "phase": "GPU_work_preserved_pod_stopped",
+      "archive": "isolated_fixture_archive"
+    },
+    "actual_remote_connections": 0,
+    "GPU_jobs": 0,
+    "actual_stop_calls": 0
+  },
+  "isolated_fixture": {
+    "temporary_root_outside_repository": true,
+    "temporary_directory_removed_after_test": true,
+    "subprocess_run_mocked": true,
+    "time_sleep_mocked": true,
+    "preservation_file_initially_truncated": true,
+    "first_call": "synthetic45secondTimeoutExpired",
+    "second_call": "successful syntheticprogressobject",
+    "termination": "synthetic preservation completion inside temporary directory",
+    "fixture_counts_are_not_experiment_results": true
+  },
+  "validation": {
+    "python_syntax": "passed",
+    "checks_passed": 10,
+    "source_sha256": "89f5d8359e5c6e18d3f9cbf51c3bf8d1f9efd3e6919643704d8f6eabb05a4217",
+    "frozen_files_checked": 56,
+    "frozen_file_mismatches": []
+  },
+  "no_review_source_edits": true,
+  "no_remote_writes": true,
+  "no_GPU_work": true,
+  "no_actual_stop": true,
+  "production_watcher_status": "Parent restarted production watcher in managed session56903 and observed fresh progress; this isolated test did not interact with that session.",
+  "interpretation": "The tested timeout and transient JSON-write sequence recover correctly. No blocking observer-repair defect found; this does not guarantee future SSH availability."
+}

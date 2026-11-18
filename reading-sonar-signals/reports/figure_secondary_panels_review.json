@@ -1,0 +1,41 @@
+{
+  "reviewed_at_utc": "2026-11-17T06:36:39.600051+00:00",
+  "code_sha256": "88935af7e7a660bcd34ea4e66f7bdde94b9118fef0180dd11de061cd56629cc2",
+  "status": "syntax checked; final plotting awaits recorded evaluations and allocated CUDA execution",
+  "figure7": {
+    "inputs": [
+      "results/ablations/evaluation/summary.json",
+      "results/synthetic_ablations/evaluation/summary.json",
+      "configs/synthetic_ablation_amendment.json"
+    ],
+    "real_scope": "80-scene production/schema/cost only",
+    "synthetic_scope": "12 existing cases, exact morphology F1/precision/recall, no new scenes or confirmatory real claim",
+    "provenance_required": [
+      "run.json",
+      "composition_provenance.json",
+      "exact_truth_provenance.json"
+    ]
+  },
+  "figure9": {
+    "methods": [
+      "F",
+      "G3",
+      "G4"
+    ],
+    "budgets": [
+      2,
+      4,
+      6
+    ],
+    "real_scenes": 6,
+    "synthetic_scenes": 12,
+    "cohort_guard": "intersection must equal the declared budget-manifest stratum",
+    "interval_guard": "reuse evaluator intervals only when its complete stratum equals the matched cohort",
+    "scientific_aggregation": "CUDA only; source summaries and per-episode rows unchanged"
+  },
+  "frozen_audit_terms": [
+    "fixed_resolution means fixed acoustic LOFAR resolution; DEMON always four seconds",
+    "no_quantitative removes tables but retains graph relation values and axes metadata",
+    "P1 shared feature preparation computes DEMON; no standalone end-to-end LOFAR cost claim"
+  ]
+}

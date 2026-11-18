@@ -1,0 +1,120 @@
+{
+  "manifest": "data/manifests/synthetic_ablation_test.jsonl",
+  "manifest_sha256": "0e2ab31e69e682f0937119b7d5aa03a82955e63f3dc13c4b775cc4819de020fb",
+  "methods": [
+    "F",
+    "G4",
+    "no_verifier"
+  ],
+  "budget": 6,
+  "scene_count": 12,
+  "model": "models/qwen3-vl-8b",
+  "started_at_unix": 1794937583.0101922,
+  "numerical_device": "cuda:0",
+  "decoding": "greedy",
+  "reference_annotations_visible_to_model": false,
+  "workers": 16,
+  "max_batch_size": 8,
+  "batch_wait_ms": 2000,
+  "structured_decoding": {
+    "protocol": "bounded_json_grammar_v1",
+    "package": "lm-format-enforcer",
+    "package_version": "0.11.3",
+    "package_source_sha256": {
+      "lmformatenforcer/__init__.py": "5509725f208ad470b86a7dfd84511d5fd85a7b9be8775c18f438c74d59c95023",
+      "lmformatenforcer/analyzer.py": "ad0707bc3d4bd8187ab8e48c49fbd0a49ba06a2a5e71403e6d6c7933b7afcd95",
+      "lmformatenforcer/characterlevelparser.py": "3e8e1773a2ed3078e9ab44f3aacb438f9529e6fd03bee37684fc0c40a51cab0a",
+      "lmformatenforcer/consts.py": "a021a8369cb5fe2acfa38238b80fcbbde47b3ed7ed77c7680eb688c9d8f461b7",
+      "lmformatenforcer/exceptions.py": "a09b8485a1b069ac2d80650b85348bfa69d554d897b9a042fd436587a3047d7f",
+      "lmformatenforcer/external/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lmformatenforcer/external/jsonschemaobject.py": "5d3d42f93f0cb46cee766fa11b95358ac4687cb90f3e8039700d598ea62bedcb",
+      "lmformatenforcer/external/jsonschemaobjectutil.py": "dd6d0856b5034ba934c9da7e361775ca642b0e2e057b778ef27697fa8db4ce5d",
+      "lmformatenforcer/integrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lmformatenforcer/integrations/exllamav2.py": "c77ec6ddf902fb5c5971c26f175cbb4de380fb492f84a5aa2c9cacea73fb5eb6",
+      "lmformatenforcer/integrations/haystackv1.py": "599e3789e6def076a0dc9de77403df4607f177e256c61155a1436f8c0e3ce5a8",
+      "lmformatenforcer/integrations/haystackv2.py": "60b92069d8252b877431fdbe8098785252620a1668b883e32b1936858a80abba",
+      "lmformatenforcer/integrations/llamacpp.py": "d9a13a2c1c026b9b92d5b57f6b7f05b4970af27906b173096c20ee578e33537f",
+      "lmformatenforcer/integrations/transformers.py": "07fa6f13d210d5c926216e467011cb110e08298bcaa2408464a389843a6d360e",
+      "lmformatenforcer/integrations/trtllm.py": "aa7e299380df4a77824a325bc109f86b98b34eaf9db5b80bd388717e01b7ce07",
+      "lmformatenforcer/integrations/vllm.py": "29037ba0d442e64ff9c3d468841e6fc49bb704b7700422a63275f4760de1a452",
+      "lmformatenforcer/jsonschemaparser.py": "6bc4a8a10621c6d38d70ebb5ae1dc21aaa98c0454a2e80be1896586f10dccf94",
+      "lmformatenforcer/regexparser.py": "6283d2a307259837ba33861b05a6dfde29b6c00c94ab3a4a9105c010c60c9c44",
+      "lmformatenforcer/tokenenforcer.py": "1ec82ff410cdafb89b5d9455cef15d6dc4c9741b439f35752f3f5ed289990d91",
+      "lmformatenforcer/tokenizerprefixtree.py": "7ac7275143ffc775902e2318cd5d16f94e672c16c541c62b380bee3f1975157e",
+      "lmformatenforcer/tokenlist.py": "2182268af0c2835fb581eba8ea8834cd7ab014fbac89a30feaa747ff658dc6f6"
+    },
+    "dependency_versions": {
+      "pydantic": "2.10.6",
+      "pydantic-core": "2.27.2",
+      "interegular": "0.3.3",
+      "transformers": "4.57.1"
+    },
+    "report_schema_sha256": "49c56e4cee6cab8d39f0659e9c52081b1177975a21e7721a172f299a5dac9261",
+    "parser_config": {
+      "max_consecutive_whitespaces": 2,
+      "force_json_field_order": false,
+      "max_json_array_length": 6
+    },
+    "scope": "serialization_types_size_and_available_action_indices_only",
+    "numeric_ordering_and_evidence_validation": "post_generation",
+    "implementation": "official_transformers_prefix_allowed_tokens_fn_per_row",
+    "grammar_device": "host_symbolic",
+    "logit_mask_device": "cuda",
+    "token_limit_policy": "preserve_incomplete_raw_output_as_failure"
+  },
+  "prompt_serialization": {
+    "version": "compact_measurements_v2",
+    "max_components": 16,
+    "max_measurements": 12,
+    "max_relations": 24,
+    "track_points": 3,
+    "max_peaks_per_measurement": 6,
+    "geometry_decimal_places": 3,
+    "other_float_significant_digits": 6,
+    "sampling": "track_first_middle_last; first_six_peaks_in_detector_return_order; no outcome_based_selection",
+    "meaning": "detector_proposals_and_internal_measurements_not_independent_truth"
+  },
+  "timing_note": "Logical method costs inherited from original episodes. Reused F/G4 and no-verifier reports add zero model calls; do not sum composed costs as extra billed GPU time.",
+  "source_sha256": {
+    "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+    "src/sonar/evidence.py": "5e762a3b2609df44de831be117b54b5df4fce1d2e4b2c1a230d18cc2e8189f93",
+    "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+    "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+    "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+    "src/sonar/vlm.py": "a05c76c34b4ae4dc11c810c8de9aad9cc84ff4e1a4526eff4842659d6b38b7ca",
+    "src/sonar/batching.py": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+    "src/sonar/controller.py": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+    "src/sonar/rendering.py": "652f04bcc941d4906f898519253679b6566ba48f71ad2be9d8b31e7c54a81c6f",
+    "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+    "src/sonar/constrained_decoding.py": "15074e838f2778dd36e58959a21f9d309db96251988e0b2dc2c6c8ad182c9191",
+    "src/sonar/prompting.py": "7f6111893a9acef5cffebc8bd772b51484c42e3feb8061b9ab6f350739ad89c5",
+    "src/sonar/input_interventions.py": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+    "scripts/run_benchmark.py": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa"
+  },
+  "model_revision": {
+    "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+    "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "retrieved_at_unix": 1794889596.1531146,
+    "license": "apache-2.0",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "python": "3.12.3",
+    "gpu": "NVIDIA RTX 6000 Ada Generation",
+    "total_vram_bytes": 50867404800,
+    "container": "runpod/pytorch:1.4.1-cu1281-torch280-ubuntu2404"
+  },
+  "derivation": {
+    "kind": "reuse_only_no_inference",
+    "additional_inference_calls": 0,
+    "source_run_configuration": "results/main/run.json",
+    "source_run_configuration_sha256": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+    "source_completion_sha256": "ff9b4c609afde75b3637e2b4cb4179f1445a9d04525c82a9a09c8ae98dcc0760",
+    "amendment_sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+    "administrative_script_sha256": "e22d0025e9b3f052a465422c8aa07a7bc355e11c3a6a03c7a1fa07fc63ce8b63"
+  },
+  "composition": true,
+  "composition_sources": {
+    "results/main/run.json": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+    "results/synthetic_ablation_inference/run.json": "1a2087d73bc02c166a83d04ccc8b421cec3cc5a7a5292901aac31925730777c5"
+  }
+}

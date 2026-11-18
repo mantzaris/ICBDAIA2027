@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-11-17T06:04:36.265890+00:00",
+  "stage": "pretest_validation",
+  "administrative_tests": {
+    "passed": 29,
+    "log": "reports/grammar_admin_tests.log"
+  },
+  "cuda_tests": {
+    "passed": 32,
+    "log": "reports/final_core_gpu_tests.log"
+  },
+  "evaluator_selftest": "reports/final_evaluator_selftest.log",
+  "batch8_smoke": "reports/grammar_batch8_smoke/result.json",
+  "viewer": {
+    "successful_retry": "reports/viewer_cuda_export_attempt2.log",
+    "packaging_failure_preserved": "reports/viewer_cuda_export.log",
+    "index": "viewer_development/index.html"
+  },
+  "source_sha256": {
+    "src/sonar/vlm.py": "a05c76c34b4ae4dc11c810c8de9aad9cc84ff4e1a4526eff4842659d6b38b7ca",
+    "src/sonar/batching.py": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+    "src/sonar/controller.py": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+    "src/sonar/prompting.py": "7f6111893a9acef5cffebc8bd772b51484c42e3feb8061b9ab6f350739ad89c5",
+    "src/sonar/constrained_decoding.py": "15074e838f2778dd36e58959a21f9d309db96251988e0b2dc2c6c8ad182c9191",
+    "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+    "src/sonar/input_interventions.py": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+    "src/sonar/localization.py": "0c5303148f0dcfc123127f4fe043424d54beacabf145a75a0303f34ef91e0ef8",
+    "scripts/train_localization.py": "ebdaa7d770b45718562cf5095242a9b7a312b746e71999ed13ce2e9625d5f324",
+    "scripts/run_benchmark.py": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa",
+    "scripts/smoke_constrained_decoding.py": "caab21a8a849860a4ad2f616dd6947e8fd01b6ff32d959b5463bf14e44c9579f",
+    "scripts/evaluate_benchmark.py": "0b1c93c917dbf3121d16c8499e7ec51397ef1e53c070c6e7e5c57757b9583589",
+    "configs/structured_decoding_protocol.json": "fe3a7f8ebc9b5963f64292b940807b6c0b8a35474b92494835c126d220c396d3"
+  },
+  "scientific_scope": "Serialization/device/integration validation only, not evidence of acoustic accuracy. All numerical unit/self-tests ran on CUDA. Host tests concern grammar, metadata and queue scheduling."
+}

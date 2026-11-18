@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-17T17:23:29.016533+00:00",
+  "execution": "CPU administrative isolated file/schema/hash fixtures only; no GPU, inference, labels, or score recomputation",
+  "tests_run": 21,
+  "failures": 0,
+  "errors": 0,
+  "frozen_files_checked": 56,
+  "frozen_hash_mismatches": [],
+  "source_sha256": {
+    "scripts/verify_final_deliverables.py": "6a848b5db3b7c699eb2cb07aca7e104ad6ea7940880ab9efdd6c49a8d33b8f71",
+    "tests/test_final_deliverables.py": "0953429ad134b400d8cf7c358992be0595705024b4b4054976f2aa042fd38755",
+    "tests/test_user_cap_verifier.py": "154c0ad52929dda1ff54cbf096c9bffba38f6a1d065e7cb7c09f545ccfd4f8b5",
+    "scripts/prepare_capped_ablation.py": "04a999eec3ee8011b2190dd7b9cf278d52a0cfd65f8bd9a00648f3e39df1c07d",
+    "scripts/run_synthetic_reuse_only.py": "e22d0025e9b3f052a465422c8aa07a7bc355e11c3a6a03c7a1fa07fc63ce8b63",
+    "configs/ablation_user_cap.json": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345"
+  },
+  "unittest_output": "test_actual_pending_and_disabled_final_flag_fail (test_final_deliverables.CompletionTests) ... ok\ntest_duplicate_evaluation_rows_rejected (test_final_deliverables.CompletionTests) ... ok\ntest_extra_episode_rejected (test_final_deliverables.CompletionTests) ... ok\ntest_failed_or_gpu_only_report_cannot_make_final_snapshot (test_final_deliverables.CompletionTests) ... ok\ntest_missing_episode_rejected_even_with_completion_marker (test_final_deliverables.CompletionTests) ... ok\ntest_nested_figure_array_reference_must_exist (test_final_deliverables.CompletionTests) ... ok\ntest_remote_paths_resolve_to_preserved_local_copy_and_hash_mismatch_fails (test_final_deliverables.CompletionTests) ... ok\ntest_retained_failures_are_complete_and_resume_counter_is_not_total (test_final_deliverables.CompletionTests) ... ok\ntest_snapshot_is_complete_hashed_and_cannot_overwrite (test_final_deliverables.CompletionTests) ... ok\ntest_stale_marker_for_different_run_rejected (test_final_deliverables.CompletionTests) ... ok\ntest_tex_comments_and_macro_definition_are_not_pending_calls (test_final_deliverables.CompletionTests) ... ok\ntest_added_original_file_is_rejected (test_user_cap_verifier.UserCapVerification) ... ok\ntest_changed_inference_behavior_is_rejected (test_user_cap_verifier.UserCapVerification) ... ok\ntest_completed_original_is_rejected (test_user_cap_verifier.UserCapVerification) ... ok\ntest_duplicate_or_missing_preparation_pairs_are_rejected (test_user_cap_verifier.UserCapVerification) ... ok\ntest_explicit_amendment_and_all_unchanged_legacy_grids (test_user_cap_verifier.UserCapVerification) ... ok\ntest_reordered_prefix_cannot_be_authorized_by_rehashing (test_user_cap_verifier.UserCapVerification) ... ok\ntest_reused_schema_rejection_is_preserved_and_tampering_fails (test_user_cap_verifier.UserCapVerification) ... ok\ntest_synthetic_changed_truth_is_rejected (test_user_cap_verifier.UserCapVerification) ... ok\ntest_synthetic_new_inference_is_rejected (test_user_cap_verifier.UserCapVerification) ... ok\ntest_synthetic_reuse_has_zero_inference_and_complete_truth (test_user_cap_verifier.UserCapVerification) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.301s\n\nOK\n",
+  "scope": "Legacy final-verifier behavior and explicit user-cap prefix/reuse/zero-new-synthetic checks. Actual final artifacts remain subject to the final verifier after the queue completes."
+}

@@ -1,0 +1,27 @@
+{
+  "version": "ai-reference-eligibility-v1",
+  "declared_before": "Full twelve-case annotation calibration, held-out twelve-case annotation audit, and all final real/mixed labels",
+  "prior_information": "Two positive calibration examples (tones and amplitude modulation) informed interface development; those exploratory failures remain recorded.",
+  "annotation_origin": "measurement-assisted AI references, not independently verified physical ground truth",
+  "calibration_seeds": [910000, 910001, 910002, 910003, 910004, 910005, 910006, 910007, 910008, 910009, 910010, 910011],
+  "held_out_audit_seeds": [910012, 910013, 910014, 910015, 910016, 910017, 910018, 910019, 910020, 910021, 910022, 910023],
+  "eligibility_unit": "model checkpoint and event morphology/frequency domain",
+  "event_types": ["tone", "chirp", "transient", "broadband", "modulation"],
+  "minimum_matched_calibration_events": 3,
+  "minimum_calibration_precision": 0.5,
+  "minimum_calibration_recall": 0.5,
+  "minimum_ground_truth_events": 3,
+  "matching": {
+    "time_iou": 0.3,
+    "broadband_box_iou": 0.3,
+    "minimum_frequency_tolerance_hz": 4,
+    "display_resolution_rule": "Narrowband matching also allows two displayed frequency-cell widths, explicitly recorded for every event",
+    "modulation_scope": "Exclude modulation predictions where the exact simulator does not exhaustively enumerate envelope consequences"
+  },
+  "primary_reference_selection": "For each eligible event type, choose the qualifying checkpoint with highest calibration event F1; ties select the 4B checkpoint. Preserve the other checkpoint and geometric consensus as secondary references.",
+  "ineligible_scope": "Retain raw annotations but exclude the class from primary real-reference agreement. Missing labels in an ineligible class are not negative ground truth.",
+  "no_eligible_classes": "Report that automatic reference construction failed this gate; do not fabricate real correctness or an eligible primary real-reference score.",
+  "audit_rule": "Freeze prompts, views, demos, parsing, uncertainty rules, and eligibility after calibration; run twelve held-out audit controls once and report all failures without retuning.",
+  "small_sample_limitation": "Three matched events is a feasibility gate, not strong statistical evidence of reliability or independence. Report counts and exact errors; real-domain calibration is unverified.",
+  "shared_family_dependence": "InternVL4B and8B share multimodal-model ancestry and Qwen3 text-decoder family. Neither agreement nor consensus establishes independent acoustic truth."
+}

@@ -1,0 +1,182 @@
+{
+  "scene_id": "ac_b17186d4938aab2b",
+  "annotation_origin": "AI_reference",
+  "annotation": {
+    "annotation_status": "complete",
+    "events": [
+      {
+        "id": "a0",
+        "type": "broadband",
+        "frequency_domain": "acoustic",
+        "time_s": [
+          0.0,
+          30.0
+        ],
+        "frequency_hz": [
+          0.0,
+          1800.0
+        ],
+        "frequency_track": [
+          [
+            0,
+            1800
+          ]
+        ],
+        "carrier_band_hz": null,
+        "frequency_uncertainty_hz": 4.0,
+        "boundary_uncertainty_s": 1.0,
+        "confidence": "uncertain",
+        "description": "observable morphology only",
+        "annotation_origin": "AI_reference",
+        "independent_ground_truth": false
+      }
+    ],
+    "relations": [
+      {
+        "source_id": "a0",
+        "target_id": "a0",
+        "type": "overlaps_time"
+      }
+    ],
+    "invalid_events": [],
+    "errors": [],
+    "reviewed_regions": {
+      "frequency_domain": "acoustic",
+      "time_s": [
+        0,
+        30
+      ],
+      "frequency_hz": [
+        0,
+        1800
+      ]
+    },
+    "inspected_no_events": false,
+    "uncertainties": [
+      "remaining limitations"
+    ],
+    "independently_exhaustive": false,
+    "independent_ground_truth": false,
+    "semantic_correctness_assessed": false
+  },
+  "generation": {
+    "raw_text": "```json\n{\n  \"events\": [\n    {\n      \"id\": \"a0\",\n      \"type\": \"broadband\",\n      \"frequency_domain\": \"acoustic\",\n      \"time_s\": [0, 30],\n      \"frequency_hz\": [0, 1800],\n      \"frequency_track\": [[0, 1800]],\n      \"carrier_band_hz\": null,\n      \"frequency_uncertainty_hz\": 4.0,\n      \"boundary_uncertainty_s\": 1.0,\n      \"confidence\": \"uncertain\",\n      \"description\": \"observable morphology only\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"source_id\": \"a0\",\n      \"target_id\": \"a0\",\n      \"type\": \"overlaps_time\"\n    }\n  ],\n  \"reviewed_regions\": {\n    \"frequency_domain\": \"acoustic\",\n    \"time_s\": [0, 30],\n    \"frequency_hz\": [0, 1800]\n  },\n  \"inspected_no_events\": false,\n  \"uncertainties\": [\"remaining limitations\"]\n}\n```",
+    "input_tokens": 2065,
+    "output_tokens": 234,
+    "gpu_seconds": 4.16836328125,
+    "wall_seconds": 4.297152841999832,
+    "peak_allocated_bytes": 7791345664,
+    "max_new_tokens": 1536,
+    "at_generation_limit": false,
+    "decode": "greedy",
+    "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "device_audit": {
+      "all_parameters_cuda": true,
+      "all_buffers_cuda": true,
+      "dtype": "bfloat16",
+      "hf_device_map": {
+        "": "cuda:0"
+      },
+      "parameter_count": 3754622976
+    },
+    "input_tensor_shapes": {
+      "input_ids": [
+        1,
+        2065
+      ],
+      "attention_mask": [
+        1,
+        2065
+      ],
+      "pixel_values": [
+        4800,
+        1176
+      ],
+      "image_grid_thw": [
+        4,
+        3
+      ]
+    },
+    "parsed": {
+      "events": [
+        {
+          "id": "a0",
+          "type": "broadband",
+          "frequency_domain": "acoustic",
+          "time_s": [
+            0,
+            30
+          ],
+          "frequency_hz": [
+            0,
+            1800
+          ],
+          "frequency_track": [
+            [
+              0,
+              1800
+            ]
+          ],
+          "carrier_band_hz": null,
+          "frequency_uncertainty_hz": 4.0,
+          "boundary_uncertainty_s": 1.0,
+          "confidence": "uncertain",
+          "description": "observable morphology only"
+        }
+      ],
+      "relations": [
+        {
+          "source_id": "a0",
+          "target_id": "a0",
+          "type": "overlaps_time"
+        }
+      ],
+      "reviewed_regions": {
+        "frequency_domain": "acoustic",
+        "time_s": [
+          0,
+          30
+        ],
+        "frequency_hz": [
+          0,
+          1800
+        ]
+      },
+      "inspected_no_events": false,
+      "uncertainties": [
+        "remaining limitations"
+      ]
+    },
+    "parse_error": null
+  },
+  "prompt": "You are making an AI reference annotation of observable passive underwater acoustic structure.\nYou see fixed raw spectral displays with axes, not detector candidates. Analyze only these images.\nThe time coordinates are ORIGINAL RECORDING seconds, from 0.000000 to 30.000000.\nThe low-frequency acoustic plots cover only 0--1800 acoustic Hz. DEMON plots show envelope\nmodulation Hz in the named carrier band. Do not confuse acoustic with modulation frequency.\nThe two acoustic resolutions show the SAME events: do not duplicate them. The two DEMON\nbands can contain separate modulation events; name the carrier for each.\nVisible thin persistent lines are tones, sloping lines chirps, brief wide vertical regions\ntransients, sustained wide regions broadband, and periodic envelope ridges modulation.\nKeep overlapping components separate. Do not identify vessels, machinery, propellers,\nblade counts, ranges, source power, calibrated SPL, or physical mechanisms from these views.\nDo not invent exact precision beyond visible axis resolution. It is acceptable to return\nno confident events and describe uncertainty. Broad diffuse background alone is not a\nlocalized event. Represent a harmonic family as individual tone/chirp events plus\nharmonic_candidate relations. Unresolved overlap belongs in uncertainties or\nunresolved_association relations, not an additional component event.\nReturn at most 12 events as ONE JSON object and no surrounding prose:\n{\"events\":[{\"id\":\"a0\",\"type\":\"tone|chirp|broadband|transient|modulation\",\n\"frequency_domain\":\"acoustic|modulation\",\"time_s\":[start,end],\"frequency_hz\":[low,high],\n\"frequency_track\":[[time,frequency],[time,frequency]],\"carrier_band_hz\":null,\n\"frequency_uncertainty_hz\":4.0,\"boundary_uncertainty_s\":1.0,\n\"confidence\":\"clear|uncertain|unresolved\",\"description\":\"observable morphology only\"}],\n\"relations\":[{\"source_id\":\"a0\",\"target_id\":\"a1\",\"type\":\"overlaps_time|overlaps_time_frequency|harmonic_candidate|unresolved_association\"}],\n\"reviewed_regions\":[{\"frequency_domain\":\"acoustic\",\"time_s\":[start,end],\"frequency_hz\":[0,1800],\"carrier_band_hz\":null}],\n\"inspected_no_events\":false,\"uncertainties\":[\"remaining limitations\"]}\nUse numeric values, not placeholder words. Frequency intervals may have equal endpoints\nfor a single thin ridge. For modulation set type=modulation, frequency_domain=modulation,\nand carrier_band_hz exactly [500,2000] or [2000,5000]. Omit frequency_track for diffuse\nevents. Reviewed regions are your declared coverage, not independently proven negatives.\nIf events is empty, set inspected_no_events=true only if you actually inspected the images.\nAvailable views: [{\"name\":\"lofar_1s\",\"frequency_domain\":\"acoustic\",\"window_s\":1.0,\"carrier_band_hz\":null,\"frequency_range_hz\":[0.0,1800.0],\"available\":true,\"bin_spacing_hz\":1.0},{\"name\":\"lofar_4s\",\"frequency_domain\":\"acoustic\",\"window_s\":4.0,\"carrier_band_hz\":null,\"frequency_range_hz\":[0.0,1800.0],\"available\":true,\"bin_spacing_hz\":0.25},{\"name\":\"demon_500_2000\",\"frequency_domain\":\"modulation\",\"window_s\":4.0,\"carrier_band_hz\":[500.0,2000.0],\"frequency_range_hz\":[0.5,200.0],\"available\":true,\"bin_spacing_hz\":0.25},{\"name\":\"demon_2000_5000\",\"frequency_domain\":\"modulation\",\"window_s\":4.0,\"carrier_band_hz\":[2000.0,5000.0],\"frequency_range_hz\":[0.5,200.0],\"available\":true,\"bin_spacing_hz\":0.25}]\n",
+  "prompt_sha256": "a04f445acb0f590d8d708ec9a1545dbfcf94f93c1531dd8349a49e3f312a5f57",
+  "configuration_sha256": "f0c69214bd7006ffacc223fa86c1b45763994a5e3486857c183c08598d0209d9",
+  "image_inputs": [
+    {
+      "path": "data/annotation_views/ac_b17186d4938aab2b/lofar_1s.png",
+      "sha256": "3223483fab3175e47861706be57c1d873bf84e15ef2a324de039c5aedfb9d94b"
+    },
+    {
+      "path": "data/annotation_views/ac_b17186d4938aab2b/lofar_4s.png",
+      "sha256": "425760111eca05d8cd8507f544cf13cf7f97e0a25c9cb342ba891fda9dafb675"
+    },
+    {
+      "path": "data/annotation_views/ac_b17186d4938aab2b/demon_500_2000.png",
+      "sha256": "6252407c4af4a01f8341fe7220b7714dfd5044b4a8fb867eb8b9fd606c5e108b"
+    },
+    {
+      "path": "data/annotation_views/ac_b17186d4938aab2b/demon_2000_5000.png",
+      "sha256": "f89e3992dbecc6fe8b96245827ba7379d0f73ba50d71f036821f5503a4972387"
+    }
+  ],
+  "scene_interval_s": [
+    0.0,
+    30.0
+  ],
+  "source_labels_supplied": false,
+  "candidate_detections_supplied": false,
+  "main_controller_outputs_supplied": false,
+  "simulator_parameters_supplied": false
+}

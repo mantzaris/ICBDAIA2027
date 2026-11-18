@@ -1,0 +1,96 @@
+{
+  "checked_at_utc": "2026-11-17T17:22:05.456712+00:00",
+  "status": "targeted_presentation_scope_checks_passed_actual_render_pending",
+  "scope": "CPU metadata/AST/schema checks only; no metric aggregation or scientific GPU execution.",
+  "source": "scripts/make_figures.py",
+  "source_sha256": "071c0697c7102b6093257517f12fabe3458a39f0b99436ae4405bfef8658fc8c",
+  "prior_source": "provenance/presentation_versions/make_figures_before_user_ablation_cap_278d92.py",
+  "prior_source_sha256": "278d92beceea67b9f4818352c0836da650e135eb0e2f23324f2ba0a6bb9ae3d1",
+  "cap_config_sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+  "checks": [
+    {
+      "check": "original_nine_by_nine_scope",
+      "status": "passed",
+      "scope": {
+        "user_cap_active": false,
+        "real_methods": [
+          "F",
+          "G4",
+          "fixed_resolution",
+          "forced_exclusivity",
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "no_verifier",
+          "random"
+        ],
+        "synthetic_methods": [
+          "F",
+          "G4",
+          "fixed_resolution",
+          "forced_exclusivity",
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "no_verifier",
+          "random"
+        ],
+        "real_scene_count": null,
+        "synthetic_scene_count": 12
+      }
+    },
+    {
+      "check": "unequal_scope_requires_user_authorization",
+      "status": "passed_rejected_as_required"
+    },
+    {
+      "check": "authorized_nine_by_three_scope",
+      "status": "passed",
+      "scope": {
+        "user_cap_active": true,
+        "real_methods": [
+          "F",
+          "G4",
+          "fixed_resolution",
+          "forced_exclusivity",
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "no_verifier",
+          "random"
+        ],
+        "synthetic_methods": [
+          "F",
+          "G4",
+          "no_verifier"
+        ],
+        "real_scene_count": 33,
+        "synthetic_scene_count": 12
+      }
+    },
+    {
+      "check": "unactivated_config_cannot_relax_scope",
+      "status": "passed_rejected_as_required"
+    },
+    {
+      "check": "synthetic_new_inference_forbidden",
+      "status": "passed_rejected_as_required"
+    },
+    {
+      "check": "missing_real_method_rejected",
+      "status": "passed_rejected_as_required"
+    },
+    {
+      "check": "extra_synthetic_method_rejected",
+      "status": "passed_rejected_as_required"
+    }
+  ],
+  "outside_figure7_and_scope_guard_AST_unchanged": true,
+  "frozen_case_policy_and_select_cases_unchanged": true,
+  "capped_manifest_exact_original_prefix": true,
+  "figure_dimensions": "6.4in source width; same6.5in minimum height and10pt external text. Cap branch reallocates vertical space2:1 for9 real vs3 synthetic rows; no smaller font/width.",
+  "numeric_execution": "All prior schema-fraction, tensor conversion, heatmap finite checks and cost rendering retain CUDA tensors. Configuration counts/method sets are CPU metadata only.",
+  "plot_payload": "Separate real/synthetic methods, arrays, denominators, scopes and source hashes; no pooling.",
+  "visible_scope": "Post-main user cap;30DeepShip+3MBARI;3 reused synthetic policies and6 omitted variants.",
+  "remaining": "Actual GPU render after completed evaluations; no invented quantitative figure was created."
+}

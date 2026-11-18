@@ -1,0 +1,180 @@
+{
+  "integrated_at_utc": "2026-11-17T18:01:20.912514+00:00",
+  "status": "verified_capped_findings_incorporated_remaining_secondary_pending",
+  "transfer_receipt": {
+    "path": "reports/capped_ablation_transfer_receipt.json",
+    "sha256": "c67c0b26e4704e5b2b9f686f0b20bdd4d99bcf543af2c453363b7ac9044e8b71"
+  },
+  "interpretation_audit": {
+    "path": "reports/capped_ablation_results_interpretation_audit.json",
+    "sha256": "e8e2de36a31091fb4a2cd577efa78cb4ca1aec287e5656ddde4e2eaaf30c8cd3"
+  },
+  "timing_correction": {
+    "path": "reports/main_timing_audit_correction.json",
+    "sha256": "6f2a590fa804498b9eb310cfb2e0963e9e650b489eddaefb5ce2173b398c7059"
+  },
+  "claims": {
+    "real_empty_reports": {
+      "claim": "Graph/table removal produced33/33 empty retained reports versusF16/33; no real accuracy inference.",
+      "evidence": [
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/totals/empty_report",
+          "saved_value": 33
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/totals/empty_report",
+          "saved_value": 33
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/totals/empty_report",
+          "saved_value": 16
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/expected_episodes",
+          "saved_value": 33
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/independent_groups",
+          "saved_value": 12
+        }
+      ]
+    },
+    "retained_abstention_can_follow_rejection": {
+      "claim": "Final empty/abstained reports are not always a model-choice metric.",
+      "evidence": [
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+          "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+          "json_pointer": "/raw_report/abstained",
+          "saved_value": false
+        },
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+          "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+          "json_pointer": "/report/abstained",
+          "saved_value": true
+        },
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+          "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+          "json_pointer": "/verification_audit",
+          "saved_value": [
+            {
+              "component_id": "C0000",
+              "status": "withheld",
+              "reasons": [
+                "no cited component with matching morphology, domain, coordinates, and carrier"
+              ],
+              "matched_measurement_components": []
+            },
+            {
+              "component_id": "C0001",
+              "status": "withheld",
+              "reasons": [
+                "no cited component with matching morphology, domain, coordinates, and carrier"
+              ],
+              "matched_measurement_components": []
+            },
+            {
+              "component_id": "C0002",
+              "status": "withheld",
+              "reasons": [
+                "no cited component with matching morphology, domain, coordinates, and carrier"
+              ],
+              "matched_measurement_components": []
+            },
+            {
+              "component_id": "C0003",
+              "status": "withheld",
+              "reasons": [
+                "no cited component with matching morphology, domain, coordinates, and carrier"
+              ],
+              "matched_measurement_components": []
+            },
+            {
+              "component_id": "C0004",
+              "status": "withheld",
+              "reasons": [
+                "no cited component with matching morphology, domain, coordinates, and carrier"
+              ],
+              "matched_measurement_components": []
+            },
+            {
+              "component_id": "C0005",
+              "status": "withheld",
+              "reasons": [
+                "no cited component with matching morphology, domain, coordinates, and carrier"
+              ],
+              "matched_measurement_components": []
+            }
+          ]
+        }
+      ]
+    },
+    "numeric_filter_same_schema_gate": {
+      "claim": "Schema-gated no_verifier12/27/12,F1.381 versusF12/11/12,F1.511; reused-generation descriptive comparison without paired significance or effects of omitted variants.",
+      "evidence": [
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/event_metrics",
+          "saved_value": {
+            "tp": 12,
+            "fp": 27,
+            "fn": 12,
+            "precision": 0.3076923191547394,
+            "recall": 0.5,
+            "f1": 0.380952388048172,
+            "scenes": 12
+          }
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/event_metrics",
+          "saved_value": {
+            "tp": 12,
+            "fp": 11,
+            "fn": 12,
+            "precision": 0.52173912525177,
+            "recall": 0.5,
+            "f1": 0.5106382966041565,
+            "scenes": 12
+          }
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/methods",
+          "saved_value": [
+            "F",
+            "G4",
+            "no_verifier"
+          ]
+        }
+      ]
+    }
+  },
+  "manuscript": {
+    "path": "manuscript/main.tex",
+    "sha256": "2c0e40d142b1616fa5458ecca24623f5794a2e440358f64fc55d9efbd07f229a"
+  },
+  "numerical_policy": "Read/copied only existing GPU-computed saved fields; no new CPU scientific aggregation, confidence intervals or tests.",
+  "pending": "Budget/intervention/morphology/relation results and actual figures/final pagination.",
+  "pagination": {
+    "path": "reports/pagination_layout_proof/after_capped_results_reserved/receipt.json",
+    "sha256": "d4de405bfa3ddecab94c9a6a0e9976b10a03b25b7f55871a14c9d1a022c7813b"
+  },
+  "GPU_use": false,
+  "uploads": false
+}

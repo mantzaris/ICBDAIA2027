@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "status": "user_authorized_runtime_cap",
+  "recorded_at": "2026-11-17T17:17:44.822044+00:00",
+  "user_instruction": "the ablations are taking too long do only up to 200",
+  "max_new_ablation_episodes": 200,
+  "planned_new_real_ablation_episodes": 198,
+  "queue_script": "scripts/run_capped_remaining_study.py",
+  "original": {
+    "manifest": "data/manifests/ablation_test.jsonl",
+    "manifest_sha256": "13098d48c3937954f99811e0388e2bd94e4c5d59f92538ac48f78e524a6c133e",
+    "run": "results/ablation_inference",
+    "run_configuration_sha256": "5800a078536cd3d960b5226c3d1b2b6056261b112cd8d9d4469b552a54374c25",
+    "scene_count": 80,
+    "methods": [
+      "no_demon",
+      "no_graph",
+      "no_quantitative",
+      "forced_exclusivity",
+      "fixed_resolution",
+      "random"
+    ],
+    "episodes": 480
+  },
+  "original_interruption": {
+    "path": "reports/ablation_user_cap_interruption.json",
+    "sha256": "8f8b040f5c6df59ce97306b1f247e9f20063e5c3c06222aa06f5a14736871fb2"
+  },
+  "capped": {
+    "manifest": "data/manifests/ablation_test_capped.jsonl",
+    "manifest_sha256": "250ca42998ec70aeea4803b6b6c0c71c9f13f94acbecae9fb976c3d9140bca37",
+    "run": "results/ablation_inference_capped",
+    "scene_count": 33,
+    "methods": [
+      "no_demon",
+      "no_graph",
+      "no_quantitative",
+      "forced_exclusivity",
+      "fixed_resolution",
+      "random"
+    ],
+    "episodes": 198,
+    "selection": "first 33 rows of original frozen manifest in file order; all six variants",
+    "domain_counts": {
+      "deepship": 30,
+      "mbari": 3
+    },
+    "reuse_provenance": "results/ablation_inference_capped/reuse_provenance.json",
+    "original_inventory": "results/ablation_inference_capped/original_run_inventory.json",
+    "composed_run": "results/ablations",
+    "composed_methods": [
+      "F",
+      "G4",
+      "no_demon",
+      "no_graph",
+      "no_quantitative",
+      "forced_exclusivity",
+      "fixed_resolution",
+      "random",
+      "no_verifier"
+    ],
+    "composed_episodes": 297
+  },
+  "synthetic_reuse": {
+    "manifest": "data/manifests/synthetic_ablation_test.jsonl",
+    "manifest_sha256": "0e2ab31e69e682f0937119b7d5aa03a82955e63f3dc13c4b775cc4819de020fb",
+    "source_run": "results/main",
+    "stub_run": "results/synthetic_ablation_inference",
+    "composed_run": "results/synthetic_ablations",
+    "proof": "results/synthetic_ablation_inference/reuse_only_provenance.json",
+    "scene_count": 12,
+    "new_inference_episodes": 0,
+    "methods": [
+      "F",
+      "G4",
+      "no_verifier"
+    ],
+    "composed_episodes": 36,
+    "omitted_methods": [
+      "no_demon",
+      "no_graph",
+      "no_quantitative",
+      "forced_exclusivity",
+      "fixed_resolution",
+      "random"
+    ]
+  },
+  "limitations": [
+    "Runtime-driven amendment after main scoring and during ablation execution; not preregistered.",
+    "Prefix selection is method-balanced but domain-imbalanced: 30 DeepShip and 3 MBARI scenes.",
+    "Interrupted partial work and original run metadata remain preserved; completed episodes are reused byte-for-byte in a new subset run.",
+    "The six synthetic ablation variants are omitted; only existing F/G4 reports and schema-gated F without numeric filtering are reused.",
+    "Acoustic DSP, generation behavior, prompts, model, decoding, and scientific metrics remain frozen."
+  ]
+}

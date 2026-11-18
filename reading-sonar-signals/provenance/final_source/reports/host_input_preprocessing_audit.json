@@ -1,0 +1,365 @@
+{
+  "recorded_at_utc": "2026-11-17T07:56:10.223Z",
+  "status": "confirmed_narrow_execution_scope_deviation",
+  "discovery_stage": "Discovered by read-only source/config audit after main inference began; no outcome-based intervention or change to running experiments.",
+  "main_started_at_utc": "2026-11-17T07:44:53.044Z",
+  "frozen_behavior_changed": false,
+  "frozen_files_checked": 56,
+  "frozen_mismatches": [],
+  "scope": "Host image preparation in the pinned main VLM and both finalized AI-reference adapters.",
+  "finding": "PIL inputs become CPU image tensors. Image resizing, tiling/patch construction, pixel rescaling and normalization run on the host because processor device is unspecified/default None. The completed processor batch is then transferred to CUDA. Model parameters, buffers and neural forward/generation remain on CUDA.",
+  "outline_deviation": "The outline/earlier prose limited host work to decoding, metadata, transfer, process control and final rendering. Numerical VLM image preparation is an additional narrow host operation; therefore 'all experimental arithmetic is CUDA' or 'CPU only decodes/renders' is too broad. Disclose the exception without changing the frozen processing pipeline.",
+  "processor_resolution": [
+    {
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "processor_class": "Qwen3VLProcessor",
+      "image_processor_class": "Qwen2VLImageProcessorFast",
+      "device_default": null,
+      "application_constructor_overrides": {
+        "min_pixels": 65536,
+        "max_pixels": 262144
+      },
+      "application_input": "PIL.Image converted to RGB",
+      "device_transfer_order": "apply_chat_template(...return_tensors='pt') completes before BatchFeature.to('cuda:0')",
+      "evidence": [
+        "models/qwen3-vl-8b/preprocessor_config.json",
+        "src/sonar/vlm.py:17",
+        "src/sonar/vlm.py:49",
+        "src/sonar/batching.py:179"
+      ]
+    },
+    {
+      "models": [
+        "OpenGVLab/InternVL3_5-4B-HF",
+        "OpenGVLab/InternVL3_5-8B-HF"
+      ],
+      "processor_class": "InternVLProcessor",
+      "image_processor_class": "GotOcr2ImageProcessorFast",
+      "device_default": null,
+      "application_constructor_overrides": {
+        "min_patches": 1,
+        "max_patches": 2,
+        "crop_to_patches": true
+      },
+      "application_input": "PIL.Image converted to RGB",
+      "device_transfer_order": "apply_chat_template completes before BatchFeature.to('cuda:0'); annotation pixel tensors then cast to bfloat16 on CUDA",
+      "evidence": [
+        "src/sonar/annotators.py:239",
+        "src/sonar/annotators.py:264",
+        "src/sonar/annotation_batching.py:245"
+      ]
+    }
+  ],
+  "pinned_dependency_versions": {
+    "transformers": "4.57.1",
+    "torch": "2.8.0+cu128",
+    "torchvision": "0.23.0+cu128"
+  },
+  "project_source_evidence": [
+    {
+      "path": "src/sonar/vlm.py",
+      "sha256": "a05c76c34b4ae4dc11c810c8de9aad9cc84ff4e1a4526eff4842659d6b38b7ca",
+      "line_evidence": [
+        {
+          "first_line": 13,
+          "last_line": 30,
+          "text": "class LocalVLM:\n    def __init__(self, model_path: str, max_pixels: int = 262144):\n        if not torch.cuda.is_available():\n            raise RuntimeError('CUDA is required. CPU model fallback is disabled.')\n        from transformers import AutoProcessor, Qwen3VLForConditionalGeneration\n        self.processor = AutoProcessor.from_pretrained(\n            model_path, min_pixels=65536, max_pixels=max_pixels,\n            local_files_only=True,\n        )\n        self.model = Qwen3VLForConditionalGeneration.from_pretrained(\n            model_path, dtype=torch.bfloat16, device_map={'': 'cuda:0'},\n            attn_implementation='sdpa', local_files_only=True,\n        ).eval()\n        for name, value in list(self.model.named_parameters()) + list(self.model.named_buffers()):\n            if value.device.type != 'cuda':\n                raise RuntimeError(f'Non-CUDA model tensor: {name} on {value.device}')\n        self.device_audit = {\n            'all_parameters_cuda': True, 'all_buffers_cuda': True,"
+        },
+        {
+          "first_line": 42,
+          "last_line": 70,
+          "text": "    @torch.inference_mode()\n    def generate(self, prompt: str, images: list[str | Path], max_new_tokens: int,\n                 json_schema: dict | None = None) -> dict:\n        content = [{'type': 'image', 'image': Image.open(path).convert('RGB')} for path in images]\n        content.append({'type': 'text', 'text': prompt})\n        messages = [{'role': 'user', 'content': content}]\n        wall_start = time.perf_counter()\n        inputs = self.processor.apply_chat_template(\n            messages, tokenize=True, add_generation_prompt=True,\n            return_dict=True, return_tensors='pt',\n        ).to('cuda:0')\n        generation_options = {}\n        if json_schema is not None:\n            eos = self.model.generation_config.eos_token_id\n            eos = eos if eos is not None else self.processor.tokenizer.eos_token_id\n            eos_ids = [eos] if isinstance(eos,int) else list(eos)\n            generation_options['prefix_allowed_tokens_fn'] = self.grammar_factory().for_batch(\n                [json_schema],inputs['input_ids'].shape[1],[max_new_tokens],eos_ids)\n        torch.cuda.synchronize()\n        start, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)\n        torch.cuda.reset_peak_memory_stats()\n        start.record()\n        output = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False,\n                                     use_cache=True, **generation_options)\n        end.record()\n        torch.cuda.synchronize()\n        new_ids = output[:, inputs['input_ids'].shape[1]:]\n        text = self.processor.batch_decode(new_ids, skip_special_tokens=True)[0]\n        result = {"
+        }
+      ]
+    },
+    {
+      "path": "src/sonar/batching.py",
+      "sha256": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+      "line_evidence": [
+        {
+          "first_line": 161,
+          "last_line": 211,
+          "text": "    def _run_model_batch(self, requests: list[_Request], batch_id: str):\n        conversations, opened = [], []\n        batch_start = time.perf_counter()\n        try:\n            for request in requests:\n                content = []\n                for path in request.images:\n                    with Image.open(path) as source:\n                        converted = source.convert(\"RGB\")\n                    opened.append(converted)\n                    content.append(dict(type=\"image\", image=converted))\n                content.append(dict(type=\"text\", text=request.prompt))\n                conversations.append([dict(role=\"user\", content=content)])\n            with self.gpu_lock:\n                processor, model = self.backend.processor, self.backend.model\n                # A decoder-only batch must align final prompt positions. This\n                # processor is accessed solely by this worker after wrapping.\n                processor.tokenizer.padding_side = \"left\"\n                inputs = processor.apply_chat_template(\n                    conversations, tokenize=True, add_generation_prompt=True,\n                    return_dict=True, return_tensors=\"pt\", padding=True,\n                ).to(\"cuda:0\")\n                prompt_width = inputs[\"input_ids\"].shape[1]\n                if inputs[\"input_ids\"].shape[0] != len(requests):\n                    raise RuntimeError(\"Processor did not preserve conversation batch size\")\n                lengths = inputs[\"attention_mask\"].sum(dim=1)\n                eos = model.generation_config.eos_token_id\n                if eos is None:\n                    eos = processor.tokenizer.eos_token_id\n                eos_ids = [int(eos)] if isinstance(eos, int) else [int(v) for v in eos]\n                if not eos_ids:\n                    raise RuntimeError(\"No explicit EOS token is configured\")\n                caps = [r.max_new_tokens for r in requests]\n                capper = PerRowTokenLimit(prompt_width, caps, eos_ids[0])\n                schemas = [r.json_schema for r in requests]\n                generation_options = {}\n                if any(schema is not None for schema in schemas):\n                    generation_options['prefix_allowed_tokens_fn'] = self.backend.grammar_factory().for_batch(\n                        schemas,prompt_width,caps,eos_ids)\n                torch.cuda.synchronize()\n                begin, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)\n                torch.cuda.reset_peak_memory_stats()\n                begin.record()\n                output = model.generate(**inputs, max_new_tokens=max(caps), do_sample=False,\n                                        use_cache=True, logits_processor=LogitsProcessorList([capper]),\n                                        **generation_options)\n                end.record(); torch.cuda.synchronize()\n                gpu_seconds = begin.elapsed_time(end) / 1000\n                peak_bytes = torch.cuda.max_memory_allocated()\n                tails = output[:, prompt_width:]\n                eos_tensor = torch.tensor(eos_ids, device=tails.device)"
+        }
+      ]
+    },
+    {
+      "path": "src/sonar/annotators.py",
+      "sha256": "a13a9e7e90b206f2771943265be1d7c8b4c1b5040e877da646504e2f9bff5f00",
+      "line_evidence": [
+        {
+          "first_line": 228,
+          "last_line": 275,
+          "text": "\nclass AnnotationVLM:\n    \"\"\"Native Transformers classes only; explicit CUDA placement, no CPU offload.\"\"\"\n    def __init__(self,spec:dict,config:dict):\n        require_cuda()\n        from transformers import AutoProcessor, InternVLForConditionalGeneration, Qwen2_5_VLForConditionalGeneration\n        classes={\"InternVLForConditionalGeneration\":InternVLForConditionalGeneration,\n                 \"Qwen2_5_VLForConditionalGeneration\":Qwen2_5_VLForConditionalGeneration}\n        self.spec=spec\n        self.config=config\n        options=dict(local_files_only=True,trust_remote_code=False)\n        if spec[\"model_class\"]==\"InternVLForConditionalGeneration\":\n            options.update(min_patches=1,max_patches=spec.get(\"max_patches\",2),crop_to_patches=True)\n        else:\n            options.update(min_pixels=65536,max_pixels=config.get(\"max_pixels\",262144))\n        self.processor=AutoProcessor.from_pretrained(spec[\"model_path\"],**options)\n        self.model=classes[spec[\"model_class\"]].from_pretrained(\n            spec[\"model_path\"],dtype=torch.bfloat16,device_map={\"\":\"cuda:0\"},\n            attn_implementation=\"sdpa\",local_files_only=True,trust_remote_code=False).eval()\n        for name,value in list(self.model.named_parameters())+list(self.model.named_buffers()):\n            if value.device.type!=\"cuda\":\n                raise RuntimeError(f\"Non-CUDA annotation model tensor: {name} on {value.device}\")\n        self.device_audit=dict(all_parameters_cuda=True,all_buffers_cuda=True,\n                               dtype=\"bfloat16\",hf_device_map=self.model.hf_device_map,\n                               parameter_count=sum(x.numel() for x in self.model.parameters()))\n\n    @torch.inference_mode()\n    def generate(self,prompt:str,images:list[str],max_new_tokens:int|None=None,examples:list[dict]|None=None)->dict:\n        wall=time.perf_counter()\n        content=[{\"type\":\"image\",\"image\":Image.open(p).convert(\"RGB\")} for p in images]\n        content.append({\"type\":\"text\",\"text\":prompt})\n        messages=[]\n        for example in examples or []:\n            messages.extend([{\"role\":\"user\",\"content\":[{\"type\":\"image\",\"image\":Image.open(example[\"image\"]).convert(\"RGB\")},{\"type\":\"text\",\"text\":example[\"prompt\"]}]},\n                             {\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":json.dumps(example[\"answer\"],separators=(',',':'))}]}])\n        messages.append({\"role\":\"user\",\"content\":content})\n        inputs=self.processor.apply_chat_template(messages,\n                    tokenize=True,add_generation_prompt=True,return_dict=True,return_tensors=\"pt\").to(\"cuda:0\")\n        for key,value in inputs.items():\n            if isinstance(value,torch.Tensor) and value.is_floating_point() and key.startswith(\"pixel_values\"):\n                inputs[key]=value.to(torch.bfloat16)\n        maximum=max_new_tokens or self.config.get(\"max_new_tokens\",1536)\n        torch.cuda.synchronize()\n        start,end=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True)\n        torch.cuda.reset_peak_memory_stats(); start.record()\n        outputs=self.model.generate(**inputs,max_new_tokens=maximum,do_sample=False,use_cache=True)\n        end.record(); torch.cuda.synchronize()\n        ids=outputs[:,inputs[\"input_ids\"].shape[1]:]"
+        }
+      ]
+    },
+    {
+      "path": "src/sonar/annotation_batching.py",
+      "sha256": "070ada4977d96f1943b33ec8af8f4b6291653db4eb9b8d1c901fe490f62e8acb",
+      "line_evidence": [
+        {
+          "first_line": 219,
+          "last_line": 278,
+          "text": "    def _run_model_batch(self, requests, batch_id):\n        opened = []\n        batch_start = time.perf_counter()\n\n        def load_image(path):\n            with Image.open(path) as source:\n                converted = source.convert(\"RGB\")\n            opened.append(converted)\n            return converted\n\n        try:\n            conversations = [fewshot_conversation(r.prompt, r.images, r.examples, load_image) for r in requests]\n            with self.gpu_lock:\n                processor, model = self.backend.processor, self.backend.model\n                for name, tensor in list(model.named_parameters()) + list(model.named_buffers()):\n                    if tensor.device.type != \"cuda\":\n                        raise RuntimeError(f\"Annotation model tensor left CUDA: {name}\")\n                previous_padding = processor.tokenizer.padding_side\n                try:\n                    processor.tokenizer.padding_side = \"left\"\n                    # Batch1 follows the exact native processor call, including\n                    # its unbatched conversation shape and absent padding flag.\n                    arguments = dict(tokenize=True, add_generation_prompt=True,\n                                     return_dict=True, return_tensors=\"pt\")\n                    if len(requests) > 1:\n                        arguments[\"padding\"] = True\n                    inputs = processor.apply_chat_template(\n                        conversations[0] if len(requests) == 1 else conversations,\n                        **arguments).to(\"cuda:0\")\n                finally:\n                    processor.tokenizer.padding_side = previous_padding\n                for key, value in inputs.items():\n                    if isinstance(value, torch.Tensor):\n                        if value.device.type != \"cuda\":\n                            raise RuntimeError(f\"Annotation input tensor left CUDA: {key}\")\n                        if value.is_floating_point() and key.startswith(\"pixel_values\"):\n                            inputs[key] = value.to(torch.bfloat16)\n                if inputs[\"input_ids\"].shape[0] != len(requests):\n                    raise RuntimeError(\"Processor did not preserve annotation conversation count\")\n                prompt_width = inputs[\"input_ids\"].shape[1]\n                lengths = inputs[\"attention_mask\"].sum(dim=1)\n                eos = model.generation_config.eos_token_id\n                if eos is None:\n                    eos = processor.tokenizer.eos_token_id\n                eos_ids = [eos] if isinstance(eos, int) else list(eos or [])\n                if not eos_ids:\n                    raise RuntimeError(\"Annotation generation requires explicit EOS IDs\")\n                caps = [r.max_new_tokens for r in requests]\n                options = dict(max_new_tokens=max(caps), do_sample=False, use_cache=True)\n                if len(set(caps)) > 1:\n                    options[\"logits_processor\"] = LogitsProcessorList([\n                        PerRowTokenLimit(prompt_width, caps, eos_ids[0])])\n                torch.cuda.synchronize()\n                begin, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)\n                torch.cuda.reset_peak_memory_stats()\n                begin.record()\n                output = model.generate(**inputs, **options)\n                end.record()\n                torch.cuda.synchronize()\n                gpu_seconds = begin.elapsed_time(end) / 1000"
+        }
+      ]
+    }
+  ],
+  "installed_dependency_source_evidence": [
+    {
+      "path": ".venv/lib/python3.12/site-packages/transformers/image_processing_utils_fast.py",
+      "sha256": "038a4aa9e57716be46a18822f5f2f977c8a5b9d0e9cc3db63f032cddafd7d1ac",
+      "line_evidence": [
+        {
+          "first_line": 190,
+          "last_line": 210,
+          "text": "    resample = None\n    image_mean = None\n    image_std = None\n    size = None\n    default_to_square = True\n    crop_size = None\n    do_resize = None\n    do_center_crop = None\n    do_pad = None\n    pad_size = None\n    do_rescale = None\n    rescale_factor = 1 / 255\n    do_normalize = None\n    do_convert_rgb = None\n    return_tensors = None\n    data_format = ChannelDimension.FIRST\n    input_data_format = None\n    device = None\n    model_input_names = [\"pixel_values\"]\n    valid_kwargs = DefaultFastImageProcessorKwargs\n    unused_kwargs = None"
+        },
+        {
+          "first_line": 567,
+          "last_line": 604,
+          "text": "    def _process_image(\n        self,\n        image: ImageInput,\n        do_convert_rgb: Optional[bool] = None,\n        input_data_format: Optional[Union[str, ChannelDimension]] = None,\n        device: Optional[\"torch.device\"] = None,\n    ) -> \"torch.Tensor\":\n        image_type = get_image_type(image)\n        if image_type not in [ImageType.PIL, ImageType.TORCH, ImageType.NUMPY]:\n            raise ValueError(f\"Unsupported input image type {image_type}\")\n\n        if do_convert_rgb:\n            image = self.convert_to_rgb(image)\n\n        if image_type == ImageType.PIL:\n            image = F.pil_to_tensor(image)\n        elif image_type == ImageType.NUMPY:\n            # not using F.to_tensor as it doesn't handle (C, H, W) numpy arrays\n            image = torch.from_numpy(image).contiguous()\n\n        # If the image is 2D, we need to unsqueeze it to add a channel dimension for processing\n        if image.ndim == 2:\n            image = image.unsqueeze(0)\n\n        # Infer the channel dimension format if not provided\n        if input_data_format is None:\n            input_data_format = infer_channel_dimension_format(image)\n\n        if input_data_format == ChannelDimension.LAST:\n            # We force the channel dimension to be first for torch tensors as this is what torchvision expects.\n            image = image.permute(2, 0, 1).contiguous()\n\n        # Now that we have torch tensors, we can move them to the right device\n        if device is not None:\n            image = image.to(device)\n\n        return image\n"
+        },
+        {
+          "first_line": 735,
+          "last_line": 759,
+          "text": "    def preprocess(self, images: ImageInput, *args, **kwargs: Unpack[DefaultFastImageProcessorKwargs]) -> BatchFeature:\n        # args are not validated, but their order in the `preprocess` and `_preprocess` signatures must be the same\n        validate_kwargs(captured_kwargs=kwargs.keys(), valid_processor_keys=self._valid_kwargs_names)\n        # Set default kwargs from self. This ensures that if a kwarg is not provided\n        # by the user, it gets its default value from the instance, or is set to None.\n        for kwarg_name in self._valid_kwargs_names:\n            kwargs.setdefault(kwarg_name, getattr(self, kwarg_name, None))\n\n        # Extract parameters that are only used for preparing the input images\n        do_convert_rgb = kwargs.pop(\"do_convert_rgb\")\n        input_data_format = kwargs.pop(\"input_data_format\")\n        device = kwargs.pop(\"device\")\n\n        # Update kwargs that need further processing before being validated\n        kwargs = self._further_process_kwargs(**kwargs)\n\n        # Validate kwargs\n        self._validate_preprocess_kwargs(**kwargs)\n\n        # Pop kwargs that are not needed in _preprocess\n        kwargs.pop(\"data_format\")\n\n        return self._preprocess_image_like_inputs(\n            images, *args, do_convert_rgb=do_convert_rgb, input_data_format=input_data_format, device=device, **kwargs\n        )"
+        }
+      ]
+    },
+    {
+      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen2_vl/image_processing_qwen2_vl_fast.py",
+      "sha256": "09bfa9b17df7c3f0c6159bc34008ee50f21d2472cd5bae7e5c21ba1ca13a423c",
+      "line_evidence": [
+        {
+          "first_line": 182,
+          "last_line": 250,
+          "text": "    def _preprocess(\n        self,\n        images: list[\"torch.Tensor\"],\n        do_resize: bool,\n        size: SizeDict,\n        interpolation: Optional[\"F.InterpolationMode\"],\n        do_rescale: bool,\n        rescale_factor: float,\n        do_normalize: bool,\n        image_mean: Optional[Union[float, list[float]]],\n        image_std: Optional[Union[float, list[float]]],\n        patch_size: int,\n        temporal_patch_size: int,\n        merge_size: int,\n        disable_grouping: Optional[bool],\n        return_tensors: Optional[Union[str, TensorType]],\n        **kwargs,\n    ):\n        # Group images by size for batched resizing\n        grouped_images, grouped_images_index = group_images_by_shape(images, disable_grouping=disable_grouping)\n        resized_images_grouped = {}\n        for shape, stacked_images in grouped_images.items():\n            height, width = stacked_images.shape[-2:]\n            if do_resize:\n                resized_height, resized_width = smart_resize(\n                    height,\n                    width,\n                    factor=patch_size * merge_size,\n                    min_pixels=size[\"shortest_edge\"],\n                    max_pixels=size[\"longest_edge\"],\n                )\n                stacked_images = self.resize(\n                    image=stacked_images,\n                    size=SizeDict(height=resized_height, width=resized_width),\n                    interpolation=interpolation,\n                )\n            resized_images_grouped[shape] = stacked_images\n        resized_images = reorder_images(resized_images_grouped, grouped_images_index)\n\n        # Group images by size for further processing\n        # Needed in case do_resize is False, or resize returns images with different sizes\n        grouped_images, grouped_images_index = group_images_by_shape(resized_images, disable_grouping=disable_grouping)\n        processed_images_grouped = {}\n        processed_grids = {}\n        for shape, stacked_images in grouped_images.items():\n            resized_height, resized_width = stacked_images.shape[-2:]\n            # Fused rescale and normalize\n            patches = self.rescale_and_normalize(\n                stacked_images, do_rescale, rescale_factor, do_normalize, image_mean, image_std\n            )\n            if patches.ndim == 4:\n                # add a temporal dimension if we have images\n                patches = patches.unsqueeze(1)\n            if patches.shape[1] % temporal_patch_size != 0:\n                repeats = patches[:, -1:].repeat(1, temporal_patch_size - 1, 1, 1, 1)\n                patches = torch.cat([patches, repeats], dim=1)\n            batch_size, grid_t, channel = patches.shape[:3]\n            grid_t = grid_t // temporal_patch_size\n            grid_h, grid_w = resized_height // patch_size, resized_width // patch_size\n\n            patches = patches.view(\n                batch_size,\n                grid_t,\n                temporal_patch_size,\n                channel,\n                grid_h // merge_size,\n                merge_size,\n                patch_size,\n                grid_w // merge_size,"
+        }
+      ]
+    },
+    {
+      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/processing_qwen3_vl.py",
+      "sha256": "efd8d64aaf608aad1ffb3e6d503d6a99e5227d007df95c1d9fa905d998cda4a9",
+      "line_evidence": [
+        {
+          "first_line": 43,
+          "last_line": 62,
+          "text": "    max_pixels: Optional[int]\n    patch_size: Optional[int]\n    temporal_patch_size: Optional[int]\n    merge_size: Optional[int]\n\n\nclass Qwen3VLProcessorKwargs(ProcessingKwargs, total=False):\n    images_kwargs: Qwen3VLImagesKwargs\n    videos_kwargs: Qwen3VLVideosProcessorKwargs\n    _defaults = {\n        \"text_kwargs\": {\n            \"padding\": False,\n            \"return_token_type_ids\": False,\n            \"return_mm_token_type_ids\": False,\n        },\n        \"videos_kwargs\": {\"return_metadata\": True},\n    }\n\n\nclass Qwen3VLProcessor(ProcessorMixin):"
+        },
+        {
+          "first_line": 157,
+          "last_line": 165,
+          "text": "        output_kwargs = self._merge_kwargs(\n            Qwen3VLProcessorKwargs,\n            tokenizer_init_kwargs=self.tokenizer.init_kwargs,\n            **kwargs,\n        )\n        if images is not None:\n            image_inputs = self.image_processor(images=images, **output_kwargs[\"images_kwargs\"])\n            image_grid_thw = image_inputs[\"image_grid_thw\"]\n        else:"
+        }
+      ]
+    },
+    {
+      "path": ".venv/lib/python3.12/site-packages/transformers/models/got_ocr2/image_processing_got_ocr2_fast.py",
+      "sha256": "beb9a47d2f4135d91ce193910ae30df68f6934b168e60951878c4669f76e86f4",
+      "line_evidence": [
+        {
+          "first_line": 105,
+          "last_line": 146,
+          "text": "\n        Returns:\n            list[`PIL.Image.Image`] or list[np.ndarray]: The list of cropped images.\n        \"\"\"\n        patch_size_height, patch_size_width = patch_size.height, patch_size.width\n        original_height, original_width = images.shape[-2:]\n        # find the closest aspect ratio to the target\n        num_columns, num_rows = get_optimal_tiled_canvas(\n            (original_height, original_width), (patch_size_height, patch_size_width), min_patches, max_patches\n        )\n\n        # calculate the target width and height\n        target_width = patch_size_width * num_columns\n        target_height = patch_size_height * num_rows\n        num_blocks = num_columns * num_rows\n\n        # resize the image so that each patch is of patch_size\n        resized_image = self.resize(\n            images, SizeDict(height=target_height, width=target_width), interpolation=interpolation\n        )\n        # split the image into patches\n        processed_images = []\n        for i in range(num_blocks):\n            column = i % num_columns\n            row = i // num_columns\n            box = (\n                column * patch_size_width,\n                row * patch_size_height,\n                (column + 1) * patch_size_width,\n                (row + 1) * patch_size_height,\n            )\n            # split the image\n            patch_image = resized_image[..., box[1] : box[3], box[0] : box[2]]\n            processed_images.append(patch_image)\n\n        if use_thumbnail and len(processed_images) != 1:\n            thumbnail_img = self.resize(images, patch_size, interpolation=interpolation)\n            processed_images.append(thumbnail_img)\n\n        processed_images = torch.stack(processed_images, dim=0).transpose(0, 1).contiguous()\n\n        return processed_images"
+        },
+        {
+          "first_line": 175,
+          "last_line": 211,
+          "text": "                    min_patches,\n                    max_patches,\n                    patch_size=size,\n                    interpolation=interpolation,\n                )\n                processed_images_grouped[shape] = stacked_images\n                num_patches[shape] = [stacked_images.shape[1]] * stacked_images.shape[0]\n            images = reorder_images(processed_images_grouped, grouped_images_index)\n            images = [image for images_list in images for image in images_list]\n            num_patches = reorder_images(num_patches, grouped_images_index)\n        else:\n            num_patches = [1] * len(images)\n\n        # Group images by size for batched resizing\n        grouped_images, grouped_images_index = group_images_by_shape(images, disable_grouping=disable_grouping)\n        resized_images_grouped = {}\n        for shape, stacked_images in grouped_images.items():\n            if do_resize:\n                stacked_images = self.resize(image=stacked_images, size=size, interpolation=interpolation)\n            resized_images_grouped[shape] = stacked_images\n        resized_images = reorder_images(resized_images_grouped, grouped_images_index)\n\n        # Group images by size for further processing\n        # Needed in case do_resize is False, or resize returns images with different sizes\n        grouped_images, grouped_images_index = group_images_by_shape(resized_images, disable_grouping=disable_grouping)\n        processed_images_grouped = {}\n        for shape, stacked_images in grouped_images.items():\n            if do_center_crop:\n                stacked_images = self.center_crop(stacked_images, crop_size)\n            # Fused rescale and normalize\n            stacked_images = self.rescale_and_normalize(\n                stacked_images, do_rescale, rescale_factor, do_normalize, image_mean, image_std\n            )\n            processed_images_grouped[shape] = stacked_images\n\n        processed_images = reorder_images(processed_images_grouped, grouped_images_index)\n        processed_images = torch.stack(processed_images, dim=0) if return_tensors else processed_images"
+        }
+      ]
+    },
+    {
+      "path": ".venv/lib/python3.12/site-packages/transformers/models/auto/image_processing_auto.py",
+      "sha256": "34e04aa2fc7e5bab3f6e918d8e144760af5eb7c9e0b910641e09bbecf228c27b",
+      "line_evidence": [
+        {
+          "first_line": 520,
+          "last_line": 545,
+          "text": "            image_processor_type = getattr(config, \"image_processor_type\", None)\n            if hasattr(config, \"auto_map\") and \"AutoImageProcessor\" in config.auto_map:\n                image_processor_auto_map = config.auto_map[\"AutoImageProcessor\"]\n\n        image_processor_class = None\n        # TODO: @yoni, change logic in v4.52 (when use_fast set to True by default)\n        if image_processor_type is not None:\n            # if use_fast is not set and the processor was saved with a fast processor, we use it, otherwise we use the slow processor.\n            if use_fast is None:\n                use_fast = image_processor_type.endswith(\"Fast\")\n                if not use_fast and image_processor_type in FORCE_FAST_IMAGE_PROCESSOR and is_torchvision_available():\n                    use_fast = True\n                    logger.warning_once(\n                        f\"The image processor of type `{image_processor_type}` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. \"\n                        \"This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. \"\n                        \"Note that this behavior will be extended to all models in a future release.\"\n                    )\n                if not use_fast:\n                    logger.warning_once(\n                        \"Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. \"\n                        \"`use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. \"\n                        \"This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.\"\n                    )\n            if use_fast and not image_processor_type.endswith(\"Fast\"):\n                image_processor_type += \"Fast\"\n            if use_fast and not is_torchvision_available():"
+        }
+      ]
+    }
+  ],
+  "qwen_preprocessor": {
+    "preserved_path": "provenance/host_input_preprocessing/qwen3-vl-8b.preprocessor_config.json",
+    "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+    "config": {
+      "size": {
+        "longest_edge": 16777216,
+        "shortest_edge": 65536
+      },
+      "patch_size": 16,
+      "temporal_patch_size": 2,
+      "merge_size": 2,
+      "image_mean": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "image_std": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "processor_class": "Qwen3VLProcessor",
+      "image_processor_type": "Qwen2VLImageProcessorFast"
+    },
+    "model_revision_manifest": {
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "retrieved_at_unix": 1794889596.1531146,
+      "license": "apache-2.0",
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "python": "3.12.3",
+      "gpu": "NVIDIA RTX 6000 Ada Generation",
+      "total_vram_bytes": 50867404800,
+      "container": "runpod/pytorch:1.4.1-cu1281-torch280-ubuntu2404"
+    },
+    "model_revision_manifest_sha256": "811fbe369a14e24dfa600e383923a724c414a117d1de2d665ae6e9eecb726152",
+    "original_remote_path": "models/qwen3-vl-8b/preprocessor_config.json",
+    "byte_identical_to_installed_config": true
+  },
+  "recovered_reference_preprocessors": [
+    {
+      "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+      "revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+      "source_url": "https://huggingface.co/OpenGVLab/InternVL3_5-4B-HF/resolve/6bd4487402110ef9889ba50eb7aefeb302526fed/preprocessor_config.json",
+      "preserved_path": "provenance/host_input_preprocessing/InternVL3_5-4B-HF.preprocessor_config.json",
+      "sha256": "af09ffbe57900d5ae07f93f4c20693559a272e32fa6c5f816132cb71985aac98",
+      "matches_original_download_sha256": true,
+      "original_download_manifest": "reports/annotation_model_revisions.json",
+      "original_download_manifest_sha256": "88b2a50107673446cab0e0139286c91494d810f5961bcdafc15bbbe43ae72a9c",
+      "config": {
+        "crop_size": null,
+        "crop_to_patches": false,
+        "data_format": "channels_first",
+        "default_to_square": true,
+        "device": null,
+        "do_center_crop": null,
+        "do_convert_rgb": true,
+        "do_normalize": true,
+        "do_rescale": true,
+        "do_resize": true,
+        "image_mean": [
+          0.485,
+          0.456,
+          0.406
+        ],
+        "image_processor_type": "GotOcr2ImageProcessorFast",
+        "image_std": [
+          0.229,
+          0.224,
+          0.225
+        ],
+        "input_data_format": null,
+        "max_patches": 12,
+        "min_patches": 1,
+        "processor_class": "InternVLProcessor",
+        "resample": 3,
+        "rescale_factor": 0.00392156862745098,
+        "return_tensors": null,
+        "size": {
+          "height": 448,
+          "width": 448
+        }
+      }
+    },
+    {
+      "model_id": "OpenGVLab/InternVL3_5-8B-HF",
+      "revision": "741a7d03020411e666c6109218ab71e08151ef86",
+      "source_url": "https://huggingface.co/OpenGVLab/InternVL3_5-8B-HF/resolve/741a7d03020411e666c6109218ab71e08151ef86/preprocessor_config.json",
+      "preserved_path": "provenance/host_input_preprocessing/InternVL3_5-8B-HF.preprocessor_config.json",
+      "sha256": "af09ffbe57900d5ae07f93f4c20693559a272e32fa6c5f816132cb71985aac98",
+      "matches_original_download_sha256": true,
+      "original_download_manifest": "reports/annotation_model_revisions_internvl8b.json",
+      "original_download_manifest_sha256": "1efad3a85ceac481cf98ba9d80f68a23b31d39770c3d12988d5ef261bcd51fba",
+      "config": {
+        "crop_size": null,
+        "crop_to_patches": false,
+        "data_format": "channels_first",
+        "default_to_square": true,
+        "device": null,
+        "do_center_crop": null,
+        "do_convert_rgb": true,
+        "do_normalize": true,
+        "do_rescale": true,
+        "do_resize": true,
+        "image_mean": [
+          0.485,
+          0.456,
+          0.406
+        ],
+        "image_processor_type": "GotOcr2ImageProcessorFast",
+        "image_std": [
+          0.229,
+          0.224,
+          0.225
+        ],
+        "input_data_format": null,
+        "max_patches": 12,
+        "min_patches": 1,
+        "processor_class": "InternVLProcessor",
+        "resample": 3,
+        "rescale_factor": 0.00392156862745098,
+        "return_tensors": null,
+        "size": {
+          "height": 448,
+          "width": 448
+        }
+      }
+    }
+  ],
+  "timing_consequences": [
+    "CUDA inference event timers start after processor.apply_chat_template and the input .to(cuda) call plus synchronize, so model_gpu_seconds/batch_gpu_seconds exclude host image preparation and input transfer.",
+    "Batch wall time and request sojourn include image decoding/preparation, tokenization, queue/lock delays, transfer and generation. Serial LocalVLM wall time starts after PIL image opening, but includes processor preparation and transfer.",
+    "Final model/input CUDA checks establish placement during neural inference; they do not establish that preceding image resize/normalization occurred on CUDA."
+  ],
+  "retained_execution_claim": "Acoustic signal transforms, synthetic waveform generation, learned model forward/backpropagation, measurement tools and statistical scoring remain assigned to CUDA by their explicit tensor paths. CPU work additionally includes VLM image preparation, tokenization, protocol/schema bookkeeping, metadata/I/O, process control and final rendering. This audit did not execute or recompute experiments.",
+  "audit_method": "Read installed Transformers 4.57.1 source, frozen application call order and exact pinned model processor JSON. Recovered only two tiny public preprocessor JSON files and verified their bytes against preserved original-download SHA256 manifests. No model was loaded, no inference or GPU job was launched, and no original scientific source/config/results were changed.",
+  "discovery_monitoring_context": {
+    "observed_at_unix": 1794902094.222455,
+    "phase_start_unix": 1794901493.0441794,
+    "completed": 20,
+    "failures": 0,
+    "methods": {
+      "G1": 7,
+      "G2": 6,
+      "G4": 5,
+      "G3": 2
+    },
+    "batch_sizes": [
+      4,
+      3,
+      4,
+      3,
+      3,
+      3,
+      6,
+      4,
+      6,
+      5
+    ],
+    "failed_batches": [],
+    "first20": {
+      "elapsed_s": 588.5255632400513,
+      "methods": {
+        "G1": 7,
+        "G2": 6,
+        "G4": 5,
+        "G3": 2
+      }
+    }
+  },
+  "disclosures_required": [
+    "README execution paragraph",
+    "manuscript execution/method limitations",
+    "final reproducibility/compute statement"
+  ],
+  "scientific_outcome_tuning": false
+}

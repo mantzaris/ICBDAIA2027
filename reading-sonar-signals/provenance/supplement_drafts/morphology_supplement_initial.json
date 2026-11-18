@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-11-17T06:57:39.606808+00:00",
+  "stage": "After completed learned baselines and failed AI qualification; before main generative inference",
+  "purpose": "Complete outlined per-morphology reporting from saved frozen exact-synthetic matches; no new inference or replacement primary scoring.",
+  "scope": [
+    "main",
+    "localization/predictions",
+    "synthetic_ablations",
+    "budget2",
+    "budget4",
+    "robustness",
+    "sensitivity"
+  ],
+  "definitions": {
+    "categories": [
+      "tone",
+      "chirp",
+      "transient",
+      "broadband",
+      "modulation",
+      "unknown_malformed"
+    ],
+    "matching": "Reuse saved primary greedy matching with no rematching.",
+    "scope": "Exact synthetic truth only, original morphology/domain scope; optional harmonics excluded.",
+    "malformed": "Known declared morphology receives FP; unknown malformed receives its own bucket.",
+    "zero_support": "Display positive reference support explicitly; no positive-class performance claim for absent morphology.",
+    "numerical_execution": "CUDA only",
+    "statistical_scope": "Descriptive micro-counts, precision, recall, F1; no new confirmatory hypothesis."
+  },
+  "sha256": {
+    "scripts/summarize_morphology.py": "28d4c2190071237a50c39ee3b10f80a4912f897cf43e06c211b02d20d9557ee8",
+    "scripts/evaluate_benchmark.py": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+    "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+    "configs/final_protocol_freeze.json": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a"
+  }
+}

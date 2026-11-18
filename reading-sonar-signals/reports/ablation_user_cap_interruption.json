@@ -1,0 +1,33 @@
+{
+  "reason": "User requested at most 200 ablation episodes because runtime was too long",
+  "requested_at": "2026-11-17T17:15:18.469473+00:00",
+  "planned_cap": 198,
+  "selection": "first33 rows of original frozen ablation manifest x all6 original methods",
+  "new_synthetic_ablation_inference": "omitted under cap; reuse-only synthetic summaries allowed",
+  "pid": 20730,
+  "argv": [
+    "/workspace/reading-sonar-signals/.venv/bin/python",
+    "scripts/run_benchmark.py",
+    "--manifest",
+    "data/manifests/ablation_test.jsonl",
+    "--output",
+    "results/ablation_inference",
+    "--methods",
+    "no_demon,no_graph,no_quantitative,forced_exclusivity,fixed_resolution,random",
+    "--budget",
+    "6",
+    "--workers",
+    "16",
+    "--batch-size",
+    "8",
+    "--batch-wait-ms",
+    "2000"
+  ],
+  "completed_at_signal": 156,
+  "execution_failures_at_signal": 0,
+  "original_run_sha256": "5800a078536cd3d960b5226c3d1b2b6056261b112cd8d9d4469b552a54374c25",
+  "scientific_hashes_checked": 56,
+  "scientific_hash_mismatches": 0,
+  "signal": "SIGTERM",
+  "preservation": "Original completed and partial artifacts retained; resumed subset uses a fresh directory"
+}

@@ -1,0 +1,459 @@
+{
+  "status": "pretest_cuda_smoke_passed",
+  "validation_artifact": "reports/grammar_batch8_smoke/result.json",
+  "version": "bounded_json_grammar_v1",
+  "package": "lm-format-enforcer==0.11.3",
+  "report_schema": {
+    "type": "object",
+    "properties": {
+      "components": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "tone",
+                    "transient",
+                    "broadband"
+                  ]
+                },
+                "frequency_domain": {
+                  "type": "string",
+                  "enum": [
+                    "acoustic"
+                  ]
+                },
+                "time_s": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "frequency_hz": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "frequency_track": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "minItems": 2,
+                  "maxItems": 3
+                },
+                "carrier_band_hz": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_identity": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 80
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "evidence_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40
+                  },
+                  "minItems": 0,
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "frequency_domain",
+                "time_s",
+                "frequency_hz",
+                "evidence_ids"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "chirp"
+                  ]
+                },
+                "frequency_domain": {
+                  "type": "string",
+                  "enum": [
+                    "acoustic"
+                  ]
+                },
+                "time_s": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "frequency_hz": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "frequency_track": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "minItems": 2,
+                  "maxItems": 3
+                },
+                "carrier_band_hz": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_identity": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 80
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "evidence_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40
+                  },
+                  "minItems": 0,
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "frequency_domain",
+                "time_s",
+                "frequency_hz",
+                "evidence_ids",
+                "frequency_track"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "modulation"
+                  ]
+                },
+                "frequency_domain": {
+                  "type": "string",
+                  "enum": [
+                    "modulation"
+                  ]
+                },
+                "time_s": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "frequency_hz": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "frequency_track": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "minItems": 2,
+                  "maxItems": 3
+                },
+                "carrier_band_hz": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "source_identity": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 80
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "evidence_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40
+                  },
+                  "minItems": 0,
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "frequency_domain",
+                "time_s",
+                "frequency_hz",
+                "evidence_ids",
+                "carrier_band_hz"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "minItems": 0,
+        "maxItems": 6
+      },
+      "relations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "overlaps_time",
+                "harmonic_candidate",
+                "unresolved_association"
+              ]
+            },
+            "component_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "minItems": 2,
+              "maxItems": 6
+            },
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "minItems": 0,
+              "maxItems": 6
+            }
+          },
+          "required": [
+            "type",
+            "component_ids",
+            "evidence_ids"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0,
+        "maxItems": 6
+      },
+      "claims": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "component_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "minItems": 0,
+              "maxItems": 6
+            },
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "minItems": 0,
+              "maxItems": 6
+            },
+            "kind": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            }
+          },
+          "required": [
+            "text",
+            "component_ids",
+            "evidence_ids",
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 0,
+        "maxItems": 3
+      },
+      "unresolved_questions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "minItems": 0,
+        "maxItems": 3
+      },
+      "abstained": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "components",
+      "relations",
+      "claims",
+      "unresolved_questions",
+      "abstained"
+    ],
+    "additionalProperties": false
+  },
+  "example_action_schema": {
+    "type": "object",
+    "properties": {
+      "action_index": {
+        "type": "integer",
+        "enum": [
+          0,
+          2,
+          7
+        ]
+      },
+      "reason": {
+        "type": "string",
+        "minLength": 0,
+        "maxLength": 120
+      }
+    },
+    "required": [
+      "action_index",
+      "reason"
+    ],
+    "additionalProperties": false
+  },
+  "action_indices": "Runtime enum is exactly the available action menu indices; no action choice is prescribed.",
+  "prompt_serialization": {
+    "version": "compact_measurements_v2",
+    "max_components": 16,
+    "max_measurements": 12,
+    "max_relations": 24,
+    "track_points": 3,
+    "max_peaks_per_measurement": 6,
+    "geometry_decimal_places": 3,
+    "other_float_significant_digits": 6,
+    "sampling": "track_first_middle_last; first_six_peaks_in_detector_return_order; no outcome_based_selection",
+    "meaning": "detector_proposals_and_internal_measurements_not_independent_truth"
+  },
+  "limits": "Grammar does not establish factual support, numerical ordering, unique IDs, or complete output before token cap. Raw truncations/errors remain failures.",
+  "reference_annotations_visible": false,
+  "applies_to": "All generative benchmark methods and ablations, including display mismatch, through one generate API."
+}

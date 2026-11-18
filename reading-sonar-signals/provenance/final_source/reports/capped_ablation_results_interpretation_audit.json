@@ -1,0 +1,4215 @@
+{
+  "audited_at_utc": "2026-11-17T17:57:32.614153+00:00",
+  "status": "completed_read_only_interpretation",
+  "numerical_policy": "All scores, confidence intervals, cost aggregates and counts in result sections are copied from existing GPU-generated summaries. CPU use is limited to JSON lookup, source hashing, file/grid identity, metadata/provenance validation and prose interpretation; no rescoring, bootstrap, new scientific aggregation or significance testing.",
+  "transfer_receipt": {
+    "path": "reports/capped_ablation_transfer_receipt.json",
+    "sha256": "c67c0b26e4704e5b2b9f686f0b20bdd4d99bcf543af2c453363b7ac9044e8b71",
+    "status": "verified"
+  },
+  "scope": {
+    "real": {
+      "path": "configs/ablation_user_cap.json",
+      "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+      "json_pointer": "/capped",
+      "value": {
+        "manifest": "data/manifests/ablation_test_capped.jsonl",
+        "manifest_sha256": "250ca42998ec70aeea4803b6b6c0c71c9f13f94acbecae9fb976c3d9140bca37",
+        "run": "results/ablation_inference_capped",
+        "scene_count": 33,
+        "methods": [
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "forced_exclusivity",
+          "fixed_resolution",
+          "random"
+        ],
+        "episodes": 198,
+        "selection": "first 33 rows of original frozen manifest in file order; all six variants",
+        "domain_counts": {
+          "deepship": 30,
+          "mbari": 3
+        },
+        "reuse_provenance": "results/ablation_inference_capped/reuse_provenance.json",
+        "original_inventory": "results/ablation_inference_capped/original_run_inventory.json",
+        "composed_run": "results/ablations",
+        "composed_methods": [
+          "F",
+          "G4",
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "forced_exclusivity",
+          "fixed_resolution",
+          "random",
+          "no_verifier"
+        ],
+        "composed_episodes": 297
+      }
+    },
+    "synthetic": {
+      "path": "configs/ablation_user_cap.json",
+      "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+      "json_pointer": "/synthetic_reuse",
+      "value": {
+        "manifest": "data/manifests/synthetic_ablation_test.jsonl",
+        "manifest_sha256": "0e2ab31e69e682f0937119b7d5aa03a82955e63f3dc13c4b775cc4819de020fb",
+        "source_run": "results/main",
+        "stub_run": "results/synthetic_ablation_inference",
+        "composed_run": "results/synthetic_ablations",
+        "proof": "results/synthetic_ablation_inference/reuse_only_provenance.json",
+        "scene_count": 12,
+        "new_inference_episodes": 0,
+        "methods": [
+          "F",
+          "G4",
+          "no_verifier"
+        ],
+        "composed_episodes": 36,
+        "omitted_methods": [
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "forced_exclusivity",
+          "fixed_resolution",
+          "random"
+        ]
+      }
+    },
+    "original_interruption": {
+      "path": "configs/ablation_user_cap.json",
+      "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+      "json_pointer": "/original_interruption",
+      "value": {
+        "path": "reports/ablation_user_cap_interruption.json",
+        "sha256": "8f8b040f5c6df59ce97306b1f247e9f20063e5c3c06222aa06f5a14736871fb2"
+      }
+    }
+  },
+  "saved_completion_records": {
+    "ablation_inference_capped": {
+      "path": "results/ablation_inference_capped/COMPLETED.json",
+      "sha256": "206d1cf4247e0a6bf87d2821aa4de530d5d5210c67de819f7c7561fb5885b57a",
+      "json_pointer": "",
+      "value": {
+        "finished_at_unix": 1794937574.5385368,
+        "new_completed_episodes": 42,
+        "execution_failures": 0,
+        "manifest": "data/manifests/ablation_test_capped.jsonl",
+        "manifest_sha256": "250ca42998ec70aeea4803b6b6c0c71c9f13f94acbecae9fb976c3d9140bca37",
+        "methods": [
+          "no_demon",
+          "no_graph",
+          "no_quantitative",
+          "forced_exclusivity",
+          "fixed_resolution",
+          "random"
+        ],
+        "budget": 6,
+        "scene_count": 33,
+        "model": "models/qwen3-vl-8b",
+        "started_at_unix": 1794936123.0548098,
+        "numerical_device": "cuda:0",
+        "decoding": "greedy",
+        "reference_annotations_visible_to_model": false,
+        "workers": 16,
+        "max_batch_size": 8,
+        "batch_wait_ms": 2000,
+        "structured_decoding": {
+          "protocol": "bounded_json_grammar_v1",
+          "package": "lm-format-enforcer",
+          "package_version": "0.11.3",
+          "package_source_sha256": {
+            "lmformatenforcer/__init__.py": "5509725f208ad470b86a7dfd84511d5fd85a7b9be8775c18f438c74d59c95023",
+            "lmformatenforcer/analyzer.py": "ad0707bc3d4bd8187ab8e48c49fbd0a49ba06a2a5e71403e6d6c7933b7afcd95",
+            "lmformatenforcer/characterlevelparser.py": "3e8e1773a2ed3078e9ab44f3aacb438f9529e6fd03bee37684fc0c40a51cab0a",
+            "lmformatenforcer/consts.py": "a021a8369cb5fe2acfa38238b80fcbbde47b3ed7ed77c7680eb688c9d8f461b7",
+            "lmformatenforcer/exceptions.py": "a09b8485a1b069ac2d80650b85348bfa69d554d897b9a042fd436587a3047d7f",
+            "lmformatenforcer/external/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "lmformatenforcer/external/jsonschemaobject.py": "5d3d42f93f0cb46cee766fa11b95358ac4687cb90f3e8039700d598ea62bedcb",
+            "lmformatenforcer/external/jsonschemaobjectutil.py": "dd6d0856b5034ba934c9da7e361775ca642b0e2e057b778ef27697fa8db4ce5d",
+            "lmformatenforcer/integrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "lmformatenforcer/integrations/exllamav2.py": "c77ec6ddf902fb5c5971c26f175cbb4de380fb492f84a5aa2c9cacea73fb5eb6",
+            "lmformatenforcer/integrations/haystackv1.py": "599e3789e6def076a0dc9de77403df4607f177e256c61155a1436f8c0e3ce5a8",
+            "lmformatenforcer/integrations/haystackv2.py": "60b92069d8252b877431fdbe8098785252620a1668b883e32b1936858a80abba",
+            "lmformatenforcer/integrations/llamacpp.py": "d9a13a2c1c026b9b92d5b57f6b7f05b4970af27906b173096c20ee578e33537f",
+            "lmformatenforcer/integrations/transformers.py": "07fa6f13d210d5c926216e467011cb110e08298bcaa2408464a389843a6d360e",
+            "lmformatenforcer/integrations/trtllm.py": "aa7e299380df4a77824a325bc109f86b98b34eaf9db5b80bd388717e01b7ce07",
+            "lmformatenforcer/integrations/vllm.py": "29037ba0d442e64ff9c3d468841e6fc49bb704b7700422a63275f4760de1a452",
+            "lmformatenforcer/jsonschemaparser.py": "6bc4a8a10621c6d38d70ebb5ae1dc21aaa98c0454a2e80be1896586f10dccf94",
+            "lmformatenforcer/regexparser.py": "6283d2a307259837ba33861b05a6dfde29b6c00c94ab3a4a9105c010c60c9c44",
+            "lmformatenforcer/tokenenforcer.py": "1ec82ff410cdafb89b5d9455cef15d6dc4c9741b439f35752f3f5ed289990d91",
+            "lmformatenforcer/tokenizerprefixtree.py": "7ac7275143ffc775902e2318cd5d16f94e672c16c541c62b380bee3f1975157e",
+            "lmformatenforcer/tokenlist.py": "2182268af0c2835fb581eba8ea8834cd7ab014fbac89a30feaa747ff658dc6f6"
+          },
+          "dependency_versions": {
+            "pydantic": "2.10.6",
+            "pydantic-core": "2.27.2",
+            "interegular": "0.3.3",
+            "transformers": "4.57.1"
+          },
+          "report_schema_sha256": "49c56e4cee6cab8d39f0659e9c52081b1177975a21e7721a172f299a5dac9261",
+          "parser_config": {
+            "max_consecutive_whitespaces": 2,
+            "force_json_field_order": false,
+            "max_json_array_length": 6
+          },
+          "scope": "serialization_types_size_and_available_action_indices_only",
+          "numeric_ordering_and_evidence_validation": "post_generation",
+          "implementation": "official_transformers_prefix_allowed_tokens_fn_per_row",
+          "grammar_device": "host_symbolic",
+          "logit_mask_device": "cuda",
+          "token_limit_policy": "preserve_incomplete_raw_output_as_failure"
+        },
+        "prompt_serialization": {
+          "version": "compact_measurements_v2",
+          "max_components": 16,
+          "max_measurements": 12,
+          "max_relations": 24,
+          "track_points": 3,
+          "max_peaks_per_measurement": 6,
+          "geometry_decimal_places": 3,
+          "other_float_significant_digits": 6,
+          "sampling": "track_first_middle_last; first_six_peaks_in_detector_return_order; no outcome_based_selection",
+          "meaning": "detector_proposals_and_internal_measurements_not_independent_truth"
+        },
+        "timing_note": "Batch GPU elapsed amortized equally over requests; serial latency is measured separately in pilot.",
+        "source_sha256": {
+          "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+          "src/sonar/evidence.py": "5e762a3b2609df44de831be117b54b5df4fce1d2e4b2c1a230d18cc2e8189f93",
+          "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+          "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+          "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "src/sonar/vlm.py": "a05c76c34b4ae4dc11c810c8de9aad9cc84ff4e1a4526eff4842659d6b38b7ca",
+          "src/sonar/batching.py": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+          "src/sonar/controller.py": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+          "src/sonar/rendering.py": "652f04bcc941d4906f898519253679b6566ba48f71ad2be9d8b31e7c54a81c6f",
+          "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+          "src/sonar/constrained_decoding.py": "15074e838f2778dd36e58959a21f9d309db96251988e0b2dc2c6c8ad182c9191",
+          "src/sonar/prompting.py": "7f6111893a9acef5cffebc8bd772b51484c42e3feb8061b9ab6f350739ad89c5",
+          "src/sonar/input_interventions.py": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+          "scripts/run_benchmark.py": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa"
+        },
+        "model_revision": {
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+          "retrieved_at_unix": 1794889596.1531146,
+          "license": "apache-2.0",
+          "torch": "2.8.0+cu128",
+          "cuda": "12.8",
+          "python": "3.12.3",
+          "gpu": "NVIDIA RTX 6000 Ada Generation",
+          "total_vram_bytes": 50867404800,
+          "container": "runpod/pytorch:1.4.1-cu1281-torch280-ubuntu2404"
+        }
+      }
+    },
+    "ablations": {
+      "path": "results/ablations/COMPLETED.json",
+      "sha256": "f105b098956859ec04ed1b08713bc8ee47e1ce5211f719e2c0773c8970b0d747",
+      "json_pointer": "",
+      "value": {
+        "composed_at_unix": 1794937578.49009,
+        "episodes": 297,
+        "additional_inference_calls": 0
+      }
+    },
+    "synthetic_ablation_inference": {
+      "path": "results/synthetic_ablation_inference/COMPLETED.json",
+      "sha256": "41dd73496ed6e96e7eb40b0146b5b378d69a2714c2afe61236bb70c85dc72c5c",
+      "json_pointer": "",
+      "value": {
+        "manifest": "data/manifests/synthetic_ablation_test.jsonl",
+        "manifest_sha256": "0e2ab31e69e682f0937119b7d5aa03a82955e63f3dc13c4b775cc4819de020fb",
+        "methods": [],
+        "budget": 6,
+        "scene_count": 12,
+        "model": "models/qwen3-vl-8b",
+        "started_at_unix": 1794937583.0101922,
+        "numerical_device": "cuda:0",
+        "decoding": "greedy",
+        "reference_annotations_visible_to_model": false,
+        "workers": 16,
+        "max_batch_size": 8,
+        "batch_wait_ms": 2000,
+        "structured_decoding": {
+          "protocol": "bounded_json_grammar_v1",
+          "package": "lm-format-enforcer",
+          "package_version": "0.11.3",
+          "package_source_sha256": {
+            "lmformatenforcer/__init__.py": "5509725f208ad470b86a7dfd84511d5fd85a7b9be8775c18f438c74d59c95023",
+            "lmformatenforcer/analyzer.py": "ad0707bc3d4bd8187ab8e48c49fbd0a49ba06a2a5e71403e6d6c7933b7afcd95",
+            "lmformatenforcer/characterlevelparser.py": "3e8e1773a2ed3078e9ab44f3aacb438f9529e6fd03bee37684fc0c40a51cab0a",
+            "lmformatenforcer/consts.py": "a021a8369cb5fe2acfa38238b80fcbbde47b3ed7ed77c7680eb688c9d8f461b7",
+            "lmformatenforcer/exceptions.py": "a09b8485a1b069ac2d80650b85348bfa69d554d897b9a042fd436587a3047d7f",
+            "lmformatenforcer/external/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "lmformatenforcer/external/jsonschemaobject.py": "5d3d42f93f0cb46cee766fa11b95358ac4687cb90f3e8039700d598ea62bedcb",
+            "lmformatenforcer/external/jsonschemaobjectutil.py": "dd6d0856b5034ba934c9da7e361775ca642b0e2e057b778ef27697fa8db4ce5d",
+            "lmformatenforcer/integrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "lmformatenforcer/integrations/exllamav2.py": "c77ec6ddf902fb5c5971c26f175cbb4de380fb492f84a5aa2c9cacea73fb5eb6",
+            "lmformatenforcer/integrations/haystackv1.py": "599e3789e6def076a0dc9de77403df4607f177e256c61155a1436f8c0e3ce5a8",
+            "lmformatenforcer/integrations/haystackv2.py": "60b92069d8252b877431fdbe8098785252620a1668b883e32b1936858a80abba",
+            "lmformatenforcer/integrations/llamacpp.py": "d9a13a2c1c026b9b92d5b57f6b7f05b4970af27906b173096c20ee578e33537f",
+            "lmformatenforcer/integrations/transformers.py": "07fa6f13d210d5c926216e467011cb110e08298bcaa2408464a389843a6d360e",
+            "lmformatenforcer/integrations/trtllm.py": "aa7e299380df4a77824a325bc109f86b98b34eaf9db5b80bd388717e01b7ce07",
+            "lmformatenforcer/integrations/vllm.py": "29037ba0d442e64ff9c3d468841e6fc49bb704b7700422a63275f4760de1a452",
+            "lmformatenforcer/jsonschemaparser.py": "6bc4a8a10621c6d38d70ebb5ae1dc21aaa98c0454a2e80be1896586f10dccf94",
+            "lmformatenforcer/regexparser.py": "6283d2a307259837ba33861b05a6dfde29b6c00c94ab3a4a9105c010c60c9c44",
+            "lmformatenforcer/tokenenforcer.py": "1ec82ff410cdafb89b5d9455cef15d6dc4c9741b439f35752f3f5ed289990d91",
+            "lmformatenforcer/tokenizerprefixtree.py": "7ac7275143ffc775902e2318cd5d16f94e672c16c541c62b380bee3f1975157e",
+            "lmformatenforcer/tokenlist.py": "2182268af0c2835fb581eba8ea8834cd7ab014fbac89a30feaa747ff658dc6f6"
+          },
+          "dependency_versions": {
+            "pydantic": "2.10.6",
+            "pydantic-core": "2.27.2",
+            "interegular": "0.3.3",
+            "transformers": "4.57.1"
+          },
+          "report_schema_sha256": "49c56e4cee6cab8d39f0659e9c52081b1177975a21e7721a172f299a5dac9261",
+          "parser_config": {
+            "max_consecutive_whitespaces": 2,
+            "force_json_field_order": false,
+            "max_json_array_length": 6
+          },
+          "scope": "serialization_types_size_and_available_action_indices_only",
+          "numeric_ordering_and_evidence_validation": "post_generation",
+          "implementation": "official_transformers_prefix_allowed_tokens_fn_per_row",
+          "grammar_device": "host_symbolic",
+          "logit_mask_device": "cuda",
+          "token_limit_policy": "preserve_incomplete_raw_output_as_failure"
+        },
+        "prompt_serialization": {
+          "version": "compact_measurements_v2",
+          "max_components": 16,
+          "max_measurements": 12,
+          "max_relations": 24,
+          "track_points": 3,
+          "max_peaks_per_measurement": 6,
+          "geometry_decimal_places": 3,
+          "other_float_significant_digits": 6,
+          "sampling": "track_first_middle_last; first_six_peaks_in_detector_return_order; no outcome_based_selection",
+          "meaning": "detector_proposals_and_internal_measurements_not_independent_truth"
+        },
+        "timing_note": "Batch GPU elapsed amortized equally over requests; serial latency is measured separately in pilot.",
+        "source_sha256": {
+          "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+          "src/sonar/evidence.py": "5e762a3b2609df44de831be117b54b5df4fce1d2e4b2c1a230d18cc2e8189f93",
+          "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+          "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+          "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "src/sonar/vlm.py": "a05c76c34b4ae4dc11c810c8de9aad9cc84ff4e1a4526eff4842659d6b38b7ca",
+          "src/sonar/batching.py": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+          "src/sonar/controller.py": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+          "src/sonar/rendering.py": "652f04bcc941d4906f898519253679b6566ba48f71ad2be9d8b31e7c54a81c6f",
+          "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+          "src/sonar/constrained_decoding.py": "15074e838f2778dd36e58959a21f9d309db96251988e0b2dc2c6c8ad182c9191",
+          "src/sonar/prompting.py": "7f6111893a9acef5cffebc8bd772b51484c42e3feb8061b9ab6f350739ad89c5",
+          "src/sonar/input_interventions.py": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+          "scripts/run_benchmark.py": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa"
+        },
+        "model_revision": {
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+          "retrieved_at_unix": 1794889596.1531146,
+          "license": "apache-2.0",
+          "torch": "2.8.0+cu128",
+          "cuda": "12.8",
+          "python": "3.12.3",
+          "gpu": "NVIDIA RTX 6000 Ada Generation",
+          "total_vram_bytes": 50867404800,
+          "container": "runpod/pytorch:1.4.1-cu1281-torch280-ubuntu2404"
+        },
+        "derivation": {
+          "kind": "reuse_only_no_inference",
+          "additional_inference_calls": 0,
+          "source_run_configuration": "results/main/run.json",
+          "source_run_configuration_sha256": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+          "source_completion_sha256": "ff9b4c609afde75b3637e2b4cb4179f1445a9d04525c82a9a09c8ae98dcc0760",
+          "amendment_sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+          "administrative_script_sha256": "e22d0025e9b3f052a465422c8aa07a7bc355e11c3a6a03c7a1fa07fc63ce8b63"
+        },
+        "new_completed_episodes": 0,
+        "execution_failures": 0,
+        "finished_at_unix": 1794937583.0108979,
+        "additional_inference_calls": 0
+      }
+    },
+    "synthetic_ablations": {
+      "path": "results/synthetic_ablations/COMPLETED.json",
+      "sha256": "01458328b00727f84e6440cd7d2a8d4c87b78f3dd0057f49241176bab51490d9",
+      "json_pointer": "",
+      "value": {
+        "composed_at_unix": 1794937583.3192842,
+        "episodes": 36,
+        "additional_inference_calls": 0
+      }
+    }
+  },
+  "real_saved_values": {
+    "F": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 16,
+          "declared_abstention": 16,
+          "source_identity_assertions": 0,
+          "reported_component_count": 100,
+          "valid_component_count": 100,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/report_emission_coverage",
+        "value": 0.5151515007019043
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/F/duplicate_candidates",
+        "value": 1
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/wall_seconds",
+          "value": {
+            "total": 40530.29530865199,
+            "mean_per_expected_episode": 1228.1907669288482,
+            "median": 1212.9610823279982,
+            "p95": 1641.511300965799
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 7.00067211151123,
+            "mean_per_expected_episode": 0.21214157913670395,
+            "median": 0.1913212432861328,
+            "p95": 0.31367578124999995
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/model_gpu_seconds",
+          "value": {
+            "total": 3757.833807198661,
+            "mean_per_expected_episode": 113.87375173329276,
+            "median": 115.69316783854167,
+            "p95": 160.42692542550222
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/tool_gpu_seconds",
+          "value": {
+            "total": 24.187436856210233,
+            "mean_per_expected_episode": 0.7329526320063707,
+            "median": 0.6429371490478516,
+            "p95": 1.452092585754394
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/input_tokens",
+          "value": {
+            "total": 1261092.0,
+            "mean_per_expected_episode": 38214.909090909096,
+            "median": 41856.0,
+            "p95": 46523.4
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/output_tokens",
+          "value": {
+            "total": 22117.0,
+            "mean_per_expected_episode": 670.2121212121212,
+            "median": 838.0,
+            "p95": 1355.5999999999997
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/cuda_event_seconds",
+          "value": {
+            "total": 3789.0219161663817,
+            "mean_per_expected_episode": 114.81884594443581
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "G4": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 15,
+          "declared_abstention": 15,
+          "source_identity_assertions": 0,
+          "reported_component_count": 107,
+          "valid_component_count": 107,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/report_emission_coverage",
+        "value": 0.5454545021057129
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/G4/duplicate_candidates",
+        "value": 0
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/wall_seconds",
+          "value": {
+            "total": 22662.139523544007,
+            "mean_per_expected_episode": 686.7315007134548,
+            "median": 678.2559914389985,
+            "p95": 1127.6994524180006
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 5.697222137451172,
+            "mean_per_expected_episode": 0.17264309507427794,
+            "median": 0.15147964477539064,
+            "p95": 0.26507284545898435
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/model_gpu_seconds",
+          "value": {
+            "total": 800.7918880929129,
+            "mean_per_expected_episode": 24.266420851300392,
+            "median": 22.29353125,
+            "p95": 41.6157446875
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/tool_gpu_seconds",
+          "value": {
+            "total": 22.141696880817413,
+            "mean_per_expected_episode": 0.6709605115399216,
+            "median": 0.5724927789568901,
+            "p95": 1.460918486618995
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/input_tokens",
+          "value": {
+            "total": 208259.0,
+            "mean_per_expected_episode": 6310.878787878788,
+            "median": 6779.0,
+            "p95": 7509.4
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/output_tokens",
+          "value": {
+            "total": 19615.0,
+            "mean_per_expected_episode": 594.3939393939394,
+            "median": 700.0,
+            "p95": 1395.6
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/cuda_event_seconds",
+          "value": {
+            "total": 828.6308071111815,
+            "mean_per_expected_episode": 25.11002445791459
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/G4/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "no_demon": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 19,
+          "declared_abstention": 19,
+          "source_identity_assertions": 0,
+          "reported_component_count": 72,
+          "valid_component_count": 72,
+          "actions_attempted": 197,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/report_emission_coverage",
+        "value": 0.42424237728118896
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_demon/duplicate_candidates",
+        "value": 0
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/wall_seconds",
+          "value": {
+            "total": 24874.741798650008,
+            "mean_per_expected_episode": 753.7800545045457,
+            "median": 750.2515145829966,
+            "p95": 1198.7790608487994
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 5.1709798812866214,
+            "mean_per_expected_episode": 0.15669636003898854,
+            "median": 0.14166239929199217,
+            "p95": 0.26440325317382807
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/model_gpu_seconds",
+          "value": {
+            "total": 1793.8357663202194,
+            "mean_per_expected_episode": 54.3586595854612,
+            "median": 47.56310880766369,
+            "p95": 89.13334311523434
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/tool_gpu_seconds",
+          "value": {
+            "total": 18.374839099660516,
+            "mean_per_expected_episode": 0.5568133060503186,
+            "median": 0.5083867299556732,
+            "p95": 0.9579641138553616
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/input_tokens",
+          "value": {
+            "total": 972138.0,
+            "mean_per_expected_episode": 29458.727272727272,
+            "median": 32000.0,
+            "p95": 36332.0
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/output_tokens",
+          "value": {
+            "total": 16992.0,
+            "mean_per_expected_episode": 514.9090909090909,
+            "median": 225.0,
+            "p95": 1115.2
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/cuda_event_seconds",
+          "value": {
+            "total": 1817.3815853011665,
+            "mean_per_expected_episode": 55.072169251550505
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_demon/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "no_graph": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 33,
+          "declared_abstention": 33,
+          "source_identity_assertions": 0,
+          "reported_component_count": 0,
+          "valid_component_count": 0,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/report_emission_coverage",
+        "value": 0.0
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_graph/duplicate_candidates",
+        "value": 0
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/wall_seconds",
+          "value": {
+            "total": 29543.834138265986,
+            "mean_per_expected_episode": 895.2677011595754,
+            "median": 895.7903517239974,
+            "p95": 1311.9230734286
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 6.293669494628906,
+            "mean_per_expected_episode": 0.19071725741299717,
+            "median": 0.18402879333496094,
+            "p95": 0.28769462890624997
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/model_gpu_seconds",
+          "value": {
+            "total": 2011.0727254696799,
+            "mean_per_expected_episode": 60.941597741505454,
+            "median": 62.763758056640626,
+            "p95": 96.13295679989768
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/tool_gpu_seconds",
+          "value": {
+            "total": 22.36713042676449,
+            "mean_per_expected_episode": 0.6777918311140755,
+            "median": 0.5968747177124023,
+            "p95": 1.180321366882324
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/input_tokens",
+          "value": {
+            "total": 1096824.0,
+            "mean_per_expected_episode": 33237.09090909091,
+            "median": 35800.0,
+            "p95": 37970.6
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/output_tokens",
+          "value": {
+            "total": 7710.0,
+            "mean_per_expected_episode": 233.63636363636365,
+            "median": 235.0,
+            "p95": 251.6
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/cuda_event_seconds",
+          "value": {
+            "total": 2039.7335253910735,
+            "mean_per_expected_episode": 61.81010683003253
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "no_quantitative": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 33,
+          "declared_abstention": 33,
+          "source_identity_assertions": 0,
+          "reported_component_count": 0,
+          "valid_component_count": 0,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/report_emission_coverage",
+        "value": 0.0
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_quantitative/duplicate_candidates",
+        "value": 0
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/wall_seconds",
+          "value": {
+            "total": 30463.40293532303,
+            "mean_per_expected_episode": 923.1334222825161,
+            "median": 955.0557108240027,
+            "p95": 1338.7811722392057
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 5.954725997924805,
+            "mean_per_expected_episode": 0.18044624236135773,
+            "median": 0.15802359008789063,
+            "p95": 0.28626433105468746
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/model_gpu_seconds",
+          "value": {
+            "total": 1871.7829971005394,
+            "mean_per_expected_episode": 56.72069688183453,
+            "median": 60.29313888346354,
+            "p95": 97.84272153320312
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/tool_gpu_seconds",
+          "value": {
+            "total": 22.638111729264256,
+            "mean_per_expected_episode": 0.6860033857352805,
+            "median": 0.6419648628234863,
+            "p95": 1.007930401611328
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/input_tokens",
+          "value": {
+            "total": 510392.0,
+            "mean_per_expected_episode": 15466.424242424242,
+            "median": 16159.0,
+            "p95": 17967.0
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/output_tokens",
+          "value": {
+            "total": 23032.0,
+            "mean_per_expected_episode": 697.939393939394,
+            "median": 734.0,
+            "p95": 1568.9999999999998
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/cuda_event_seconds",
+          "value": {
+            "total": 1900.3758348277286,
+            "mean_per_expected_episode": 57.58714650993117
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "forced_exclusivity": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 21,
+          "declared_abstention": 21,
+          "source_identity_assertions": 0,
+          "reported_component_count": 69,
+          "valid_component_count": 69,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/report_emission_coverage",
+        "value": 0.3636363744735718
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/forced_exclusivity/duplicate_candidates",
+        "value": 2
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/wall_seconds",
+          "value": {
+            "total": 29538.17522204102,
+            "mean_per_expected_episode": 895.0962188497278,
+            "median": 869.5772526929941,
+            "p95": 1498.5694210689994
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 6.326968673706055,
+            "mean_per_expected_episode": 0.19172632344563806,
+            "median": 0.1680404510498047,
+            "p95": 0.2978833679199218
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/model_gpu_seconds",
+          "value": {
+            "total": 1856.2603860781715,
+            "mean_per_expected_episode": 56.25031472964156,
+            "median": 50.36250678943452,
+            "p95": 102.935103125
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/tool_gpu_seconds",
+          "value": {
+            "total": 22.91124406015873,
+            "mean_per_expected_episode": 0.694280123035113,
+            "median": 0.6213528966903686,
+            "p95": 1.1133609878540036
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/input_tokens",
+          "value": {
+            "total": 1079214.0,
+            "mean_per_expected_episode": 32703.454545454548,
+            "median": 35741.0,
+            "p95": 40192.4
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/output_tokens",
+          "value": {
+            "total": 16193.0,
+            "mean_per_expected_episode": 490.6969696969697,
+            "median": 241.0,
+            "p95": 1076.0
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/cuda_event_seconds",
+          "value": {
+            "total": 1885.4985988120363,
+            "mean_per_expected_episode": 57.136321176122316
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/forced_exclusivity/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "fixed_resolution": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 15,
+          "declared_abstention": 15,
+          "source_identity_assertions": 0,
+          "reported_component_count": 86,
+          "valid_component_count": 86,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/report_emission_coverage",
+        "value": 0.5454545021057129
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/fixed_resolution/duplicate_candidates",
+        "value": 0
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/wall_seconds",
+          "value": {
+            "total": 29649.844945571997,
+            "mean_per_expected_episode": 898.4801498658181,
+            "median": 952.4156791919959,
+            "p95": 1377.3685912995977
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 6.238623748779297,
+            "mean_per_expected_episode": 0.18904920450846355,
+            "median": 0.17052680969238282,
+            "p95": 0.2824896789550781
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/model_gpu_seconds",
+          "value": {
+            "total": 1976.3313605573383,
+            "mean_per_expected_episode": 59.88882910779813,
+            "median": 58.28053276367188,
+            "p95": 98.74208142089843
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/tool_gpu_seconds",
+          "value": {
+            "total": 17.628919498622416,
+            "mean_per_expected_episode": 0.5342096817764369,
+            "median": 0.5220991197228432,
+            "p95": 0.8326659456253052
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/input_tokens",
+          "value": {
+            "total": 991568.0,
+            "mean_per_expected_episode": 30047.515151515152,
+            "median": 27267.0,
+            "p95": 45860.6
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/output_tokens",
+          "value": {
+            "total": 23827.0,
+            "mean_per_expected_episode": 722.030303030303,
+            "median": 869.0,
+            "p95": 1593.1999999999998
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/cuda_event_seconds",
+          "value": {
+            "total": 2000.1989038047398,
+            "mean_per_expected_episode": 60.612087994083026
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/fixed_resolution/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "random": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 17,
+          "declared_abstention": 17,
+          "source_identity_assertions": 0,
+          "reported_component_count": 90,
+          "valid_component_count": 90,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/report_emission_coverage",
+        "value": 0.4848484992980957
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/random/duplicate_candidates",
+        "value": 1
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/wall_seconds",
+          "value": {
+            "total": 16729.48376282399,
+            "mean_per_expected_episode": 506.9540534189088,
+            "median": 514.3413521749972,
+            "p95": 866.0039842862009
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 6.0191619644165035,
+            "mean_per_expected_episode": 0.1823988474065607,
+            "median": 0.16785784912109375,
+            "p95": 0.26179729614257813
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/model_gpu_seconds",
+          "value": {
+            "total": 393.15438605608256,
+            "mean_per_expected_episode": 11.913769274426745,
+            "median": 11.4633623046875,
+            "p95": 36.638218749999986
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/tool_gpu_seconds",
+          "value": {
+            "total": 29.060205126106737,
+            "mean_per_expected_episode": 0.880612276548689,
+            "median": 0.8832056982517242,
+            "p95": 1.1339230816841126
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/input_tokens",
+          "value": {
+            "total": 182709.0,
+            "mean_per_expected_episode": 5536.636363636364,
+            "median": 5854.0,
+            "p95": 6805.2
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/output_tokens",
+          "value": {
+            "total": 14652.0,
+            "mean_per_expected_episode": 444.0,
+            "median": 534.0,
+            "p95": 1165.7999999999995
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/cuda_event_seconds",
+          "value": {
+            "total": 428.23375314660586,
+            "mean_per_expected_episode": 12.976780398381996
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/random/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "no_verifier": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/expected_episodes",
+        "value": 33
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/reference_scored_episodes",
+        "value": 0
+      },
+      "reference_statuses": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/reference_statuses",
+        "value": [
+          "unavailable"
+        ]
+      },
+      "reference_scopes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/reference_scopes",
+        "value": [
+          {
+            "eligible_carrier_bands_hz": [],
+            "eligible_frequency_domains": [],
+            "eligible_types": []
+          }
+        ]
+      },
+      "event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/event_metrics",
+        "value": null
+      },
+      "raw_event_metrics": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/raw_event_metrics",
+        "value": null
+      },
+      "totals": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 15,
+          "declared_abstention": 15,
+          "source_identity_assertions": 0,
+          "reported_component_count": 108,
+          "valid_component_count": 108,
+          "actions_attempted": 198,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/execution_status",
+        "value": {
+          "completed": 33,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/report_emission_coverage",
+        "value": 0.5454545021057129
+      },
+      "duplicate_candidates": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/all/no_verifier/duplicate_candidates",
+        "value": 4
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/wall_seconds",
+          "value": {
+            "total": 40530.29530865199,
+            "mean_per_expected_episode": 1228.1907669288482,
+            "median": 1212.9610823279982,
+            "p95": 1641.511300965799
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 7.00067211151123,
+            "mean_per_expected_episode": 0.21214157913670395,
+            "median": 0.1913212432861328,
+            "p95": 0.31367578124999995
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/model_gpu_seconds",
+          "value": {
+            "total": 3757.833807198661,
+            "mean_per_expected_episode": 113.87375173329276,
+            "median": 115.69316783854167,
+            "p95": 160.42692542550222
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/tool_gpu_seconds",
+          "value": {
+            "total": 24.187436856210233,
+            "mean_per_expected_episode": 0.7329526320063707,
+            "median": 0.6429371490478516,
+            "p95": 1.452092585754394
+          }
+        },
+        "input_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/input_tokens",
+          "value": {
+            "total": 1261092.0,
+            "mean_per_expected_episode": 38214.909090909096,
+            "median": 41856.0,
+            "p95": 46523.4
+          }
+        },
+        "output_tokens": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/output_tokens",
+          "value": {
+            "total": 22117.0,
+            "mean_per_expected_episode": 670.2121212121212,
+            "median": 838.0,
+            "p95": 1355.5999999999997
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/cuda_event_seconds",
+          "value": {
+            "total": 3789.0219161663817,
+            "mean_per_expected_episode": 114.81884594443581
+          }
+        },
+        "timing_note": {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    }
+  },
+  "real_domain_metadata": {
+    "deepship": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/deepship/F/expected_episodes",
+        "value": 30
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/deepship/F/independent_groups",
+        "value": 9
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/deepship/F/reference_scored_episodes",
+        "value": 0
+      }
+    },
+    "mbari": {
+      "expected_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/mbari/F/expected_episodes",
+        "value": 3
+      },
+      "independent_groups": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/mbari/F/independent_groups",
+        "value": 3
+      },
+      "reference_scored_episodes": {
+        "path": "results/ablations/evaluation/summary.json",
+        "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+        "json_pointer": "/results/real/mbari/F/reference_scored_episodes",
+        "value": 0
+      }
+    }
+  },
+  "synthetic_saved_values": {
+    "F": {
+      "expected_episodes": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/expected_episodes",
+        "value": 12
+      },
+      "independent_groups": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/reference_scored_episodes",
+        "value": 12
+      },
+      "event_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/event_metrics",
+        "value": {
+          "tp": 12,
+          "fp": 11,
+          "fn": 12,
+          "precision": 0.52173912525177,
+          "recall": 0.5,
+          "f1": 0.5106382966041565,
+          "scenes": 12
+        }
+      },
+      "raw_event_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/raw_event_metrics",
+        "value": {
+          "tp": 13,
+          "fp": 32,
+          "fn": 11,
+          "precision": 0.2888889014720917,
+          "recall": 0.5416666865348816,
+          "f1": 0.37681159377098083,
+          "scenes": 12
+        }
+      },
+      "event_group_intervals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/event_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 12,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.375,
+                1.0
+              ],
+              "defined_resample_fraction": 0.999500036239624
+            },
+            "recall": {
+              "ci95": [
+                0.2,
+                0.8571428571428571
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.2857142857142857,
+                0.7
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "event_metrics_regional_iou05": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/event_metrics_regional_iou05",
+        "value": {
+          "tp": 11,
+          "fp": 12,
+          "fn": 13,
+          "precision": 0.47826087474823,
+          "recall": 0.4583333432674408,
+          "f1": 0.4680851101875305,
+          "scenes": 12
+        }
+      },
+      "geometric_overlap_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/geometric_overlap_metrics",
+        "value": {
+          "tp": 8,
+          "fp": 40,
+          "fn": 12,
+          "precision": 0.1666666716337204,
+          "recall": 0.4000000059604645,
+          "f1": 0.23529411852359772,
+          "scenes": 12
+        }
+      },
+      "overlap_group_intervals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/overlap_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 12,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.06666666666666667,
+                1.0
+              ],
+              "defined_resample_fraction": 0.9905000329017639
+            },
+            "recall": {
+              "ci95": [
+                0.07142857142857142,
+                0.8501785714285705
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.06896551724137931,
+                0.4507269422989549
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "totals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/totals",
+        "value": {
+          "schema_failed": 1,
+          "empty_report": 6,
+          "declared_abstention": 6,
+          "source_identity_assertions": 0,
+          "reported_component_count": 26,
+          "valid_component_count": 26,
+          "actions_attempted": 72,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/execution_status",
+        "value": {
+          "completed": 12,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/report_emission_coverage",
+        "value": 0.5
+      },
+      "duplicate_candidates": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/duplicate_candidates",
+        "value": 3
+      },
+      "matched_geometry_diagnostics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/matched_geometry_diagnostics",
+        "value": {
+          "matched_components": 12,
+          "frequency_matched_components": 11,
+          "mean_frequency_error_hz": 0.30846431851387024,
+          "median_frequency_error_hz": 0.33441162109375,
+          "mean_temporal_iou": 0.8695365190505981,
+          "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+        }
+      },
+      "reference_event_coverage": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/F/reference_event_coverage",
+        "value": 0.5
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/wall_seconds",
+          "value": {
+            "total": 12078.855885474994,
+            "mean_per_expected_episode": 1006.5713237895827,
+            "median": 988.2295311580019,
+            "p95": 1185.650264451752
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 2.406797149896622,
+            "mean_per_expected_episode": 0.2005664291580518,
+            "median": 0.18095529174804686,
+            "p95": 0.3206738616943359
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/model_gpu_seconds",
+          "value": {
+            "total": 1093.5477569649834,
+            "mean_per_expected_episode": 91.12897974708194,
+            "median": 88.19831412760416,
+            "p95": 112.68616390159971
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/tool_gpu_seconds",
+          "value": {
+            "total": 7.935583812594413,
+            "mean_per_expected_episode": 0.6612986510495344,
+            "median": 0.6684365048408508,
+            "p95": 0.878609903717041
+          }
+        },
+        "input_tokens": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/input_tokens",
+          "value": {
+            "total": 282779.0,
+            "mean_per_expected_episode": 23564.916666666664,
+            "median": 23526.0,
+            "p95": 33025.95
+          }
+        },
+        "output_tokens": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/output_tokens",
+          "value": {
+            "total": 8926.0,
+            "mean_per_expected_episode": 743.8333333333333,
+            "median": 820.0,
+            "p95": 1326.2999999999997
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/cuda_event_seconds",
+          "value": {
+            "total": 1103.8901379274744,
+            "mean_per_expected_episode": 91.99084482728952
+          }
+        },
+        "timing_note": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "G4": {
+      "expected_episodes": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/expected_episodes",
+        "value": 12
+      },
+      "independent_groups": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/reference_scored_episodes",
+        "value": 12
+      },
+      "event_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/event_metrics",
+        "value": {
+          "tp": 17,
+          "fp": 12,
+          "fn": 7,
+          "precision": 0.5862069129943848,
+          "recall": 0.7083333134651184,
+          "f1": 0.6415094137191772,
+          "scenes": 12
+        }
+      },
+      "raw_event_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/raw_event_metrics",
+        "value": {
+          "tp": 17,
+          "fp": 30,
+          "fn": 7,
+          "precision": 0.3617021143436432,
+          "recall": 0.7083333134651184,
+          "f1": 0.47887325286865234,
+          "scenes": 12
+        }
+      },
+      "event_group_intervals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/event_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 12,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.45447214076246334,
+                0.7894736842105263
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "recall": {
+              "ci95": [
+                0.3998214285714286,
+                1.0
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.4614754098360656,
+                0.7942647058823521
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "event_metrics_regional_iou05": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/event_metrics_regional_iou05",
+        "value": {
+          "tp": 17,
+          "fp": 12,
+          "fn": 7,
+          "precision": 0.5862069129943848,
+          "recall": 0.7083333134651184,
+          "f1": 0.6415094137191772,
+          "scenes": 12
+        }
+      },
+      "geometric_overlap_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/geometric_overlap_metrics",
+        "value": {
+          "tp": 12,
+          "fp": 40,
+          "fn": 8,
+          "precision": 0.23076923191547394,
+          "recall": 0.6000000238418579,
+          "f1": 0.3333333432674408,
+          "scenes": 12
+        }
+      },
+      "overlap_group_intervals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/overlap_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 12,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.1111111111111111,
+                0.5
+              ],
+              "defined_resample_fraction": 0.999500036239624
+            },
+            "recall": {
+              "ci95": [
+                0.21428571428571427,
+                1.0
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.1621081081081081,
+                0.5581395348837209
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "totals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/totals",
+        "value": {
+          "schema_failed": 0,
+          "empty_report": 4,
+          "declared_abstention": 4,
+          "source_identity_assertions": 0,
+          "reported_component_count": 32,
+          "valid_component_count": 32,
+          "actions_attempted": 72,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/execution_status",
+        "value": {
+          "completed": 12,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/report_emission_coverage",
+        "value": 0.6666666269302368
+      },
+      "duplicate_candidates": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/duplicate_candidates",
+        "value": 6
+      },
+      "matched_geometry_diagnostics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/matched_geometry_diagnostics",
+        "value": {
+          "matched_components": 17,
+          "frequency_matched_components": 17,
+          "mean_frequency_error_hz": 0.3235336244106293,
+          "median_frequency_error_hz": 0.323333740234375,
+          "mean_temporal_iou": 0.8911910653114319,
+          "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+        }
+      },
+      "reference_event_coverage": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/G4/reference_event_coverage",
+        "value": 0.7083333333333334
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/wall_seconds",
+          "value": {
+            "total": 6904.185879805009,
+            "mean_per_expected_episode": 575.348823317084,
+            "median": 569.4724785060025,
+            "p95": 736.2865630387972
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 2.3384517784118652,
+            "mean_per_expected_episode": 0.19487098153432209,
+            "median": 0.17683433532714843,
+            "p95": 0.32564308166503897
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/model_gpu_seconds",
+          "value": {
+            "total": 204.3980338378906,
+            "mean_per_expected_episode": 17.033169486490884,
+            "median": 18.311959375,
+            "p95": 23.588456445312495
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/tool_gpu_seconds",
+          "value": {
+            "total": 6.571206951797009,
+            "mean_per_expected_episode": 0.5476005793164174,
+            "median": 0.5569411149024963,
+            "p95": 0.7624847850978375
+          }
+        },
+        "input_tokens": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/input_tokens",
+          "value": {
+            "total": 42061.0,
+            "mean_per_expected_episode": 3505.083333333333,
+            "median": 3399.0,
+            "p95": 4818.249999999999
+          }
+        },
+        "output_tokens": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/output_tokens",
+          "value": {
+            "total": 6825.0,
+            "mean_per_expected_episode": 568.75,
+            "median": 651.0,
+            "p95": 975.2499999999999
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/cuda_event_seconds",
+          "value": {
+            "total": 213.3076925680995,
+            "mean_per_expected_episode": 17.775641047341622
+          }
+        },
+        "timing_note": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "no_verifier": {
+      "expected_episodes": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/expected_episodes",
+        "value": 12
+      },
+      "independent_groups": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/independent_groups",
+        "value": 12
+      },
+      "reference_scored_episodes": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/reference_scored_episodes",
+        "value": 12
+      },
+      "event_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/event_metrics",
+        "value": {
+          "tp": 12,
+          "fp": 27,
+          "fn": 12,
+          "precision": 0.3076923191547394,
+          "recall": 0.5,
+          "f1": 0.380952388048172,
+          "scenes": 12
+        }
+      },
+      "raw_event_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/raw_event_metrics",
+        "value": {
+          "tp": 13,
+          "fp": 32,
+          "fn": 11,
+          "precision": 0.2888889014720917,
+          "recall": 0.5416666865348816,
+          "f1": 0.37681159377098083,
+          "scenes": 12
+        }
+      },
+      "event_group_intervals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/event_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 12,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.14809027777777778,
+                0.5128787878787875
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "recall": {
+              "ci95": [
+                0.2,
+                0.8571428571428571
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.1764066496163683,
+                0.5714285714285714
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "event_metrics_regional_iou05": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/event_metrics_regional_iou05",
+        "value": {
+          "tp": 11,
+          "fp": 28,
+          "fn": 13,
+          "precision": 0.28205129504203796,
+          "recall": 0.4583333432674408,
+          "f1": 0.3492063581943512,
+          "scenes": 12
+        }
+      },
+      "geometric_overlap_metrics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/geometric_overlap_metrics",
+        "value": {
+          "tp": 8,
+          "fp": 79,
+          "fn": 12,
+          "precision": 0.09195402264595032,
+          "recall": 0.4000000059604645,
+          "f1": 0.14953270554542542,
+          "scenes": 12
+        }
+      },
+      "overlap_group_intervals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/overlap_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 12,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.015873015873015872,
+                0.2179687499999999
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "recall": {
+              "ci95": [
+                0.07142857142857142,
+                0.8501785714285705
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.025625,
+                0.3103448275862069
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "totals": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/totals",
+        "value": {
+          "schema_failed": 1,
+          "empty_report": 5,
+          "declared_abstention": 5,
+          "source_identity_assertions": 0,
+          "reported_component_count": 42,
+          "valid_component_count": 42,
+          "actions_attempted": 72,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/execution_status",
+        "value": {
+          "completed": 12,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/report_emission_coverage",
+        "value": 0.5833333134651184
+      },
+      "duplicate_candidates": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/duplicate_candidates",
+        "value": 10
+      },
+      "matched_geometry_diagnostics": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/matched_geometry_diagnostics",
+        "value": {
+          "matched_components": 12,
+          "frequency_matched_components": 11,
+          "mean_frequency_error_hz": 0.30846431851387024,
+          "median_frequency_error_hz": 0.33441162109375,
+          "mean_temporal_iou": 0.8695365190505981,
+          "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+        }
+      },
+      "reference_event_coverage": {
+        "path": "results/synthetic_ablations/evaluation/summary.json",
+        "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+        "json_pointer": "/results/synthetic/all/no_verifier/reference_event_coverage",
+        "value": 0.5
+      },
+      "saved_compute": {
+        "wall_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/wall_seconds",
+          "value": {
+            "total": 12078.855885474994,
+            "mean_per_expected_episode": 1006.5713237895827,
+            "median": 988.2295311580019,
+            "p95": 1185.650264451752
+          }
+        },
+        "preprocess_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/preprocess_gpu_seconds",
+          "value": {
+            "total": 2.406797149896622,
+            "mean_per_expected_episode": 0.2005664291580518,
+            "median": 0.18095529174804686,
+            "p95": 0.3206738616943359
+          }
+        },
+        "model_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/model_gpu_seconds",
+          "value": {
+            "total": 1093.5477569649834,
+            "mean_per_expected_episode": 91.12897974708194,
+            "median": 88.19831412760416,
+            "p95": 112.68616390159971
+          }
+        },
+        "tool_gpu_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/tool_gpu_seconds",
+          "value": {
+            "total": 7.935583812594413,
+            "mean_per_expected_episode": 0.6612986510495344,
+            "median": 0.6684365048408508,
+            "p95": 0.878609903717041
+          }
+        },
+        "input_tokens": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/input_tokens",
+          "value": {
+            "total": 282779.0,
+            "mean_per_expected_episode": 23564.916666666664,
+            "median": 23526.0,
+            "p95": 33025.95
+          }
+        },
+        "output_tokens": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/output_tokens",
+          "value": {
+            "total": 8926.0,
+            "mean_per_expected_episode": 743.8333333333333,
+            "median": 820.0,
+            "p95": 1326.2999999999997
+          }
+        },
+        "cuda_event_seconds": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/cuda_event_seconds",
+          "value": {
+            "total": 1103.8901379274744,
+            "mean_per_expected_episode": 91.99084482728952
+          }
+        },
+        "timing_note": {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/compute/timing_note",
+          "value": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    }
+  },
+  "primary_comparisons": {
+    "real": {
+      "path": "results/ablations/evaluation/summary.json",
+      "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+      "json_pointer": "/primary_comparisons",
+      "value": {
+        "endpoint_interpretation": "agreement with blinded AI reference labels, not independently validated physical correctness",
+        "H1": {
+          "status": "primary_comparator_unavailable",
+          "selection_provenance": {
+            "status": "primary_comparator_unavailable",
+            "unavailable_reasons": [
+              "G3: no eligible primary real-reference scores",
+              "G4: no eligible primary real-reference scores"
+            ],
+            "selected_method": null,
+            "source": "validation_only_real_AI_reference_event_agreement",
+            "test_labels_used": false,
+            "tie_rule": "G3",
+            "candidates": {},
+            "reference_source_sha256": "b49a33de4859e199251fe04ed908bd42e972c3971b867b576ec67a7b82b631fa",
+            "validation_run": "/workspace/reading-sonar-signals/results/development",
+            "run_configuration_sha256": "d12e71f3acd09e94b2ff134f2f8bec929fc4abbf58f3b57c9d333b305c44d749",
+            "validation_scene_ids": [
+              "ds_060a7a010d678c69",
+              "ds_0a3ebc00145d0f79",
+              "ds_14482ed128dd5a96",
+              "ds_151d8e9d80bea776",
+              "ds_190b11e45b1c486d",
+              "ds_2d0dafc2d36d0c10",
+              "ds_3199c7dddb293799",
+              "ds_3d489bfc3dbed7e1",
+              "ds_408533bf703cc5bd",
+              "ds_486c8ee6d664e6a9",
+              "ds_57c00e20b0ea9d42",
+              "ds_7a96c16e7df93155",
+              "ds_7ae242fe5cb905b2",
+              "ds_7f36770159e12df0",
+              "ds_8340714241bb9526",
+              "ds_8b363c9f5ef6b6f1",
+              "ds_8e9c864667adeae2",
+              "ds_95d3c5e8d74b95e6",
+              "ds_abd42335475d7760",
+              "ds_ac3fecbd364bb9e1",
+              "ds_b11cee50e7c6d792",
+              "ds_bfd96be636fe3bd4",
+              "ds_c316af309679d011",
+              "ds_c3bf39d235b39d9a",
+              "ds_d580a3c75df6995e",
+              "ds_d7a2f9b5a3fa4b90",
+              "ds_d801014a047438fd",
+              "ds_e0ffd89d9ca8f620",
+              "ds_e614cbca65ac15b5",
+              "ds_f78acc77d46426fd"
+            ],
+            "reference_ineligible_validation_scene_ids": [
+              "ds_060a7a010d678c69",
+              "ds_0a3ebc00145d0f79",
+              "ds_14482ed128dd5a96",
+              "ds_151d8e9d80bea776",
+              "ds_190b11e45b1c486d",
+              "ds_2d0dafc2d36d0c10",
+              "ds_3199c7dddb293799",
+              "ds_3d489bfc3dbed7e1",
+              "ds_408533bf703cc5bd",
+              "ds_486c8ee6d664e6a9",
+              "ds_57c00e20b0ea9d42",
+              "ds_7a96c16e7df93155",
+              "ds_7ae242fe5cb905b2",
+              "ds_7f36770159e12df0",
+              "ds_8340714241bb9526",
+              "ds_8b363c9f5ef6b6f1",
+              "ds_8e9c864667adeae2",
+              "ds_95d3c5e8d74b95e6",
+              "ds_abd42335475d7760",
+              "ds_ac3fecbd364bb9e1",
+              "ds_b11cee50e7c6d792",
+              "ds_bfd96be636fe3bd4",
+              "ds_c316af309679d011",
+              "ds_c3bf39d235b39d9a",
+              "ds_d580a3c75df6995e",
+              "ds_d7a2f9b5a3fa4b90",
+              "ds_d801014a047438fd",
+              "ds_e0ffd89d9ca8f620",
+              "ds_e614cbca65ac15b5",
+              "ds_f78acc77d46426fd"
+            ]
+          },
+          "holm_adjusted_p_value": null
+        },
+        "H4": {
+          "status": "no_eligible_real_reference_scores",
+          "holm_adjusted_p_value": null
+        },
+        "family": [
+          "H1 adaptive inspection",
+          "H4 verifier component-agreement proxy"
+        ],
+        "excluded_reference_ineligible_scene_ids": [
+          "ds_0c5c23f3aefbdcae",
+          "ds_170b373ce769810a",
+          "ds_214fc193a560c1e3",
+          "ds_26e0e7e39102b8ee",
+          "ds_44b5e66d28cced46",
+          "ds_4fc1d27b095e518c",
+          "ds_77bdc8d9c64d3013",
+          "ds_80d7ff1c97ddd850",
+          "ds_8457d8e8de2a237d",
+          "ds_86e8ef11316ea409",
+          "ds_88a3a626b0205c7f",
+          "ds_8c7cdbf9c31ef2af",
+          "ds_950b01a97c267d79",
+          "ds_a897d1f2fbdf2048",
+          "ds_a9d3b5bcc1523768",
+          "ds_aae80cfe9b315ced",
+          "ds_ac8dc43fada4ae61",
+          "ds_ae7c99af3d079ecb",
+          "ds_af26a7e3db2cd976",
+          "ds_b39fbab0ef32f73f",
+          "ds_b5c9e6d15bd85d41",
+          "ds_bf59d940e1d15502",
+          "ds_c58c39ce3b7c3d64",
+          "ds_c64c229f17265ef2",
+          "ds_cf92106b1e6fe405",
+          "ds_d87a75ca217ed4e7",
+          "ds_de69803a034fde56",
+          "ds_e0a930662078b8d6",
+          "ds_f3e3f730285c7c81",
+          "ds_fc422369d677b6b8",
+          "mb_020dc567758f45b0",
+          "mb_19337c7e2ac071e2",
+          "mb_1e5e9a9711079336"
+        ],
+        "holm_missing_test_policy": "Unavailable primary tests occupy a prespecified family slot with p=1; no test family is shrunk."
+      }
+    },
+    "synthetic": {
+      "path": "results/synthetic_ablations/evaluation/summary.json",
+      "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+      "json_pointer": "/primary_comparisons",
+      "value": {
+        "endpoint_interpretation": "agreement with blinded AI reference labels, not independently validated physical correctness",
+        "H1": {
+          "status": "fixed_comparator_not_selected_on_validation",
+          "holm_adjusted_p_value": null
+        },
+        "H4": {
+          "status": "no_eligible_real_reference_scores",
+          "holm_adjusted_p_value": null
+        },
+        "family": [
+          "H1 adaptive inspection",
+          "H4 verifier component-agreement proxy"
+        ],
+        "excluded_reference_ineligible_scene_ids": [],
+        "holm_missing_test_policy": "Unavailable primary tests occupy a prespecified family slot with p=1; no test family is shrunk."
+      }
+    }
+  },
+  "examples": {
+    "filter_induced_emptiness": {
+      "schema_valid": {
+        "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+        "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+        "json_pointer": "/schema_valid",
+        "value": true
+      },
+      "raw_report": {
+        "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+        "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+        "json_pointer": "/raw_report",
+        "value": {
+          "components": [
+            {
+              "id": "C0000",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                30.0,
+                60.0
+              ],
+              "frequency_hz": [
+                0,
+                0
+              ],
+              "frequency_track": [
+                [
+                  30.0,
+                  0
+                ],
+                [
+                  60.0,
+                  0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000"
+              ]
+            },
+            {
+              "id": "C0001",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                30.0,
+                60.0
+              ],
+              "frequency_hz": [
+                0,
+                0
+              ],
+              "frequency_track": [
+                [
+                  30.0,
+                  0
+                ],
+                [
+                  60.0,
+                  0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000"
+              ]
+            },
+            {
+              "id": "C0002",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                30.0,
+                60.0
+              ],
+              "frequency_hz": [
+                0,
+                0
+              ],
+              "frequency_track": [
+                [
+                  30.0,
+                  0
+                ],
+                [
+                  60.0,
+                  0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000"
+              ]
+            },
+            {
+              "id": "C0003",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                30.0,
+                60.0
+              ],
+              "frequency_hz": [
+                0,
+                0
+              ],
+              "frequency_track": [
+                [
+                  30.0,
+                  0
+                ],
+                [
+                  60.0,
+                  0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000"
+              ]
+            },
+            {
+              "id": "C0004",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                30.0,
+                60.0
+              ],
+              "frequency_hz": [
+                0,
+                0
+              ],
+              "frequency_track": [
+                [
+                  30.0,
+                  0
+                ],
+                [
+                  60.0,
+                  0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000"
+              ]
+            },
+            {
+              "id": "C0005",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                30.0,
+                60.0
+              ],
+              "frequency_hz": [
+                0,
+                0
+              ],
+              "frequency_track": [
+                [
+                  30.0,
+                  0
+                ],
+                [
+                  60.0,
+                  0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000"
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0003"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0001",
+                "E0004",
+                "E0005"
+              ]
+            },
+            {
+              "type": "unresolved_association",
+              "component_ids": [
+                "C0000",
+                "C0003"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0001",
+                "E0004",
+                "E0005"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0005"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0007"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0005",
+                "E0006"
+              ]
+            },
+            {
+              "type": "unresolved_association",
+              "component_ids": [
+                "C0000",
+                "C0007"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0005",
+                "E0006"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0010"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0005",
+                "E0006"
+              ]
+            }
+          ],
+          "claims": [
+            {
+              "text": "A tone is present across the entire time window in the acoustic domain, with no frequency variation observed in the provided data",
+              "component_ids": [
+                "C0000"
+              ],
+              "evidence_ids": [
+                "E0000"
+              ],
+              "kind": "observation"
+            }
+          ],
+          "unresolved_questions": [
+            "Which source produced these components?"
+          ],
+          "abstained": false
+        }
+      },
+      "report": {
+        "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+        "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+        "json_pointer": "/report",
+        "value": {
+          "components": [],
+          "relations": [],
+          "claims": [],
+          "unresolved_questions": [
+            "Which source produced these components?"
+          ],
+          "abstained": true
+        }
+      },
+      "verification_audit": {
+        "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+        "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+        "json_pointer": "/verification_audit",
+        "value": [
+          {
+            "component_id": "C0000",
+            "status": "withheld",
+            "reasons": [
+              "no cited component with matching morphology, domain, coordinates, and carrier"
+            ],
+            "matched_measurement_components": []
+          },
+          {
+            "component_id": "C0001",
+            "status": "withheld",
+            "reasons": [
+              "no cited component with matching morphology, domain, coordinates, and carrier"
+            ],
+            "matched_measurement_components": []
+          },
+          {
+            "component_id": "C0002",
+            "status": "withheld",
+            "reasons": [
+              "no cited component with matching morphology, domain, coordinates, and carrier"
+            ],
+            "matched_measurement_components": []
+          },
+          {
+            "component_id": "C0003",
+            "status": "withheld",
+            "reasons": [
+              "no cited component with matching morphology, domain, coordinates, and carrier"
+            ],
+            "matched_measurement_components": []
+          },
+          {
+            "component_id": "C0004",
+            "status": "withheld",
+            "reasons": [
+              "no cited component with matching morphology, domain, coordinates, and carrier"
+            ],
+            "matched_measurement_components": []
+          },
+          {
+            "component_id": "C0005",
+            "status": "withheld",
+            "reasons": [
+              "no cited component with matching morphology, domain, coordinates, and carrier"
+            ],
+            "matched_measurement_components": []
+          }
+        ]
+      }
+    },
+    "raw_empty_graph_ablation": {
+      "schema_valid": {
+        "path": "results/ablations/ds_170b373ce769810a/no_graph/episode.json",
+        "sha256": "edb123827a8556a8c869812fce5b93b60af4c5fe9c424b9ed47857f56d3cb71d",
+        "json_pointer": "/schema_valid",
+        "value": true
+      },
+      "raw_report": {
+        "path": "results/ablations/ds_170b373ce769810a/no_graph/episode.json",
+        "sha256": "edb123827a8556a8c869812fce5b93b60af4c5fe9c424b9ed47857f56d3cb71d",
+        "json_pointer": "/raw_report",
+        "value": {
+          "components": [],
+          "relations": [],
+          "claims": [],
+          "unresolved_questions": [],
+          "abstained": true
+        }
+      },
+      "report": {
+        "path": "results/ablations/ds_170b373ce769810a/no_graph/episode.json",
+        "sha256": "edb123827a8556a8c869812fce5b93b60af4c5fe9c424b9ed47857f56d3cb71d",
+        "json_pointer": "/report",
+        "value": {
+          "components": [],
+          "relations": [],
+          "claims": [],
+          "unresolved_questions": [],
+          "abstained": true
+        }
+      },
+      "verification_audit": {
+        "path": "results/ablations/ds_170b373ce769810a/no_graph/episode.json",
+        "sha256": "edb123827a8556a8c869812fce5b93b60af4c5fe9c424b9ed47857f56d3cb71d",
+        "json_pointer": "/verification_audit",
+        "value": []
+      }
+    },
+    "schema_gated_no_verifier": {
+      "schema_valid": {
+        "path": "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json",
+        "sha256": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+        "json_pointer": "/schema_valid",
+        "value": false
+      },
+      "schema_errors": {
+        "path": "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json",
+        "sha256": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+        "json_pointer": "/schema_errors",
+        "value": [
+          "components[3]_frequency_track_not_ordered",
+          "components[4]_frequency_track_not_ordered"
+        ]
+      },
+      "raw_report": {
+        "path": "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json",
+        "sha256": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+        "json_pointer": "/raw_report",
+        "value": {
+          "components": [
+            {
+              "id": "C0000",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                2.25,
+                27.75
+              ],
+              "frequency_hz": [
+                222.0,
+                222.0
+              ],
+              "frequency_track": [
+                [
+                  2.75,
+                  222.0
+                ],
+                [
+                  15.0,
+                  222.0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005",
+                "E0007"
+              ]
+            },
+            {
+              "id": "C0001",
+              "type": "chirp",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                2.25,
+                27.75
+              ],
+              "frequency_hz": [
+                312.0,
+                359.0
+              ],
+              "frequency_track": [
+                [
+                  2.75,
+                  312.0
+                ],
+                [
+                  15.0,
+                  336.0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000",
+                "E0005"
+              ]
+            },
+            {
+              "id": "C0002",
+              "type": "broadband",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                16.0,
+                17.5
+              ],
+              "frequency_hz": [
+                0.0,
+                1800.0
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0000",
+                "E0005"
+              ]
+            },
+            {
+              "id": "C0003",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                0.0,
+                4.0
+              ],
+              "frequency_hz": [
+                313.0,
+                313.0
+              ],
+              "frequency_track": [
+                [
+                  2.0,
+                  313.0
+                ],
+                [
+                  2.0,
+                  313.0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0002"
+              ]
+            },
+            {
+              "id": "C0004",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                26.0,
+                30.0
+              ],
+              "frequency_hz": [
+                358.75,
+                358.75
+              ],
+              "frequency_track": [
+                [
+                  28.0,
+                  358.75
+                ],
+                [
+                  28.0,
+                  358.75
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0002"
+              ]
+            },
+            {
+              "id": "C0005",
+              "type": "chirp",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                15.0,
+                27.187
+              ],
+              "frequency_hz": [
+                336.0,
+                360.0
+              ],
+              "frequency_track": [
+                [
+                  15.125,
+                  336.0
+                ],
+                [
+                  21.125,
+                  348.0
+                ]
+              ],
+              "carrier_band_hz": null,
+              "source_identity": "unknown",
+              "evidence_ids": [
+                "E0003"
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0001"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005",
+                "E0007"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0002"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005",
+                "E0007"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0003"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005",
+                "E0007"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0004"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005",
+                "E0007"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0005"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0003",
+                "E0005",
+                "E0007"
+              ]
+            },
+            {
+              "type": "overlaps_time",
+              "component_ids": [
+                "C0000",
+                "C0006"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0003",
+                "E0005",
+                "E0007"
+              ]
+            }
+          ],
+          "claims": [
+            {
+              "text": "A tone at 222 Hz persists from 2.25 to 27.75 seconds, with a consistent frequency track and high contrast across multiple evidence sources",
+              "component_ids": [
+                "C0000"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0002",
+                "E0005",
+                "E0007"
+              ],
+              "kind": "observation"
+            },
+            {
+              "text": "A rising chirp from 312 Hz to 359 Hz is observed from 2.25 to 27.75 seconds, with a consistent frequency track and high contrast across multiple evidence sources",
+              "component_ids": [
+                "C0001"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0005"
+              ],
+              "kind": "observation"
+            },
+            {
+              "text": "A broadband component is observed from 16.0 to 17.5 seconds, with high contrast across multiple evidence sources",
+              "component_ids": [
+                "C0002"
+              ],
+              "evidence_ids": [
+                "E0000",
+                "E0005"
+              ],
+              "kind": "observation"
+            }
+          ],
+          "unresolved_questions": [
+            "Which source produced these components?"
+          ],
+          "abstained": false
+        }
+      },
+      "report": {
+        "path": "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json",
+        "sha256": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+        "json_pointer": "/report",
+        "value": null
+      },
+      "derivation": {
+        "path": "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json",
+        "sha256": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+        "json_pointer": "/derivation",
+        "value": {
+          "source_episode": "results/main/syn_7be4eec1301f7a3c/F/episode.json",
+          "source_sha256": "07058c425b0f0b4cfb0761ee11662a86e5650b0e39b7d29d5cdf626c4bb5fb8b",
+          "intervention": "expose identical F generation before measurement verification",
+          "additional_inference_calls": 0,
+          "additional_gpu_seconds": 0,
+          "timing_meaning": "Inherited F inference cost; no numerical verification savings estimated."
+        }
+      }
+    },
+    "saved_schema_case_metrics": [
+      {
+        "path": "results/synthetic_ablations/evaluation/per_episode.jsonl",
+        "sha256": "64eeaa9cb0cf59e2a8dd8abbdfea092aae9e565f8596ef31a76c51848122f436",
+        "line_1_based": 28,
+        "scene_id": "syn_7be4eec1301f7a3c",
+        "method": "F",
+        "record_values": {
+          "schema_failed": true,
+          "raw_valid_component_count": 4,
+          "raw_invalid_components": [
+            {
+              "index": 3,
+              "reason": "frequency track times are not strictly increasing"
+            },
+            {
+              "index": 4,
+              "reason": "frequency track times are not strictly increasing"
+            }
+          ],
+          "event_metrics": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "matches": [],
+            "matching_algorithm": "greedy_descending_quality",
+            "exhaustive": true,
+            "invalid_component_predictions": 0
+          },
+          "raw_event_metrics": {
+            "tp": 1,
+            "fp": 5,
+            "fn": 3,
+            "precision": 0.1666666716337204,
+            "recall": 0.25,
+            "f1": 0.20000000298023224,
+            "matches": [
+              {
+                "prediction_index": 0,
+                "gold_index": 0,
+                "quality": 1.0360647439956665,
+                "time_iou": 0.9411764740943909,
+                "frequency_error_hz": 0.10223388671875
+              }
+            ],
+            "matching_algorithm": "greedy_descending_quality",
+            "exhaustive": true,
+            "time_iou_threshold": 0.3,
+            "box_iou_threshold": 0.3,
+            "minimum_frequency_tolerance_hz": 2.0,
+            "invalid_component_predictions": 2
+          },
+          "empty_report": true,
+          "declared_abstention": true
+        }
+      },
+      {
+        "path": "results/synthetic_ablations/evaluation/per_episode.jsonl",
+        "sha256": "64eeaa9cb0cf59e2a8dd8abbdfea092aae9e565f8596ef31a76c51848122f436",
+        "line_1_based": 30,
+        "scene_id": "syn_7be4eec1301f7a3c",
+        "method": "no_verifier",
+        "record_values": {
+          "schema_failed": true,
+          "raw_valid_component_count": 4,
+          "raw_invalid_components": [
+            {
+              "index": 3,
+              "reason": "frequency track times are not strictly increasing"
+            },
+            {
+              "index": 4,
+              "reason": "frequency track times are not strictly increasing"
+            }
+          ],
+          "event_metrics": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "matches": [],
+            "matching_algorithm": "greedy_descending_quality",
+            "exhaustive": true,
+            "invalid_component_predictions": 0
+          },
+          "raw_event_metrics": {
+            "tp": 1,
+            "fp": 5,
+            "fn": 3,
+            "precision": 0.1666666716337204,
+            "recall": 0.25,
+            "f1": 0.20000000298023224,
+            "matches": [
+              {
+                "prediction_index": 0,
+                "gold_index": 0,
+                "quality": 1.0360647439956665,
+                "time_iou": 0.9411764740943909,
+                "frequency_error_hz": 0.10223388671875
+              }
+            ],
+            "matching_algorithm": "greedy_descending_quality",
+            "exhaustive": true,
+            "time_iou_threshold": 0.3,
+            "box_iou_threshold": 0.3,
+            "minimum_frequency_tolerance_hz": 2.0,
+            "invalid_component_predictions": 2
+          },
+          "empty_report": true,
+          "declared_abstention": false
+        }
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "runtime_scope_amendment",
+      "importance": "essential_scope",
+      "conclusion": "The cap is a user-authorized runtime amendment during execution. The first33 frozen-manifest scenes provide a method-balanced prefix, not a representative or domain-balanced replacement for the original80-scene cohort. The saved real summaries describe33 scenes in12 provenance groups:30 DeepShip scenes in9 groups and3 MBARI scenes in3 groups.",
+      "evidence": [
+        {
+          "path": "configs/ablation_user_cap.json",
+          "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+          "json_pointer": "/limitations"
+        },
+        {
+          "path": "configs/ablation_user_cap.json",
+          "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+          "json_pointer": "/capped/domain_counts"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/independent_groups"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/deepship/F/independent_groups"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/mbari/F/independent_groups"
+        }
+      ]
+    },
+    {
+      "id": "real_accuracy_unavailable",
+      "importance": "essential_claim_limit",
+      "conclusion": "All nine real-cohort conditions have zero eligible-reference-scored episodes and unavailable event metrics. Differences in emission, geometric duplicate candidates, token counts or recorded spans do not establish real detection accuracy or graph/DEMON/quantitative-evidence benefits. H1 comparator selection and H4 remain unavailable.",
+      "evidence": [
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/primary_comparisons"
+        }
+      ]
+    },
+    {
+      "id": "zero_emission_is_not_execution_failure",
+      "importance": "interpretation",
+      "conclusion": "no_graph and no_quantitative each have33 empty final reports, zero schema failures and33 completed executions. These are completed schema-valid outcomes; they must not be labelled crashed or schema-rejected episodes.",
+      "evidence": [
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/totals"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_quantitative/totals"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_graph/execution_status"
+        }
+      ]
+    },
+    {
+      "id": "final_abstention_not_always_model_choice",
+      "importance": "interpretation",
+      "conclusion": "declared_abstention is read from the retained final report, whose abstained field is set by the verifier from accepted components. In the cited no_quantitative example the raw model reports components and abstained=false, while all components are withheld and final abstained=true. The cited no_graph example is already empty/abstained in the raw model output. These mechanisms must not be conflated or interpreted as physical correctness.",
+      "evidence": [
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+          "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+          "json_pointer": "/raw_report/abstained"
+        },
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+          "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+          "json_pointer": "/report/abstained"
+        },
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json",
+          "sha256": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+          "json_pointer": "/verification_audit"
+        },
+        {
+          "path": "results/ablations/ds_170b373ce769810a/no_graph/episode.json",
+          "sha256": "edb123827a8556a8c869812fce5b93b60af4c5fe9c424b9ed47857f56d3cb71d",
+          "json_pointer": "/raw_report"
+        }
+      ]
+    },
+    {
+      "id": "only_three_synthetic_conditions_available",
+      "importance": "essential_scope",
+      "conclusion": "The synthetic comparison contains only F,G4 and schema-gated no_verifier, all reusing main inference. There are zero new synthetic inference calls. The six intended synthetic ablation variants are omitted, so this comparison cannot establish their accuracy effects.",
+      "evidence": [
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/methods"
+        },
+        {
+          "path": "configs/ablation_user_cap.json",
+          "sha256": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+          "json_pointer": "/synthetic_reuse/omitted_methods"
+        },
+        {
+          "path": "results/synthetic_ablation_inference/reuse_only_provenance.json",
+          "sha256": "e3e9792adf01f496c30f04da4ea3b2a73ca8ec6b61104e89854edbc7ccf3e53d",
+          "json_pointer": "/new_inference_episodes"
+        },
+        {
+          "path": "results/synthetic_ablations/COMPLETED.json",
+          "sha256": "01458328b00727f84e6440cd7d2a8d4c87b78f3dd0057f49241176bab51490d9",
+          "json_pointer": "/additional_inference_calls"
+        }
+      ]
+    },
+    {
+      "id": "numeric_filter_comparison_uses_schema_gated_baseline",
+      "importance": "essential_interpretation",
+      "conclusion": "Saved exact synthetic no_verifier metrics are TP12/FP27/FN12, precision0.3076923191547394, recall0.5, F1=0.380952388048172. F has TP12/FP11/FN12, precision0.52173912525177, recall0.5, F1=0.5106382966041565. This is a descriptive paired-output comparison of the numeric filter after the same schema gate; do not substitute raw_F metrics TP13/FP32/FN11, which include predictions from the schema-rejected report.",
+      "evidence": [
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/event_metrics"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/event_metrics"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/raw_event_metrics"
+        },
+        {
+          "path": "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json",
+          "sha256": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+          "json_pointer": "/report"
+        }
+      ]
+    },
+    {
+      "id": "synthetic_filter_duplicates_are_saved_geometric_diagnostics",
+      "importance": "interpretation",
+      "conclusion": "Saved synthetic duplicate-candidate counts are3 for F and10 for no_verifier. Saved real counts are1 and4 respectively. These are geometric duplicate diagnostics on final/schema-gated outputs, not independently verified source duplication or an aggregate raw-to-final diagnostic from the original main report.",
+      "evidence": [
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/duplicate_candidates"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/duplicate_candidates"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/duplicate_candidates"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/duplicate_candidates"
+        }
+      ]
+    },
+    {
+      "id": "small_control_cis_are_not_paired_tests",
+      "importance": "statistical_scope",
+      "conclusion": "F,G4,no_verifier each have12 exact generator/provenance groups. Their saved2000-draw individual-method intervals describe group sampling under one frozen model. They are neither paired-effect intervals nor model-seed variability. G4 F1=0.6415094137191772 is descriptive; no significance, equivalence or nonsignificance follows from comparing marginal intervals. No post-test fixed-comparator selection is performed.",
+      "evidence": [
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/event_metrics"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/event_group_intervals"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/G4/event_group_intervals"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/no_verifier/event_group_intervals"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/primary_comparisons"
+        }
+      ]
+    },
+    {
+      "id": "cost_inherited_not_saved_by_bypass",
+      "importance": "timing_scope",
+      "conclusion": "F and no_verifier inherit identical saved compute and token accounting. F/G4 reused reports are not fresh inference. Capped variants combine preserved original executions with resumed jobs; artifacts from interrupted partial work remain in the original run, while completed-episode aggregates do not recover its full computation cost. Per-method spans are incomplete schedule-specific equal-share accounting, not measured verifier savings, exclusive per-request latency or additional billable runtime. The earlier unlocked-verifier/overlapping-span explanation is withdrawn by the linked correction.",
+      "evidence": [
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/F/compute"
+        },
+        {
+          "path": "results/ablations/evaluation/summary.json",
+          "sha256": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+          "json_pointer": "/results/real/all/no_verifier/compute"
+        },
+        {
+          "path": "results/ablations/run.json",
+          "sha256": "9f5d73fa1de0f930e4ba7b2215d941dffeefbe0cd58c6288ef47337eccece63b",
+          "json_pointer": "/timing_note"
+        },
+        {
+          "path": "results/ablation_inference_capped/COMPLETED.json",
+          "sha256": "206d1cf4247e0a6bf87d2821aa4de530d5d5210c67de819f7c7561fb5885b57a",
+          "json_pointer": "/new_completed_episodes"
+        },
+        {
+          "path": "reports/main_timing_audit_correction.json",
+          "sha256": "6f2a590fa804498b9eb310cfb2e0963e9e650b489eddaefb5ce2173b398c7059",
+          "json_pointer": "/corrected_accounting"
+        }
+      ]
+    },
+    {
+      "id": "unchanged_matching_and_scope",
+      "importance": "scope",
+      "conclusion": "Exact scores retain frozen greedy one-to-one matching and declared modulation/optional-beat scope. The common overlap score is geometry-induced temporal overlap, not emitted relation or free-text reasoning correctness. Secondary relation and morphology exports were not included in this transfer and remain separate.",
+      "evidence": [
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/matching"
+        },
+        {
+          "path": "results/synthetic_ablations/evaluation/summary.json",
+          "sha256": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+          "json_pointer": "/results/synthetic/all/F/geometric_overlap_metrics"
+        }
+      ]
+    }
+  ],
+  "reuse_integrity_checks": [
+    {
+      "run": "results/ablations",
+      "composition_provenance_sha256": "39cb901e29e1d342da2796dadc9966adc65a617aae86dbd7e94bde6b971eade9",
+      "source_hashes_match": true,
+      "F_G4_byte_identical_to_sources": true,
+      "no_verifier_has_only_schema_gated_raw_report_and_inherited_accounting": true
+    },
+    {
+      "run": "results/synthetic_ablations",
+      "composition_provenance_sha256": "30823f4599e3c621c70774f90c942952dfb9f2c56d03942abc129a8cedb1f72f",
+      "source_hashes_match": true,
+      "F_G4_byte_identical_to_sources": true,
+      "no_verifier_has_only_schema_gated_raw_report_and_inherited_accounting": true
+    }
+  ],
+  "timing_audit_correction": {
+    "path": "reports/main_timing_audit_correction.json",
+    "sha256": "6f2a590fa804498b9eb310cfb2e0963e9e650b489eddaefb5ce2173b398c7059",
+    "prior_main_audit_preserved": true
+  },
+  "frozen_source_integrity": {
+    "entries_checked": 56,
+    "mismatches": []
+  },
+  "source_sha256": {
+    "results/ablations/evaluation/summary.json": "ddcb4ece30714562f960a724148f10ef367d873ed79c2fa6d1df755e0f648416",
+    "results/synthetic_ablations/evaluation/summary.json": "0d13e5c55aacdd259c445d7994887ac75aa44bb81fba7323406329519d80e8a4",
+    "results/ablations/composition_provenance.json": "39cb901e29e1d342da2796dadc9966adc65a617aae86dbd7e94bde6b971eade9",
+    "results/main/ds_0c5c23f3aefbdcae/F/episode.json": "4cba2d01a79a5fee6805644726982c424d18cda2a9b354794986b36909b4bb39",
+    "results/ablations/ds_0c5c23f3aefbdcae/no_verifier/episode.json": "9366886e1e237098bd2a1bdf4afc54279da00a7e682d1fe21c515526e061bd1e",
+    "results/main/ds_170b373ce769810a/F/episode.json": "edb9c74e114232e36ded9cee6ec7dcb31b23e52410d75f433b95cee6f1ef18e7",
+    "results/ablations/ds_170b373ce769810a/no_verifier/episode.json": "c5c956fe775a4900beabad673a236ae4889e03c20066a4b3475307e9ae13c2fc",
+    "results/main/ds_214fc193a560c1e3/F/episode.json": "eb41edf4cf1c37254a1741ea08716d9282ee90b03f2959420a22811191c4610e",
+    "results/ablations/ds_214fc193a560c1e3/no_verifier/episode.json": "4f62c1140e1506b2aebb98cef058ac2d5ebb4f3167a70e881bcd7806a664b281",
+    "results/main/ds_26e0e7e39102b8ee/F/episode.json": "446cf1f7d9ab45ffee5aae5e3fb94376bfcf7c19a00badba0a73b72dd71f9883",
+    "results/ablations/ds_26e0e7e39102b8ee/no_verifier/episode.json": "f6bbafe4bfac1f2896327ffbf2023388828a3c276eb23a2aa23b2d15624fcf16",
+    "results/main/ds_44b5e66d28cced46/F/episode.json": "6bbeebf72daad19d26db89afed3700ccd5144d70ac53b26b8708db46c01e0195",
+    "results/ablations/ds_44b5e66d28cced46/no_verifier/episode.json": "0e92361e2cf965b9d2665c68f3177cbec035b0ea011e86e677b8e4e72e2ad6bd",
+    "results/main/ds_4fc1d27b095e518c/F/episode.json": "d50670ae1161b2e77e6c49f95c6b559a7a68957d59d1a3f272a98e8273c51515",
+    "results/ablations/ds_4fc1d27b095e518c/no_verifier/episode.json": "93e086d06fa38e6300705ed4ff2f76d4a92ad8d5df71a935a5f4518f721bf305",
+    "results/main/ds_77bdc8d9c64d3013/F/episode.json": "355bad1bc35186401a9b13e9fccb53b26b12e633d7c46cfa1cbb704cb7c86abb",
+    "results/ablations/ds_77bdc8d9c64d3013/no_verifier/episode.json": "acfc16b8463a9ab6bdcf6fd72fc0853bf2017ca0d19d95131b048896d42ca7c1",
+    "results/main/ds_80d7ff1c97ddd850/F/episode.json": "af0930b92a999959b5d0b3daa2f4a989b64e9e337ef4fdbaf94cccc47a915ab6",
+    "results/ablations/ds_80d7ff1c97ddd850/no_verifier/episode.json": "cd9568e14183c8105f9ce5ce0842d04ffaf9db34a7e2daf7ece612043b2953de",
+    "results/main/ds_8457d8e8de2a237d/F/episode.json": "9635ce0b50110e2f1b78a0bd2febeb1f89449d832dbe4a2d42008d0750dbd737",
+    "results/ablations/ds_8457d8e8de2a237d/no_verifier/episode.json": "fbe78ae7124c7f840099148cfce2baf80642dccc6309977b937b7ff189453bc5",
+    "results/main/ds_86e8ef11316ea409/F/episode.json": "302d9197fbd03b1a2f1b53f845ef46cf8f852c9e92d72af0c5b5f6e83ff1bf6e",
+    "results/ablations/ds_86e8ef11316ea409/no_verifier/episode.json": "1ba4392304245df6e7aa3ebd9fce60f0b107d8642081ad7b4635059d1a6e4aa4",
+    "results/main/ds_88a3a626b0205c7f/F/episode.json": "4ec26e1138c970b9715765baada39a1e25573acfe80365c08498943165d158ed",
+    "results/ablations/ds_88a3a626b0205c7f/no_verifier/episode.json": "6f0d53d207ec90b87474335e0b386546a363c329265d2fa79817e64125c80c7e",
+    "results/main/ds_8c7cdbf9c31ef2af/F/episode.json": "e15b3953c13a470655b0da04d60d13890d52128593a13d7716ab5c8a2ec39625",
+    "results/ablations/ds_8c7cdbf9c31ef2af/no_verifier/episode.json": "05f7581d1705dcfb8965f96fa8ca9c00e79036a8315d0984345a1d3d5273306f",
+    "results/main/ds_950b01a97c267d79/F/episode.json": "6e14b2b4dd86d53662142254bc0f2b457e0b9d83a656b620c2b608e08dfbbc43",
+    "results/ablations/ds_950b01a97c267d79/no_verifier/episode.json": "f12ecad482edaca24eb8b356b515bbb5722508d35bda57b4254da125a5c5597b",
+    "results/main/ds_a897d1f2fbdf2048/F/episode.json": "9c817f48cfe6c88363169135489553688df55d0d01d1a04be7b9b79235e19c0e",
+    "results/ablations/ds_a897d1f2fbdf2048/no_verifier/episode.json": "72a23b4d5a5ad3036d0325ea98a3c7e079f7b58deda9411516564cd63de59f9a",
+    "results/main/ds_a9d3b5bcc1523768/F/episode.json": "c39a95981780d434f03ebe509a02b6cf6f28d0c0168f524f7a214daa97c885ce",
+    "results/ablations/ds_a9d3b5bcc1523768/no_verifier/episode.json": "5f15fbebff00be252658690600eed4b4febe850e3b6d963036d0eee7ae83be19",
+    "results/main/ds_aae80cfe9b315ced/F/episode.json": "8e29e7f005d353c852a3a1d98fa10d0868b03dd1e35ebc009041b325f287820b",
+    "results/ablations/ds_aae80cfe9b315ced/no_verifier/episode.json": "88a7b66425edff81fa9a0d4b014ada827dfabe89b22f1608cd811c06886c2206",
+    "results/main/ds_ac8dc43fada4ae61/F/episode.json": "11d29a84af5d1af07ea32f6136a9108667f39b36da7c9eec5101336e940c0415",
+    "results/ablations/ds_ac8dc43fada4ae61/no_verifier/episode.json": "c35842380bece80e2be3843fa2b56bbd40139505236c38a07c6c4e6b69387029",
+    "results/main/ds_ae7c99af3d079ecb/F/episode.json": "97a593fe5e819fc6db5aec7cfb1dd8dc8492d7738453a77b2c77993064d5bf95",
+    "results/ablations/ds_ae7c99af3d079ecb/no_verifier/episode.json": "14d780c75384a4f192fee7ee121cfeca0036d27b8ff96a189613e9b7b725926d",
+    "results/main/ds_af26a7e3db2cd976/F/episode.json": "c728493c1adf39a0030e6d12a63cee769e0af3df81a767657656edd95e744039",
+    "results/ablations/ds_af26a7e3db2cd976/no_verifier/episode.json": "b66552e22a2d1344bfa2a51ed910cdb18453c2209d8c85eef5d71cb0a3a89aad",
+    "results/main/ds_b39fbab0ef32f73f/F/episode.json": "6ed0707999e8d855b3c9ad0240ebe27b52b3fbba6076943346f3f37474a443ad",
+    "results/ablations/ds_b39fbab0ef32f73f/no_verifier/episode.json": "23a74ae8dfa66ab4e77539767c18e8d654931c42d37123cc74c0a423af39d728",
+    "results/main/ds_b5c9e6d15bd85d41/F/episode.json": "0d7d7b7ddae4f4dea918302e91ecd4929524659bc01259e1a91a50d5f2f2439c",
+    "results/ablations/ds_b5c9e6d15bd85d41/no_verifier/episode.json": "661861ae3fd5a596f770820ed22db70462a78bba254fa186413416e9da41c5ec",
+    "results/main/ds_bf59d940e1d15502/F/episode.json": "988300f7ed4d89555e59adc146c4617771928ea062bb0e50356598a121e03dd9",
+    "results/ablations/ds_bf59d940e1d15502/no_verifier/episode.json": "eff5f43c68bd508ef782e025d9c0d89d5c937fd537a79a8d8c37c5e924fa2cd7",
+    "results/main/ds_c58c39ce3b7c3d64/F/episode.json": "58294390588342d37e7ec30eb6b13f9b83a1fd57347afc076b3ed55b2a37f4bc",
+    "results/ablations/ds_c58c39ce3b7c3d64/no_verifier/episode.json": "e0850b573be0975c1225315acd5066f00df13b9e55300a3e3b650a57a9eaa78d",
+    "results/main/ds_c64c229f17265ef2/F/episode.json": "f7f2c359ed3485bc559c44ee15a9485f100de9cf47bd0ee271a018c3072286d3",
+    "results/ablations/ds_c64c229f17265ef2/no_verifier/episode.json": "afd467bd2dd76a51b864c156bab4ee2c87da36c4d1ba8a4b6c73021ceb8d09ad",
+    "results/main/ds_cf92106b1e6fe405/F/episode.json": "523cf295f88ba3c49396e3b654c826ddd91372cdfb8be843cd7a6c65b79f5a83",
+    "results/ablations/ds_cf92106b1e6fe405/no_verifier/episode.json": "c7e98f3e92c69112083ab6f3e513e1e135ecc17a7e93c18be656013873e4d357",
+    "results/main/ds_d87a75ca217ed4e7/F/episode.json": "d668a12a822c509fb5b164a58ef515d40710554ad99911a52abe010fa9e3badc",
+    "results/ablations/ds_d87a75ca217ed4e7/no_verifier/episode.json": "82b6158f38befeeaf2909ad7a9c1b3af64defeb358fe72bbc1242b8c7f92bca2",
+    "results/main/ds_de69803a034fde56/F/episode.json": "f7bfbcf8ac54853add4ed5330b797abe6a033ddb68c28fcfcbdcb53d136a16d1",
+    "results/ablations/ds_de69803a034fde56/no_verifier/episode.json": "304ec38276260409cd7a44057772ed97d6de5d84aea8dc0f4128ac8d77e1d6db",
+    "results/main/ds_e0a930662078b8d6/F/episode.json": "c1b6b03b815c9358930e13e4bfcad2f87b05676c07e06c13c32d047edd50b863",
+    "results/ablations/ds_e0a930662078b8d6/no_verifier/episode.json": "116467d987cedf3510dc74bb64438154b4b2ad3c6296e7edc2e91249ec7e3fb0",
+    "results/main/ds_f3e3f730285c7c81/F/episode.json": "4672df1a19eee026137e89ebc4e2dcdea41d050e699994513a9f51b4f75ee71a",
+    "results/ablations/ds_f3e3f730285c7c81/no_verifier/episode.json": "81e3db603de044be37122ca311a62ed77f8e6b43085c9a2b2b3de25a6697f0cf",
+    "results/main/ds_fc422369d677b6b8/F/episode.json": "d30bcac62eb530747542f7e50d07d2bdc5ac19c88fad7bb86338f38567c740f7",
+    "results/ablations/ds_fc422369d677b6b8/no_verifier/episode.json": "06657e473ba5f48080c3ab681fc381cb6965d4bf0dcd2738caab10229ce9c50a",
+    "results/main/mb_020dc567758f45b0/F/episode.json": "421af4b43dcc93d9ed10b7a751a1b523e55066f15548f004ccd983b5051a2678",
+    "results/ablations/mb_020dc567758f45b0/no_verifier/episode.json": "e82d98acc3b6aef9bd98e5e848daa5b52a34818a8d7b9fdb26a02ae112e57018",
+    "results/main/mb_19337c7e2ac071e2/F/episode.json": "35042894e87132cf965e62f00fd2c16e368ba684098d79bce22a8fa62560dc83",
+    "results/ablations/mb_19337c7e2ac071e2/no_verifier/episode.json": "964111acafe69276e193bdae7d417e1fa1e46e3124b699b6cbd2933b59e973a1",
+    "results/main/mb_1e5e9a9711079336/F/episode.json": "5a59ce3e63d80c911c98153d175590565e5e639749b8d838567aa2934e45f317",
+    "results/ablations/mb_1e5e9a9711079336/no_verifier/episode.json": "4683b3ab0781fe5c1c2c82ecd1d9700001f96fb04398bcb5b9444e21c2a3b410",
+    "results/synthetic_ablations/composition_provenance.json": "30823f4599e3c621c70774f90c942952dfb9f2c56d03942abc129a8cedb1f72f",
+    "results/main/syn_0b7c6877c600aff7/F/episode.json": "370792890550474e9ff7506ee315d0468e9bc6c73db7a2594376d497a8ebf7d7",
+    "results/synthetic_ablations/syn_0b7c6877c600aff7/no_verifier/episode.json": "6b42cd44e07161264985b55f6ae27efdbddd047400f9cb8fc1a2f1eccff2928f",
+    "results/main/syn_d1f1dd6f6eff3971/F/episode.json": "18675179b38a91a2e804d15eda5d741cf6354bf9e74d10e9c8b9bf3e3cdab2dd",
+    "results/synthetic_ablations/syn_d1f1dd6f6eff3971/no_verifier/episode.json": "49f94272ddac8addb4c1db86d1455f1e354995cbc905491bfdab03837382d03b",
+    "results/main/syn_7b0a019880dc4fdd/F/episode.json": "30377a2ef4628cbb1a4f29b72346ebc7be161f0ec95d65a68c2e2edc3df02889",
+    "results/synthetic_ablations/syn_7b0a019880dc4fdd/no_verifier/episode.json": "eb52837436231eec346184c5583ac4b43225011b25a8a30c2fa655171c918e4f",
+    "results/main/syn_383444448d02f936/F/episode.json": "a16d6f562d09ee2c4846e6156b29d5128dec71461a52471c50d8e697a8d976ee",
+    "results/synthetic_ablations/syn_383444448d02f936/no_verifier/episode.json": "66fcdd9b405a79184194e17ce70eef5b2f5cafdba32f03432da96e81a7f770af",
+    "results/main/syn_d3ab460ececda6ee/F/episode.json": "9bfdebf86bc5bc19df229fd578648542d0440a279a3571c1bbd8a7fa3941aa4f",
+    "results/synthetic_ablations/syn_d3ab460ececda6ee/no_verifier/episode.json": "dccb7b8211a9fca21a442a8b21b7905d5f7313d889009707fbcc00bb6d483671",
+    "results/main/syn_aa338e212ec68a6d/F/episode.json": "4d6cd6b0d5b13d4b095de29aa819188acf757e1e8452d29d79f4cb048aa3f04c",
+    "results/synthetic_ablations/syn_aa338e212ec68a6d/no_verifier/episode.json": "a481534af4574b56e28bb9525eff93f59d8d95fb5d68d2f69fdd168594179709",
+    "results/main/syn_e029358b6af324de/F/episode.json": "7b9f93bac2d5358d89e02c5f8a81954864e683f42928a7e16f9667a2294317ff",
+    "results/synthetic_ablations/syn_e029358b6af324de/no_verifier/episode.json": "2fb61b072f601408b9aabe32df99de1bbe5d76630d4c6ffe742a3bf634a9c7d1",
+    "results/main/syn_cf8aafa45188e747/F/episode.json": "279e6433544912cb76c06fb3feaef8b123466b6121d1498af7fa9a80558f3a73",
+    "results/synthetic_ablations/syn_cf8aafa45188e747/no_verifier/episode.json": "b5c6c92c8e6a78f19b846ddd09dc41c0b57e6f295f9a854939f89244ca8ace46",
+    "results/main/syn_d24f037070b5756a/F/episode.json": "bdff7ad66d0bf0f6df2968d56c2fb5095ec68f57e7fef26c93226252c82366f1",
+    "results/synthetic_ablations/syn_d24f037070b5756a/no_verifier/episode.json": "1b7a3db73e4be02e2663f91d193a9b11edba0da2cce9b7260e9194851febde6a",
+    "results/main/syn_7be4eec1301f7a3c/F/episode.json": "07058c425b0f0b4cfb0761ee11662a86e5650b0e39b7d29d5cdf626c4bb5fb8b",
+    "results/synthetic_ablations/syn_7be4eec1301f7a3c/no_verifier/episode.json": "0809d5b42c310c1def41f8866ae2b34d99fec28c02e10e20897c8837fded15a7",
+    "results/main/syn_3d765bfa9530e301/F/episode.json": "7309ded8a4397e00305fa112960c48b3f7364d972e076dafb8b229bff24e481f",
+    "results/synthetic_ablations/syn_3d765bfa9530e301/no_verifier/episode.json": "c3de79b27cd11447a3161e9bb22617140dd80a63a8769a8f5a0a307dbf3318da",
+    "results/main/syn_3c9070400d91befa/F/episode.json": "19b7a56c7765067c45a86d093a7f4e4c993a000472ea3545da7ea6d6f07f6322",
+    "results/synthetic_ablations/syn_3c9070400d91befa/no_verifier/episode.json": "541a2cdf3fea030191623e2e81daf300da7ba44fa53fb6331e8c932e8af55a10",
+    "results/ablations/ds_170b373ce769810a/no_quantitative/episode.json": "55dadb1ea50c32733033321a4100154ffb7d389754b46ed29a6862d2ffb60f66",
+    "results/ablations/ds_170b373ce769810a/no_graph/episode.json": "edb123827a8556a8c869812fce5b93b60af4c5fe9c424b9ed47857f56d3cb71d",
+    "results/synthetic_ablations/evaluation/per_episode.jsonl": "64eeaa9cb0cf59e2a8dd8abbdfea092aae9e565f8596ef31a76c51848122f436",
+    "configs/ablation_user_cap.json": "47e6211715e751f89ee74d05e57c1445d50b32a310b65372cbd809043cce9345",
+    "results/synthetic_ablation_inference/reuse_only_provenance.json": "e3e9792adf01f496c30f04da4ea3b2a73ca8ec6b61104e89854edbc7ccf3e53d",
+    "results/synthetic_ablations/COMPLETED.json": "01458328b00727f84e6440cd7d2a8d4c87b78f3dd0057f49241176bab51490d9",
+    "results/ablations/run.json": "9f5d73fa1de0f930e4ba7b2215d941dffeefbe0cd58c6288ef47337eccece63b",
+    "results/ablation_inference_capped/COMPLETED.json": "206d1cf4247e0a6bf87d2821aa4de530d5d5210c67de819f7c7561fb5885b57a",
+    "reports/main_timing_audit_correction.json": "6f2a590fa804498b9eb310cfb2e0963e9e650b489eddaefb5ce2173b398c7059",
+    "configs/final_protocol_freeze.json": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a",
+    "reports/capped_ablation_transfer_receipt.json": "c67c0b26e4704e5b2b9f686f0b20bdd4d99bcf543af2c453363b7ac9044e8b71",
+    "results/ablations/COMPLETED.json": "f105b098956859ec04ed1b08713bc8ee47e1ce5211f719e2c0773c8970b0d747",
+    "results/synthetic_ablation_inference/COMPLETED.json": "41dd73496ed6e96e7eb40b0146b5b378d69a2714c2afe61236bb70c85dc72c5c"
+  },
+  "saved_value_pointer_checks": {
+    "status": "all_resolved_during_build",
+    "references_checked": 306
+  },
+  "not_computed": [
+    "No new metric totals or rates",
+    "No paired effect confidence intervals or tests",
+    "No synthetic comparator reselection",
+    "No real physical accuracy",
+    "No new timing measurements or billed-runtime estimates"
+  ],
+  "scientific_sources_or_outputs_modified": false,
+  "gpu_operations": false,
+  "manuscript_edits": false,
+  "conservative_conclusion": "The reduced real cohort supplies execution/report-production diagnostics only. The reused12-control comparison describes schema-gated numeric filtering with unchanged true-positive count and fewer saved false positives; it does not establish real correctness, significance, general source identity, or accuracy effects of the six omitted synthetic ablations."
+}

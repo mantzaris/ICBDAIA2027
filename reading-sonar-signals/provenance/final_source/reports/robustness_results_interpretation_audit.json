@@ -1,0 +1,4031 @@
+{
+  "audited_at_utc": "2026-11-17T20:12:04.376134+00:00",
+  "status": "completed_read_only_interpretation",
+  "numerical_policy": "Scores, intervals, counts and costs are copied from existing GPU-computed summaries or individual saved rows. CPU operations are JSON lookup, provenance/metadata equality, hashing and prose interpretation. No condition aggregation, new event scoring, bootstrap, significance test or graphics.",
+  "transfer_receipt": {
+    "path": "reports/robustness_transfer_receipt.json",
+    "sha256": "1462d12313118f199d15b21ee8c94e95b04ee4856616c9fd559886445c3232c8",
+    "status": "verified"
+  },
+  "scope": {
+    "configuration": {
+      "manifest": {
+        "path": "results/robustness/run.json",
+        "sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+        "json_pointer": "/manifest",
+        "value": "data/manifests/robustness_test.jsonl"
+      },
+      "manifest_sha256": {
+        "path": "results/robustness/run.json",
+        "sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+        "json_pointer": "/manifest_sha256",
+        "value": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde"
+      },
+      "methods": {
+        "path": "results/robustness/run.json",
+        "sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+        "json_pointer": "/methods",
+        "value": [
+          "F",
+          "G4"
+        ]
+      },
+      "budget": {
+        "path": "results/robustness/run.json",
+        "sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+        "json_pointer": "/budget",
+        "value": 6
+      },
+      "scene_count": {
+        "path": "results/robustness/run.json",
+        "sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+        "json_pointer": "/scene_count",
+        "value": 54
+      },
+      "model_revision": {
+        "path": "results/robustness/run.json",
+        "sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+        "json_pointer": "/model_revision",
+        "value": {
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+          "retrieved_at_unix": 1794889596.1531146,
+          "license": "apache-2.0",
+          "torch": "2.8.0+cu128",
+          "cuda": "12.8",
+          "python": "3.12.3",
+          "gpu": "NVIDIA RTX 6000 Ada Generation",
+          "total_vram_bytes": 50867404800,
+          "container": "runpod/pytorch:1.4.1-cu1281-torch280-ubuntu2404"
+        }
+      }
+    },
+    "base_kinds_from_manifest_metadata": [
+      "am_noise",
+      "beating",
+      "chirp",
+      "mixed",
+      "tones",
+      "transient"
+    ],
+    "base_scene_ids_from_manifest_metadata": [
+      "syn_0b7c6877c600aff7",
+      "syn_7be4eec1301f7a3c",
+      "syn_cf8aafa45188e747",
+      "syn_d1f1dd6f6eff3971",
+      "syn_d24f037070b5756a",
+      "syn_e029358b6af324de"
+    ],
+    "declared_conditions": [
+      "{\"linear_gain\": 0.5, \"name\": \"gain\"}",
+      "{\"name\": \"added_noise\", \"nominal_ratio_db\": -5, \"seed\": 99100}",
+      "{\"name\": \"added_noise\", \"nominal_ratio_db\": 0, \"seed\": 99101}",
+      "{\"name\": \"added_noise\", \"nominal_ratio_db\": 5, \"seed\": 99102}",
+      "{\"name\": \"added_noise\", \"nominal_ratio_db\": 10, \"seed\": 99103}",
+      "{\"name\": \"bandwidth_loss\", \"sample_rate\": 4000}",
+      "{\"component_id\": \"s0\", \"name\": \"remove_component\"}",
+      "{\"name\": \"blank\"}",
+      "{\"colormap\": \"viridis\", \"name\": \"plot_style\"}"
+    ],
+    "manifest_record_count": 54,
+    "evaluation_row_count": 108,
+    "only_stratum": "synthetic_intervention",
+    "all_and_controlled_summary_aliases_equal": true,
+    "real_attenuation_parent_removal_display_mismatch": "Separate sensitivity run; not outcomes in this audit.",
+    "injected_real_tone_experiment": "Not present in this manifest or inspected loaders; no such evidence is claimed."
+  },
+  "saved_completion": {
+    "new_completed_episodes": {
+      "path": "results/robustness/COMPLETED.json",
+      "sha256": "0adfec56f82caf96127774a1f3e01de9107cc1f7af1a719e0f1f988aa829a4a5",
+      "json_pointer": "/new_completed_episodes",
+      "value": 108
+    },
+    "execution_failures": {
+      "path": "results/robustness/COMPLETED.json",
+      "sha256": "0adfec56f82caf96127774a1f3e01de9107cc1f7af1a719e0f1f988aa829a4a5",
+      "json_pointer": "/execution_failures",
+      "value": 0
+    }
+  },
+  "pooled_saved_values": {
+    "F": {
+      "expected_episodes": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/expected_episodes",
+        "value": 54
+      },
+      "independent_groups": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/independent_groups",
+        "value": 6
+      },
+      "reference_scored_episodes": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/reference_scored_episodes",
+        "value": 54
+      },
+      "reference_missing_episodes": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/reference_missing_episodes",
+        "value": 0
+      },
+      "reference_kinds": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/reference_kinds",
+        "value": [
+          "exact_synthetic_component_truth"
+        ]
+      },
+      "reference_statuses": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/reference_statuses",
+        "value": [
+          "exact"
+        ]
+      },
+      "event_metrics": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/event_metrics",
+        "value": {
+          "tp": 58,
+          "fp": 85,
+          "fn": 36,
+          "precision": 0.4055944085121155,
+          "recall": 0.6170212626457214,
+          "f1": 0.48945146799087524,
+          "scenes": 54
+        }
+      },
+      "event_metrics_regional_iou05": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/event_metrics_regional_iou05",
+        "value": {
+          "tp": 48,
+          "fp": 95,
+          "fn": 46,
+          "precision": 0.3356643319129944,
+          "recall": 0.5106382966041565,
+          "f1": 0.40506330132484436,
+          "scenes": 54
+        }
+      },
+      "raw_event_metrics": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/raw_event_metrics",
+        "value": {
+          "tp": 61,
+          "fp": 166,
+          "fn": 33,
+          "precision": 0.2687224745750427,
+          "recall": 0.6489361524581909,
+          "f1": 0.3800623118877411,
+          "scenes": 54
+        }
+      },
+      "totals": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/totals",
+        "value": {
+          "schema_failed": 2,
+          "empty_report": 18,
+          "declared_abstention": 18,
+          "source_identity_assertions": 0,
+          "reported_component_count": 145,
+          "valid_component_count": 145,
+          "actions_attempted": 323,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/execution_status",
+        "value": {
+          "completed": 54,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/report_emission_coverage",
+        "value": 0.6666666269302368
+      },
+      "duplicate_candidates": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/duplicate_candidates",
+        "value": 22
+      },
+      "event_group_intervals": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/event_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 6,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.34285714285714286,
+                0.5747516072472236
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "recall": {
+              "ci95": [
+                0.4055963873043733,
+                0.9629742547425473
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.4163220940550133,
+                0.6
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "compute": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/F/compute",
+        "value": {
+          "wall_seconds": {
+            "total": 49043.886840504,
+            "mean_per_expected_episode": 908.220126676,
+            "median": 908.6490616899973,
+            "p95": 1367.5203773065025
+          },
+          "preprocess_gpu_seconds": {
+            "total": 8.850415151119233,
+            "mean_per_expected_episode": 0.16389657687257836,
+            "median": 0.16451199340820313,
+            "p95": 0.2816557815551757
+          },
+          "model_gpu_seconds": {
+            "total": 3869.1971637858073,
+            "mean_per_expected_episode": 71.6517993293668,
+            "median": 69.70100260416666,
+            "p95": 106.99914230026971
+          },
+          "tool_gpu_seconds": {
+            "total": 32.09310746103525,
+            "mean_per_expected_episode": 0.5943168048339861,
+            "median": 0.6312834664583207,
+            "p95": 0.8970624928474425
+          },
+          "input_tokens": {
+            "total": 1170510.0,
+            "mean_per_expected_episode": 21676.11111111111,
+            "median": 20305.0,
+            "p95": 33070.999999999985
+          },
+          "output_tokens": {
+            "total": 38514.0,
+            "mean_per_expected_episode": 713.2222222222222,
+            "median": 837.0,
+            "p95": 1129.6
+          },
+          "cuda_event_seconds": {
+            "total": 3910.140686397962,
+            "mean_per_expected_episode": 72.41001271107336
+          },
+          "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    },
+    "G4": {
+      "expected_episodes": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/expected_episodes",
+        "value": 54
+      },
+      "independent_groups": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/independent_groups",
+        "value": 6
+      },
+      "reference_scored_episodes": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/reference_scored_episodes",
+        "value": 54
+      },
+      "reference_missing_episodes": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/reference_missing_episodes",
+        "value": 0
+      },
+      "reference_kinds": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/reference_kinds",
+        "value": [
+          "exact_synthetic_component_truth"
+        ]
+      },
+      "reference_statuses": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/reference_statuses",
+        "value": [
+          "exact"
+        ]
+      },
+      "event_metrics": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/event_metrics",
+        "value": {
+          "tp": 59,
+          "fp": 68,
+          "fn": 35,
+          "precision": 0.4645669162273407,
+          "recall": 0.6276595592498779,
+          "f1": 0.5339366793632507,
+          "scenes": 54
+        }
+      },
+      "event_metrics_regional_iou05": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/event_metrics_regional_iou05",
+        "value": {
+          "tp": 57,
+          "fp": 70,
+          "fn": 37,
+          "precision": 0.4488188922405243,
+          "recall": 0.6063829660415649,
+          "f1": 0.5158371329307556,
+          "scenes": 54
+        }
+      },
+      "raw_event_metrics": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/raw_event_metrics",
+        "value": {
+          "tp": 69,
+          "fp": 173,
+          "fn": 25,
+          "precision": 0.2851239740848541,
+          "recall": 0.7340425252914429,
+          "f1": 0.4107142984867096,
+          "scenes": 54
+        }
+      },
+      "totals": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/totals",
+        "value": {
+          "schema_failed": 6,
+          "empty_report": 17,
+          "declared_abstention": 17,
+          "source_identity_assertions": 0,
+          "reported_component_count": 139,
+          "valid_component_count": 139,
+          "actions_attempted": 322,
+          "actions_invalid_or_failed": 0,
+          "generation_failures": 0
+        }
+      },
+      "execution_status": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/execution_status",
+        "value": {
+          "completed": 54,
+          "failed": 0,
+          "missing": 0
+        }
+      },
+      "report_emission_coverage": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/report_emission_coverage",
+        "value": 0.6851851940155029
+      },
+      "duplicate_candidates": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/duplicate_candidates",
+        "value": 34
+      },
+      "event_group_intervals": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/event_group_intervals",
+        "value": {
+          "status": "complete",
+          "independent_groups": 6,
+          "repetitions": 2000,
+          "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+          "seed": 603,
+          "metrics": {
+            "precision": {
+              "ci95": [
+                0.3626373626373626,
+                0.6025641025641025
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "recall": {
+              "ci95": [
+                0.28205128205128205,
+                0.9882352941176471
+              ],
+              "defined_resample_fraction": 1.0
+            },
+            "f1": {
+              "ci95": [
+                0.3317972350230415,
+                0.7013682745825599
+              ],
+              "defined_resample_fraction": 1.0
+            }
+          }
+        }
+      },
+      "compute": {
+        "path": "results/robustness/evaluation/summary.json",
+        "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+        "json_pointer": "/results/synthetic_intervention/all/G4/compute",
+        "value": {
+          "wall_seconds": {
+            "total": 25770.568129038016,
+            "mean_per_expected_episode": 477.23274313033363,
+            "median": 465.0110602729983,
+            "p95": 784.4299027044473
+          },
+          "preprocess_gpu_seconds": {
+            "total": 8.26896255517006,
+            "mean_per_expected_episode": 0.15312893620685294,
+            "median": 0.15733815002441406,
+            "p95": 0.2598826431274414
+          },
+          "model_gpu_seconds": {
+            "total": 774.6326391927083,
+            "mean_per_expected_episode": 14.345048873939042,
+            "median": 13.422721874999999,
+            "p95": 24.97219179687495
+          },
+          "tool_gpu_seconds": {
+            "total": 30.980881961375474,
+            "mean_per_expected_episode": 0.573720036321768,
+            "median": 0.5712534767389298,
+            "p95": 0.8806637407660484
+          },
+          "input_tokens": {
+            "total": 180866.0,
+            "mean_per_expected_episode": 3349.37037037037,
+            "median": 3144.0,
+            "p95": 5164.099999999999
+          },
+          "output_tokens": {
+            "total": 33189.0,
+            "mean_per_expected_episode": 614.6111111111111,
+            "median": 643.0,
+            "p95": 1055.0
+          },
+          "cuda_event_seconds": {
+            "total": 813.8824837092538,
+            "mean_per_expected_episode": 15.071897846467664
+          },
+          "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+        }
+      }
+    }
+  },
+  "primary_comparison_status": {
+    "H1": {
+      "path": "results/robustness/evaluation/summary.json",
+      "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+      "json_pointer": "/primary_comparisons/H1",
+      "value": {
+        "status": "primary_comparator_unavailable",
+        "selection_provenance": {
+          "status": "primary_comparator_unavailable",
+          "unavailable_reasons": [
+            "G3: no eligible primary real-reference scores",
+            "G4: no eligible primary real-reference scores"
+          ],
+          "selected_method": null,
+          "source": "validation_only_real_AI_reference_event_agreement",
+          "test_labels_used": false,
+          "tie_rule": "G3",
+          "candidates": {},
+          "reference_source_sha256": "b49a33de4859e199251fe04ed908bd42e972c3971b867b576ec67a7b82b631fa",
+          "validation_run": "/workspace/reading-sonar-signals/results/development",
+          "run_configuration_sha256": "d12e71f3acd09e94b2ff134f2f8bec929fc4abbf58f3b57c9d333b305c44d749",
+          "validation_scene_ids": [
+            "ds_060a7a010d678c69",
+            "ds_0a3ebc00145d0f79",
+            "ds_14482ed128dd5a96",
+            "ds_151d8e9d80bea776",
+            "ds_190b11e45b1c486d",
+            "ds_2d0dafc2d36d0c10",
+            "ds_3199c7dddb293799",
+            "ds_3d489bfc3dbed7e1",
+            "ds_408533bf703cc5bd",
+            "ds_486c8ee6d664e6a9",
+            "ds_57c00e20b0ea9d42",
+            "ds_7a96c16e7df93155",
+            "ds_7ae242fe5cb905b2",
+            "ds_7f36770159e12df0",
+            "ds_8340714241bb9526",
+            "ds_8b363c9f5ef6b6f1",
+            "ds_8e9c864667adeae2",
+            "ds_95d3c5e8d74b95e6",
+            "ds_abd42335475d7760",
+            "ds_ac3fecbd364bb9e1",
+            "ds_b11cee50e7c6d792",
+            "ds_bfd96be636fe3bd4",
+            "ds_c316af309679d011",
+            "ds_c3bf39d235b39d9a",
+            "ds_d580a3c75df6995e",
+            "ds_d7a2f9b5a3fa4b90",
+            "ds_d801014a047438fd",
+            "ds_e0ffd89d9ca8f620",
+            "ds_e614cbca65ac15b5",
+            "ds_f78acc77d46426fd"
+          ],
+          "reference_ineligible_validation_scene_ids": [
+            "ds_060a7a010d678c69",
+            "ds_0a3ebc00145d0f79",
+            "ds_14482ed128dd5a96",
+            "ds_151d8e9d80bea776",
+            "ds_190b11e45b1c486d",
+            "ds_2d0dafc2d36d0c10",
+            "ds_3199c7dddb293799",
+            "ds_3d489bfc3dbed7e1",
+            "ds_408533bf703cc5bd",
+            "ds_486c8ee6d664e6a9",
+            "ds_57c00e20b0ea9d42",
+            "ds_7a96c16e7df93155",
+            "ds_7ae242fe5cb905b2",
+            "ds_7f36770159e12df0",
+            "ds_8340714241bb9526",
+            "ds_8b363c9f5ef6b6f1",
+            "ds_8e9c864667adeae2",
+            "ds_95d3c5e8d74b95e6",
+            "ds_abd42335475d7760",
+            "ds_ac3fecbd364bb9e1",
+            "ds_b11cee50e7c6d792",
+            "ds_bfd96be636fe3bd4",
+            "ds_c316af309679d011",
+            "ds_c3bf39d235b39d9a",
+            "ds_d580a3c75df6995e",
+            "ds_d7a2f9b5a3fa4b90",
+            "ds_d801014a047438fd",
+            "ds_e0ffd89d9ca8f620",
+            "ds_e614cbca65ac15b5",
+            "ds_f78acc77d46426fd"
+          ]
+        },
+        "holm_adjusted_p_value": null
+      }
+    },
+    "H4": {
+      "path": "results/robustness/evaluation/summary.json",
+      "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+      "json_pointer": "/primary_comparisons/H4",
+      "value": {
+        "status": "no_eligible_real_reference_scores",
+        "holm_adjusted_p_value": null
+      }
+    }
+  },
+  "mechanism_examples": [
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "tones",
+      "condition": "blank",
+      "scene_id": "int_d81a72a160f62327",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3000",
+            "kind": "tones",
+            "sample_rate": 16000,
+            "scene_id": "syn_0b7c6877c600aff7",
+            "seed": 3000,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_0b7c6877c600aff7",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3000",
+          "intervention": {
+            "name": "blank"
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_d81a72a160f62327",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 8
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_d81a72a160f62327.json",
+          "sha256": "61d43f6a1c380c16b7ffa812b4f88729aea621ab61c3acd01842504939e534ed",
+          "json_pointer": "/events",
+          "value": []
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_d81a72a160f62327.json",
+          "sha256": "61d43f6a1c380c16b7ffa812b4f88729aea621ab61c3acd01842504939e534ed",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_d81a72a160f62327.json",
+          "sha256": "61d43f6a1c380c16b7ffa812b4f88729aea621ab61c3acd01842504939e534ed",
+          "json_pointer": "/modulation_exhaustive",
+          "value": true
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_d81a72a160f62327.json",
+          "sha256": "61d43f6a1c380c16b7ffa812b4f88729aea621ab61c3acd01842504939e534ed",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 15
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 15
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 15
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 15
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 15
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 15
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 15
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": true,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 15
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 15
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 16
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 16
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 16
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 16
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 16
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 16
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 16
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": true,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 16
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 16
+          }
+        }
+      }
+    },
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "am_noise",
+      "condition": "bandwidth_loss",
+      "scene_id": "int_412560705ed4b28f",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3007",
+            "kind": "am_noise",
+            "sample_rate": 16000,
+            "scene_id": "syn_cf8aafa45188e747",
+            "seed": 3007,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_cf8aafa45188e747",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3007",
+          "intervention": {
+            "name": "bandwidth_loss",
+            "sample_rate": 4000
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_412560705ed4b28f",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 24
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_412560705ed4b28f.json",
+          "sha256": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+          "json_pointer": "/events",
+          "value": []
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_412560705ed4b28f.json",
+          "sha256": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_412560705ed4b28f.json",
+          "sha256": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+          "json_pointer": "/modulation_exhaustive",
+          "value": false
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_412560705ed4b28f.json",
+          "sha256": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+        },
+        "evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_412560705ed4b28f.json",
+          "sha256": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+          "json_pointer": "/evaluation_scope",
+          "value": "acoustic events only; original carrier-defined modulation references unavailable after bandwidth loss"
+        },
+        "unavailable_modulation_events": {
+          "path": "results/robustness/sealed_truth/int_412560705ed4b28f.json",
+          "sha256": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+          "json_pointer": "/unavailable_modulation_events",
+          "value": [
+            {
+              "id": "gold:0",
+              "component_waveform_id": "s0",
+              "type": "modulation",
+              "frequency_domain": "modulation",
+              "time_s": [
+                3.0,
+                27.0
+              ],
+              "frequency_hz": [
+                10.732986688613892,
+                10.732986688613892
+              ],
+              "center_frequency_hz": 10.732986688613892,
+              "frequency_track": [
+                [
+                  3.0,
+                  10.732986688613892
+                ],
+                [
+                  27.0,
+                  10.732986688613892
+                ]
+              ],
+              "carrier_band_hz": [
+                2000.0,
+                5000.0
+              ],
+              "mechanism": "amplitude_modulated_noise",
+              "source_identity": "not_defined",
+              "frequency_uncertainty_hz": 0.0
+            }
+          ]
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 47
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 47
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 47
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 47
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 47
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 47
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 47
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+            },
+            "jsonl_line_1based": 47
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 5,
+            "jsonl_line_1based": 47
+          },
+          "actual_final_state_sample_rate_hz": {
+            "path": "results/robustness/int_412560705ed4b28f/F/episode.json",
+            "sha256": "abf5ed24c9fc01229eaff4db420e3516a45c75ed1a87a2073c8d6cc683e8cd2f",
+            "json_pointer": "/final_state/sample_rate_hz",
+            "value": 4000.0
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 48
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 48
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 48
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 48
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 48
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 48
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 48
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+            },
+            "jsonl_line_1based": 48
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 4,
+            "jsonl_line_1based": 48
+          },
+          "actual_final_state_sample_rate_hz": {
+            "path": "results/robustness/int_412560705ed4b28f/G4/episode.json",
+            "sha256": "59e3121453c75641f78937759e74073a9193562faa70fe016274991751ffa316",
+            "json_pointer": "/final_state/sample_rate_hz",
+            "value": 4000.0
+          }
+        }
+      }
+    },
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "beating",
+      "condition": "remove_component",
+      "scene_id": "int_5f703894f3458157",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3008",
+            "kind": "beating",
+            "sample_rate": 16000,
+            "scene_id": "syn_d24f037070b5756a",
+            "seed": 3008,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_d24f037070b5756a",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3008",
+          "intervention": {
+            "component_id": "s0",
+            "name": "remove_component"
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_5f703894f3458157",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 43
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_5f703894f3458157.json",
+          "sha256": "27afbb9991f05a39d3759f9f217c88ef3e2b462fd82080c2c206ef3234690a47",
+          "json_pointer": "/events",
+          "value": [
+            {
+              "id": "gold:1",
+              "component_waveform_id": "s1",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                3.0,
+                27.0
+              ],
+              "frequency_hz": [
+                1012.0,
+                1012.0
+              ],
+              "center_frequency_hz": 1012.0,
+              "frequency_track": [
+                [
+                  3.0,
+                  1012.0
+                ],
+                [
+                  3.5,
+                  1012.0
+                ],
+                [
+                  4.0,
+                  1012.0
+                ],
+                [
+                  4.5,
+                  1012.0
+                ],
+                [
+                  5.0,
+                  1012.0
+                ],
+                [
+                  5.5,
+                  1012.0
+                ],
+                [
+                  6.0,
+                  1012.0
+                ],
+                [
+                  6.5,
+                  1012.0
+                ],
+                [
+                  7.0,
+                  1012.0
+                ],
+                [
+                  7.5,
+                  1012.0
+                ],
+                [
+                  8.0,
+                  1012.0
+                ],
+                [
+                  8.5,
+                  1012.0
+                ],
+                [
+                  9.0,
+                  1012.0
+                ],
+                [
+                  9.5,
+                  1012.0
+                ],
+                [
+                  10.0,
+                  1012.0
+                ],
+                [
+                  10.5,
+                  1012.0
+                ],
+                [
+                  11.0,
+                  1012.0
+                ],
+                [
+                  11.5,
+                  1012.0
+                ],
+                [
+                  12.0,
+                  1012.0
+                ],
+                [
+                  12.5,
+                  1012.0
+                ],
+                [
+                  13.0,
+                  1012.0
+                ],
+                [
+                  13.5,
+                  1012.0
+                ],
+                [
+                  14.0,
+                  1012.0
+                ],
+                [
+                  14.5,
+                  1012.0
+                ],
+                [
+                  15.0,
+                  1012.0
+                ],
+                [
+                  15.5,
+                  1012.0
+                ],
+                [
+                  16.0,
+                  1012.0
+                ],
+                [
+                  16.5,
+                  1012.0
+                ],
+                [
+                  17.0,
+                  1012.0
+                ],
+                [
+                  17.5,
+                  1012.0
+                ],
+                [
+                  18.0,
+                  1012.0
+                ],
+                [
+                  18.5,
+                  1012.0
+                ],
+                [
+                  19.0,
+                  1012.0
+                ],
+                [
+                  19.5,
+                  1012.0
+                ],
+                [
+                  20.0,
+                  1012.0
+                ],
+                [
+                  20.5,
+                  1012.0
+                ],
+                [
+                  21.0,
+                  1012.0
+                ],
+                [
+                  21.5,
+                  1012.0
+                ],
+                [
+                  22.0,
+                  1012.0
+                ],
+                [
+                  22.5,
+                  1012.0
+                ],
+                [
+                  23.0,
+                  1012.0
+                ],
+                [
+                  23.5,
+                  1012.0
+                ],
+                [
+                  24.0,
+                  1012.0
+                ],
+                [
+                  24.5,
+                  1012.0
+                ],
+                [
+                  25.0,
+                  1012.0
+                ],
+                [
+                  25.5,
+                  1012.0
+                ],
+                [
+                  26.0,
+                  1012.0
+                ],
+                [
+                  26.5,
+                  1012.0
+                ],
+                [
+                  27.0,
+                  1012.0
+                ]
+              ],
+              "slope_hz_per_s": 0.0,
+              "frequency_uncertainty_hz": 0.0,
+              "mechanism": "interfering_oscillator",
+              "source_identity": "not_defined"
+            }
+          ]
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_5f703894f3458157.json",
+          "sha256": "27afbb9991f05a39d3759f9f217c88ef3e2b462fd82080c2c206ef3234690a47",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_5f703894f3458157.json",
+          "sha256": "27afbb9991f05a39d3759f9f217c88ef3e2b462fd82080c2c206ef3234690a47",
+          "json_pointer": "/modulation_exhaustive",
+          "value": true
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_5f703894f3458157.json",
+          "sha256": "27afbb9991f05a39d3759f9f217c88ef3e2b462fd82080c2c206ef3234690a47",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 85
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 85
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 1,
+            "jsonl_line_1based": 85
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 2,
+            "jsonl_line_1based": 85
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": false,
+            "jsonl_line_1based": 85
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": false,
+            "jsonl_line_1based": 85
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666865348816,
+              "matches": [
+                {
+                  "prediction_index": 0,
+                  "gold_index": 0,
+                  "quality": 1.041176438331604,
+                  "time_iou": 0.9411764740943909,
+                  "frequency_error_hz": 0.0
+                }
+              ],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "time_iou_threshold": 0.3,
+              "box_iou_threshold": 0.3,
+              "minimum_frequency_tolerance_hz": 2.0,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 85
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": true,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 2,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [
+                "C1",
+                "C2"
+              ],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+            },
+            "jsonl_line_1based": 85
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 85
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 86
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 86
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 1,
+            "jsonl_line_1based": 86
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 6,
+            "jsonl_line_1based": 86
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": false,
+            "jsonl_line_1based": 86
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": false,
+            "jsonl_line_1based": 86
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 1,
+              "fp": 5,
+              "fn": 0,
+              "precision": 0.1666666716337204,
+              "recall": 1.0,
+              "f1": 0.2857142984867096,
+              "matches": [
+                {
+                  "prediction_index": 0,
+                  "gold_index": 0,
+                  "quality": 1.041176438331604,
+                  "time_iou": 0.9411764740943909,
+                  "frequency_error_hz": 0.0
+                }
+              ],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "time_iou_threshold": 0.3,
+              "box_iou_threshold": 0.3,
+              "minimum_frequency_tolerance_hz": 2.0,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 86
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": true,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 6,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [
+                "C0000",
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005"
+              ],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+            },
+            "jsonl_line_1based": 86
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 86
+          }
+        }
+      }
+    },
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "chirp",
+      "condition": "remove_component",
+      "scene_id": "int_f2492030f35ac8d7",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3001",
+            "kind": "chirp",
+            "sample_rate": 16000,
+            "scene_id": "syn_d1f1dd6f6eff3971",
+            "seed": 3001,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_d1f1dd6f6eff3971",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3001",
+          "intervention": {
+            "component_id": "s0",
+            "name": "remove_component"
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_f2492030f35ac8d7",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 34
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_f2492030f35ac8d7.json",
+          "sha256": "051aa595ea87a899ef52ab0779274d3a1a84a371661f154e6422ab6c71a577b8",
+          "json_pointer": "/events",
+          "value": []
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_f2492030f35ac8d7.json",
+          "sha256": "051aa595ea87a899ef52ab0779274d3a1a84a371661f154e6422ab6c71a577b8",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_f2492030f35ac8d7.json",
+          "sha256": "051aa595ea87a899ef52ab0779274d3a1a84a371661f154e6422ab6c71a577b8",
+          "json_pointer": "/modulation_exhaustive",
+          "value": false
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_f2492030f35ac8d7.json",
+          "sha256": "051aa595ea87a899ef52ab0779274d3a1a84a371661f154e6422ab6c71a577b8",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 67
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 67
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 67
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 67
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 67
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 67
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 67
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 67
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 67
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 68
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 68
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 68
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 68
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 68
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 68
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 68
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 68
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 68
+          }
+        }
+      }
+    },
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "am_noise",
+      "condition": "remove_component",
+      "scene_id": "int_13161dca96906ae0",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3007",
+            "kind": "am_noise",
+            "sample_rate": 16000,
+            "scene_id": "syn_cf8aafa45188e747",
+            "seed": 3007,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_cf8aafa45188e747",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3007",
+          "intervention": {
+            "component_id": "s0",
+            "name": "remove_component"
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_13161dca96906ae0",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 25
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_13161dca96906ae0.json",
+          "sha256": "d19cf2cc18a4f55240dfc13b9e949aac8713a1a35355d84888a50ec50adb6097",
+          "json_pointer": "/events",
+          "value": []
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_13161dca96906ae0.json",
+          "sha256": "d19cf2cc18a4f55240dfc13b9e949aac8713a1a35355d84888a50ec50adb6097",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_13161dca96906ae0.json",
+          "sha256": "d19cf2cc18a4f55240dfc13b9e949aac8713a1a35355d84888a50ec50adb6097",
+          "json_pointer": "/modulation_exhaustive",
+          "value": true
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_13161dca96906ae0.json",
+          "sha256": "d19cf2cc18a4f55240dfc13b9e949aac8713a1a35355d84888a50ec50adb6097",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 49
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 49
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 49
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 49
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 49
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 49
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 49
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": true,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+            },
+            "jsonl_line_1based": 49
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 49
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 50
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 50
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 0,
+            "jsonl_line_1based": 50
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 0,
+            "jsonl_line_1based": 50
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": true,
+            "jsonl_line_1based": 50
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": true,
+            "jsonl_line_1based": 50
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "f1": 0.0,
+              "matches": [],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 50
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": true,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 0,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Required declared modulation and known optional beat harmonics; noise/silence negative controls"
+            },
+            "jsonl_line_1based": 50
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 50
+          }
+        }
+      }
+    },
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "tones",
+      "condition": "plot_style",
+      "scene_id": "int_c0559ed9eb6e76a6",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3000",
+            "kind": "tones",
+            "sample_rate": 16000,
+            "scene_id": "syn_0b7c6877c600aff7",
+            "seed": 3000,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_0b7c6877c600aff7",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3000",
+          "intervention": {
+            "colormap": "viridis",
+            "name": "plot_style"
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_c0559ed9eb6e76a6",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 9
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_c0559ed9eb6e76a6.json",
+          "sha256": "49a3131106a68754e861e365d89327f623d0eca204958528c49fdb5096fb2f31",
+          "json_pointer": "/events",
+          "value": [
+            {
+              "id": "gold:0",
+              "component_waveform_id": "s0",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                3.0,
+                27.0
+              ],
+              "frequency_hz": [
+                211.60037231445312,
+                211.60037231445312
+              ],
+              "center_frequency_hz": 211.60037231445312,
+              "frequency_track": [
+                [
+                  3.0,
+                  211.60037231445312
+                ],
+                [
+                  3.5,
+                  211.60037231445312
+                ],
+                [
+                  4.0,
+                  211.60037231445312
+                ],
+                [
+                  4.5,
+                  211.60037231445312
+                ],
+                [
+                  5.0,
+                  211.60037231445312
+                ],
+                [
+                  5.5,
+                  211.60037231445312
+                ],
+                [
+                  6.0,
+                  211.60037231445312
+                ],
+                [
+                  6.5,
+                  211.60037231445312
+                ],
+                [
+                  7.0,
+                  211.60037231445312
+                ],
+                [
+                  7.5,
+                  211.60037231445312
+                ],
+                [
+                  8.0,
+                  211.60037231445312
+                ],
+                [
+                  8.5,
+                  211.60037231445312
+                ],
+                [
+                  9.0,
+                  211.60037231445312
+                ],
+                [
+                  9.5,
+                  211.60037231445312
+                ],
+                [
+                  10.0,
+                  211.60037231445312
+                ],
+                [
+                  10.5,
+                  211.60037231445312
+                ],
+                [
+                  11.0,
+                  211.60037231445312
+                ],
+                [
+                  11.5,
+                  211.60037231445312
+                ],
+                [
+                  12.0,
+                  211.60037231445312
+                ],
+                [
+                  12.5,
+                  211.60037231445312
+                ],
+                [
+                  13.0,
+                  211.60037231445312
+                ],
+                [
+                  13.5,
+                  211.60037231445312
+                ],
+                [
+                  14.0,
+                  211.60037231445312
+                ],
+                [
+                  14.5,
+                  211.60037231445312
+                ],
+                [
+                  15.0,
+                  211.60037231445312
+                ],
+                [
+                  15.5,
+                  211.60037231445312
+                ],
+                [
+                  16.0,
+                  211.60037231445312
+                ],
+                [
+                  16.5,
+                  211.60037231445312
+                ],
+                [
+                  17.0,
+                  211.60037231445312
+                ],
+                [
+                  17.5,
+                  211.60037231445312
+                ],
+                [
+                  18.0,
+                  211.60037231445312
+                ],
+                [
+                  18.5,
+                  211.60037231445312
+                ],
+                [
+                  19.0,
+                  211.60037231445312
+                ],
+                [
+                  19.5,
+                  211.60037231445312
+                ],
+                [
+                  20.0,
+                  211.60037231445312
+                ],
+                [
+                  20.5,
+                  211.60037231445312
+                ],
+                [
+                  21.0,
+                  211.60037231445312
+                ],
+                [
+                  21.5,
+                  211.60037231445312
+                ],
+                [
+                  22.0,
+                  211.60037231445312
+                ],
+                [
+                  22.5,
+                  211.60037231445312
+                ],
+                [
+                  23.0,
+                  211.60037231445312
+                ],
+                [
+                  23.5,
+                  211.60037231445312
+                ],
+                [
+                  24.0,
+                  211.60037231445312
+                ],
+                [
+                  24.5,
+                  211.60037231445312
+                ],
+                [
+                  25.0,
+                  211.60037231445312
+                ],
+                [
+                  25.5,
+                  211.60037231445312
+                ],
+                [
+                  26.0,
+                  211.60037231445312
+                ],
+                [
+                  26.5,
+                  211.60037231445312
+                ],
+                [
+                  27.0,
+                  211.60037231445312
+                ]
+              ],
+              "slope_hz_per_s": 0.0,
+              "frequency_uncertainty_hz": 0.0,
+              "mechanism": "oscillator",
+              "source_identity": "not_defined"
+            },
+            {
+              "id": "gold:1",
+              "component_waveform_id": "s1",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                7.5,
+                22.5
+              ],
+              "frequency_hz": [
+                306.6003723144531,
+                306.6003723144531
+              ],
+              "center_frequency_hz": 306.6003723144531,
+              "frequency_track": [
+                [
+                  7.5,
+                  306.6003723144531
+                ],
+                [
+                  7.8125,
+                  306.6003723144531
+                ],
+                [
+                  8.125,
+                  306.6003723144531
+                ],
+                [
+                  8.4375,
+                  306.6003723144531
+                ],
+                [
+                  8.75,
+                  306.6003723144531
+                ],
+                [
+                  9.0625,
+                  306.6003723144531
+                ],
+                [
+                  9.375,
+                  306.6003723144531
+                ],
+                [
+                  9.6875,
+                  306.6003723144531
+                ],
+                [
+                  10.0,
+                  306.6003723144531
+                ],
+                [
+                  10.3125,
+                  306.6003723144531
+                ],
+                [
+                  10.625,
+                  306.6003723144531
+                ],
+                [
+                  10.9375,
+                  306.6003723144531
+                ],
+                [
+                  11.25,
+                  306.6003723144531
+                ],
+                [
+                  11.5625,
+                  306.6003723144531
+                ],
+                [
+                  11.875,
+                  306.6003723144531
+                ],
+                [
+                  12.1875,
+                  306.6003723144531
+                ],
+                [
+                  12.5,
+                  306.6003723144531
+                ],
+                [
+                  12.8125,
+                  306.6003723144531
+                ],
+                [
+                  13.125,
+                  306.6003723144531
+                ],
+                [
+                  13.4375,
+                  306.6003723144531
+                ],
+                [
+                  13.75,
+                  306.6003723144531
+                ],
+                [
+                  14.0625,
+                  306.6003723144531
+                ],
+                [
+                  14.375,
+                  306.6003723144531
+                ],
+                [
+                  14.6875,
+                  306.6003723144531
+                ],
+                [
+                  15.0,
+                  306.6003723144531
+                ],
+                [
+                  15.3125,
+                  306.6003723144531
+                ],
+                [
+                  15.625,
+                  306.6003723144531
+                ],
+                [
+                  15.9375,
+                  306.6003723144531
+                ],
+                [
+                  16.25,
+                  306.6003723144531
+                ],
+                [
+                  16.5625,
+                  306.6003723144531
+                ],
+                [
+                  16.875,
+                  306.6003723144531
+                ],
+                [
+                  17.1875,
+                  306.6003723144531
+                ],
+                [
+                  17.5,
+                  306.6003723144531
+                ],
+                [
+                  17.8125,
+                  306.6003723144531
+                ],
+                [
+                  18.125,
+                  306.6003723144531
+                ],
+                [
+                  18.4375,
+                  306.6003723144531
+                ],
+                [
+                  18.75,
+                  306.6003723144531
+                ],
+                [
+                  19.0625,
+                  306.6003723144531
+                ],
+                [
+                  19.375,
+                  306.6003723144531
+                ],
+                [
+                  19.6875,
+                  306.6003723144531
+                ],
+                [
+                  20.0,
+                  306.6003723144531
+                ],
+                [
+                  20.3125,
+                  306.6003723144531
+                ],
+                [
+                  20.625,
+                  306.6003723144531
+                ],
+                [
+                  20.9375,
+                  306.6003723144531
+                ],
+                [
+                  21.25,
+                  306.6003723144531
+                ],
+                [
+                  21.5625,
+                  306.6003723144531
+                ],
+                [
+                  21.875,
+                  306.6003723144531
+                ],
+                [
+                  22.1875,
+                  306.6003723144531
+                ],
+                [
+                  22.5,
+                  306.6003723144531
+                ]
+              ],
+              "slope_hz_per_s": 0.0,
+              "frequency_uncertainty_hz": 0.0,
+              "mechanism": "oscillator",
+              "source_identity": "not_defined"
+            }
+          ]
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_c0559ed9eb6e76a6.json",
+          "sha256": "49a3131106a68754e861e365d89327f623d0eca204958528c49fdb5096fb2f31",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_c0559ed9eb6e76a6.json",
+          "sha256": "49a3131106a68754e861e365d89327f623d0eca204958528c49fdb5096fb2f31",
+          "json_pointer": "/modulation_exhaustive",
+          "value": false
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_c0559ed9eb6e76a6.json",
+          "sha256": "49a3131106a68754e861e365d89327f623d0eca204958528c49fdb5096fb2f31",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 17
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 17
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 2,
+            "jsonl_line_1based": 17
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 6,
+            "jsonl_line_1based": 17
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": false,
+            "jsonl_line_1based": 17
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": false,
+            "jsonl_line_1based": 17
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 2,
+              "fp": 4,
+              "fn": 0,
+              "precision": 0.3333333432674408,
+              "recall": 1.0,
+              "f1": 0.5,
+              "matches": [
+                {
+                  "prediction_index": 0,
+                  "gold_index": 0,
+                  "quality": 1.0211950540542603,
+                  "time_iou": 0.9411764740943909,
+                  "frequency_error_hz": 0.399627685546875
+                },
+                {
+                  "prediction_index": 1,
+                  "gold_index": 1,
+                  "quality": 0.9891095757484436,
+                  "time_iou": 0.9090909361839294,
+                  "frequency_error_hz": 0.399627685546875
+                }
+              ],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "time_iou_threshold": 0.3,
+              "box_iou_threshold": 0.3,
+              "minimum_frequency_tolerance_hz": 2.0,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 17
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 6,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [
+                "C1",
+                "C2",
+                "C3",
+                "C4",
+                "C5",
+                "C6"
+              ],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 17
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 17
+          },
+          "rendering": {
+            "path": "results/robustness/int_c0559ed9eb6e76a6/F/episode.json",
+            "sha256": "a350ebedcb13adff2a2f8e6e088e90ec445d4e8e9fe5e24e4b1d0df1737d208a",
+            "json_pointer": "/rendering",
+            "value": {
+              "colormap": "viridis",
+              "dynamic_range_db": 60,
+              "frequency_max_pool_bins": 256,
+              "quantitative_measurements_from_unpooled_PSD": true
+            }
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 18
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 18
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 2,
+            "jsonl_line_1based": 18
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 6,
+            "jsonl_line_1based": 18
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": false,
+            "jsonl_line_1based": 18
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": false,
+            "jsonl_line_1based": 18
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 2,
+              "fp": 4,
+              "fn": 0,
+              "precision": 0.3333333432674408,
+              "recall": 1.0,
+              "f1": 0.5,
+              "matches": [
+                {
+                  "prediction_index": 0,
+                  "gold_index": 0,
+                  "quality": 1.0211950540542603,
+                  "time_iou": 0.9411764740943909,
+                  "frequency_error_hz": 0.399627685546875
+                },
+                {
+                  "prediction_index": 1,
+                  "gold_index": 1,
+                  "quality": 0.9891095757484436,
+                  "time_iou": 0.9090909361839294,
+                  "frequency_error_hz": 0.399627685546875
+                }
+              ],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "time_iou_threshold": 0.3,
+              "box_iou_threshold": 0.3,
+              "minimum_frequency_tolerance_hz": 2.0,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 18
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 6,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [
+                "C1",
+                "C2",
+                "C3",
+                "C4",
+                "C5",
+                "C6"
+              ],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 18
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 18
+          },
+          "rendering": {
+            "path": "results/robustness/int_c0559ed9eb6e76a6/G4/episode.json",
+            "sha256": "4a465632bea962e8d706fc8ae88bc9f1de15785f69be2f92ceaafa7d551722c7",
+            "json_pointer": "/rendering",
+            "value": {
+              "colormap": "viridis",
+              "dynamic_range_db": 60,
+              "frequency_max_pool_bins": 256,
+              "quantitative_measurements_from_unpooled_PSD": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "selection": "First manifest record for this declared kind/condition; selected to demonstrate source semantics, not best/worst outcome.",
+      "base_kind": "tones",
+      "condition": "added_noise",
+      "scene_id": "int_ddd9846390161f67",
+      "manifest_record": {
+        "path": "data/manifests/robustness_test.jsonl",
+        "sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+        "json_pointer": "",
+        "value": {
+          "base_record": {
+            "duration_seconds": 30,
+            "group_id": "synthetic:test:3000",
+            "kind": "tones",
+            "sample_rate": 16000,
+            "scene_id": "syn_0b7c6877c600aff7",
+            "seed": 3000,
+            "snr_db": 10,
+            "split": "test",
+            "stratum": "synthetic"
+          },
+          "base_scene_id": "syn_0b7c6877c600aff7",
+          "duration_seconds": 30,
+          "group_id": "synthetic:test:3000",
+          "intervention": {
+            "name": "added_noise",
+            "nominal_ratio_db": -5,
+            "seed": 99100
+          },
+          "sample_rate": 16000,
+          "scene_id": "int_ddd9846390161f67",
+          "split": "test",
+          "stratum": "synthetic_intervention"
+        },
+        "jsonl_line_1based": 2
+      },
+      "truth": {
+        "events": {
+          "path": "results/robustness/sealed_truth/int_ddd9846390161f67.json",
+          "sha256": "28b113a2269c2bcff7831db29fd7e1592a9ab2475421c9d096c24000fba2778d",
+          "json_pointer": "/events",
+          "value": [
+            {
+              "id": "gold:0",
+              "component_waveform_id": "s0",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                3.0,
+                27.0
+              ],
+              "frequency_hz": [
+                211.60037231445312,
+                211.60037231445312
+              ],
+              "center_frequency_hz": 211.60037231445312,
+              "frequency_track": [
+                [
+                  3.0,
+                  211.60037231445312
+                ],
+                [
+                  3.5,
+                  211.60037231445312
+                ],
+                [
+                  4.0,
+                  211.60037231445312
+                ],
+                [
+                  4.5,
+                  211.60037231445312
+                ],
+                [
+                  5.0,
+                  211.60037231445312
+                ],
+                [
+                  5.5,
+                  211.60037231445312
+                ],
+                [
+                  6.0,
+                  211.60037231445312
+                ],
+                [
+                  6.5,
+                  211.60037231445312
+                ],
+                [
+                  7.0,
+                  211.60037231445312
+                ],
+                [
+                  7.5,
+                  211.60037231445312
+                ],
+                [
+                  8.0,
+                  211.60037231445312
+                ],
+                [
+                  8.5,
+                  211.60037231445312
+                ],
+                [
+                  9.0,
+                  211.60037231445312
+                ],
+                [
+                  9.5,
+                  211.60037231445312
+                ],
+                [
+                  10.0,
+                  211.60037231445312
+                ],
+                [
+                  10.5,
+                  211.60037231445312
+                ],
+                [
+                  11.0,
+                  211.60037231445312
+                ],
+                [
+                  11.5,
+                  211.60037231445312
+                ],
+                [
+                  12.0,
+                  211.60037231445312
+                ],
+                [
+                  12.5,
+                  211.60037231445312
+                ],
+                [
+                  13.0,
+                  211.60037231445312
+                ],
+                [
+                  13.5,
+                  211.60037231445312
+                ],
+                [
+                  14.0,
+                  211.60037231445312
+                ],
+                [
+                  14.5,
+                  211.60037231445312
+                ],
+                [
+                  15.0,
+                  211.60037231445312
+                ],
+                [
+                  15.5,
+                  211.60037231445312
+                ],
+                [
+                  16.0,
+                  211.60037231445312
+                ],
+                [
+                  16.5,
+                  211.60037231445312
+                ],
+                [
+                  17.0,
+                  211.60037231445312
+                ],
+                [
+                  17.5,
+                  211.60037231445312
+                ],
+                [
+                  18.0,
+                  211.60037231445312
+                ],
+                [
+                  18.5,
+                  211.60037231445312
+                ],
+                [
+                  19.0,
+                  211.60037231445312
+                ],
+                [
+                  19.5,
+                  211.60037231445312
+                ],
+                [
+                  20.0,
+                  211.60037231445312
+                ],
+                [
+                  20.5,
+                  211.60037231445312
+                ],
+                [
+                  21.0,
+                  211.60037231445312
+                ],
+                [
+                  21.5,
+                  211.60037231445312
+                ],
+                [
+                  22.0,
+                  211.60037231445312
+                ],
+                [
+                  22.5,
+                  211.60037231445312
+                ],
+                [
+                  23.0,
+                  211.60037231445312
+                ],
+                [
+                  23.5,
+                  211.60037231445312
+                ],
+                [
+                  24.0,
+                  211.60037231445312
+                ],
+                [
+                  24.5,
+                  211.60037231445312
+                ],
+                [
+                  25.0,
+                  211.60037231445312
+                ],
+                [
+                  25.5,
+                  211.60037231445312
+                ],
+                [
+                  26.0,
+                  211.60037231445312
+                ],
+                [
+                  26.5,
+                  211.60037231445312
+                ],
+                [
+                  27.0,
+                  211.60037231445312
+                ]
+              ],
+              "slope_hz_per_s": 0.0,
+              "frequency_uncertainty_hz": 0.0,
+              "mechanism": "oscillator",
+              "source_identity": "not_defined"
+            },
+            {
+              "id": "gold:1",
+              "component_waveform_id": "s1",
+              "type": "tone",
+              "frequency_domain": "acoustic",
+              "time_s": [
+                7.5,
+                22.5
+              ],
+              "frequency_hz": [
+                306.6003723144531,
+                306.6003723144531
+              ],
+              "center_frequency_hz": 306.6003723144531,
+              "frequency_track": [
+                [
+                  7.5,
+                  306.6003723144531
+                ],
+                [
+                  7.8125,
+                  306.6003723144531
+                ],
+                [
+                  8.125,
+                  306.6003723144531
+                ],
+                [
+                  8.4375,
+                  306.6003723144531
+                ],
+                [
+                  8.75,
+                  306.6003723144531
+                ],
+                [
+                  9.0625,
+                  306.6003723144531
+                ],
+                [
+                  9.375,
+                  306.6003723144531
+                ],
+                [
+                  9.6875,
+                  306.6003723144531
+                ],
+                [
+                  10.0,
+                  306.6003723144531
+                ],
+                [
+                  10.3125,
+                  306.6003723144531
+                ],
+                [
+                  10.625,
+                  306.6003723144531
+                ],
+                [
+                  10.9375,
+                  306.6003723144531
+                ],
+                [
+                  11.25,
+                  306.6003723144531
+                ],
+                [
+                  11.5625,
+                  306.6003723144531
+                ],
+                [
+                  11.875,
+                  306.6003723144531
+                ],
+                [
+                  12.1875,
+                  306.6003723144531
+                ],
+                [
+                  12.5,
+                  306.6003723144531
+                ],
+                [
+                  12.8125,
+                  306.6003723144531
+                ],
+                [
+                  13.125,
+                  306.6003723144531
+                ],
+                [
+                  13.4375,
+                  306.6003723144531
+                ],
+                [
+                  13.75,
+                  306.6003723144531
+                ],
+                [
+                  14.0625,
+                  306.6003723144531
+                ],
+                [
+                  14.375,
+                  306.6003723144531
+                ],
+                [
+                  14.6875,
+                  306.6003723144531
+                ],
+                [
+                  15.0,
+                  306.6003723144531
+                ],
+                [
+                  15.3125,
+                  306.6003723144531
+                ],
+                [
+                  15.625,
+                  306.6003723144531
+                ],
+                [
+                  15.9375,
+                  306.6003723144531
+                ],
+                [
+                  16.25,
+                  306.6003723144531
+                ],
+                [
+                  16.5625,
+                  306.6003723144531
+                ],
+                [
+                  16.875,
+                  306.6003723144531
+                ],
+                [
+                  17.1875,
+                  306.6003723144531
+                ],
+                [
+                  17.5,
+                  306.6003723144531
+                ],
+                [
+                  17.8125,
+                  306.6003723144531
+                ],
+                [
+                  18.125,
+                  306.6003723144531
+                ],
+                [
+                  18.4375,
+                  306.6003723144531
+                ],
+                [
+                  18.75,
+                  306.6003723144531
+                ],
+                [
+                  19.0625,
+                  306.6003723144531
+                ],
+                [
+                  19.375,
+                  306.6003723144531
+                ],
+                [
+                  19.6875,
+                  306.6003723144531
+                ],
+                [
+                  20.0,
+                  306.6003723144531
+                ],
+                [
+                  20.3125,
+                  306.6003723144531
+                ],
+                [
+                  20.625,
+                  306.6003723144531
+                ],
+                [
+                  20.9375,
+                  306.6003723144531
+                ],
+                [
+                  21.25,
+                  306.6003723144531
+                ],
+                [
+                  21.5625,
+                  306.6003723144531
+                ],
+                [
+                  21.875,
+                  306.6003723144531
+                ],
+                [
+                  22.1875,
+                  306.6003723144531
+                ],
+                [
+                  22.5,
+                  306.6003723144531
+                ]
+              ],
+              "slope_hz_per_s": 0.0,
+              "frequency_uncertainty_hz": 0.0,
+              "mechanism": "oscillator",
+              "source_identity": "not_defined"
+            }
+          ]
+        },
+        "sample_rate_hz": {
+          "path": "results/robustness/sealed_truth/int_ddd9846390161f67.json",
+          "sha256": "28b113a2269c2bcff7831db29fd7e1592a9ab2475421c9d096c24000fba2778d",
+          "json_pointer": "/sample_rate_hz",
+          "value": 16000
+        },
+        "modulation_exhaustive": {
+          "path": "results/robustness/sealed_truth/int_ddd9846390161f67.json",
+          "sha256": "28b113a2269c2bcff7831db29fd7e1592a9ab2475421c9d096c24000fba2778d",
+          "json_pointer": "/modulation_exhaustive",
+          "value": false
+        },
+        "modulation_evaluation_scope": {
+          "path": "results/robustness/sealed_truth/int_ddd9846390161f67.json",
+          "sha256": "28b113a2269c2bcff7831db29fd7e1592a9ab2475421c9d096c24000fba2778d",
+          "json_pointer": "/modulation_evaluation_scope",
+          "value": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+        }
+      },
+      "methods": {
+        "F": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 3
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 3
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 2,
+            "jsonl_line_1based": 3
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 6,
+            "jsonl_line_1based": 3
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": false,
+            "jsonl_line_1based": 3
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": false,
+            "jsonl_line_1based": 3
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 2,
+              "fp": 4,
+              "fn": 0,
+              "precision": 0.3333333432674408,
+              "recall": 1.0,
+              "f1": 0.5,
+              "matches": [
+                {
+                  "prediction_index": 0,
+                  "gold_index": 0,
+                  "quality": 1.0245851278305054,
+                  "time_iou": 0.9411764740943909,
+                  "frequency_error_hz": 0.33182641863822937
+                },
+                {
+                  "prediction_index": 1,
+                  "gold_index": 1,
+                  "quality": 0.9891095757484436,
+                  "time_iou": 0.9090909361839294,
+                  "frequency_error_hz": 0.399627685546875
+                }
+              ],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "time_iou_threshold": 0.3,
+              "box_iou_threshold": 0.3,
+              "minimum_frequency_tolerance_hz": 2.0,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 3
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 6,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [
+                "C1",
+                "C2",
+                "C3",
+                "C4",
+                "C5",
+                "C6"
+              ],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 3
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 3
+          }
+        },
+        "G4": {
+          "execution_status": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/execution_status",
+            "value": "completed",
+            "jsonl_line_1based": 4
+          },
+          "schema_failed": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/schema_failed",
+            "value": false,
+            "jsonl_line_1based": 4
+          },
+          "reference_event_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reference_event_count",
+            "value": 2,
+            "jsonl_line_1based": 4
+          },
+          "reported_component_count": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/reported_component_count",
+            "value": 3,
+            "jsonl_line_1based": 4
+          },
+          "empty_report": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/empty_report",
+            "value": false,
+            "jsonl_line_1based": 4
+          },
+          "declared_abstention": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/declared_abstention",
+            "value": false,
+            "jsonl_line_1based": 4
+          },
+          "event_metrics": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/event_metrics",
+            "value": {
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.6666666865348816,
+              "recall": 1.0,
+              "f1": 0.800000011920929,
+              "matches": [
+                {
+                  "prediction_index": 0,
+                  "gold_index": 0,
+                  "quality": 1.0245851278305054,
+                  "time_iou": 0.9411764740943909,
+                  "frequency_error_hz": 0.33182641863822937
+                },
+                {
+                  "prediction_index": 1,
+                  "gold_index": 1,
+                  "quality": 0.996112585067749,
+                  "time_iou": 0.9090909361839294,
+                  "frequency_error_hz": 0.2595668137073517
+                }
+              ],
+              "matching_algorithm": "greedy_descending_quality",
+              "exhaustive": true,
+              "time_iou_threshold": 0.3,
+              "box_iou_threshold": 0.3,
+              "minimum_frequency_tolerance_hz": 2.0,
+              "invalid_component_predictions": 0
+            },
+            "jsonl_line_1based": 4
+          },
+          "scoring_scope": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/scoring_scope",
+            "value": {
+              "modulation_exhaustive": false,
+              "eligible_types": null,
+              "eligible_frequency_domains": null,
+              "eligible_carrier_bands_hz": null,
+              "observed_view_scope": {},
+              "excluded_predictions": 0,
+              "excluded_raw_predictions": 0,
+              "eligible_valid_predictions": 3,
+              "eligible_invalid_predictions": 0,
+              "scored_prediction_event_ids": [
+                "C1",
+                "C2",
+                "C3"
+              ],
+              "reference_scorable": true,
+              "excluded_modulation_gold": 0,
+              "rule": "Envelope consequences of acoustic superposition are not exhaustively enumerated; exclude modulation predictions from scoring"
+            },
+            "jsonl_line_1based": 4
+          },
+          "actions_attempted": {
+            "path": "results/robustness/evaluation/per_episode.jsonl",
+            "sha256": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+            "json_pointer": "/actions_attempted",
+            "value": 6,
+            "jsonl_line_1based": 4
+          }
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "pooled_controlled_scores_only",
+      "severity": "interpretation",
+      "finding": "Saved pooled F has TP58/FP85/FN36, precision0.405594, recall0.617021, F1=0.489451 with CI[0.416322,0.600000]. G4 has TP59/FP68/FN35, precision0.464567, recall0.627660, F1=0.533937 with CI[0.331797,0.701368]. These summarize heterogeneous interventions, including empty-reference controls, and do not establish condition-specific resistance, a noise-response curve, or adaptive superiority. All/controlled are duplicate views of the same rows, not separate evidence.",
+      "evidence_section": "/pooled_saved_values"
+    },
+    {
+      "id": "six_base_groups_not54_independent_recordings",
+      "severity": "interpretation",
+      "finding": "The saved intervals cluster54 transformed scenes by six original synthetic bases. They use2000 draws and one frozen model; they are individual-method group-sampling intervals, not paired F-minus-G4 effects. Fixed perturbation seeds are reused across bases at each noise level; this does not supply independent noise-realization or model-seed replication. Multiple blank records are identical zero waveforms rather than six distinct acoustic negatives.",
+      "evidence": [
+        {
+          "path": "results/robustness/evaluation/summary.json",
+          "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+          "json_pointer": "/results/synthetic_intervention/all/F/event_group_intervals",
+          "value": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.34285714285714286,
+                  0.5747516072472236
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.4055963873043733,
+                  0.9629742547425473
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.4163220940550133,
+                  0.6
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        {
+          "path": "results/robustness/evaluation/summary.json",
+          "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+          "json_pointer": "/grouping",
+          "value": {
+            "rule": "connected components of shared parent provenance within each stratum",
+            "cluster_members": {
+              "synthetic_intervention:cluster:95950b5585d51af8": [
+                "synthetic:test:3000"
+              ],
+              "synthetic_intervention:cluster:c3211c592338460f": [
+                "synthetic:test:3009"
+              ],
+              "synthetic_intervention:cluster:af0bb3aa3c924a28": [
+                "synthetic:test:3007"
+              ],
+              "synthetic_intervention:cluster:1eafa1ac3e162f59": [
+                "synthetic:test:3001"
+              ],
+              "synthetic_intervention:cluster:f676c94a6cc6d8a8": [
+                "synthetic:test:3008"
+              ],
+              "synthetic_intervention:cluster:df9e010ac6a45b9b": [
+                "synthetic:test:3006"
+              ]
+            }
+          }
+        },
+        {
+          "path": "scripts/freeze_mechanism_tests.py",
+          "sha256": "506370170dc877fb66be0ebd45e50e8387a7ff815d9a00b1c903f5d3ee925945",
+          "line_start": 17,
+          "line_end": 28,
+          "excerpt": "selected=[r for r in synthetic if r['kind'] in ['tones','chirp','am_noise','beating','mixed','transient']]\nfor row in selected:\n    conditions=[{'name':'gain','linear_gain':.5}]\n    conditions += [{'name':'added_noise','nominal_ratio_db':v,'seed':99100+i} for i,v in enumerate([-5,0,5,10])]\n    conditions += [{'name':'bandwidth_loss','sample_rate':4000},\n                   {'name':'remove_component','component_id':'s0'},{'name':'blank'},\n                   {'name':'plot_style','colormap':'viridis'}]\n    for condition in conditions:\n        sid=opaque_id('int',row['scene_id']+json.dumps(condition,sort_keys=True))\n        robust.append({'scene_id':sid,'base_record':row,'stratum':'synthetic_intervention',\n                       'split':'test','group_id':row['group_id'],'intervention':condition,\n                       'base_scene_id':row['scene_id'],'sample_rate':row['sample_rate'],"
+        }
+      ]
+    },
+    {
+      "id": "execution_schema_and_action_ceiling",
+      "severity": "interpretation",
+      "finding": "All108 executions completed with no saved execution failures. F/G4 each has54 completed episodes, but schema failures are2/6 and empty retained reports18/17; successful execution is not successful schema or detection. Recorded action totals323/322, with zero invalid/failed actions and zero generation failures, must be reported as saved instead of assuming six actions per episode. The bandwidth-limited AM example records F5 and G4 four actions. A slot limit is a ceiling.",
+      "evidence_section": "/pooled_saved_values"
+    },
+    {
+      "id": "waveform_blank_vs_display_mismatch",
+      "severity": "scope",
+      "finding": "Robustness blank zeros the entire waveform, removes all events, and sets modulation_exhaustive=true. It is an acoustic silence negative control, not an image-only blank or inconsistency test. The separate sensitivity display_mismatch substitutes only global_demon.png from a different synthetic donor; numerical measurements and later inspection remain on the target waveform. No sensitivity outcome is inferred from robustness.",
+      "evidence": [
+        {
+          "path": "src/sonar/data.py",
+          "sha256": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "line_start": 53,
+          "line_end": 59,
+          "excerpt": "        elif name=='blank':\n            waveform=torch.zeros_like(waveform)\n            if truth: truth=dict(truth,events=[],modulation_exhaustive=True)\n        elif name=='plot_style':\n            pass  # Only final rendering changes; waveform and truth stay intact.\n        else: raise ValueError('Unknown intervention')\n        return waveform,sample_rate,origin,truth"
+        },
+        {
+          "path": "src/sonar/input_interventions.py",
+          "sha256": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+          "line_start": 73,
+          "line_end": 103,
+          "excerpt": "    elif name=='display_mismatch':\n        pass\n    else:\n        raise ValueError('Unknown separately labelled sensitivity probe')\n    return x,sr,origin,truth\n\n\nclass DisplayOverride:\n    def __init__(self,model,replacement,provenance):\n        self.model=model;self.replacement=replacement;self.provenance=provenance\n\n    def generate(self,prompt,images,max_new_tokens,**kwargs):\n        actual=[self.replacement if Path(path).name=='global_demon.png' else path for path in images]\n        generated=self.model.generate(prompt,actual,max_new_tokens,**kwargs)\n        return dict(generated,display_intervention=dict(self.provenance,\n            actual_input_paths=[str(path) for path in actual],\n            replaced_initial_DEMON=any(Path(path).name=='global_demon.png' for path in images)))\n\n\ndef wrap_display_inputs(record,model,output):\n    probe=record.get('sensitivity',{})\n    if probe.get('name')!='display_mismatch': return model\n    with GPU_LOCK:\n        x,sr,_,_=load_waveform(probe['donor_record'])\n        view=demon(x,sr,(500.,2000.),window_s=min(4.,x.numel()/sr-1),offset_s=0.)\n    path=render_view(view,Path(output)/'mismatched_initial_demon.png','DEMON overview')\n    provenance=dict(kind='initial_DEMON_image_from_other_scene',donor_scene_id=probe['donor_record']['scene_id'],\n        image_sha256=hashlib.sha256(Path(path).read_bytes()).hexdigest(),\n        numerical_measurements='target waveform',later_tool_views='target waveform',\n        scientific_scope='deliberate image/measurement inconsistency; not a physically coherent transformed recording')\n    return DisplayOverride(model,path,provenance)"
+        }
+      ]
+    },
+    {
+      "id": "exact_removal_and_real_probe_boundary",
+      "severity": "scope",
+      "finding": "remove_component regenerates the identical declared synthetic components, subtracts normalized s0, and preserves background and scale. Its event labels remove that component and, for beating, all derived modulation labels. This differs from real spectral attenuation/sham (truth=None) and known real-excerpt parent removal, which does not label constituent physical source events. No injected-real-tone condition exists here.",
+      "evidence": [
+        {
+          "path": "src/sonar/data.py",
+          "sha256": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "line_start": 43,
+          "line_end": 52,
+          "excerpt": "        elif name=='remove_component':\n            from .synthetic import remove_component\n            if base['stratum']!='synthetic': raise ValueError('Exact component removal requires synthetic truth')\n            waveform,truth,components=generate_scene(base['seed'],base['split'],base['kind'],\n                sample_rate=base.get('sample_rate',16000),duration_s=base.get('duration_seconds',30),\n                snr_db=base.get('snr_db',10),return_components=True)\n            cid=intervention.get('component_id','s0')\n            waveform=remove_component(waveform,components,cid)\n            truth['events']=[e for e in truth['events'] if e.get('component_waveform_id')!=cid\n                             and not (base['kind']=='beating' and e.get('frequency_domain')=='modulation')]"
+        },
+        {
+          "path": "src/sonar/synthetic.py",
+          "sha256": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+          "line_start": 168,
+          "line_end": 173,
+          "excerpt": "def remove_component(waveform: torch.Tensor, components: dict[str, torch.Tensor], component_id: str):\n    \"\"\"Keep background and other components fixed; recompute all derived views.\"\"\"\n    require_cuda(waveform)\n    if component_id == \"background\" or component_id not in components:\n        raise ValueError(\"Choose a known simulated signal component\")\n    return waveform - components[component_id]"
+        },
+        {
+          "path": "src/sonar/input_interventions.py",
+          "sha256": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+          "line_start": 57,
+          "line_end": 72,
+          "excerpt": "    elif name in ['spectral_attenuation','sham_attenuation']:\n        x=localized_attenuation(x,sr,probe['band_hz'],probe['scene_local_time_s'],probe['linear_gain'])\n        truth=None\n    elif name=='remove_real_parent':\n        if base['stratum']!='semi_synthetic': raise ValueError('Parent removal requires a declared real-excerpt mixture')\n        remaining=1-int(probe['removed_parent'])\n        parent,parent_sr,_,_=load_waveform(base['parents'][remaining])\n        parent=resample(parent,parent_sr,sr)\n        offset=round(base.get('offset_seconds',0)*sr) if remaining else 0\n        output=torch.zeros_like(x)\n        # Reuse the exact original gains and common scale; do not renormalize.\n        gain=truth['gain_second'] if remaining else 1.\n        output[offset:offset+parent.numel()]=parent*gain/truth['global_scale']\n        x=output\n        truth=dict(truth,removed_parent=int(probe['removed_parent']),\n            sensitivity_truth='known excerpt removal only; internal source events remain unknown')"
+        }
+      ]
+    },
+    {
+      "id": "bandwidth_modulation_exclusion_is_scoring_rule",
+      "severity": "scope",
+      "finding": "Bandwidth loss resamples to4000Hz, archives original modulation events as unavailable, removes them from the scored event list, and sets modulation_exhaustive=false. The evaluator excludes both modulation predictions and labels without credit or penalty. This is acoustic-event scoring under reduced bandwidth, not a claim that vanished carrier modulation was recovered or rejected correctly. Original truth/manifest sample_rate_hz may still say16000; actual episode final_state.sample_rate_hz is4000 and supplies the acoustic tools/model state.",
+      "evidence": [
+        {
+          "path": "src/sonar/data.py",
+          "sha256": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "line_start": 32,
+          "line_end": 42,
+          "excerpt": "        elif name=='bandwidth_loss':\n            target=int(intervention['sample_rate'])\n            waveform=resample(waveform,sample_rate,target); sample_rate=target\n            if truth:\n                # The original carrier reference no longer denotes the same\n                # waveform bandwidth. Score acoustic structure only in this\n                # condition; separately record unavailable carrier evidence.\n                truth['unavailable_modulation_events']=[e for e in truth['events'] if e.get('frequency_domain')=='modulation']\n                truth['events']=[e for e in truth['events'] if e.get('frequency_domain')!='modulation']\n                truth['modulation_exhaustive']=False\n                truth['evaluation_scope']='acoustic events only; original carrier-defined modulation references unavailable after bandwidth loss'"
+        },
+        {
+          "path": "scripts/run_benchmark.py",
+          "sha256": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa",
+          "line_start": 123,
+          "line_end": 134,
+          "excerpt": "            with GPU_LOCK:\n                waveform,sample_rate,origin,truth=load_experimental_waveform(record)\n                if truth:\n                    saved_truth=dict(truth)\n                    if saved_truth.get('scene_id') not in [None,scene_id]:\n                        saved_truth['generator_scene_id']=saved_truth['scene_id']\n                    saved_truth['scene_id']=scene_id\n                    save_json(destination/'sealed_truth'/f'{scene_id}.json',saved_truth)\n                tools=AcousticTools(waveform,sample_rate,scene_id,offset_s=origin)\n            setup_seconds=time.time()-started\n            episode_model=wrap_display_inputs(record,model,episode_dir)\n            result=run_episode(tools,episode_model,method,episode_dir,budget=args.budget,"
+        },
+        {
+          "path": "scripts/evaluate_benchmark.py",
+          "sha256": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+          "line_start": 277,
+          "line_end": 298,
+          "excerpt": "def resolve_reference(scene, run, ai_references, ai_max_uncertainty=8.):\n    truth_path = run / \"sealed_truth\" / (scene[\"scene_id\"] + \".json\")\n    truth = read_json(truth_path) if truth_path.exists() else None\n    if scene[\"stratum\"].startswith(\"synthetic\"):\n        if not truth or \"events\" not in truth:\n            return None\n        events, invalid = validate_events(truth[\"events\"])\n        if invalid:\n            raise ValueError(f\"Invalid exact synthetic reference for {scene['scene_id']}: {invalid}\")\n        modulation_exhaustive = truth.get(\"modulation_exhaustive\", truth.get(\"kind\") in {\"am_noise\", \"beating\", \"mixed\", \"noise\", \"silence\"})\n        excluded_modulation_gold = len([e for e in events if e.get(\"frequency_domain\") == \"modulation\"])\n        if not modulation_exhaustive:\n            events = [e for e in events if e.get(\"frequency_domain\") != \"modulation\"]\n        return {\"kind\": \"exact_synthetic_component_truth\", \"events\": events,\n                \"valid_for_primary\": True, \"reference_status\": \"exact\",\n                \"modulation_exhaustive\": modulation_exhaustive,\n                \"modulation_evaluation_scope\": truth.get(\"modulation_evaluation_scope\", \"Frozen pre-test evaluator scope: modulation is exhaustive only in am_noise, beating, mixed, noise and silence.\"),\n                \"excluded_modulation_gold\": excluded_modulation_gold if not modulation_exhaustive else 0,\n                \"independently_exhaustive\": True, \"physical_real_world_truth\": False,\n                \"path\": str(truth_path), \"sha256\": digest(truth_path), \"invalid_reference_events\": []}\n    reference = ai_references.get(scene[\"scene_id\"])\n    if reference is None:"
+        },
+        {
+          "path": "scripts/evaluate_benchmark.py",
+          "sha256": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+          "line_start": 340,
+          "line_end": 355,
+          "excerpt": "def score_scope(predictions, invalid, report, reference):\n    def in_scope(event):\n        if not event_in_reference_scope(event, reference):\n            return False\n        return reference.get(\"modulation_exhaustive\", True) or not isinstance(event, dict) or (\n            event.get(\"frequency_domain\") != \"modulation\" and event.get(\"type\") != \"modulation\")\n    retained = [e for e in predictions if in_scope(e)]\n    retained_invalid = []\n    components = report.get(\"components\", []) if isinstance(report, dict) else []\n    for entry in invalid:\n        index = entry.get(\"index\")\n        original = components[index] if isinstance(components, list) and index is not None and index < len(components) else None\n        if not in_scope(original):\n            continue\n        retained_invalid.append(entry)\n    return retained, retained_invalid, len(predictions) + len(invalid) - len(retained) - len(retained_invalid)"
+        }
+      ]
+    },
+    {
+      "id": "stale_scope_prose_in_immutable_records",
+      "severity": "metadata_defect_no_demonstrated_score_corruption",
+      "finding": "Inherited modulation_evaluation_scope text is not refreshed by blank or bandwidth_loss. Consequently tones blank has true exhaustive scoring and zero events while its saved scoring_scope.rule says modulation is excluded; AM bandwidth loss has false exhaustive scoring and no modulation labels while its rule says modulation is required. The boolean and actual scoped events drive score_scope; these descriptive strings and inherited sample rate do not. Preserve original records and explain the authoritative fields rather than silently editing frozen exports.",
+      "evidence_section": "/mechanism_examples",
+      "scientific_scoring_change_required": false
+    },
+    {
+      "id": "empty_gold_f1_is_not_negative_control_success",
+      "severity": "presentation_caution",
+      "finding": "The frozen metric stores F1=0 and precision/recall=null for an empty report against zero required events. The saved tones-blank, removed-chirp, removed-AM, and bandwidth-limited-AM examples demonstrate this. Figure8 at the inspected source version substitutes schema-valid empty fraction only for blank; other zero-required-event nonblank cells can therefore be0 despite correct absence reports. Do not call all zero cells detection failures or compare blank valid-empty values as ordinary F1. Any later presentation annotation should preserve the saved metric and distinguish no-positive-reference cases.",
+      "evidence": [
+        {
+          "path": "src/sonar/metrics.py",
+          "sha256": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+          "line_start": 10,
+          "line_end": 17,
+          "excerpt": "\n\ndef _prf(counts: torch.Tensor) -> torch.Tensor:\n    tp, fp, fn = counts.unbind(-1)\n    precision = torch.where(tp + fp > 0, tp / (tp + fp), torch.full_like(tp, float(\"nan\")))\n    recall = torch.where(tp + fn > 0, tp / (tp + fn), torch.full_like(tp, float(\"nan\")))\n    f1 = torch.where(2 * tp + fp + fn > 0, 2 * tp / (2 * tp + fp + fn), torch.zeros_like(tp))\n    return torch.stack((precision, recall, f1), dim=-1)"
+        },
+        {
+          "path": "scripts/make_figures.py",
+          "sha256": "46887b054c221af3bf749cbdb5a5dd506add167222eccb7c8587eeebf97327ab",
+          "line_start": 920,
+          "line_end": 946,
+          "excerpt": "        conditions = sorted({condition(by_id[r[\"scene_id\"]]) for r in eligible})\n        condition_labels = [\"blank: valid empty report\" if name == \"blank\" else name for name in conditions]\n        kinds = sorted({by_id[r[\"scene_id\"]][\"base_record\"][\"kind\"] for r in eligible})\n        fig, panels = plt.subplots(2, len(methods), figsize=(max(5, 4 * len(methods)), 6.6), squeeze=False, constrained_layout=True)\n        axes=list(panels[0])\n        payload = {\"conditions\": conditions, \"synthetic_kinds\": kinds, \"methods\": {},\n                   \"cell_metric\": {name: \"fraction_schema_valid_empty_reports\" if name == \"blank\" else \"micro_event_f1\" for name in conditions}}\n        for axis, method in zip(axes, methods):\n            matrix = torch.full((len(conditions), len(kinds)), float(\"nan\"), device=\"cuda\")\n            cell_counts = torch.zeros_like(matrix, dtype=torch.long)\n            for i, name in enumerate(conditions):\n                for j, kind in enumerate(kinds):\n                    selected = [r for r in eligible if r[\"method\"] == method and condition(by_id[r[\"scene_id\"]]) == name\n                                and by_id[r[\"scene_id\"]][\"base_record\"][\"kind\"] == kind]\n                    if selected:\n                        if name == \"blank\":\n                            matrix[i, j] = tensor([not r[\"schema_failed\"] and r[\"reported_component_count\"] == 0 for r in selected]).mean()\n                        else:\n                            matrix[i, j] = aggregate_event_metrics([r[\"event_metrics\"] for r in selected])[\"f1\"]\n                        cell_counts[i, j] = len(selected)\n            mesh = axis.imshow(matrix.cpu().numpy(), vmin=0, vmax=1, cmap=\"viridis\", aspect=\"auto\")\n            axis.set(yticks=list(range(len(conditions))), yticklabels=condition_labels,\n                     xticks=list(range(len(kinds))), xticklabels=kinds, title=method)\n            axis.tick_params(axis=\"x\", rotation=45)\n            payload[\"methods\"][method] = {\"f1\": [[v.item() if bool(torch.isfinite(v)) else None for v in row] for row in matrix],\n                                          \"episodes\": cell_counts.tolist()}\n        fig.colorbar(mesh, ax=axes, shrink=.75, label=\"Event F1; blank row: valid empty fraction\")"
+        }
+      ],
+      "condition_aggregate_computed_by_audit": false
+    },
+    {
+      "id": "noise_gain_and_style_semantics",
+      "severity": "scope",
+      "finding": "The added-noise parameter is original already-noisy waveform RMS relative to new noise RMS, not achieved clean-signal SNR. Gain0.5 scales the whole waveform, including background. Plot style leaves waveform/truth intact and selects viridis rendering instead of the default magma. These probes do not annotate additional incidental stochastic structure as new signal sources.",
+      "evidence": [
+        {
+          "path": "src/sonar/data.py",
+          "sha256": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "line_start": 24,
+          "line_end": 31,
+          "excerpt": "        if name=='gain':\n            waveform=waveform*float(intervention['linear_gain'])\n        elif name=='added_noise':\n            generator=torch.Generator(device=device).manual_seed(intervention['seed'])\n            noise=torch.randn(waveform.shape,device=device,generator=generator)\n            noise=noise/noise.square().mean().sqrt().clamp_min(1e-12)\n            scale=waveform.square().mean().sqrt()*10**(-intervention['nominal_ratio_db']/20)\n            waveform=waveform+scale*noise"
+        },
+        {
+          "path": "src/sonar/data.py",
+          "sha256": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+          "line_start": 56,
+          "line_end": 57,
+          "excerpt": "        elif name=='plot_style':\n            pass  # Only final rendering changes; waveform and truth stay intact."
+        },
+        {
+          "path": "scripts/run_benchmark.py",
+          "sha256": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa",
+          "line_start": 132,
+          "line_end": 134,
+          "excerpt": "            setup_seconds=time.time()-started\n            episode_model=wrap_display_inputs(record,model,episode_dir)\n            result=run_episode(tools,episode_model,method,episode_dir,budget=args.budget,"
+        }
+      ]
+    },
+    {
+      "id": "raw_filter_and_negative_control_limits",
+      "severity": "interpretation",
+      "finding": "Pooled raw and final metrics are descriptive saved outputs. Their difference combines semantic schema rejection and component verification, and is not a separately randomized no-verifier treatment. Blank success requires schema-valid empty output; a rejected malformed report that happens to become empty is not a valid negative-control success. Final abstention can be imposed by verification, rather than chosen by the model. Optional beat harmonics and other declared modulation exclusions retain the frozen scope.",
+      "evidence": [
+        {
+          "path": "results/robustness/evaluation/summary.json",
+          "sha256": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+          "json_pointer": "/matching",
+          "value": {
+            "algorithm": "greedy_descending_quality_one_to_one",
+            "time_iou": 0.3,
+            "box_iou": 0.3,
+            "exact_synthetic_minimum_frequency_tolerance_hz": 2.0,
+            "ai_reference_minimum_frequency_tolerance_hz": 4.0,
+            "maximum_uncalibrated_ai_reference_frequency_uncertainty_hz": 8.0,
+            "AI_reference_eligibility": "Per-record eligible morphology/domain scopes filter both predictions and gold. Unqualified types receive neither credit nor penalty; empty scope produces unavailable metrics and cannot select a primary comparator.",
+            "ridge_tolerance": "max(minimum tolerance, 2Hz from the shared 1Hz assessment grid, reference frequency uncertainty); model-declared bins cannot relax acceptance",
+            "optional_synthetic_events": "Known optional beat-envelope harmonics give neither TP credit nor FP/FN penalty.",
+            "modulation_scope": "Synthetic modulation is scored only for am_noise, beating, mixed, noise and silence. For truth.modulation_exhaustive=false, modulation predictions and references are excluded without credit or penalty.",
+            "time_uncertainty": "Temporal IoU rule is fixed; stated boundary uncertainty is retained in annotations, not silently used to enlarge boxes."
+          }
+        },
+        {
+          "path": "scripts/evaluate_benchmark.py",
+          "sha256": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+          "line_start": 366,
+          "line_end": 380,
+          "excerpt": "    predicted, invalid, schema = report_events(report)\n    raw_predicted, raw_invalid, raw_schema = report_events(raw)\n    report_schema_failed = not (schema and raw_schema and episode.get(\"schema_valid\", raw_schema))\n    actions = episode.get(\"actions\", [])\n    row = {\n        \"scene_id\": scene[\"scene_id\"], \"method\": method,\n        \"stratum\": scene[\"stratum\"], \"domain\": domain_name(scene),\n        \"independent_group\": cluster, \"execution_status\": status,\n        \"episode_path\": str(episode_path) if episode else None,\n        \"episode_sha256\": digest(episode_path) if episode else None,\n        \"failure\": failure, \"schema_failed\": report_schema_failed,\n        \"reported_component_count\": len(predicted) + len(invalid),\n        \"valid_component_count\": len(predicted), \"invalid_components\": invalid,\n        \"raw_valid_component_count\": len(raw_predicted), \"raw_invalid_components\": raw_invalid,\n        \"empty_report\": not bool(predicted),"
+        },
+        {
+          "path": "scripts/make_figures.py",
+          "sha256": "46887b054c221af3bf749cbdb5a5dd506add167222eccb7c8587eeebf97327ab",
+          "line_start": 934,
+          "line_end": 938,
+          "excerpt": "                    if selected:\n                        if name == \"blank\":\n                            matrix[i, j] = tensor([not r[\"schema_failed\"] and r[\"reported_component_count\"] == 0 for r in selected]).mean()\n                        else:\n                            matrix[i, j] = aggregate_event_metrics([r[\"event_metrics\"] for r in selected])[\"f1\"]"
+        }
+      ]
+    },
+    {
+      "id": "cost_and_hypothesis_limits",
+      "severity": "interpretation",
+      "finding": "Saved CUDA spans remain incomplete and equal-share batch accounting, not isolated latency, GPU occupancy, or marginal intervention cost. Use the additive timing audit correction: verifier is protected by GPU_LOCK but untimed. No validation-selected fixed comparator or eligible real reference becomes available from these synthetic probes; no paired significance claim follows from the displayed marginal intervals.",
+      "evidence_section": "/pooled_saved_values"
+    }
+  ],
+  "pending_condition_fields": {
+    "status": "awaiting queued CUDA Figure8 export",
+    "not_yet_available_in_transferred_common_summary": [
+      "condition-by-kind-by-method eventF1 matrix",
+      "blank schema-valid-empty condition values",
+      "per-cell sampled counts and no-positive-reference interpretation",
+      "real-mixture overlap/level matrix with unavailable-reference cells"
+    ],
+    "source": {
+      "path": "scripts/make_figures.py",
+      "sha256": "46887b054c221af3bf749cbdb5a5dd506add167222eccb7c8587eeebf97327ab",
+      "line_start": 905,
+      "line_end": 978,
+      "excerpt": "        self.use_source(self.phase(\"robustness\") / \"run.json\")\n        self.use_source(self.root / run[\"manifest\"])\n        manifest = read_jsonl(self.root / run[\"manifest\"])\n        by_id = {r[\"scene_id\"]: r for r in manifest}\n        eligible = [r for r in rows if r.get(\"event_metrics\") is not None and r.get(\"reference_valid_for_primary\")]\n        if not eligible:\n            raise UnavailableFigure(\"No scored controlled robustness episodes\")\n        methods = sorted({r[\"method\"] for r in eligible}, key=lambda m: (m != \"F\", m))\n        def condition(record):\n            intervention = record[\"intervention\"]\n            if intervention[\"name\"] == \"added_noise\":\n                return \"noise \" + str(intervention[\"nominal_ratio_db\"]) + \" dB\"\n            if intervention[\"name\"] == \"gain\":\n                return \"gain \u00d7\" + str(intervention[\"linear_gain\"])\n            return intervention[\"name\"].replace(\"_\", \" \")\n        conditions = sorted({condition(by_id[r[\"scene_id\"]]) for r in eligible})\n        condition_labels = [\"blank: valid empty report\" if name == \"blank\" else name for name in conditions]\n        kinds = sorted({by_id[r[\"scene_id\"]][\"base_record\"][\"kind\"] for r in eligible})\n        fig, panels = plt.subplots(2, len(methods), figsize=(max(5, 4 * len(methods)), 6.6), squeeze=False, constrained_layout=True)\n        axes=list(panels[0])\n        payload = {\"conditions\": conditions, \"synthetic_kinds\": kinds, \"methods\": {},\n                   \"cell_metric\": {name: \"fraction_schema_valid_empty_reports\" if name == \"blank\" else \"micro_event_f1\" for name in conditions}}\n        for axis, method in zip(axes, methods):\n            matrix = torch.full((len(conditions), len(kinds)), float(\"nan\"), device=\"cuda\")\n            cell_counts = torch.zeros_like(matrix, dtype=torch.long)\n            for i, name in enumerate(conditions):\n                for j, kind in enumerate(kinds):\n                    selected = [r for r in eligible if r[\"method\"] == method and condition(by_id[r[\"scene_id\"]]) == name\n                                and by_id[r[\"scene_id\"]][\"base_record\"][\"kind\"] == kind]\n                    if selected:\n                        if name == \"blank\":\n                            matrix[i, j] = tensor([not r[\"schema_failed\"] and r[\"reported_component_count\"] == 0 for r in selected]).mean()\n                        else:\n                            matrix[i, j] = aggregate_event_metrics([r[\"event_metrics\"] for r in selected])[\"f1\"]\n                        cell_counts[i, j] = len(selected)\n            mesh = axis.imshow(matrix.cpu().numpy(), vmin=0, vmax=1, cmap=\"viridis\", aspect=\"auto\")\n            axis.set(yticks=list(range(len(conditions))), yticklabels=condition_labels,\n                     xticks=list(range(len(kinds))), xticklabels=kinds, title=method)\n            axis.tick_params(axis=\"x\", rotation=45)\n            payload[\"methods\"][method] = {\"f1\": [[v.item() if bool(torch.isfinite(v)) else None for v in row] for row in matrix],\n                                          \"episodes\": cell_counts.tolist()}\n        fig.colorbar(mesh, ax=axes, shrink=.75, label=\"Event F1; blank row: valid empty fraction\")\n        mixture_records={r['scene_id']:r for r in self.records if r['stratum']=='semi_synthetic'}\n        mixture_rows=[r for r in self.rows('main') if r['scene_id'] in mixture_records]\n        fractions=[0.,.25,.5,.75,1.];levels=[-10,0,10]\n        payload['real_excerpt_mixtures']={'overlap_fraction':fractions,'first_to_second_RMS_power_ratio_db':levels,'methods':{},\n            'meaning':'AI-reference agreement for mixtures of real excerpts, not source-separation accuracy. Sparse cells have different parents; no factorial interaction inference.'}\n        for axis,method in zip(panels[1],methods):\n            matrix=torch.full((len(fractions),len(levels)),float('nan'),device='cuda')\n            counts=torch.zeros_like(matrix,dtype=torch.long)\n            admitted=torch.zeros_like(matrix,dtype=torch.long)\n            for i,fraction in enumerate(fractions):\n                for j,level in enumerate(levels):\n                    selected=[r for r in mixture_rows if r['method']==method and\n                        mixture_records[r['scene_id']].get('nominal_overlap_fraction')==fraction and\n                        mixture_records[r['scene_id']]['ratio_db']==level]\n                    counts[i,j]=len(selected)\n                    scored=[r for r in selected if r.get('reference_valid_for_primary') and r.get('event_metrics') is not None]\n                    admitted[i,j]=len(scored)\n                    if scored:matrix[i,j]=aggregate_event_metrics([r['event_metrics'] for r in scored])['f1']\n            cmap=plt.get_cmap('viridis').copy();cmap.set_bad('#e5e7eb')\n            mixture_mesh=axis.imshow(matrix.cpu().numpy(),vmin=0,vmax=1,cmap=cmap,aspect='auto')\n            for i in range(len(fractions)):\n                for j in range(len(levels)):\n                    label=f'{matrix[i,j].item():.2f}' if bool(torch.isfinite(matrix[i,j])) else ('no reference' if counts[i,j] else 'not sampled')\n                    axis.text(j,i,label,ha='center',va='center',fontsize=6,color='black')\n            axis.set(yticks=list(range(len(fractions))),yticklabels=['0%','25%','50%','75%','100%'],\n                xticks=list(range(len(levels))),xticklabels=levels,xlabel='First/second excerpt power ratio (dB)',\n                ylabel='Temporal overlap',title=f'{method} \u00b7 real-excerpt mixtures')\n            payload['real_excerpt_mixtures']['methods'][method]={'event_agreement_f1':[[v.item() if bool(torch.isfinite(v)) else None for v in row] for row in matrix],\n                'sampled_episodes':counts.tolist(),'scorable_episodes':admitted.tolist()}\n        fig.colorbar(mixture_mesh,ax=list(panels[1]),shrink=.75,label='AI-reference event agreement F1')\n        fig.suptitle(\"Controlled sensitivity: exact synthetic truth and real-excerpt mixtures\", fontsize=10)\n        self.save(8, fig, payload, \"Top: exact scoped synthetic outcomes; blank-input cells show the fraction of schema-valid empty reports. Bottom: the separately labelled sparse overlap/level grid of real-excerpt mixtures, scored only against admitted AI references. Unsampled and unavailable-reference cells are explicit. Different cells can have different parents; this is not a replicated factorial interaction analysis.\")"
+    },
+    "not_computed_on_CPU": true,
+    "prohibition": "Do not sum, average, rescore, or infer condition trends from per-episode rows on CPU. This audit shows individual recorded examples only."
+  },
+  "timing_audit_correction": {
+    "path": "reports/main_timing_audit_correction.json",
+    "sha256": "6f2a590fa804498b9eb310cfb2e0963e9e650b489eddaefb5ce2173b398c7059"
+  },
+  "frozen_source_integrity": {
+    "path": "configs/final_protocol_freeze.json",
+    "sha256": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a",
+    "entries_checked": 56,
+    "mismatches": [],
+    "run_behavior_hashes_equal_main": true
+  },
+  "scientific_sources_or_outputs_modified": false,
+  "gpu_operations": false,
+  "remote_writes": false,
+  "manuscript_edits": false,
+  "conservative_conclusion": "The completed robustness run is a small synthetic, six-base repeated-condition control study. Its pooled scores and execution diagnostics are available, but condition conclusions await CUDA exports. Exact removal, silence, reduced-bandwidth scope and image-only mismatch have different meanings; stale descriptive metadata and empty-goldF1 conventions must not be turned into accuracy claims.",
+  "saved_value_pointer_checks": {
+    "resolved_and_equal": 210,
+    "failures": []
+  },
+  "source_sha256": {
+    "configs/ai_annotations.json": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+    "configs/ai_annotations_internvl8b_pilot.json": "781eec16e1fa341779ef15128e9e07a5e05e5701002d84e5a80e555a9660cf56",
+    "configs/ai_annotations_pilot_v2.json": "4a18a45beff366555689904e53041e20d7983e1c24b5816ab2a580de9e342f41",
+    "configs/ai_reference_eligibility.json": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e",
+    "configs/ai_reference_eligibility_v1.json": "1c041d2e09b386bef0121d565947524ac22c11311441ca814420051755819684",
+    "configs/ai_reference_eligibility_v2.json": "e2c41458456c8a52bd86a0fc1a3a3f12f4c8a5a5dc2b1070e34c67e199d57ccc",
+    "configs/ai_reference_execution.json": "894d2c4fc3ea826a32f88cf350cabd2ec6878c5f755d5eaf207fb9f0eda654f2",
+    "configs/ai_reference_execution_pre_smoke.json": "1ce1a18049dc3d435ffbdf23aad94f7d7780381de2f197ad97fa1f4c75be9f97",
+    "configs/ai_reference_freeze.json": "09771ec4332e82764bfe52fdbdc9b07ae2774d3c8a90213437829219f2173fcb",
+    "configs/execution.json": "fc8172b8eef02eec166355385e1c63e39b6907f30b4628d02a5eab033655ddb5",
+    "configs/final_protocol_freeze.json": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a",
+    "configs/protocol_amendments.json": "fe5ade8afa7ee03f676a803411f206a79e7ceb745d8235228619464c80758be9",
+    "configs/structured_decoding_protocol.json": "fe3a7f8ebc9b5963f64292b940807b6c0b8a35474b92494835c126d220c396d3",
+    "data/manifests/ablation_test.jsonl": "13098d48c3937954f99811e0388e2bd94e4c5d59f92538ac48f78e524a6c133e",
+    "data/manifests/annotation_controls.jsonl": "04d4d969f75c1bba771810318144528005a6c1ecea60551f5b76db54a067cc4e",
+    "data/manifests/budget_test.jsonl": "e9318a61593a607b05a0ef064c6f637dd03b00404cdf7362a4a60b3f428d7917",
+    "data/manifests/deepship_sources.jsonl": "84f89bc03ab139c4c2a4ad3b5f9885058ac20dc7ce3e1caef8dffcc01ff2a9f2",
+    "data/manifests/development.jsonl": "0335d97df1019d5c70fbc33f5cfc5d156489b6d9dfac41f094269972e0eca5cc",
+    "data/manifests/main_test.jsonl": "3c0d0527a0aec2fcff1b2197bbcec7a30693c4f19c06b3ba0f2657f4e4128bc2",
+    "data/manifests/mixture_scenes.jsonl": "5dffd0abaa77d8a2413dd30f56877cf746a7b88199a289150975bcc85e0e4461",
+    "data/manifests/pilot.jsonl": "b06de95733a55f9b7bb56599e2d0d5c6e8e8b2cec945d32851363cf8772bf080",
+    "data/manifests/qiandao_short_windows.jsonl": "fbd47b1542ef885d961fb713adbb9b25ba488836f6bb4695e2f86d60917582e9",
+    "data/manifests/real_scenes.jsonl": "611c242772f0225a024bc93e686681b2313b7ec500359103aeb748e0649e2bad",
+    "data/manifests/robustness_test.jsonl": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+    "data/manifests/sensitivity_test.jsonl": "9d5a84a4d3bc9af1ae47255e398edfd8a7bf660bd09637d7cd2a494fda5cb692",
+    "data/manifests/sources.jsonl": "4f6e02be5c5a477f66edd43b5f7199f70c77b5ca330f66e8f329aa2cf3468079",
+    "data/manifests/synthetic_scenes.jsonl": "466a197e1cc1c7aa0c96511c6fb8f45726729fc656cf70329cdfab15bf6044a5",
+    "reports/main_timing_audit_correction.json": "6f2a590fa804498b9eb310cfb2e0963e9e650b489eddaefb5ce2173b398c7059",
+    "reports/model_revision.json": "811fbe369a14e24dfa600e383923a724c414a117d1de2d665ae6e9eecb726152",
+    "reports/robustness_transfer_receipt.json": "1462d12313118f199d15b21ee8c94e95b04ee4856616c9fd559886445c3232c8",
+    "requirements.gpu.txt": "26bd52b241ce01f29a59d3d3e10ae11206e5cca010d088fe0ca65f1f0f0107ae",
+    "results/main/run.json": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+    "results/robustness/COMPLETED.json": "0adfec56f82caf96127774a1f3e01de9107cc1f7af1a719e0f1f988aa829a4a5",
+    "results/robustness/evaluation/per_episode.jsonl": "23697bdcf66d20d149b4f38b9cca051283b2164c1ddc126a6e1d57451a9a4a7a",
+    "results/robustness/evaluation/summary.json": "b181150e2793dd0709b689160b8c081819e6bfc0fa502a400b2e60de88da24fd",
+    "results/robustness/int_13161dca96906ae0/F/episode.json": "e6516a39b978cecb5d1636a85846e4d049fdeba6ae69284b5e402ecc2daa2c3a",
+    "results/robustness/int_13161dca96906ae0/G4/episode.json": "785dcfacd2ba264bdbb70d2a036555e008955160824f203be07c3c21e4f094a5",
+    "results/robustness/int_412560705ed4b28f/F/episode.json": "abf5ed24c9fc01229eaff4db420e3516a45c75ed1a87a2073c8d6cc683e8cd2f",
+    "results/robustness/int_412560705ed4b28f/G4/episode.json": "59e3121453c75641f78937759e74073a9193562faa70fe016274991751ffa316",
+    "results/robustness/int_5f703894f3458157/F/episode.json": "bc981723e939c546f6b62d9212a4cafe3c9d65247877711c7d0c97323c13f125",
+    "results/robustness/int_5f703894f3458157/G4/episode.json": "538d4f963e494c936e962e5a20cbce485182e1ad7b9dcde684ee9e2eea2fbfd9",
+    "results/robustness/int_c0559ed9eb6e76a6/F/episode.json": "a350ebedcb13adff2a2f8e6e088e90ec445d4e8e9fe5e24e4b1d0df1737d208a",
+    "results/robustness/int_c0559ed9eb6e76a6/G4/episode.json": "4a465632bea962e8d706fc8ae88bc9f1de15785f69be2f92ceaafa7d551722c7",
+    "results/robustness/int_d81a72a160f62327/F/episode.json": "918d02d123205c8a271ef3df52980c84b17c74b1497e339d0ea0c1e8daf35240",
+    "results/robustness/int_d81a72a160f62327/G4/episode.json": "7ec08be13af4fe307faf4237c63e9650536ede0302ffbd9aadba901bc54181c6",
+    "results/robustness/int_ddd9846390161f67/F/episode.json": "cf34429e9cf993471b85fc8ae478aab2a2cbf11fd52d2380d192910c7f80f1f3",
+    "results/robustness/int_ddd9846390161f67/G4/episode.json": "efd3717471bc0c96d616c4225f1b32c20c1adada1c753c74fb9ddeefc614dfaa",
+    "results/robustness/int_f2492030f35ac8d7/F/episode.json": "d34655b0596f99d3e89863cc57dccb58f4bcb8abb7a94c58c57a2fd5412e2f68",
+    "results/robustness/int_f2492030f35ac8d7/G4/episode.json": "f6662a4049aa5b4d3f4b847f78c1580e38326924f4b61696da870b8051631b6a",
+    "results/robustness/run.json": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+    "results/robustness/sealed_truth/int_13161dca96906ae0.json": "d19cf2cc18a4f55240dfc13b9e949aac8713a1a35355d84888a50ec50adb6097",
+    "results/robustness/sealed_truth/int_412560705ed4b28f.json": "73f7c871008fff113c647e64e49b9c3c771da61f9dfc2462aa75f78c8f37a44e",
+    "results/robustness/sealed_truth/int_5f703894f3458157.json": "27afbb9991f05a39d3759f9f217c88ef3e2b462fd82080c2c206ef3234690a47",
+    "results/robustness/sealed_truth/int_c0559ed9eb6e76a6.json": "49a3131106a68754e861e365d89327f623d0eca204958528c49fdb5096fb2f31",
+    "results/robustness/sealed_truth/int_d81a72a160f62327.json": "61d43f6a1c380c16b7ffa812b4f88729aea621ab61c3acd01842504939e534ed",
+    "results/robustness/sealed_truth/int_ddd9846390161f67.json": "28b113a2269c2bcff7831db29fd7e1592a9ab2475421c9d096c24000fba2778d",
+    "results/robustness/sealed_truth/int_f2492030f35ac8d7.json": "051aa595ea87a899ef52ab0779274d3a1a84a371661f154e6422ab6c71a577b8",
+    "scripts/build_diagnostic_references.py": "bb0c53a9ddf89facf36a2bb579b057e5053d557ff18cb3c15c982e8e18d04db6",
+    "scripts/compose_ablations.py": "4e07f3d585b414551c1353213bb1d15cf8ff456271438d67608202881674151c",
+    "scripts/evaluate_benchmark.py": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+    "scripts/evaluate_sensitivity.py": "56c83e195f75a4d920ff2819f1833f1a3a540d337c9bfe6e19320937e8b1f21e",
+    "scripts/freeze_manifests.py": "4de1ebf245430d807a4ae879dbccd8cca2bcc0d05bb38d4d58c96adf27ab3f11",
+    "scripts/freeze_mechanism_tests.py": "506370170dc877fb66be0ebd45e50e8387a7ff815d9a00b1c903f5d3ee925945",
+    "scripts/make_figures.py": "46887b054c221af3bf749cbdb5a5dd506add167222eccb7c8587eeebf97327ab",
+    "scripts/run_benchmark.py": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa",
+    "scripts/run_study_phases.py": "47ab6eb7999a0e0e5264a6f0ec8dde9473b82ca7d92a8fb01bc293a74f861b25",
+    "scripts/train_localization.py": "ebdaa7d770b45718562cf5095242a9b7a312b746e71999ed13ce2e9625d5f324",
+    "scripts/train_perception.py": "52715f9410929908240b0f9c54f248ddde3cd6585b43659bcaac13a49a35c372",
+    "src/sonar/annotation_batching.py": "070ada4977d96f1943b33ec8af8f4b6291653db4eb9b8d1c901fe490f62e8acb",
+    "src/sonar/annotators.py": "a13a9e7e90b206f2771943265be1d7c8b4c1b5040e877da646504e2f9bff5f00",
+    "src/sonar/batching.py": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+    "src/sonar/constrained_decoding.py": "15074e838f2778dd36e58959a21f9d309db96251988e0b2dc2c6c8ad182c9191",
+    "src/sonar/controller.py": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+    "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+    "src/sonar/evidence.py": "5e762a3b2609df44de831be117b54b5df4fce1d2e4b2c1a230d18cc2e8189f93",
+    "src/sonar/input_interventions.py": "429f80d9aab0251d3d24ddfb72cae066b0353590e2f02821cfc496b7f5a188bc",
+    "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+    "src/sonar/localization.py": "0c5303148f0dcfc123127f4fe043424d54beacabf145a75a0303f34ef91e0ef8",
+    "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+    "src/sonar/perception.py": "ad3389c74992513f17080233e1e7a80af2c0663fbc6c92e8ae55b83d0e880f7d",
+    "src/sonar/prompting.py": "7f6111893a9acef5cffebc8bd772b51484c42e3feb8061b9ab6f350739ad89c5",
+    "src/sonar/reference_protocol.py": "d32c8a034f344435c62853cdec7101fc2711ea3c811585ec5ab05e945639c3b5",
+    "src/sonar/rendering.py": "652f04bcc941d4906f898519253679b6566ba48f71ad2be9d8b31e7c54a81c6f",
+    "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+    "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+    "src/sonar/vlm.py": "a05c76c34b4ae4dc11c810c8de9aad9cc84ff4e1a4526eff4842659d6b38b7ca"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "status": "additive_correction",
+  "created_at_utc": "2026-11-17T17:55:07.480504+00:00",
+  "corrected_prior_audit": {
+    "path": "reports/main_results_interpretation_audit.json",
+    "sha256": "a5f2c5999a6f61745170e34cf849c03016106e795974b8e5d30abdf991631b18",
+    "json_pointer": "/findings/8",
+    "finding_id": "timing_incomplete_and_schedule_specific",
+    "original_conclusion_preserved": "Recorded CUDA spans are amortized equally within mixed request batches; worker wall times include queue/lock waits and are not serial latency or additive billed runtime. CUDA verify_report executes after generation without its own CUDA timer or GPU_LOCK, so it may overlap a later recorded batch span. Overview+model+action spans are not complete or exclusive GPU-compute accounting. No demonstrated score corruption follows from this observation. Host VLM resizing/normalization is an explicitly documented execution-scope deviation, unchanged after freeze."
+  },
+  "withdrawn_claims": [
+    "verify_report lacks GPU_LOCK",
+    "Verifier work may overlap a later locked model batch because the verifier is unlocked",
+    "Nonexclusive CUDA accounting attributed to that alleged verifier overlap"
+  ],
+  "reason": "The earlier audit read the verification implementation and caller but omitted the verify_report wrapper at lines160\u2013162, which already acquires the shared GPU_LOCK. This was an audit interpretation error, not a changed experiment or post-freeze software repair.",
+  "source_identity_bindings": {
+    "configs/final_protocol_freeze.json": {
+      "file_sha256": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a",
+      "json_pointer": "/sha256/src~1sonar~1controller.py",
+      "recorded_controller_sha256": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5"
+    },
+    "results/main/run.json": {
+      "file_sha256": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+      "json_pointer": "/source_sha256/src~1sonar~1controller.py",
+      "recorded_controller_sha256": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5"
+    },
+    "results/ablation_inference/run.json": {
+      "file_sha256": "5800a078536cd3d960b5226c3d1b2b6056261b112cd8d9d4469b552a54374c25",
+      "json_pointer": "/source_sha256/src~1sonar~1controller.py",
+      "recorded_controller_sha256": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5"
+    },
+    "results/ablation_inference_capped/run.json": {
+      "file_sha256": "61da4be864504386561fb8beb6c8b37ff1cb794a5379ede5e7ab6899d135edf3",
+      "json_pointer": "/source_sha256/src~1sonar~1controller.py",
+      "recorded_controller_sha256": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5"
+    }
+  },
+  "corrected_accounting": "Verification is protected by the same GPU_LOCK as batched generation and acoustic tools. No dedicated verification CUDA timer is recorded. Logged overview, generation and action spans omit verification and other untimed work; generation spans are divided equally among batch requests. These values are incomplete, schedule-specific accounting, not independently measured per-method serial latency, GPU occupancy, marginal cost or additive billed runtime.",
+  "other_nonexclusive_mechanism_review": {
+    "status": "No concrete alternative source mechanism established for overlapping measured CUDA spans in the frozen batched main/capped runs. Do not retain nonexclusive-span wording without new evidence.",
+    "checked_paths": [
+      "src/sonar/batching.py",
+      "src/sonar/controller.py",
+      "src/sonar/rendering.py",
+      "scripts/run_benchmark.py"
+    ],
+    "retained_distinctions": [
+      "Multiple requests share each model batch event span through equal allocation; allocation is not isolated per-request cost.",
+      "Host rendering and episode queue/lock waits can overlap other work, so summed worker wall durations are not elapsed runtime.",
+      "Waveform/setup, CUDA display transforms, model input transfer/post-generation counting and report verification are not all covered by the three recorded CUDA fields."
+    ]
+  },
+  "source_evidence": [
+    {
+      "path": "src/sonar/controller.py",
+      "sha256": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+      "first_line": 160,
+      "last_line": 175,
+      "text": "def verify_report(report, state):\n    with GPU_LOCK:\n        return _verify_report(report,state)\n\n\ndef _verify_report(report, state):\n    \"\"\"Internal consistency only; NOT independent supported-claim correctness.\n\n    A component must cite an existing detector measurement and agree with a\n    cited component's numeric range, domain, and carrier band. Unsupported\n    source claims are withheld. The unmodified original is always retained.\n    \"\"\"\n    schema_errors=report_schema_errors(report)\n    if schema_errors:\n        return {'components':[], 'relations':[], 'claims':[], 'abstained':True,\n                'unresolved_questions':['Model generation did not satisfy the report schema.']}, [{'status':'schema_invalid','errors':schema_errors}]"
+    },
+    {
+      "path": "src/sonar/controller.py",
+      "sha256": "3db6fea3a6023ec00ca88ee43c07bd0442d327ccaa72d24c75de246ef8638fc5",
+      "first_line": 320,
+      "last_line": 366,
+      "text": "        with GPU_LOCK:\n            tool_start = torch.cuda.Event(enable_timing=True)\n            tool_end = torch.cuda.Event(enable_timing=True)\n            tool_start.record()\n            try:\n                returned = tools.execute(action)\n                status = 'completed' if returned.get('status') not in ['error','unavailable'] else returned['status']\n            except (ValueError,KeyError,TypeError,RuntimeError) as error:\n                returned = {'error':str(error)}\n                status = 'failed'\n            tool_end.record(); torch.cuda.synchronize()\n        action_logs.append({'step':step,'action':action,'reason':reason,'status':status,\n                            'gpu_seconds':tool_start.elapsed_time(tool_end)/1000,'result':returned})\n        for evidence_id in tools.latest_views.keys()-known_views:\n            view = tools.latest_views[evidence_id]\n            if view is not None:\n                image_paths.append(render_view(view,output/f'action_{step}_{evidence_id}.png',f'{action[\"name\"]}: {evidence_id}',cmap=render_cmap))\n        state = tools.report_state()\n        state=restricted_state(state,method)\n        if action['name']=='finalize_or_abstain':\n            break\n    prompt = OBSERVATION_RULES+'\\n'+REPORT_SCHEMA+'\\n'\n    prompt += json.dumps(compact_state(state, quantitative, graph),separators=(',',':'))\n    generated = model.generate(prompt, image_paths[:2] + image_paths[-1:] if len(image_paths)>2 else image_paths,\n                               max_report_tokens,json_schema=report_json_schema())\n    generations.append(dict(generated, phase='report', prompt=prompt))\n    raw = generated.get('parsed')\n    schema_errors=report_schema_errors(raw)\n    valid_raw=raw if not schema_errors else None\n    verified, audit = verify_report(valid_raw,state)\n    # G2/G3/G4/F share the same verifier; G1 has no quantitative tool evidence.\n    report = valid_raw if method in ['G1','no_verifier'] else verified\n    result = {'method':method,'scene_id':state['scene_id'],'action_budget':budget,\n              'prompt_serialization':PROMPT_PROTOCOL,\n              'rendering':{'colormap':render_cmap,'dynamic_range_db':60,'frequency_max_pool_bins':256,'quantitative_measurements_from_unpooled_PSD':True},\n              'actions_attempted':len(action_logs), 'actions':action_logs,\n              'raw_report':raw, 'report':report, 'verification_audit':audit,\n              'verification_meaning':'Internal measurement consistency, not independent correctness.',\n              'initial_state':initial_state, 'final_state':tools.report_state(),\n              'generations':generations,'preprocess_gpu_seconds':preprocess_seconds,\n              'model_gpu_seconds':sum(g['gpu_seconds'] for g in generations),\n              'tool_gpu_seconds':sum(a.get('gpu_seconds',0.) for a in action_logs),\n              'wall_seconds':time.perf_counter()-started,\n              'input_tokens':sum(g['input_tokens'] for g in generations),\n              'output_tokens':sum(g['output_tokens'] for g in generations),\n              'schema_valid':not schema_errors, 'schema_errors':schema_errors,\n              'reference_type':'AI-generated morphology labels for real data; exact simulator labels for synthetic data'}"
+    },
+    {
+      "path": "src/sonar/batching.py",
+      "sha256": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+      "first_line": 72,
+      "last_line": 83,
+      "text": "    def __init__(self, backend, max_batch_size: int = 4, max_wait_ms: float = 80.,\n                 gpu_lock: RLock | None = None):\n        if max_batch_size < 1 or max_wait_ms < 0:\n            raise ValueError(\"Invalid batch size/wait interval\")\n        self.backend = backend\n        self.max_batch_size = int(max_batch_size)\n        self.max_wait_seconds = float(max_wait_ms) / 1000\n        self.gpu_lock = gpu_lock or GPU_LOCK\n        self.device_audit = dict(backend.device_audit, execution=\"single_GPU_worker_batched_greedy\",\n                                 max_batch_size=self.max_batch_size,\n                                 time_accounting=\"equal_share_batch_GPU_time; serial_latency_not_inferred\")\n        self._queue: Queue[_Request | None] = Queue()"
+    },
+    {
+      "path": "src/sonar/batching.py",
+      "sha256": "c71359b5f28b43a3dba9156f1adcbead465434bf3e9232be3dc60126cb9ecda5",
+      "first_line": 174,
+      "last_line": 240,
+      "text": "            with self.gpu_lock:\n                processor, model = self.backend.processor, self.backend.model\n                # A decoder-only batch must align final prompt positions. This\n                # processor is accessed solely by this worker after wrapping.\n                processor.tokenizer.padding_side = \"left\"\n                inputs = processor.apply_chat_template(\n                    conversations, tokenize=True, add_generation_prompt=True,\n                    return_dict=True, return_tensors=\"pt\", padding=True,\n                ).to(\"cuda:0\")\n                prompt_width = inputs[\"input_ids\"].shape[1]\n                if inputs[\"input_ids\"].shape[0] != len(requests):\n                    raise RuntimeError(\"Processor did not preserve conversation batch size\")\n                lengths = inputs[\"attention_mask\"].sum(dim=1)\n                eos = model.generation_config.eos_token_id\n                if eos is None:\n                    eos = processor.tokenizer.eos_token_id\n                eos_ids = [int(eos)] if isinstance(eos, int) else [int(v) for v in eos]\n                if not eos_ids:\n                    raise RuntimeError(\"No explicit EOS token is configured\")\n                caps = [r.max_new_tokens for r in requests]\n                capper = PerRowTokenLimit(prompt_width, caps, eos_ids[0])\n                schemas = [r.json_schema for r in requests]\n                generation_options = {}\n                if any(schema is not None for schema in schemas):\n                    generation_options['prefix_allowed_tokens_fn'] = self.backend.grammar_factory().for_batch(\n                        schemas,prompt_width,caps,eos_ids)\n                torch.cuda.synchronize()\n                begin, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)\n                torch.cuda.reset_peak_memory_stats()\n                begin.record()\n                output = model.generate(**inputs, max_new_tokens=max(caps), do_sample=False,\n                                        use_cache=True, logits_processor=LogitsProcessorList([capper]),\n                                        **generation_options)\n                end.record(); torch.cuda.synchronize()\n                gpu_seconds = begin.elapsed_time(end) / 1000\n                peak_bytes = torch.cuda.max_memory_allocated()\n                tails = output[:, prompt_width:]\n                eos_tensor = torch.tensor(eos_ids, device=tails.device)\n                stop_mask = (tails[:, :, None] == eos_tensor[None, None, :]).any(dim=-1)\n                positions = torch.arange(tails.shape[1], device=tails.device)[None].expand_as(tails)\n                first_eos = torch.where(stop_mask, positions, tails.shape[1]).min(dim=1).values\n                caps_tensor = torch.tensor(caps, device=tails.device)\n                counts = torch.minimum(torch.minimum(first_eos + 1, caps_tensor),\n                                       torch.full_like(caps_tensor, tails.shape[1]))\n                input_lengths = lengths.tolist()\n                count_list, eos_positions = counts.tolist(), first_eos.tolist()\n                prefixes = [tails[i, :n] for i, n in enumerate(count_list)]\n                texts = processor.batch_decode(prefixes, skip_special_tokens=True)\n                grids = inputs[\"image_grid_thw\"].tolist() if \"image_grid_thw\" in inputs else []\n            batch_wall = time.perf_counter() - batch_start\n            shared = dict(batch_id=batch_id, batch_size=len(requests), batch_gpu_seconds=gpu_seconds,\n                          batch_wall_seconds=batch_wall, batch_input_tokens=sum(input_lengths),\n                          batch_output_tokens=sum(count_list), padded_prompt_width=prompt_width,\n                          batch_padded_input_tokens=prompt_width * len(requests),\n                          gpu_time_accounting=\"equal_share_of_measured_batch_event_span\",\n                          latency_interpretation=\"batched_request_sojourn; not serial_latency\")\n            results, grid_start = [], 0\n            for index, (request, text) in enumerate(zip(requests, texts)):\n                image_count = len(request.images)\n                result = dict(raw_text=text, input_tokens=input_lengths[index], output_tokens=count_list[index],\n                              gpu_seconds=gpu_seconds / len(requests),\n                              wall_seconds=time.perf_counter() - request.enqueued_at,\n                              queue_seconds=batch_start - request.enqueued_at,\n                              peak_allocated_bytes=peak_bytes,\n                              image_grid_thw=grids[grid_start:grid_start + image_count],\n                              decode=\"batched_greedy\", max_new_tokens=request.max_new_tokens,\n                              at_generation_limit=count_list[index] == request.max_new_tokens,"
+    },
+    {
+      "path": "src/sonar/rendering.py",
+      "sha256": "652f04bcc941d4906f898519253679b6566ba48f71ad2be9d8b31e7c54a81c6f",
+      "first_line": 20,
+      "last_line": 46,
+      "text": "def _render_view(view, path, title='', components=(), max_frequency_hz=None,cmap='magma'):\n    path = Path(path)\n    path.parent.mkdir(parents=True, exist_ok=True)\n    with GPU_LOCK:\n        power = view.log_power()\n        if max_frequency_hz is not None:\n            selected = view.frequencies_hz <= max_frequency_hz\n            power = power[selected]\n            frequencies = view.frequencies_hz[selected]\n        else:\n            frequencies = view.frequencies_hz\n        # Preserve sparse ridges under raster downsampling. This is a display\n        # aggregation only; every quantitative tool uses the original PSD.\n        maximum=power.max(); minimum=power.min()\n        limits=[maximum.item()-60.,maximum.item()]\n        if bool(maximum==minimum): limits=[maximum.item(),maximum.item()+60.]\n        if power.shape[0]>256:\n            original_bins=power.shape[0]\n            low=torch.floor(torch.arange(256,device=power.device)*original_bins/256).long()\n            high=torch.ceil((torch.arange(256,device=power.device)+1)*original_bins/256).long()-1\n            frequencies=(frequencies[low]+frequencies[high])/2\n            power=torch.nn.functional.adaptive_max_pool2d(power[None,None],(256,power.shape[1]))[0,0]\n        times = view.times_s.detach().cpu().numpy()\n        freq = frequencies.detach().cpu().numpy()\n        display_power=power.detach().cpu().numpy()\n    figure, axis = plt.subplots(figsize=(8, 4), constrained_layout=True)\n    mesh = axis.pcolormesh(times, freq, display_power, shading='nearest',"
+    },
+    {
+      "path": "scripts/run_benchmark.py",
+      "sha256": "e080d4ca3dff9428b374e633e4958efd3a599229f66ca5d3cdb8b421d333a8fa",
+      "first_line": 121,
+      "last_line": 139,
+      "text": "                print(f'SKIP completed {scene_id} {method}',flush=True); return None\n            print(f'START {number+1}/{len(records)} {scene_id} {method}',flush=True)\n            with GPU_LOCK:\n                waveform,sample_rate,origin,truth=load_experimental_waveform(record)\n                if truth:\n                    saved_truth=dict(truth)\n                    if saved_truth.get('scene_id') not in [None,scene_id]:\n                        saved_truth['generator_scene_id']=saved_truth['scene_id']\n                    saved_truth['scene_id']=scene_id\n                    save_json(destination/'sealed_truth'/f'{scene_id}.json',saved_truth)\n                tools=AcousticTools(waveform,sample_rate,scene_id,offset_s=origin)\n            setup_seconds=time.time()-started\n            episode_model=wrap_display_inputs(record,model,episode_dir)\n            result=run_episode(tools,episode_model,method,episode_dir,budget=args.budget,\n                               render_cmap=record.get('intervention',{}).get('colormap','magma'))\n            ledger={'scene_id':scene_id,'method':method,'status':'complete','wall_seconds':result['wall_seconds'],\n                    'schema_valid':result['schema_valid'],'output_tokens':result['output_tokens'],\n                    'gpu_seconds':result['model_gpu_seconds']+result['tool_gpu_seconds']+result['preprocess_gpu_seconds'],\n                    'setup_wall_seconds':setup_seconds,'total_worker_wall_seconds':time.time()-started}"
+    }
+  ],
+  "no_new_scientific_calculation": true,
+  "scientific_code_changed": false,
+  "frozen_outputs_changed": false,
+  "prior_audit_preserved": true,
+  "demonstrated_score_corruption": false,
+  "correction_origin": "Independent paper-agent source review, confirmed against the identical frozen source hashes."
+}

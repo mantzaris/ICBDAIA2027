@@ -1,0 +1,80 @@
+{
+  "evaluation_manifest": "data/manifests/main_test.jsonl",
+  "output": "results/localization",
+  "train_scenes": 192,
+  "validation_scenes": 48,
+  "epochs": 40,
+  "patience": 6,
+  "batch_size": 12,
+  "learning_rate": 0.001,
+  "seeds": "17,29,43",
+  "features": {
+    "grid": [
+      128,
+      128
+    ],
+    "acoustic_types": [
+      "tone",
+      "chirp",
+      "transient",
+      "broadband"
+    ],
+    "carrier_bands_hz": [
+      [
+        500.0,
+        2000.0
+      ],
+      [
+        2000.0,
+        5000.0
+      ]
+    ],
+    "max_output_components": 6,
+    "acoustic_window_s": 1.0,
+    "acoustic_hop_s": 0.25,
+    "modulation_window_s": 4.0,
+    "modulation_hop_s": 0.5,
+    "target_ridge_halfwidth_grid_pixels": 1.5,
+    "component_decoder": "threshold_connected_regions_then_native_PSD_ridge_measurement",
+    "training_truth": "exact_auxiliary_synthetic_only",
+    "real_annotations_used_for_training": false
+  },
+  "training_seed_start": 10000,
+  "validation_seed_start": 20000,
+  "auxiliary_training_outside_dense_benchmark": true,
+  "train_labels": "exact_simulator_masks",
+  "real_AI_labels_used_for_training": false,
+  "auxiliary_kind_pool": [
+    "tones",
+    "chirp",
+    "harmonics",
+    "missing_fundamental",
+    "crossing",
+    "occlusion",
+    "transient",
+    "am_noise",
+    "beating",
+    "mixed",
+    "noise",
+    "silence",
+    "auxiliary_broadband"
+  ],
+  "max_output_components": 6,
+  "normalization": "train_only_branch_global_mean_and_std",
+  "threshold_candidates": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "checkpoint_selection": "minimum_validation_weighted_BCE_plus_Dice",
+  "threshold_selection": "maximum_validation_required_event_microF1",
+  "hypotheses": "secondary_supervised_localization_baselines_not_confirmatory_main_comparison",
+  "source_sha256": {
+    "src/sonar/localization.py": "0c5303148f0dcfc123127f4fe043424d54beacabf145a75a0303f34ef91e0ef8",
+    "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+    "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+    "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+    "scripts/train_localization.py": "ebdaa7d770b45718562cf5095242a9b7a312b746e71999ed13ce2e9625d5f324"
+  },
+  "started_at_unix": 1794895709.6456008
+}

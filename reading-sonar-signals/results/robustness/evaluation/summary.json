@@ -1,0 +1,931 @@
+{
+  "evaluated_at": "2026-11-17T20:06:52.090978+00:00",
+  "status": "complete_evaluation",
+  "run": "/workspace/reading-sonar-signals/results/robustness",
+  "run_configuration_sha256": "783a5124a04676e1e79ae738161f5430441388ec22ba03ceb7cb2af4fbc29712",
+  "manifest_sha256": "ea7f61be8034d70d959e886da3b0a0de8de9f305e4ebbdd159da430b0784abde",
+  "metrics_code_sha256": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+  "evaluator_code_sha256": "07aed265ba5f5285dfaba284cce44809adfa99d759733ac4a81766634ac437f6",
+  "reference_source": "results/ai_annotations/primary_reference.jsonl",
+  "reference_source_sha256": "b49a33de4859e199251fe04ed908bd42e972c3971b867b576ec67a7b82b631fa",
+  "device": "NVIDIA RTX 6000 Ada Generation",
+  "numerical_execution": "cuda_only",
+  "methods": [
+    "F",
+    "G4"
+  ],
+  "results": {
+    "synthetic_intervention": {
+      "all": {
+        "F": {
+          "expected_episodes": 54,
+          "reference_scored_episodes": 54,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 6,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 58,
+            "fp": 85,
+            "fn": 36,
+            "precision": 0.4055944085121155,
+            "recall": 0.6170212626457214,
+            "f1": 0.48945146799087524,
+            "scenes": 54
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 48,
+            "fp": 95,
+            "fn": 46,
+            "precision": 0.3356643319129944,
+            "recall": 0.5106382966041565,
+            "f1": 0.40506330132484436,
+            "scenes": 54
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 61,
+            "fp": 166,
+            "fn": 33,
+            "precision": 0.2687224745750427,
+            "recall": 0.6489361524581909,
+            "f1": 0.3800623118877411,
+            "scenes": 54
+          },
+          "geometric_overlap_metrics": {
+            "tp": 25,
+            "fp": 260,
+            "fn": 50,
+            "precision": 0.08771929889917374,
+            "recall": 0.3333333432674408,
+            "f1": 0.1388888955116272,
+            "scenes": 54
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 18,
+            "declared_abstention": 18,
+            "source_identity_assertions": 0,
+            "reported_component_count": 145,
+            "valid_component_count": 145,
+            "actions_attempted": 323,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 54,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.6666666269302368,
+          "duplicate_candidates": 22,
+          "compute": {
+            "wall_seconds": {
+              "total": 49043.886840504,
+              "mean_per_expected_episode": 908.220126676,
+              "median": 908.6490616899973,
+              "p95": 1367.5203773065025
+            },
+            "preprocess_gpu_seconds": {
+              "total": 8.850415151119233,
+              "mean_per_expected_episode": 0.16389657687257836,
+              "median": 0.16451199340820313,
+              "p95": 0.2816557815551757
+            },
+            "model_gpu_seconds": {
+              "total": 3869.1971637858073,
+              "mean_per_expected_episode": 71.6517993293668,
+              "median": 69.70100260416666,
+              "p95": 106.99914230026971
+            },
+            "tool_gpu_seconds": {
+              "total": 32.09310746103525,
+              "mean_per_expected_episode": 0.5943168048339861,
+              "median": 0.6312834664583207,
+              "p95": 0.8970624928474425
+            },
+            "input_tokens": {
+              "total": 1170510.0,
+              "mean_per_expected_episode": 21676.11111111111,
+              "median": 20305.0,
+              "p95": 33070.999999999985
+            },
+            "output_tokens": {
+              "total": 38514.0,
+              "mean_per_expected_episode": 713.2222222222222,
+              "median": 837.0,
+              "p95": 1129.6
+            },
+            "cuda_event_seconds": {
+              "total": 3910.140686397962,
+              "mean_per_expected_episode": 72.41001271107336
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 58,
+            "frequency_matched_components": 47,
+            "mean_frequency_error_hz": 0.37090250849723816,
+            "median_frequency_error_hz": 0.399627685546875,
+            "mean_temporal_iou": 0.8384354710578918,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.6170212765957447,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.34285714285714286,
+                  0.5747516072472236
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.4055963873043733,
+                  0.9629742547425473
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.4163220940550133,
+                  0.6
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.06278026905829596,
+                  0.16037735849056603
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.1553398058252427,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.10625,
+                  0.20320855614973263
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G4": {
+          "expected_episodes": 54,
+          "reference_scored_episodes": 54,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 6,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 59,
+            "fp": 68,
+            "fn": 35,
+            "precision": 0.4645669162273407,
+            "recall": 0.6276595592498779,
+            "f1": 0.5339366793632507,
+            "scenes": 54
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 57,
+            "fp": 70,
+            "fn": 37,
+            "precision": 0.4488188922405243,
+            "recall": 0.6063829660415649,
+            "f1": 0.5158371329307556,
+            "scenes": 54
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 69,
+            "fp": 173,
+            "fn": 25,
+            "precision": 0.2851239740848541,
+            "recall": 0.7340425252914429,
+            "f1": 0.4107142984867096,
+            "scenes": 54
+          },
+          "geometric_overlap_metrics": {
+            "tp": 28,
+            "fp": 194,
+            "fn": 47,
+            "precision": 0.12612612545490265,
+            "recall": 0.3733333349227905,
+            "f1": 0.18855218589305878,
+            "scenes": 54
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 6,
+            "empty_report": 17,
+            "declared_abstention": 17,
+            "source_identity_assertions": 0,
+            "reported_component_count": 139,
+            "valid_component_count": 139,
+            "actions_attempted": 322,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 54,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.6851851940155029,
+          "duplicate_candidates": 34,
+          "compute": {
+            "wall_seconds": {
+              "total": 25770.568129038016,
+              "mean_per_expected_episode": 477.23274313033363,
+              "median": 465.0110602729983,
+              "p95": 784.4299027044473
+            },
+            "preprocess_gpu_seconds": {
+              "total": 8.26896255517006,
+              "mean_per_expected_episode": 0.15312893620685294,
+              "median": 0.15733815002441406,
+              "p95": 0.2598826431274414
+            },
+            "model_gpu_seconds": {
+              "total": 774.6326391927083,
+              "mean_per_expected_episode": 14.345048873939042,
+              "median": 13.422721874999999,
+              "p95": 24.97219179687495
+            },
+            "tool_gpu_seconds": {
+              "total": 30.980881961375474,
+              "mean_per_expected_episode": 0.573720036321768,
+              "median": 0.5712534767389298,
+              "p95": 0.8806637407660484
+            },
+            "input_tokens": {
+              "total": 180866.0,
+              "mean_per_expected_episode": 3349.37037037037,
+              "median": 3144.0,
+              "p95": 5164.099999999999
+            },
+            "output_tokens": {
+              "total": 33189.0,
+              "mean_per_expected_episode": 614.6111111111111,
+              "median": 643.0,
+              "p95": 1055.0
+            },
+            "cuda_event_seconds": {
+              "total": 813.8824837092538,
+              "mean_per_expected_episode": 15.071897846467664
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 59,
+            "frequency_matched_components": 57,
+            "mean_frequency_error_hz": 0.27486225962638855,
+            "median_frequency_error_hz": 0.10223388671875,
+            "mean_temporal_iou": 0.8785925507545471,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.6276595744680851,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.3626373626373626,
+                  0.6025641025641025
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.28205128205128205,
+                  0.9882352941176471
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.3317972350230415,
+                  0.7013682745825599
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.03508771929824561,
+                  0.26222222222222225
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.03296703296703297,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.037037037037037035,
+                  0.3627906976744186
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        }
+      },
+      "controlled": {
+        "F": {
+          "expected_episodes": 54,
+          "reference_scored_episodes": 54,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 6,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 58,
+            "fp": 85,
+            "fn": 36,
+            "precision": 0.4055944085121155,
+            "recall": 0.6170212626457214,
+            "f1": 0.48945146799087524,
+            "scenes": 54
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 48,
+            "fp": 95,
+            "fn": 46,
+            "precision": 0.3356643319129944,
+            "recall": 0.5106382966041565,
+            "f1": 0.40506330132484436,
+            "scenes": 54
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 61,
+            "fp": 166,
+            "fn": 33,
+            "precision": 0.2687224745750427,
+            "recall": 0.6489361524581909,
+            "f1": 0.3800623118877411,
+            "scenes": 54
+          },
+          "geometric_overlap_metrics": {
+            "tp": 25,
+            "fp": 260,
+            "fn": 50,
+            "precision": 0.08771929889917374,
+            "recall": 0.3333333432674408,
+            "f1": 0.1388888955116272,
+            "scenes": 54
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 2,
+            "empty_report": 18,
+            "declared_abstention": 18,
+            "source_identity_assertions": 0,
+            "reported_component_count": 145,
+            "valid_component_count": 145,
+            "actions_attempted": 323,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 54,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.6666666269302368,
+          "duplicate_candidates": 22,
+          "compute": {
+            "wall_seconds": {
+              "total": 49043.886840504,
+              "mean_per_expected_episode": 908.220126676,
+              "median": 908.6490616899973,
+              "p95": 1367.5203773065025
+            },
+            "preprocess_gpu_seconds": {
+              "total": 8.850415151119233,
+              "mean_per_expected_episode": 0.16389657687257836,
+              "median": 0.16451199340820313,
+              "p95": 0.2816557815551757
+            },
+            "model_gpu_seconds": {
+              "total": 3869.1971637858073,
+              "mean_per_expected_episode": 71.6517993293668,
+              "median": 69.70100260416666,
+              "p95": 106.99914230026971
+            },
+            "tool_gpu_seconds": {
+              "total": 32.09310746103525,
+              "mean_per_expected_episode": 0.5943168048339861,
+              "median": 0.6312834664583207,
+              "p95": 0.8970624928474425
+            },
+            "input_tokens": {
+              "total": 1170510.0,
+              "mean_per_expected_episode": 21676.11111111111,
+              "median": 20305.0,
+              "p95": 33070.999999999985
+            },
+            "output_tokens": {
+              "total": 38514.0,
+              "mean_per_expected_episode": 713.2222222222222,
+              "median": 837.0,
+              "p95": 1129.6
+            },
+            "cuda_event_seconds": {
+              "total": 3910.140686397962,
+              "mean_per_expected_episode": 72.41001271107336
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 58,
+            "frequency_matched_components": 47,
+            "mean_frequency_error_hz": 0.37090250849723816,
+            "median_frequency_error_hz": 0.399627685546875,
+            "mean_temporal_iou": 0.8384354710578918,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.6170212765957447,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.34285714285714286,
+                  0.5747516072472236
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.4055963873043733,
+                  0.9629742547425473
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.4163220940550133,
+                  0.6
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.06278026905829596,
+                  0.16037735849056603
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.1553398058252427,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.10625,
+                  0.20320855614973263
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        },
+        "G4": {
+          "expected_episodes": 54,
+          "reference_scored_episodes": 54,
+          "reference_missing_episodes": 0,
+          "partial_reference_diagnostic_episodes": 0,
+          "partial_reference_diagnostic_metrics": null,
+          "independent_groups": 6,
+          "reference_kinds": [
+            "exact_synthetic_component_truth"
+          ],
+          "reference_statuses": [
+            "exact"
+          ],
+          "reference_scopes": [
+            {
+              "eligible_carrier_bands_hz": null,
+              "eligible_frequency_domains": null,
+              "eligible_types": null
+            }
+          ],
+          "event_metrics": {
+            "tp": 59,
+            "fp": 68,
+            "fn": 35,
+            "precision": 0.4645669162273407,
+            "recall": 0.6276595592498779,
+            "f1": 0.5339366793632507,
+            "scenes": 54
+          },
+          "event_metrics_regional_iou05": {
+            "tp": 57,
+            "fp": 70,
+            "fn": 37,
+            "precision": 0.4488188922405243,
+            "recall": 0.6063829660415649,
+            "f1": 0.5158371329307556,
+            "scenes": 54
+          },
+          "secondary_iou_interpretation": "Regional broadband/transient boxes use IoU0.5; narrowband temporal/track criteria stay at their primary values. Secondary diagnostic, not a replacement primary endpoint.",
+          "raw_event_metrics": {
+            "tp": 69,
+            "fp": 173,
+            "fn": 25,
+            "precision": 0.2851239740848541,
+            "recall": 0.7340425252914429,
+            "f1": 0.4107142984867096,
+            "scenes": 54
+          },
+          "geometric_overlap_metrics": {
+            "tp": 28,
+            "fp": 194,
+            "fn": 47,
+            "precision": 0.12612612545490265,
+            "recall": 0.3733333349227905,
+            "f1": 0.18855218589305878,
+            "scenes": 54
+          },
+          "free_text_claim_correctness": "not_scored",
+          "real_physical_correctness": "not_established",
+          "totals": {
+            "schema_failed": 6,
+            "empty_report": 17,
+            "declared_abstention": 17,
+            "source_identity_assertions": 0,
+            "reported_component_count": 139,
+            "valid_component_count": 139,
+            "actions_attempted": 322,
+            "actions_invalid_or_failed": 0,
+            "generation_failures": 0
+          },
+          "execution_status": {
+            "completed": 54,
+            "failed": 0,
+            "missing": 0
+          },
+          "report_emission_coverage": 0.6851851940155029,
+          "duplicate_candidates": 34,
+          "compute": {
+            "wall_seconds": {
+              "total": 25770.568129038016,
+              "mean_per_expected_episode": 477.23274313033363,
+              "median": 465.0110602729983,
+              "p95": 784.4299027044473
+            },
+            "preprocess_gpu_seconds": {
+              "total": 8.26896255517006,
+              "mean_per_expected_episode": 0.15312893620685294,
+              "median": 0.15733815002441406,
+              "p95": 0.2598826431274414
+            },
+            "model_gpu_seconds": {
+              "total": 774.6326391927083,
+              "mean_per_expected_episode": 14.345048873939042,
+              "median": 13.422721874999999,
+              "p95": 24.97219179687495
+            },
+            "tool_gpu_seconds": {
+              "total": 30.980881961375474,
+              "mean_per_expected_episode": 0.573720036321768,
+              "median": 0.5712534767389298,
+              "p95": 0.8806637407660484
+            },
+            "input_tokens": {
+              "total": 180866.0,
+              "mean_per_expected_episode": 3349.37037037037,
+              "median": 3144.0,
+              "p95": 5164.099999999999
+            },
+            "output_tokens": {
+              "total": 33189.0,
+              "mean_per_expected_episode": 614.6111111111111,
+              "median": 643.0,
+              "p95": 1055.0
+            },
+            "cuda_event_seconds": {
+              "total": 813.8824837092538,
+              "mean_per_expected_episode": 15.071897846467664
+            },
+            "timing_note": "CUDA event elapsed spans are not occupancy-derived active time; failed/missing unrecorded work is zero-known-time, not evidence of zero actual cost."
+          },
+          "matched_geometry_diagnostics": {
+            "matched_components": 59,
+            "frequency_matched_components": 57,
+            "mean_frequency_error_hz": 0.27486225962638855,
+            "median_frequency_error_hz": 0.10223388671875,
+            "mean_temporal_iou": 0.8785925507545471,
+            "interpretation": "Conditional on accepted one-to-one matches; report with coverage, not as all-event accuracy."
+          },
+          "reference_event_coverage": 0.6276595744680851,
+          "event_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.3626373626373626,
+                  0.6025641025641025
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.28205128205128205,
+                  0.9882352941176471
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.3317972350230415,
+                  0.7013682745825599
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          },
+          "overlap_group_intervals": {
+            "status": "complete",
+            "independent_groups": 6,
+            "repetitions": 2000,
+            "uncertainty": "recording/provenance-group sampling only; one frozen model configuration",
+            "seed": 603,
+            "metrics": {
+              "precision": {
+                "ci95": [
+                  0.03508771929824561,
+                  0.26222222222222225
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "recall": {
+                "ci95": [
+                  0.03296703296703297,
+                  1.0
+                ],
+                "defined_resample_fraction": 1.0
+              },
+              "f1": {
+                "ci95": [
+                  0.037037037037037035,
+                  0.3627906976744186
+                ],
+                "defined_resample_fraction": 1.0
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "primary_comparisons": {
+    "endpoint_interpretation": "agreement with blinded AI reference labels, not independently validated physical correctness",
+    "H1": {
+      "status": "primary_comparator_unavailable",
+      "selection_provenance": {
+        "status": "primary_comparator_unavailable",
+        "unavailable_reasons": [
+          "G3: no eligible primary real-reference scores",
+          "G4: no eligible primary real-reference scores"
+        ],
+        "selected_method": null,
+        "source": "validation_only_real_AI_reference_event_agreement",
+        "test_labels_used": false,
+        "tie_rule": "G3",
+        "candidates": {},
+        "reference_source_sha256": "b49a33de4859e199251fe04ed908bd42e972c3971b867b576ec67a7b82b631fa",
+        "validation_run": "/workspace/reading-sonar-signals/results/development",
+        "run_configuration_sha256": "d12e71f3acd09e94b2ff134f2f8bec929fc4abbf58f3b57c9d333b305c44d749",
+        "validation_scene_ids": [
+          "ds_060a7a010d678c69",
+          "ds_0a3ebc00145d0f79",
+          "ds_14482ed128dd5a96",
+          "ds_151d8e9d80bea776",
+          "ds_190b11e45b1c486d",
+          "ds_2d0dafc2d36d0c10",
+          "ds_3199c7dddb293799",
+          "ds_3d489bfc3dbed7e1",
+          "ds_408533bf703cc5bd",
+          "ds_486c8ee6d664e6a9",
+          "ds_57c00e20b0ea9d42",
+          "ds_7a96c16e7df93155",
+          "ds_7ae242fe5cb905b2",
+          "ds_7f36770159e12df0",
+          "ds_8340714241bb9526",
+          "ds_8b363c9f5ef6b6f1",
+          "ds_8e9c864667adeae2",
+          "ds_95d3c5e8d74b95e6",
+          "ds_abd42335475d7760",
+          "ds_ac3fecbd364bb9e1",
+          "ds_b11cee50e7c6d792",
+          "ds_bfd96be636fe3bd4",
+          "ds_c316af309679d011",
+          "ds_c3bf39d235b39d9a",
+          "ds_d580a3c75df6995e",
+          "ds_d7a2f9b5a3fa4b90",
+          "ds_d801014a047438fd",
+          "ds_e0ffd89d9ca8f620",
+          "ds_e614cbca65ac15b5",
+          "ds_f78acc77d46426fd"
+        ],
+        "reference_ineligible_validation_scene_ids": [
+          "ds_060a7a010d678c69",
+          "ds_0a3ebc00145d0f79",
+          "ds_14482ed128dd5a96",
+          "ds_151d8e9d80bea776",
+          "ds_190b11e45b1c486d",
+          "ds_2d0dafc2d36d0c10",
+          "ds_3199c7dddb293799",
+          "ds_3d489bfc3dbed7e1",
+          "ds_408533bf703cc5bd",
+          "ds_486c8ee6d664e6a9",
+          "ds_57c00e20b0ea9d42",
+          "ds_7a96c16e7df93155",
+          "ds_7ae242fe5cb905b2",
+          "ds_7f36770159e12df0",
+          "ds_8340714241bb9526",
+          "ds_8b363c9f5ef6b6f1",
+          "ds_8e9c864667adeae2",
+          "ds_95d3c5e8d74b95e6",
+          "ds_abd42335475d7760",
+          "ds_ac3fecbd364bb9e1",
+          "ds_b11cee50e7c6d792",
+          "ds_bfd96be636fe3bd4",
+          "ds_c316af309679d011",
+          "ds_c3bf39d235b39d9a",
+          "ds_d580a3c75df6995e",
+          "ds_d7a2f9b5a3fa4b90",
+          "ds_d801014a047438fd",
+          "ds_e0ffd89d9ca8f620",
+          "ds_e614cbca65ac15b5",
+          "ds_f78acc77d46426fd"
+        ]
+      },
+      "holm_adjusted_p_value": null
+    },
+    "H4": {
+      "status": "no_eligible_real_reference_scores",
+      "holm_adjusted_p_value": null
+    },
+    "family": [
+      "H1 adaptive inspection",
+      "H4 verifier component-agreement proxy"
+    ],
+    "excluded_reference_ineligible_scene_ids": [],
+    "holm_missing_test_policy": "Unavailable primary tests occupy a prespecified family slot with p=1; no test family is shrunk."
+  },
+  "matching": {
+    "algorithm": "greedy_descending_quality_one_to_one",
+    "time_iou": 0.3,
+    "box_iou": 0.3,
+    "exact_synthetic_minimum_frequency_tolerance_hz": 2.0,
+    "ai_reference_minimum_frequency_tolerance_hz": 4.0,
+    "maximum_uncalibrated_ai_reference_frequency_uncertainty_hz": 8.0,
+    "AI_reference_eligibility": "Per-record eligible morphology/domain scopes filter both predictions and gold. Unqualified types receive neither credit nor penalty; empty scope produces unavailable metrics and cannot select a primary comparator.",
+    "ridge_tolerance": "max(minimum tolerance, 2Hz from the shared 1Hz assessment grid, reference frequency uncertainty); model-declared bins cannot relax acceptance",
+    "optional_synthetic_events": "Known optional beat-envelope harmonics give neither TP credit nor FP/FN penalty.",
+    "modulation_scope": "Synthetic modulation is scored only for am_noise, beating, mixed, noise and silence. For truth.modulation_exhaustive=false, modulation predictions and references are excluded without credit or penalty.",
+    "time_uncertainty": "Temporal IoU rule is fixed; stated boundary uncertainty is retained in annotations, not silently used to enlarge boxes."
+  },
+  "grouping": {
+    "rule": "connected components of shared parent provenance within each stratum",
+    "cluster_members": {
+      "synthetic_intervention:cluster:95950b5585d51af8": [
+        "synthetic:test:3000"
+      ],
+      "synthetic_intervention:cluster:c3211c592338460f": [
+        "synthetic:test:3009"
+      ],
+      "synthetic_intervention:cluster:af0bb3aa3c924a28": [
+        "synthetic:test:3007"
+      ],
+      "synthetic_intervention:cluster:1eafa1ac3e162f59": [
+        "synthetic:test:3001"
+      ],
+      "synthetic_intervention:cluster:f676c94a6cc6d8a8": [
+        "synthetic:test:3008"
+      ],
+      "synthetic_intervention:cluster:df9e010ac6a45b9b": [
+        "synthetic:test:3006"
+      ]
+    }
+  },
+  "annotation_calibration_on_exact_synthetic": {
+    "scenes": [],
+    "aggregate": null
+  },
+  "interpretation": [
+    "Real and real-mixture scores measure agreement with AI references, not independently validated physical correctness.",
+    "The distinct annotation checkpoints share Qwen-family language backbones; blind passes are not statistically independent and correlated errors remain possible.",
+    "Unmatched predictions in disputed or unreviewed real regions are disagreements with the reference set, not certified false positives.",
+    "Exact synthetic metrics apply only to the declared generator and cannot validate real source identity.",
+    "Schema/model failures remain in all applicable denominators as unsuccessful or empty reports.",
+    "Data strata are never pooled into a headline accuracy value.",
+    "No free-text claim fidelity or calibrated probability score is inferred from the verifier.",
+    "Repeated frozen deterministic generations do not establish independent model-seed variability."
+  ]
+}

@@ -1,0 +1,4059 @@
+{
+  "scene_id": "mix_7815d23ac3fa8118",
+  "annotation": {
+    "events": [
+      {
+        "id": "demon_500_2000:0",
+        "type": "modulation",
+        "frequency_domain": "modulation",
+        "time_s": [
+          14.5,
+          15.5
+        ],
+        "frequency_hz": [
+          14.5,
+          15.5
+        ],
+        "bin_spacing_hz": 0.5548611111111111,
+        "frequency_uncertainty_hz": 0.5548611111111111,
+        "display_frequency_bin_width_hz": 0.5548611111111111,
+        "boundary_uncertainty_s": 2.0,
+        "annotation_origin": "measurement_assisted_AI_reference",
+        "independent_ground_truth": false,
+        "source_view": "demon_500_2000",
+        "frequency_track": [
+          [
+            14.5,
+            14.5
+          ],
+          [
+            15.5,
+            15.5
+          ]
+        ],
+        "carrier_band_hz": [
+          500.0,
+          2000.0
+        ]
+      },
+      {
+        "id": "demon_2000_5000:0",
+        "type": "modulation",
+        "frequency_domain": "modulation",
+        "time_s": [
+          14.5,
+          15.5
+        ],
+        "frequency_hz": [
+          34.5,
+          34.5
+        ],
+        "bin_spacing_hz": 0.5548611111111111,
+        "frequency_uncertainty_hz": 0.5548611111111111,
+        "display_frequency_bin_width_hz": 0.5548611111111111,
+        "boundary_uncertainty_s": 2.0,
+        "annotation_origin": "measurement_assisted_AI_reference",
+        "independent_ground_truth": false,
+        "source_view": "demon_2000_5000",
+        "frequency_track": [
+          [
+            14.5,
+            34.5
+          ],
+          [
+            15.5,
+            34.5
+          ]
+        ],
+        "carrier_band_hz": [
+          2000.0,
+          5000.0
+        ]
+      }
+    ],
+    "annotation_status": "complete",
+    "invalid_events": [],
+    "independently_exhaustive": false
+  },
+  "generation": {
+    "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+    "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+    "passes": [
+      {
+        "view": "lofar_1s",
+        "generation": {
+          "raw_text": "{\"events\":[]}",
+          "input_tokens": 3062,
+          "gpu_seconds": 0.40160260009765625,
+          "wall_seconds": 1.0725927280000178,
+          "queue_seconds": 0.0003018339994014241,
+          "peak_allocated_bytes": 10963822592,
+          "max_new_tokens": 768,
+          "decode": "greedy",
+          "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+          "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+          "device_audit": {
+            "all_parameters_cuda": true,
+            "all_buffers_cuda": true,
+            "dtype": "bfloat16",
+            "hf_device_map": {
+              "": "cuda:0"
+            },
+            "parameter_count": 4732489216,
+            "execution": "single_annotation_GPU_worker_batched_greedy",
+            "max_batch_size": 2,
+            "time_accounting": "equal_share_batch_GPU_time; serial_latency_not_inferred",
+            "model_and_inputs_cuda_verified": true,
+            "pixel_values_dtype": "bfloat16"
+          },
+          "input_tensor_shapes": {
+            "input_ids": [
+              2,
+              3062
+            ],
+            "attention_mask": [
+              2,
+              3062
+            ],
+            "pixel_values": [
+              18,
+              3,
+              448,
+              448
+            ]
+          },
+          "request_id": "4989dd4bbb1440a1bfba75f22d81b549",
+          "output_tokens": 6,
+          "at_generation_limit": false,
+          "stop_reason": "natural_eos",
+          "control_eos_excluded": false,
+          "batch_id": "20ffa966bd47:000441",
+          "batch_size": 2,
+          "batch_gpu_seconds": 0.8032052001953125,
+          "batch_wall_seconds": 1.0722836740005732,
+          "batch_input_tokens": 6124,
+          "batch_output_tokens": 12,
+          "padded_prompt_width": 3062,
+          "batch_padded_input_tokens": 6124,
+          "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+          "latency_interpretation": "batched_request_sojourn; not serial_latency",
+          "token_count_convention": "natural_EOS_included; post_EOS_padding_and_control_EOS_excluded",
+          "training_examples": [
+            {
+              "image": "results/ai_annotations/training_examples/lofar_1s/lines.png",
+              "image_sha256": "63bbfa55c1f5e79ffdf03c497222982af83428f77913918863b138a29da532a2",
+              "answer": {
+                "events": [
+                  [
+                    2.0,
+                    28.0,
+                    120.0,
+                    120.0,
+                    "tone"
+                  ],
+                  [
+                    10.0,
+                    20.0,
+                    440.0,
+                    440.0,
+                    "tone"
+                  ]
+                ]
+              },
+              "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+              "provenance": {
+                "role": "exact_separate_synthetic_training_demonstration",
+                "seed": 920000,
+                "target_truth_used": false,
+                "display_scale": {
+                  "policy": "peak_60db",
+                  "vmin_db": -69.18989562988281,
+                  "vmax_db": -9.189895629882812,
+                  "constant_view": false,
+                  "raw_psd_unchanged": true,
+                  "scale_numeric_device": "cuda:0",
+                  "display_frequency_bin_width_hz": 5.002777777777778,
+                  "display_aggregation": "GPU_frequency_max_pool"
+                },
+                "raw_grid": null
+              }
+            },
+            {
+              "image": "results/ai_annotations/training_examples/lofar_1s/morphology.png",
+              "image_sha256": "25bdd72b69e7150d37cb801ce3eafecd0e0bd05d0f8fc79fe424c9b7eeb5d234",
+              "answer": {
+                "events": [
+                  [
+                    4.0,
+                    26.0,
+                    250.0,
+                    550.0,
+                    "chirp"
+                  ],
+                  [
+                    15.0,
+                    15.6,
+                    900.0,
+                    1500.0,
+                    "transient"
+                  ],
+                  [
+                    8.0,
+                    20.0,
+                    600.0,
+                    850.0,
+                    "broadband"
+                  ]
+                ]
+              },
+              "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+              "provenance": {
+                "role": "exact_separate_synthetic_training_demonstration",
+                "seed": 920001,
+                "target_truth_used": false,
+                "display_scale": {
+                  "policy": "peak_60db",
+                  "vmin_db": -75.57894897460938,
+                  "vmax_db": -15.578948974609375,
+                  "constant_view": false,
+                  "raw_psd_unchanged": true,
+                  "scale_numeric_device": "cuda:0",
+                  "display_frequency_bin_width_hz": 5.002777777777778,
+                  "display_aggregation": "GPU_frequency_max_pool"
+                },
+                "raw_grid": null
+              }
+            }
+          ],
+          "parsed": {
+            "events": []
+          },
+          "parse_error": null
+        },
+        "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 45; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+        "image": "results/ai_annotations/views/mix_7815d23ac3fa8118/lofar_1s.png",
+        "image_sha256": "d8fb7e5fd84014890cfcee9989e84490a591e0084d8ba21530811326ceba816a",
+        "raw_grid": null,
+        "display_scale": {
+          "policy": "peak_60db",
+          "vmin_db": -79.51424789428711,
+          "vmax_db": -19.51424789428711,
+          "constant_view": false,
+          "raw_psd_unchanged": true,
+          "scale_numeric_device": "cuda:0",
+          "display_frequency_bin_width_hz": 5.002777777777778,
+          "display_aggregation": "GPU_frequency_max_pool"
+        },
+        "syntax_validation": {
+          "raw_json_valid": true,
+          "syntax_repair_applied": false,
+          "numeric_values_changed": false
+        },
+        "events": [],
+        "errors": [],
+        "original_coordinate_offset_s": 0.0,
+        "display_coordinate_system": "scene-local"
+      },
+      {
+        "view": "lofar_4s",
+        "generation": {
+          "raw_text": "{\"events\":[]}",
+          "input_tokens": 3062,
+          "gpu_seconds": 0.40160260009765625,
+          "wall_seconds": 1.0730175449989474,
+          "queue_seconds": 0.00021400299920060206,
+          "peak_allocated_bytes": 10963822592,
+          "max_new_tokens": 768,
+          "decode": "greedy",
+          "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+          "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+          "device_audit": {
+            "all_parameters_cuda": true,
+            "all_buffers_cuda": true,
+            "dtype": "bfloat16",
+            "hf_device_map": {
+              "": "cuda:0"
+            },
+            "parameter_count": 4732489216,
+            "execution": "single_annotation_GPU_worker_batched_greedy",
+            "max_batch_size": 2,
+            "time_accounting": "equal_share_batch_GPU_time; serial_latency_not_inferred",
+            "model_and_inputs_cuda_verified": true,
+            "pixel_values_dtype": "bfloat16"
+          },
+          "input_tensor_shapes": {
+            "input_ids": [
+              2,
+              3062
+            ],
+            "attention_mask": [
+              2,
+              3062
+            ],
+            "pixel_values": [
+              18,
+              3,
+              448,
+              448
+            ]
+          },
+          "request_id": "ebcf9cecf46e4001999485d578f13606",
+          "output_tokens": 6,
+          "at_generation_limit": false,
+          "stop_reason": "natural_eos",
+          "control_eos_excluded": false,
+          "batch_id": "20ffa966bd47:000441",
+          "batch_size": 2,
+          "batch_gpu_seconds": 0.8032052001953125,
+          "batch_wall_seconds": 1.0722836740005732,
+          "batch_input_tokens": 6124,
+          "batch_output_tokens": 12,
+          "padded_prompt_width": 3062,
+          "batch_padded_input_tokens": 6124,
+          "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+          "latency_interpretation": "batched_request_sojourn; not serial_latency",
+          "token_count_convention": "natural_EOS_included; post_EOS_padding_and_control_EOS_excluded",
+          "training_examples": [
+            {
+              "image": "results/ai_annotations/training_examples/lofar_4s/lines.png",
+              "image_sha256": "080f9675335f4673ce9b857fc7dde2d9c1984e4fadf7a8907e56de662c81bea3",
+              "answer": {
+                "events": [
+                  [
+                    2.0,
+                    28.0,
+                    120.0,
+                    120.0,
+                    "tone"
+                  ],
+                  [
+                    10.0,
+                    20.0,
+                    440.0,
+                    440.0,
+                    "tone"
+                  ]
+                ]
+              },
+              "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+              "provenance": {
+                "role": "exact_separate_synthetic_training_demonstration",
+                "seed": 920000,
+                "target_truth_used": false,
+                "display_scale": {
+                  "policy": "peak_60db",
+                  "vmin_db": -63.180811643600464,
+                  "vmax_db": -3.180811643600464,
+                  "constant_view": false,
+                  "raw_psd_unchanged": true,
+                  "scale_numeric_device": "cuda:0",
+                  "display_frequency_bin_width_hz": 5.000694444444444,
+                  "display_aggregation": "GPU_frequency_max_pool"
+                },
+                "raw_grid": null
+              }
+            },
+            {
+              "image": "results/ai_annotations/training_examples/lofar_4s/morphology.png",
+              "image_sha256": "b066ef0e6c129d1c432683fb6a041c9e22526ed305bf3291f8e8d3a6a70ad2c8",
+              "answer": {
+                "events": [
+                  [
+                    4.0,
+                    26.0,
+                    250.0,
+                    550.0,
+                    "chirp"
+                  ],
+                  [
+                    15.0,
+                    15.6,
+                    900.0,
+                    1500.0,
+                    "transient"
+                  ],
+                  [
+                    8.0,
+                    20.0,
+                    600.0,
+                    850.0,
+                    "broadband"
+                  ]
+                ]
+              },
+              "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+              "provenance": {
+                "role": "exact_separate_synthetic_training_demonstration",
+                "seed": 920001,
+                "target_truth_used": false,
+                "display_scale": {
+                  "policy": "peak_60db",
+                  "vmin_db": -81.34263038635254,
+                  "vmax_db": -21.34263038635254,
+                  "constant_view": false,
+                  "raw_psd_unchanged": true,
+                  "scale_numeric_device": "cuda:0",
+                  "display_frequency_bin_width_hz": 5.000694444444444,
+                  "display_aggregation": "GPU_frequency_max_pool"
+                },
+                "raw_grid": null
+              }
+            }
+          ],
+          "parsed": {
+            "events": []
+          },
+          "parse_error": null
+        },
+        "prompt": "Inspect the supplied acoustic evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 45; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nA horizontal line is tone; a sloping line is chirp. A short wide patch is transient; a sustained wide patch is broadband. For wide patches the frequency numbers are the lower and upper bounds. Ignore diffuse background without a localized event.\n",
+        "image": "results/ai_annotations/views/mix_7815d23ac3fa8118/lofar_4s.png",
+        "image_sha256": "92a05f73499a51269d412e2d6ec30fde6c007382a145b74e616c6e0e7aea9d6b",
+        "raw_grid": null,
+        "display_scale": {
+          "policy": "peak_60db",
+          "vmin_db": -73.93308067321777,
+          "vmax_db": -13.933080673217773,
+          "constant_view": false,
+          "raw_psd_unchanged": true,
+          "scale_numeric_device": "cuda:0",
+          "display_frequency_bin_width_hz": 5.000694444444444,
+          "display_aggregation": "GPU_frequency_max_pool"
+        },
+        "syntax_validation": {
+          "raw_json_valid": true,
+          "syntax_repair_applied": false,
+          "numeric_values_changed": false
+        },
+        "events": [],
+        "errors": [],
+        "original_coordinate_offset_s": 0.0,
+        "display_coordinate_system": "scene-local"
+      },
+      {
+        "view": "demon_500_2000",
+        "generation": {
+          "raw_text": "{\"events\":[[14.5,15.5,14.5,15.5,\"modulation\"]]}.",
+          "input_tokens": 6660,
+          "gpu_seconds": 1.64196923828125,
+          "wall_seconds": 3.385441833001096,
+          "queue_seconds": 0.0011775380007748026,
+          "peak_allocated_bytes": 12661921792,
+          "max_new_tokens": 768,
+          "decode": "greedy",
+          "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+          "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+          "device_audit": {
+            "all_parameters_cuda": true,
+            "all_buffers_cuda": true,
+            "dtype": "bfloat16",
+            "hf_device_map": {
+              "": "cuda:0"
+            },
+            "parameter_count": 4732489216,
+            "execution": "single_annotation_GPU_worker_batched_greedy",
+            "max_batch_size": 2,
+            "time_accounting": "equal_share_batch_GPU_time; serial_latency_not_inferred",
+            "model_and_inputs_cuda_verified": true,
+            "pixel_values_dtype": "bfloat16"
+          },
+          "input_tensor_shapes": {
+            "input_ids": [
+              2,
+              6677
+            ],
+            "attention_mask": [
+              2,
+              6677
+            ],
+            "pixel_values": [
+              12,
+              3,
+              448,
+              448
+            ]
+          },
+          "request_id": "42bd2b97566c44e792d0b9a3cb8a4313",
+          "output_tokens": 29,
+          "at_generation_limit": false,
+          "stop_reason": "natural_eos",
+          "control_eos_excluded": false,
+          "batch_id": "20ffa966bd47:000442",
+          "batch_size": 2,
+          "batch_gpu_seconds": 3.2839384765625,
+          "batch_wall_seconds": 3.3842578349995165,
+          "batch_input_tokens": 13337,
+          "batch_output_tokens": 58,
+          "padded_prompt_width": 6677,
+          "batch_padded_input_tokens": 13354,
+          "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+          "latency_interpretation": "batched_request_sojourn; not serial_latency",
+          "token_count_convention": "natural_EOS_included; post_EOS_padding_and_control_EOS_excluded",
+          "training_examples": [
+            {
+              "image": "results/ai_annotations/training_examples/demon_500_2000/modulation.png",
+              "image_sha256": "bfbfa917461ff408a16f4e7b927eca751f783d3ab1cda045172ed4fd34873fa6",
+              "answer": {
+                "events": [
+                  [
+                    5.0,
+                    25.0,
+                    37.0,
+                    37.0,
+                    "modulation"
+                  ]
+                ]
+              },
+              "prompt": "Inspect the supplied envelope-modulation evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nType is modulation. Carrier-band numbers in the title are NOT modulation frequencies. Use the time plot for duration and the mean spectrum for frequency. Periodic ridges are events, but slow onset/offset leakage alone is not a periodic component.\nComplete fixed one-Hz raw mean-PSD grid (all cells, no selected peaks): {\"columns\":[\"modulation_frequency_hz\",\"mean_PSD_dB_re_digital_amplitude_squared_per_Hz\"],\"cells\":[[0.5,-25.75],[1.5,-33.08],[2.5,-37.63],[3.5,-37.86],[4.5,-39.88],[5.5,-38.3],[6.5,-39.85],[7.5,-40.31],[8.5,-41.64],[9.5,-38.94],[10.5,-41.97],[11.5,-41.62],[12.5,-38.74],[13.5,-38.85],[14.5,-41.25],[15.5,-38.77],[16.5,-40.73],[17.5,-39.55],[18.5,-40.76],[19.5,-40.05],[20.5,-41.67],[21.5,-41.89],[22.5,-41.63],[23.5,-41.3],[24.5,-38.78],[25.5,-39.22],[26.5,-41.75],[27.5,-42.19],[28.5,-40.09],[29.5,-40.69],[30.5,-39.88],[31.5,-39.58],[32.5,-41.49],[33.5,-40.2],[34.5,-40.18],[35.5,-39.19],[36.5,-21.19],[37.5,-14.6],[38.5,-37.5],[39.5,-40.4],[40.5,-39.84],[41.5,-39.28],[42.5,-39.91],[43.5,-39.84],[44.5,-40.7],[45.5,-41.55],[46.5,-40.72],[47.5,-40.65],[48.5,-43.21],[49.5,-40.99],[50.5,-39.4],[51.5,-39.42],[52.5,-39.4],[53.5,-40.9],[54.5,-39.98],[55.5,-41.95],[56.5,-38.51],[57.5,-39.82],[58.5,-40.88],[59.5,-41.81],[60.5,-43.85],[61.5,-40.57],[62.5,-37.86],[63.5,-40.27],[64.5,-40.77],[65.5,-38.49],[66.5,-39.45],[67.5,-40.05],[68.5,-39.91],[69.5,-40.34],[70.5,-41.0],[71.5,-41.59],[72.5,-41.7],[73.5,-38.67],[74.5,-39.35],[75.5,-40.46],[76.5,-41.45],[77.5,-40.46],[78.5,-41.06],[79.5,-40.4],[80.5,-39.87],[81.5,-40.58],[82.5,-40.14],[83.5,-40.7],[84.5,-43.51],[85.5,-40.9],[86.5,-40.16],[87.5,-40.13],[88.5,-40.11],[89.5,-39.91],[90.5,-39.43],[91.5,-40.43],[92.5,-39.13],[93.5,-40.01],[94.5,-40.77],[95.5,-41.52],[96.5,-39.42],[97.5,-41.67],[98.5,-40.37],[99.5,-38.65],[100.5,-41.7],[101.5,-41.9],[102.5,-39.92],[103.5,-40.41],[104.5,-41.12],[105.5,-40.05],[106.5,-39.3],[107.5,-41.12],[108.5,-40.84],[109.5,-42.55],[110.5,-41.28],[111.5,-38.5],[112.5,-40.34],[113.5,-41.78],[114.5,-40.33],[115.5,-41.28],[116.5,-41.86],[117.5,-40.22],[118.5,-39.78],[119.5,-38.74],[120.5,-39.77],[121.5,-41.75],[122.5,-39.21],[123.5,-40.47],[124.5,-40.36],[125.5,-41.71],[126.5,-40.63],[127.5,-40.04],[128.5,-41.25],[129.5,-39.07],[130.5,-39.91],[131.5,-39.8],[132.5,-42.2],[133.5,-40.34],[134.5,-39.36],[135.5,-41.49],[136.5,-41.07],[137.5,-41.27],[138.5,-40.29],[139.5,-40.12],[140.5,-40.31],[141.5,-41.67],[142.5,-41.4],[143.5,-41.04],[144.5,-42.22],[145.5,-40.41],[146.5,-40.57],[147.5,-41.1],[148.5,-41.28],[149.5,-42.25],[150.5,-41.45],[151.5,-39.8],[152.5,-39.58],[153.5,-40.69],[154.5,-41.11],[155.5,-38.93],[156.5,-38.9],[157.5,-41.2],[158.5,-40.28],[159.5,-40.04],[160.5,-40.9],[161.5,-39.37],[162.5,-41.58],[163.5,-40.76],[164.5,-40.75],[165.5,-40.35],[166.5,-41.05],[167.5,-40.23],[168.5,-41.36],[169.5,-40.3],[170.5,-41.59],[171.5,-40.23],[172.5,-40.3],[173.5,-40.88],[174.5,-41.22],[175.5,-39.52],[176.5,-41.52],[177.5,-40.94],[178.5,-41.16],[179.5,-41.53],[180.5,-40.7],[181.5,-41.24],[182.5,-41.37],[183.5,-41.02],[184.5,-41.24],[185.5,-39.95],[186.5,-40.87],[187.5,-40.85],[188.5,-41.17],[189.5,-41.4],[190.5,-40.01],[191.5,-42.91],[192.5,-39.59],[193.5,-39.46],[194.5,-40.9],[195.5,-40.79],[196.5,-41.19],[197.5,-40.65],[198.5,-40.02],[199.5,-40.13]],\"selection\":\"complete_fixed_one_Hz_cells_no_peak_selection\",\"last_cell_includes_200Hz_endpoint\":true,\"numeric_device\":\"cuda:0\"}\n",
+              "provenance": {
+                "role": "exact_separate_synthetic_training_demonstration",
+                "seed": 920507,
+                "target_truth_used": false,
+                "display_scale": {
+                  "policy": "peak_60db_with_fixed_raw_mean_psd",
+                  "vmin_db": -67.98845338821411,
+                  "vmax_db": -7.988453388214111,
+                  "display_frequency_bin_width_hz": 0.5548611111111111,
+                  "display_aggregation": "GPU_frequency_max_pool",
+                  "candidate_peaks_supplied": false,
+                  "mean_psd_numeric_device": "cuda:0",
+                  "raw_psd_unchanged": true
+                },
+                "raw_grid": {
+                  "columns": [
+                    "modulation_frequency_hz",
+                    "mean_PSD_dB_re_digital_amplitude_squared_per_Hz"
+                  ],
+                  "cells": [
+                    [
+                      0.5,
+                      -25.75
+                    ],
+                    [
+                      1.5,
+                      -33.08
+                    ],
+                    [
+                      2.5,
+                      -37.63
+                    ],
+                    [
+                      3.5,
+                      -37.86
+                    ],
+                    [
+                      4.5,
+                      -39.88
+                    ],
+                    [
+                      5.5,
+                      -38.3
+                    ],
+                    [
+                      6.5,
+                      -39.85
+                    ],
+                    [
+                      7.5,
+                      -40.31
+                    ],
+                    [
+                      8.5,
+                      -41.64
+                    ],
+                    [
+                      9.5,
+                      -38.94
+                    ],
+                    [
+                      10.5,
+                      -41.97
+                    ],
+                    [
+                      11.5,
+                      -41.62
+                    ],
+                    [
+                      12.5,
+                      -38.74
+                    ],
+                    [
+                      13.5,
+                      -38.85
+                    ],
+                    [
+                      14.5,
+                      -41.25
+                    ],
+                    [
+                      15.5,
+                      -38.77
+                    ],
+                    [
+                      16.5,
+                      -40.73
+                    ],
+                    [
+                      17.5,
+                      -39.55
+                    ],
+                    [
+                      18.5,
+                      -40.76
+                    ],
+                    [
+                      19.5,
+                      -40.05
+                    ],
+                    [
+                      20.5,
+                      -41.67
+                    ],
+                    [
+                      21.5,
+                      -41.89
+                    ],
+                    [
+                      22.5,
+                      -41.63
+                    ],
+                    [
+                      23.5,
+                      -41.3
+                    ],
+                    [
+                      24.5,
+                      -38.78
+                    ],
+                    [
+                      25.5,
+                      -39.22
+                    ],
+                    [
+                      26.5,
+                      -41.75
+                    ],
+                    [
+                      27.5,
+                      -42.19
+                    ],
+                    [
+                      28.5,
+                      -40.09
+                    ],
+                    [
+                      29.5,
+                      -40.69
+                    ],
+                    [
+                      30.5,
+                      -39.88
+                    ],
+                    [
+                      31.5,
+                      -39.58
+                    ],
+                    [
+                      32.5,
+                      -41.49
+                    ],
+                    [
+                      33.5,
+                      -40.2
+                    ],
+                    [
+                      34.5,
+                      -40.18
+                    ],
+                    [
+                      35.5,
+                      -39.19
+                    ],
+                    [
+                      36.5,
+                      -21.19
+                    ],
+                    [
+                      37.5,
+                      -14.6
+                    ],
+                    [
+                      38.5,
+                      -37.5
+                    ],
+                    [
+                      39.5,
+                      -40.4
+                    ],
+                    [
+                      40.5,
+                      -39.84
+                    ],
+                    [
+                      41.5,
+                      -39.28
+                    ],
+                    [
+                      42.5,
+                      -39.91
+                    ],
+                    [
+                      43.5,
+                      -39.84
+                    ],
+                    [
+                      44.5,
+                      -40.7
+                    ],
+                    [
+                      45.5,
+                      -41.55
+                    ],
+                    [
+                      46.5,
+                      -40.72
+                    ],
+                    [
+                      47.5,
+                      -40.65
+                    ],
+                    [
+                      48.5,
+                      -43.21
+                    ],
+                    [
+                      49.5,
+                      -40.99
+                    ],
+                    [
+                      50.5,
+                      -39.4
+                    ],
+                    [
+                      51.5,
+                      -39.42
+                    ],
+                    [
+                      52.5,
+                      -39.4
+                    ],
+                    [
+                      53.5,
+                      -40.9
+                    ],
+                    [
+                      54.5,
+                      -39.98
+                    ],
+                    [
+                      55.5,
+                      -41.95
+                    ],
+                    [
+                      56.5,
+                      -38.51
+                    ],
+                    [
+                      57.5,
+                      -39.82
+                    ],
+                    [
+                      58.5,
+                      -40.88
+                    ],
+                    [
+                      59.5,
+                      -41.81
+                    ],
+                    [
+                      60.5,
+                      -43.85
+                    ],
+                    [
+                      61.5,
+                      -40.57
+                    ],
+                    [
+                      62.5,
+                      -37.86
+                    ],
+                    [
+                      63.5,
+                      -40.27
+                    ],
+                    [
+                      64.5,
+                      -40.77
+                    ],
+                    [
+                      65.5,
+                      -38.49
+                    ],
+                    [
+                      66.5,
+                      -39.45
+                    ],
+                    [
+                      67.5,
+                      -40.05
+                    ],
+                    [
+                      68.5,
+                      -39.91
+                    ],
+                    [
+                      69.5,
+                      -40.34
+                    ],
+                    [
+                      70.5,
+                      -41.0
+                    ],
+                    [
+                      71.5,
+                      -41.59
+                    ],
+                    [
+                      72.5,
+                      -41.7
+                    ],
+                    [
+                      73.5,
+                      -38.67
+                    ],
+                    [
+                      74.5,
+                      -39.35
+                    ],
+                    [
+                      75.5,
+                      -40.46
+                    ],
+                    [
+                      76.5,
+                      -41.45
+                    ],
+                    [
+                      77.5,
+                      -40.46
+                    ],
+                    [
+                      78.5,
+                      -41.06
+                    ],
+                    [
+                      79.5,
+                      -40.4
+                    ],
+                    [
+                      80.5,
+                      -39.87
+                    ],
+                    [
+                      81.5,
+                      -40.58
+                    ],
+                    [
+                      82.5,
+                      -40.14
+                    ],
+                    [
+                      83.5,
+                      -40.7
+                    ],
+                    [
+                      84.5,
+                      -43.51
+                    ],
+                    [
+                      85.5,
+                      -40.9
+                    ],
+                    [
+                      86.5,
+                      -40.16
+                    ],
+                    [
+                      87.5,
+                      -40.13
+                    ],
+                    [
+                      88.5,
+                      -40.11
+                    ],
+                    [
+                      89.5,
+                      -39.91
+                    ],
+                    [
+                      90.5,
+                      -39.43
+                    ],
+                    [
+                      91.5,
+                      -40.43
+                    ],
+                    [
+                      92.5,
+                      -39.13
+                    ],
+                    [
+                      93.5,
+                      -40.01
+                    ],
+                    [
+                      94.5,
+                      -40.77
+                    ],
+                    [
+                      95.5,
+                      -41.52
+                    ],
+                    [
+                      96.5,
+                      -39.42
+                    ],
+                    [
+                      97.5,
+                      -41.67
+                    ],
+                    [
+                      98.5,
+                      -40.37
+                    ],
+                    [
+                      99.5,
+                      -38.65
+                    ],
+                    [
+                      100.5,
+                      -41.7
+                    ],
+                    [
+                      101.5,
+                      -41.9
+                    ],
+                    [
+                      102.5,
+                      -39.92
+                    ],
+                    [
+                      103.5,
+                      -40.41
+                    ],
+                    [
+                      104.5,
+                      -41.12
+                    ],
+                    [
+                      105.5,
+                      -40.05
+                    ],
+                    [
+                      106.5,
+                      -39.3
+                    ],
+                    [
+                      107.5,
+                      -41.12
+                    ],
+                    [
+                      108.5,
+                      -40.84
+                    ],
+                    [
+                      109.5,
+                      -42.55
+                    ],
+                    [
+                      110.5,
+                      -41.28
+                    ],
+                    [
+                      111.5,
+                      -38.5
+                    ],
+                    [
+                      112.5,
+                      -40.34
+                    ],
+                    [
+                      113.5,
+                      -41.78
+                    ],
+                    [
+                      114.5,
+                      -40.33
+                    ],
+                    [
+                      115.5,
+                      -41.28
+                    ],
+                    [
+                      116.5,
+                      -41.86
+                    ],
+                    [
+                      117.5,
+                      -40.22
+                    ],
+                    [
+                      118.5,
+                      -39.78
+                    ],
+                    [
+                      119.5,
+                      -38.74
+                    ],
+                    [
+                      120.5,
+                      -39.77
+                    ],
+                    [
+                      121.5,
+                      -41.75
+                    ],
+                    [
+                      122.5,
+                      -39.21
+                    ],
+                    [
+                      123.5,
+                      -40.47
+                    ],
+                    [
+                      124.5,
+                      -40.36
+                    ],
+                    [
+                      125.5,
+                      -41.71
+                    ],
+                    [
+                      126.5,
+                      -40.63
+                    ],
+                    [
+                      127.5,
+                      -40.04
+                    ],
+                    [
+                      128.5,
+                      -41.25
+                    ],
+                    [
+                      129.5,
+                      -39.07
+                    ],
+                    [
+                      130.5,
+                      -39.91
+                    ],
+                    [
+                      131.5,
+                      -39.8
+                    ],
+                    [
+                      132.5,
+                      -42.2
+                    ],
+                    [
+                      133.5,
+                      -40.34
+                    ],
+                    [
+                      134.5,
+                      -39.36
+                    ],
+                    [
+                      135.5,
+                      -41.49
+                    ],
+                    [
+                      136.5,
+                      -41.07
+                    ],
+                    [
+                      137.5,
+                      -41.27
+                    ],
+                    [
+                      138.5,
+                      -40.29
+                    ],
+                    [
+                      139.5,
+                      -40.12
+                    ],
+                    [
+                      140.5,
+                      -40.31
+                    ],
+                    [
+                      141.5,
+                      -41.67
+                    ],
+                    [
+                      142.5,
+                      -41.4
+                    ],
+                    [
+                      143.5,
+                      -41.04
+                    ],
+                    [
+                      144.5,
+                      -42.22
+                    ],
+                    [
+                      145.5,
+                      -40.41
+                    ],
+                    [
+                      146.5,
+                      -40.57
+                    ],
+                    [
+                      147.5,
+                      -41.1
+                    ],
+                    [
+                      148.5,
+                      -41.28
+                    ],
+                    [
+                      149.5,
+                      -42.25
+                    ],
+                    [
+                      150.5,
+                      -41.45
+                    ],
+                    [
+                      151.5,
+                      -39.8
+                    ],
+                    [
+                      152.5,
+                      -39.58
+                    ],
+                    [
+                      153.5,
+                      -40.69
+                    ],
+                    [
+                      154.5,
+                      -41.11
+                    ],
+                    [
+                      155.5,
+                      -38.93
+                    ],
+                    [
+                      156.5,
+                      -38.9
+                    ],
+                    [
+                      157.5,
+                      -41.2
+                    ],
+                    [
+                      158.5,
+                      -40.28
+                    ],
+                    [
+                      159.5,
+                      -40.04
+                    ],
+                    [
+                      160.5,
+                      -40.9
+                    ],
+                    [
+                      161.5,
+                      -39.37
+                    ],
+                    [
+                      162.5,
+                      -41.58
+                    ],
+                    [
+                      163.5,
+                      -40.76
+                    ],
+                    [
+                      164.5,
+                      -40.75
+                    ],
+                    [
+                      165.5,
+                      -40.35
+                    ],
+                    [
+                      166.5,
+                      -41.05
+                    ],
+                    [
+                      167.5,
+                      -40.23
+                    ],
+                    [
+                      168.5,
+                      -41.36
+                    ],
+                    [
+                      169.5,
+                      -40.3
+                    ],
+                    [
+                      170.5,
+                      -41.59
+                    ],
+                    [
+                      171.5,
+                      -40.23
+                    ],
+                    [
+                      172.5,
+                      -40.3
+                    ],
+                    [
+                      173.5,
+                      -40.88
+                    ],
+                    [
+                      174.5,
+                      -41.22
+                    ],
+                    [
+                      175.5,
+                      -39.52
+                    ],
+                    [
+                      176.5,
+                      -41.52
+                    ],
+                    [
+                      177.5,
+                      -40.94
+                    ],
+                    [
+                      178.5,
+                      -41.16
+                    ],
+                    [
+                      179.5,
+                      -41.53
+                    ],
+                    [
+                      180.5,
+                      -40.7
+                    ],
+                    [
+                      181.5,
+                      -41.24
+                    ],
+                    [
+                      182.5,
+                      -41.37
+                    ],
+                    [
+                      183.5,
+                      -41.02
+                    ],
+                    [
+                      184.5,
+                      -41.24
+                    ],
+                    [
+                      185.5,
+                      -39.95
+                    ],
+                    [
+                      186.5,
+                      -40.87
+                    ],
+                    [
+                      187.5,
+                      -40.85
+                    ],
+                    [
+                      188.5,
+                      -41.17
+                    ],
+                    [
+                      189.5,
+                      -41.4
+                    ],
+                    [
+                      190.5,
+                      -40.01
+                    ],
+                    [
+                      191.5,
+                      -42.91
+                    ],
+                    [
+                      192.5,
+                      -39.59
+                    ],
+                    [
+                      193.5,
+                      -39.46
+                    ],
+                    [
+                      194.5,
+                      -40.9
+                    ],
+                    [
+                      195.5,
+                      -40.79
+                    ],
+                    [
+                      196.5,
+                      -41.19
+                    ],
+                    [
+                      197.5,
+                      -40.65
+                    ],
+                    [
+                      198.5,
+                      -40.02
+                    ],
+                    [
+                      199.5,
+                      -40.13
+                    ]
+                  ],
+                  "selection": "complete_fixed_one_Hz_cells_no_peak_selection",
+                  "last_cell_includes_200Hz_endpoint": true,
+                  "numeric_device": "cuda:0"
+                }
+              }
+            }
+          ],
+          "parsed": {
+            "events": [
+              [
+                14.5,
+                15.5,
+                14.5,
+                15.5,
+                "modulation"
+              ]
+            ]
+          },
+          "parse_error": null
+        },
+        "prompt": "Inspect the supplied envelope-modulation evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 45; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nType is modulation. Carrier-band numbers in the title are NOT modulation frequencies. Use the time plot for duration and the mean spectrum for frequency. Periodic ridges are events, but slow onset/offset leakage alone is not a periodic component.\nComplete fixed one-Hz raw mean-PSD grid (all cells, no selected peaks): {\"columns\":[\"modulation_frequency_hz\",\"mean_PSD_dB_re_digital_amplitude_squared_per_Hz\"],\"cells\":[[0.5,-69.13],[1.5,-73.98],[2.5,-74.93],[3.5,-76.37],[4.5,-76.24],[5.5,-76.52],[6.5,-78.87],[7.5,-78.1],[8.5,-76.5],[9.5,-76.44],[10.5,-78.63],[11.5,-77.45],[12.5,-78.93],[13.5,-78.5],[14.5,-78.21],[15.5,-76.26],[16.5,-76.42],[17.5,-77.67],[18.5,-77.75],[19.5,-79.17],[20.5,-78.28],[21.5,-77.49],[22.5,-77.44],[23.5,-78.23],[24.5,-77.5],[25.5,-77.16],[26.5,-77.24],[27.5,-77.78],[28.5,-77.6],[29.5,-78.85],[30.5,-78.09],[31.5,-78.24],[32.5,-76.12],[33.5,-77.34],[34.5,-77.46],[35.5,-78.18],[36.5,-78.03],[37.5,-77.63],[38.5,-79.41],[39.5,-79.49],[40.5,-79.49],[41.5,-78.5],[42.5,-78.5],[43.5,-79.74],[44.5,-78.18],[45.5,-76.5],[46.5,-79.53],[47.5,-79.53],[48.5,-78.7],[49.5,-79.58],[50.5,-78.04],[51.5,-78.18],[52.5,-78.42],[53.5,-77.72],[54.5,-78.68],[55.5,-79.26],[56.5,-79.27],[57.5,-79.99],[58.5,-80.08],[59.5,-77.6],[60.5,-79.65],[61.5,-78.58],[62.5,-77.22],[63.5,-77.92],[64.5,-79.11],[65.5,-77.17],[66.5,-78.71],[67.5,-78.8],[68.5,-78.77],[69.5,-78.06],[70.5,-78.57],[71.5,-78.46],[72.5,-79.61],[73.5,-79.37],[74.5,-79.64],[75.5,-77.4],[76.5,-78.26],[77.5,-79.31],[78.5,-78.18],[79.5,-79.19],[80.5,-79.12],[81.5,-78.93],[82.5,-79.18],[83.5,-79.25],[84.5,-77.88],[85.5,-78.92],[86.5,-77.72],[87.5,-77.98],[88.5,-74.38],[89.5,-78.72],[90.5,-79.33],[91.5,-78.98],[92.5,-78.78],[93.5,-78.92],[94.5,-78.22],[95.5,-78.87],[96.5,-79.12],[97.5,-78.85],[98.5,-79.58],[99.5,-78.5],[100.5,-78.07],[101.5,-79.37],[102.5,-79.11],[103.5,-80.24],[104.5,-79.24],[105.5,-79.42],[106.5,-78.0],[107.5,-78.38],[108.5,-77.84],[109.5,-79.32],[110.5,-79.51],[111.5,-79.62],[112.5,-79.29],[113.5,-79.49],[114.5,-79.18],[115.5,-79.26],[116.5,-79.05],[117.5,-77.23],[118.5,-79.72],[119.5,-77.98],[120.5,-79.26],[121.5,-79.16],[122.5,-76.83],[123.5,-80.94],[124.5,-79.18],[125.5,-79.19],[126.5,-79.24],[127.5,-78.15],[128.5,-78.81],[129.5,-78.58],[130.5,-78.11],[131.5,-80.17],[132.5,-79.41],[133.5,-78.4],[134.5,-79.03],[135.5,-80.01],[136.5,-77.55],[137.5,-79.16],[138.5,-78.35],[139.5,-78.47],[140.5,-78.67],[141.5,-79.83],[142.5,-79.86],[143.5,-79.5],[144.5,-78.73],[145.5,-79.15],[146.5,-79.44],[147.5,-78.93],[148.5,-80.8],[149.5,-80.41],[150.5,-79.07],[151.5,-79.75],[152.5,-79.26],[153.5,-79.45],[154.5,-79.86],[155.5,-78.2],[156.5,-79.58],[157.5,-80.75],[158.5,-79.26],[159.5,-80.05],[160.5,-79.5],[161.5,-80.72],[162.5,-80.15],[163.5,-79.89],[164.5,-81.26],[165.5,-79.97],[166.5,-81.31],[167.5,-79.56],[168.5,-80.03],[169.5,-80.25],[170.5,-81.57],[171.5,-81.46],[172.5,-80.28],[173.5,-78.91],[174.5,-79.45],[175.5,-80.88],[176.5,-79.79],[177.5,-80.49],[178.5,-80.9],[179.5,-81.28],[180.5,-80.4],[181.5,-79.88],[182.5,-80.6],[183.5,-79.62],[184.5,-80.7],[185.5,-80.92],[186.5,-80.28],[187.5,-79.83],[188.5,-80.96],[189.5,-79.12],[190.5,-79.54],[191.5,-80.26],[192.5,-80.89],[193.5,-80.31],[194.5,-80.12],[195.5,-80.61],[196.5,-79.04],[197.5,-81.44],[198.5,-79.38],[199.5,-79.86]],\"selection\":\"complete_fixed_one_Hz_cells_no_peak_selection\",\"last_cell_includes_200Hz_endpoint\":true,\"numeric_device\":\"cuda:0\"}\n",
+        "image": "results/ai_annotations/views/mix_7815d23ac3fa8118/demon_500_2000.png",
+        "image_sha256": "ccd63d2c3d154870a2a8f92cd82599b9fee7929a6d0f0afd71b288da47ca10b4",
+        "raw_grid": {
+          "columns": [
+            "modulation_frequency_hz",
+            "mean_PSD_dB_re_digital_amplitude_squared_per_Hz"
+          ],
+          "cells": [
+            [
+              0.5,
+              -69.13
+            ],
+            [
+              1.5,
+              -73.98
+            ],
+            [
+              2.5,
+              -74.93
+            ],
+            [
+              3.5,
+              -76.37
+            ],
+            [
+              4.5,
+              -76.24
+            ],
+            [
+              5.5,
+              -76.52
+            ],
+            [
+              6.5,
+              -78.87
+            ],
+            [
+              7.5,
+              -78.1
+            ],
+            [
+              8.5,
+              -76.5
+            ],
+            [
+              9.5,
+              -76.44
+            ],
+            [
+              10.5,
+              -78.63
+            ],
+            [
+              11.5,
+              -77.45
+            ],
+            [
+              12.5,
+              -78.93
+            ],
+            [
+              13.5,
+              -78.5
+            ],
+            [
+              14.5,
+              -78.21
+            ],
+            [
+              15.5,
+              -76.26
+            ],
+            [
+              16.5,
+              -76.42
+            ],
+            [
+              17.5,
+              -77.67
+            ],
+            [
+              18.5,
+              -77.75
+            ],
+            [
+              19.5,
+              -79.17
+            ],
+            [
+              20.5,
+              -78.28
+            ],
+            [
+              21.5,
+              -77.49
+            ],
+            [
+              22.5,
+              -77.44
+            ],
+            [
+              23.5,
+              -78.23
+            ],
+            [
+              24.5,
+              -77.5
+            ],
+            [
+              25.5,
+              -77.16
+            ],
+            [
+              26.5,
+              -77.24
+            ],
+            [
+              27.5,
+              -77.78
+            ],
+            [
+              28.5,
+              -77.6
+            ],
+            [
+              29.5,
+              -78.85
+            ],
+            [
+              30.5,
+              -78.09
+            ],
+            [
+              31.5,
+              -78.24
+            ],
+            [
+              32.5,
+              -76.12
+            ],
+            [
+              33.5,
+              -77.34
+            ],
+            [
+              34.5,
+              -77.46
+            ],
+            [
+              35.5,
+              -78.18
+            ],
+            [
+              36.5,
+              -78.03
+            ],
+            [
+              37.5,
+              -77.63
+            ],
+            [
+              38.5,
+              -79.41
+            ],
+            [
+              39.5,
+              -79.49
+            ],
+            [
+              40.5,
+              -79.49
+            ],
+            [
+              41.5,
+              -78.5
+            ],
+            [
+              42.5,
+              -78.5
+            ],
+            [
+              43.5,
+              -79.74
+            ],
+            [
+              44.5,
+              -78.18
+            ],
+            [
+              45.5,
+              -76.5
+            ],
+            [
+              46.5,
+              -79.53
+            ],
+            [
+              47.5,
+              -79.53
+            ],
+            [
+              48.5,
+              -78.7
+            ],
+            [
+              49.5,
+              -79.58
+            ],
+            [
+              50.5,
+              -78.04
+            ],
+            [
+              51.5,
+              -78.18
+            ],
+            [
+              52.5,
+              -78.42
+            ],
+            [
+              53.5,
+              -77.72
+            ],
+            [
+              54.5,
+              -78.68
+            ],
+            [
+              55.5,
+              -79.26
+            ],
+            [
+              56.5,
+              -79.27
+            ],
+            [
+              57.5,
+              -79.99
+            ],
+            [
+              58.5,
+              -80.08
+            ],
+            [
+              59.5,
+              -77.6
+            ],
+            [
+              60.5,
+              -79.65
+            ],
+            [
+              61.5,
+              -78.58
+            ],
+            [
+              62.5,
+              -77.22
+            ],
+            [
+              63.5,
+              -77.92
+            ],
+            [
+              64.5,
+              -79.11
+            ],
+            [
+              65.5,
+              -77.17
+            ],
+            [
+              66.5,
+              -78.71
+            ],
+            [
+              67.5,
+              -78.8
+            ],
+            [
+              68.5,
+              -78.77
+            ],
+            [
+              69.5,
+              -78.06
+            ],
+            [
+              70.5,
+              -78.57
+            ],
+            [
+              71.5,
+              -78.46
+            ],
+            [
+              72.5,
+              -79.61
+            ],
+            [
+              73.5,
+              -79.37
+            ],
+            [
+              74.5,
+              -79.64
+            ],
+            [
+              75.5,
+              -77.4
+            ],
+            [
+              76.5,
+              -78.26
+            ],
+            [
+              77.5,
+              -79.31
+            ],
+            [
+              78.5,
+              -78.18
+            ],
+            [
+              79.5,
+              -79.19
+            ],
+            [
+              80.5,
+              -79.12
+            ],
+            [
+              81.5,
+              -78.93
+            ],
+            [
+              82.5,
+              -79.18
+            ],
+            [
+              83.5,
+              -79.25
+            ],
+            [
+              84.5,
+              -77.88
+            ],
+            [
+              85.5,
+              -78.92
+            ],
+            [
+              86.5,
+              -77.72
+            ],
+            [
+              87.5,
+              -77.98
+            ],
+            [
+              88.5,
+              -74.38
+            ],
+            [
+              89.5,
+              -78.72
+            ],
+            [
+              90.5,
+              -79.33
+            ],
+            [
+              91.5,
+              -78.98
+            ],
+            [
+              92.5,
+              -78.78
+            ],
+            [
+              93.5,
+              -78.92
+            ],
+            [
+              94.5,
+              -78.22
+            ],
+            [
+              95.5,
+              -78.87
+            ],
+            [
+              96.5,
+              -79.12
+            ],
+            [
+              97.5,
+              -78.85
+            ],
+            [
+              98.5,
+              -79.58
+            ],
+            [
+              99.5,
+              -78.5
+            ],
+            [
+              100.5,
+              -78.07
+            ],
+            [
+              101.5,
+              -79.37
+            ],
+            [
+              102.5,
+              -79.11
+            ],
+            [
+              103.5,
+              -80.24
+            ],
+            [
+              104.5,
+              -79.24
+            ],
+            [
+              105.5,
+              -79.42
+            ],
+            [
+              106.5,
+              -78.0
+            ],
+            [
+              107.5,
+              -78.38
+            ],
+            [
+              108.5,
+              -77.84
+            ],
+            [
+              109.5,
+              -79.32
+            ],
+            [
+              110.5,
+              -79.51
+            ],
+            [
+              111.5,
+              -79.62
+            ],
+            [
+              112.5,
+              -79.29
+            ],
+            [
+              113.5,
+              -79.49
+            ],
+            [
+              114.5,
+              -79.18
+            ],
+            [
+              115.5,
+              -79.26
+            ],
+            [
+              116.5,
+              -79.05
+            ],
+            [
+              117.5,
+              -77.23
+            ],
+            [
+              118.5,
+              -79.72
+            ],
+            [
+              119.5,
+              -77.98
+            ],
+            [
+              120.5,
+              -79.26
+            ],
+            [
+              121.5,
+              -79.16
+            ],
+            [
+              122.5,
+              -76.83
+            ],
+            [
+              123.5,
+              -80.94
+            ],
+            [
+              124.5,
+              -79.18
+            ],
+            [
+              125.5,
+              -79.19
+            ],
+            [
+              126.5,
+              -79.24
+            ],
+            [
+              127.5,
+              -78.15
+            ],
+            [
+              128.5,
+              -78.81
+            ],
+            [
+              129.5,
+              -78.58
+            ],
+            [
+              130.5,
+              -78.11
+            ],
+            [
+              131.5,
+              -80.17
+            ],
+            [
+              132.5,
+              -79.41
+            ],
+            [
+              133.5,
+              -78.4
+            ],
+            [
+              134.5,
+              -79.03
+            ],
+            [
+              135.5,
+              -80.01
+            ],
+            [
+              136.5,
+              -77.55
+            ],
+            [
+              137.5,
+              -79.16
+            ],
+            [
+              138.5,
+              -78.35
+            ],
+            [
+              139.5,
+              -78.47
+            ],
+            [
+              140.5,
+              -78.67
+            ],
+            [
+              141.5,
+              -79.83
+            ],
+            [
+              142.5,
+              -79.86
+            ],
+            [
+              143.5,
+              -79.5
+            ],
+            [
+              144.5,
+              -78.73
+            ],
+            [
+              145.5,
+              -79.15
+            ],
+            [
+              146.5,
+              -79.44
+            ],
+            [
+              147.5,
+              -78.93
+            ],
+            [
+              148.5,
+              -80.8
+            ],
+            [
+              149.5,
+              -80.41
+            ],
+            [
+              150.5,
+              -79.07
+            ],
+            [
+              151.5,
+              -79.75
+            ],
+            [
+              152.5,
+              -79.26
+            ],
+            [
+              153.5,
+              -79.45
+            ],
+            [
+              154.5,
+              -79.86
+            ],
+            [
+              155.5,
+              -78.2
+            ],
+            [
+              156.5,
+              -79.58
+            ],
+            [
+              157.5,
+              -80.75
+            ],
+            [
+              158.5,
+              -79.26
+            ],
+            [
+              159.5,
+              -80.05
+            ],
+            [
+              160.5,
+              -79.5
+            ],
+            [
+              161.5,
+              -80.72
+            ],
+            [
+              162.5,
+              -80.15
+            ],
+            [
+              163.5,
+              -79.89
+            ],
+            [
+              164.5,
+              -81.26
+            ],
+            [
+              165.5,
+              -79.97
+            ],
+            [
+              166.5,
+              -81.31
+            ],
+            [
+              167.5,
+              -79.56
+            ],
+            [
+              168.5,
+              -80.03
+            ],
+            [
+              169.5,
+              -80.25
+            ],
+            [
+              170.5,
+              -81.57
+            ],
+            [
+              171.5,
+              -81.46
+            ],
+            [
+              172.5,
+              -80.28
+            ],
+            [
+              173.5,
+              -78.91
+            ],
+            [
+              174.5,
+              -79.45
+            ],
+            [
+              175.5,
+              -80.88
+            ],
+            [
+              176.5,
+              -79.79
+            ],
+            [
+              177.5,
+              -80.49
+            ],
+            [
+              178.5,
+              -80.9
+            ],
+            [
+              179.5,
+              -81.28
+            ],
+            [
+              180.5,
+              -80.4
+            ],
+            [
+              181.5,
+              -79.88
+            ],
+            [
+              182.5,
+              -80.6
+            ],
+            [
+              183.5,
+              -79.62
+            ],
+            [
+              184.5,
+              -80.7
+            ],
+            [
+              185.5,
+              -80.92
+            ],
+            [
+              186.5,
+              -80.28
+            ],
+            [
+              187.5,
+              -79.83
+            ],
+            [
+              188.5,
+              -80.96
+            ],
+            [
+              189.5,
+              -79.12
+            ],
+            [
+              190.5,
+              -79.54
+            ],
+            [
+              191.5,
+              -80.26
+            ],
+            [
+              192.5,
+              -80.89
+            ],
+            [
+              193.5,
+              -80.31
+            ],
+            [
+              194.5,
+              -80.12
+            ],
+            [
+              195.5,
+              -80.61
+            ],
+            [
+              196.5,
+              -79.04
+            ],
+            [
+              197.5,
+              -81.44
+            ],
+            [
+              198.5,
+              -79.38
+            ],
+            [
+              199.5,
+              -79.86
+            ]
+          ],
+          "selection": "complete_fixed_one_Hz_cells_no_peak_selection",
+          "last_cell_includes_200Hz_endpoint": true,
+          "numeric_device": "cuda:0"
+        },
+        "display_scale": {
+          "policy": "peak_60db_with_fixed_raw_mean_psd",
+          "vmin_db": -113.58196258544922,
+          "vmax_db": -53.58196258544922,
+          "display_frequency_bin_width_hz": 0.5548611111111111,
+          "display_aggregation": "GPU_frequency_max_pool",
+          "candidate_peaks_supplied": false,
+          "mean_psd_numeric_device": "cuda:0",
+          "raw_psd_unchanged": true
+        },
+        "syntax_validation": {
+          "raw_json_valid": true,
+          "syntax_repair_applied": false,
+          "numeric_values_changed": false
+        },
+        "events": [
+          {
+            "id": "demon_500_2000:0",
+            "type": "modulation",
+            "frequency_domain": "modulation",
+            "time_s": [
+              14.5,
+              15.5
+            ],
+            "frequency_hz": [
+              14.5,
+              15.5
+            ],
+            "bin_spacing_hz": 0.5548611111111111,
+            "frequency_uncertainty_hz": 0.5548611111111111,
+            "display_frequency_bin_width_hz": 0.5548611111111111,
+            "boundary_uncertainty_s": 2.0,
+            "annotation_origin": "measurement_assisted_AI_reference",
+            "independent_ground_truth": false,
+            "source_view": "demon_500_2000",
+            "frequency_track": [
+              [
+                14.5,
+                14.5
+              ],
+              [
+                15.5,
+                15.5
+              ]
+            ],
+            "carrier_band_hz": [
+              500.0,
+              2000.0
+            ]
+          }
+        ],
+        "errors": [],
+        "original_coordinate_offset_s": 0.0,
+        "display_coordinate_system": "scene-local"
+      },
+      {
+        "view": "demon_2000_5000",
+        "generation": {
+          "raw_text": "{\"events\":[[14.5,15.5,34.5,34.5,\"modulation\"]]}",
+          "input_tokens": 6677,
+          "gpu_seconds": 1.64196923828125,
+          "wall_seconds": 3.3847034520003945,
+          "queue_seconds": 0.00010219199975836091,
+          "peak_allocated_bytes": 12661921792,
+          "max_new_tokens": 768,
+          "decode": "greedy",
+          "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+          "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+          "device_audit": {
+            "all_parameters_cuda": true,
+            "all_buffers_cuda": true,
+            "dtype": "bfloat16",
+            "hf_device_map": {
+              "": "cuda:0"
+            },
+            "parameter_count": 4732489216,
+            "execution": "single_annotation_GPU_worker_batched_greedy",
+            "max_batch_size": 2,
+            "time_accounting": "equal_share_batch_GPU_time; serial_latency_not_inferred",
+            "model_and_inputs_cuda_verified": true,
+            "pixel_values_dtype": "bfloat16"
+          },
+          "input_tensor_shapes": {
+            "input_ids": [
+              2,
+              6677
+            ],
+            "attention_mask": [
+              2,
+              6677
+            ],
+            "pixel_values": [
+              12,
+              3,
+              448,
+              448
+            ]
+          },
+          "request_id": "063d0e825c014dc8b75ebc8c6f05f6ec",
+          "output_tokens": 29,
+          "at_generation_limit": false,
+          "stop_reason": "natural_eos",
+          "control_eos_excluded": false,
+          "batch_id": "20ffa966bd47:000442",
+          "batch_size": 2,
+          "batch_gpu_seconds": 3.2839384765625,
+          "batch_wall_seconds": 3.3842578349995165,
+          "batch_input_tokens": 13337,
+          "batch_output_tokens": 58,
+          "padded_prompt_width": 6677,
+          "batch_padded_input_tokens": 13354,
+          "gpu_time_accounting": "equal_share_of_measured_batch_event_span",
+          "latency_interpretation": "batched_request_sojourn; not serial_latency",
+          "token_count_convention": "natural_EOS_included; post_EOS_padding_and_control_EOS_excluded",
+          "training_examples": [
+            {
+              "image": "results/ai_annotations/training_examples/demon_2000_5000/modulation.png",
+              "image_sha256": "52c93a4f2bd0bb10bc1b3839cf66554456e28def910dbed810551db6b2f60af5",
+              "answer": {
+                "events": [
+                  [
+                    5.0,
+                    25.0,
+                    37.0,
+                    37.0,
+                    "modulation"
+                  ]
+                ]
+              },
+              "prompt": "Inspect the supplied envelope-modulation evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 30; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nType is modulation. Carrier-band numbers in the title are NOT modulation frequencies. Use the time plot for duration and the mean spectrum for frequency. Periodic ridges are events, but slow onset/offset leakage alone is not a periodic component.\nComplete fixed one-Hz raw mean-PSD grid (all cells, no selected peaks): {\"columns\":[\"modulation_frequency_hz\",\"mean_PSD_dB_re_digital_amplitude_squared_per_Hz\"],\"cells\":[[0.5,-22.63],[1.5,-30.03],[2.5,-34.75],[3.5,-37.41],[4.5,-38.46],[5.5,-38.58],[6.5,-38.41],[7.5,-39.84],[8.5,-39.81],[9.5,-39.89],[10.5,-39.51],[11.5,-41.3],[12.5,-39.6],[13.5,-40.12],[14.5,-40.86],[15.5,-40.6],[16.5,-40.59],[17.5,-40.82],[18.5,-40.8],[19.5,-42.33],[20.5,-39.78],[21.5,-38.88],[22.5,-39.95],[23.5,-39.48],[24.5,-38.75],[25.5,-39.15],[26.5,-38.54],[27.5,-40.35],[28.5,-38.84],[29.5,-40.62],[30.5,-40.33],[31.5,-40.1],[32.5,-39.44],[33.5,-38.53],[34.5,-38.82],[35.5,-37.58],[36.5,-18.1],[37.5,-11.54],[38.5,-36.03],[39.5,-39.02],[40.5,-40.12],[41.5,-39.79],[42.5,-39.89],[43.5,-38.7],[44.5,-39.13],[45.5,-39.14],[46.5,-40.69],[47.5,-39.97],[48.5,-39.18],[49.5,-39.74],[50.5,-41.21],[51.5,-39.84],[52.5,-40.12],[53.5,-39.41],[54.5,-40.56],[55.5,-39.55],[56.5,-39.46],[57.5,-39.27],[58.5,-40.32],[59.5,-39.58],[60.5,-39.6],[61.5,-40.58],[62.5,-39.97],[63.5,-40.69],[64.5,-42.13],[65.5,-40.2],[66.5,-41.36],[67.5,-40.37],[68.5,-40.39],[69.5,-39.71],[70.5,-40.2],[71.5,-41.87],[72.5,-40.68],[73.5,-39.04],[74.5,-39.79],[75.5,-39.34],[76.5,-40.05],[77.5,-40.86],[78.5,-41.72],[79.5,-40.1],[80.5,-39.26],[81.5,-39.72],[82.5,-37.96],[83.5,-40.46],[84.5,-40.62],[85.5,-40.24],[86.5,-40.99],[87.5,-40.06],[88.5,-38.56],[89.5,-39.26],[90.5,-38.6],[91.5,-39.65],[92.5,-39.69],[93.5,-40.09],[94.5,-40.1],[95.5,-40.22],[96.5,-39.38],[97.5,-39.53],[98.5,-38.98],[99.5,-41.52],[100.5,-40.67],[101.5,-40.94],[102.5,-40.14],[103.5,-40.44],[104.5,-40.66],[105.5,-40.73],[106.5,-39.63],[107.5,-40.24],[108.5,-40.01],[109.5,-39.66],[110.5,-38.97],[111.5,-41.47],[112.5,-40.52],[113.5,-39.49],[114.5,-40.41],[115.5,-41.44],[116.5,-40.8],[117.5,-39.83],[118.5,-40.4],[119.5,-40.1],[120.5,-39.96],[121.5,-40.9],[122.5,-38.65],[123.5,-40.65],[124.5,-39.47],[125.5,-38.89],[126.5,-39.93],[127.5,-39.95],[128.5,-40.27],[129.5,-39.01],[130.5,-38.75],[131.5,-40.41],[132.5,-41.21],[133.5,-39.99],[134.5,-40.85],[135.5,-39.57],[136.5,-41.61],[137.5,-39.64],[138.5,-39.68],[139.5,-42.17],[140.5,-39.63],[141.5,-40.23],[142.5,-40.25],[143.5,-39.57],[144.5,-40.12],[145.5,-39.08],[146.5,-40.55],[147.5,-40.68],[148.5,-41.12],[149.5,-42.08],[150.5,-40.88],[151.5,-40.07],[152.5,-39.61],[153.5,-40.82],[154.5,-41.12],[155.5,-40.58],[156.5,-42.83],[157.5,-40.69],[158.5,-40.53],[159.5,-39.88],[160.5,-40.07],[161.5,-40.82],[162.5,-41.86],[163.5,-40.26],[164.5,-40.57],[165.5,-41.29],[166.5,-39.87],[167.5,-39.6],[168.5,-40.1],[169.5,-39.99],[170.5,-40.36],[171.5,-39.17],[172.5,-39.02],[173.5,-39.44],[174.5,-38.91],[175.5,-40.1],[176.5,-41.56],[177.5,-40.06],[178.5,-38.99],[179.5,-40.15],[180.5,-39.92],[181.5,-39.75],[182.5,-39.11],[183.5,-39.36],[184.5,-39.32],[185.5,-40.78],[186.5,-39.9],[187.5,-42.9],[188.5,-40.21],[189.5,-39.22],[190.5,-40.41],[191.5,-39.97],[192.5,-41.44],[193.5,-41.33],[194.5,-39.62],[195.5,-38.4],[196.5,-41.25],[197.5,-40.91],[198.5,-40.69],[199.5,-42.22]],\"selection\":\"complete_fixed_one_Hz_cells_no_peak_selection\",\"last_cell_includes_200Hz_endpoint\":true,\"numeric_device\":\"cuda:0\"}\n",
+              "provenance": {
+                "role": "exact_separate_synthetic_training_demonstration",
+                "seed": 922007,
+                "target_truth_used": false,
+                "display_scale": {
+                  "policy": "peak_60db_with_fixed_raw_mean_psd",
+                  "vmin_db": -64.90772199630737,
+                  "vmax_db": -4.907721996307373,
+                  "display_frequency_bin_width_hz": 0.5548611111111111,
+                  "display_aggregation": "GPU_frequency_max_pool",
+                  "candidate_peaks_supplied": false,
+                  "mean_psd_numeric_device": "cuda:0",
+                  "raw_psd_unchanged": true
+                },
+                "raw_grid": {
+                  "columns": [
+                    "modulation_frequency_hz",
+                    "mean_PSD_dB_re_digital_amplitude_squared_per_Hz"
+                  ],
+                  "cells": [
+                    [
+                      0.5,
+                      -22.63
+                    ],
+                    [
+                      1.5,
+                      -30.03
+                    ],
+                    [
+                      2.5,
+                      -34.75
+                    ],
+                    [
+                      3.5,
+                      -37.41
+                    ],
+                    [
+                      4.5,
+                      -38.46
+                    ],
+                    [
+                      5.5,
+                      -38.58
+                    ],
+                    [
+                      6.5,
+                      -38.41
+                    ],
+                    [
+                      7.5,
+                      -39.84
+                    ],
+                    [
+                      8.5,
+                      -39.81
+                    ],
+                    [
+                      9.5,
+                      -39.89
+                    ],
+                    [
+                      10.5,
+                      -39.51
+                    ],
+                    [
+                      11.5,
+                      -41.3
+                    ],
+                    [
+                      12.5,
+                      -39.6
+                    ],
+                    [
+                      13.5,
+                      -40.12
+                    ],
+                    [
+                      14.5,
+                      -40.86
+                    ],
+                    [
+                      15.5,
+                      -40.6
+                    ],
+                    [
+                      16.5,
+                      -40.59
+                    ],
+                    [
+                      17.5,
+                      -40.82
+                    ],
+                    [
+                      18.5,
+                      -40.8
+                    ],
+                    [
+                      19.5,
+                      -42.33
+                    ],
+                    [
+                      20.5,
+                      -39.78
+                    ],
+                    [
+                      21.5,
+                      -38.88
+                    ],
+                    [
+                      22.5,
+                      -39.95
+                    ],
+                    [
+                      23.5,
+                      -39.48
+                    ],
+                    [
+                      24.5,
+                      -38.75
+                    ],
+                    [
+                      25.5,
+                      -39.15
+                    ],
+                    [
+                      26.5,
+                      -38.54
+                    ],
+                    [
+                      27.5,
+                      -40.35
+                    ],
+                    [
+                      28.5,
+                      -38.84
+                    ],
+                    [
+                      29.5,
+                      -40.62
+                    ],
+                    [
+                      30.5,
+                      -40.33
+                    ],
+                    [
+                      31.5,
+                      -40.1
+                    ],
+                    [
+                      32.5,
+                      -39.44
+                    ],
+                    [
+                      33.5,
+                      -38.53
+                    ],
+                    [
+                      34.5,
+                      -38.82
+                    ],
+                    [
+                      35.5,
+                      -37.58
+                    ],
+                    [
+                      36.5,
+                      -18.1
+                    ],
+                    [
+                      37.5,
+                      -11.54
+                    ],
+                    [
+                      38.5,
+                      -36.03
+                    ],
+                    [
+                      39.5,
+                      -39.02
+                    ],
+                    [
+                      40.5,
+                      -40.12
+                    ],
+                    [
+                      41.5,
+                      -39.79
+                    ],
+                    [
+                      42.5,
+                      -39.89
+                    ],
+                    [
+                      43.5,
+                      -38.7
+                    ],
+                    [
+                      44.5,
+                      -39.13
+                    ],
+                    [
+                      45.5,
+                      -39.14
+                    ],
+                    [
+                      46.5,
+                      -40.69
+                    ],
+                    [
+                      47.5,
+                      -39.97
+                    ],
+                    [
+                      48.5,
+                      -39.18
+                    ],
+                    [
+                      49.5,
+                      -39.74
+                    ],
+                    [
+                      50.5,
+                      -41.21
+                    ],
+                    [
+                      51.5,
+                      -39.84
+                    ],
+                    [
+                      52.5,
+                      -40.12
+                    ],
+                    [
+                      53.5,
+                      -39.41
+                    ],
+                    [
+                      54.5,
+                      -40.56
+                    ],
+                    [
+                      55.5,
+                      -39.55
+                    ],
+                    [
+                      56.5,
+                      -39.46
+                    ],
+                    [
+                      57.5,
+                      -39.27
+                    ],
+                    [
+                      58.5,
+                      -40.32
+                    ],
+                    [
+                      59.5,
+                      -39.58
+                    ],
+                    [
+                      60.5,
+                      -39.6
+                    ],
+                    [
+                      61.5,
+                      -40.58
+                    ],
+                    [
+                      62.5,
+                      -39.97
+                    ],
+                    [
+                      63.5,
+                      -40.69
+                    ],
+                    [
+                      64.5,
+                      -42.13
+                    ],
+                    [
+                      65.5,
+                      -40.2
+                    ],
+                    [
+                      66.5,
+                      -41.36
+                    ],
+                    [
+                      67.5,
+                      -40.37
+                    ],
+                    [
+                      68.5,
+                      -40.39
+                    ],
+                    [
+                      69.5,
+                      -39.71
+                    ],
+                    [
+                      70.5,
+                      -40.2
+                    ],
+                    [
+                      71.5,
+                      -41.87
+                    ],
+                    [
+                      72.5,
+                      -40.68
+                    ],
+                    [
+                      73.5,
+                      -39.04
+                    ],
+                    [
+                      74.5,
+                      -39.79
+                    ],
+                    [
+                      75.5,
+                      -39.34
+                    ],
+                    [
+                      76.5,
+                      -40.05
+                    ],
+                    [
+                      77.5,
+                      -40.86
+                    ],
+                    [
+                      78.5,
+                      -41.72
+                    ],
+                    [
+                      79.5,
+                      -40.1
+                    ],
+                    [
+                      80.5,
+                      -39.26
+                    ],
+                    [
+                      81.5,
+                      -39.72
+                    ],
+                    [
+                      82.5,
+                      -37.96
+                    ],
+                    [
+                      83.5,
+                      -40.46
+                    ],
+                    [
+                      84.5,
+                      -40.62
+                    ],
+                    [
+                      85.5,
+                      -40.24
+                    ],
+                    [
+                      86.5,
+                      -40.99
+                    ],
+                    [
+                      87.5,
+                      -40.06
+                    ],
+                    [
+                      88.5,
+                      -38.56
+                    ],
+                    [
+                      89.5,
+                      -39.26
+                    ],
+                    [
+                      90.5,
+                      -38.6
+                    ],
+                    [
+                      91.5,
+                      -39.65
+                    ],
+                    [
+                      92.5,
+                      -39.69
+                    ],
+                    [
+                      93.5,
+                      -40.09
+                    ],
+                    [
+                      94.5,
+                      -40.1
+                    ],
+                    [
+                      95.5,
+                      -40.22
+                    ],
+                    [
+                      96.5,
+                      -39.38
+                    ],
+                    [
+                      97.5,
+                      -39.53
+                    ],
+                    [
+                      98.5,
+                      -38.98
+                    ],
+                    [
+                      99.5,
+                      -41.52
+                    ],
+                    [
+                      100.5,
+                      -40.67
+                    ],
+                    [
+                      101.5,
+                      -40.94
+                    ],
+                    [
+                      102.5,
+                      -40.14
+                    ],
+                    [
+                      103.5,
+                      -40.44
+                    ],
+                    [
+                      104.5,
+                      -40.66
+                    ],
+                    [
+                      105.5,
+                      -40.73
+                    ],
+                    [
+                      106.5,
+                      -39.63
+                    ],
+                    [
+                      107.5,
+                      -40.24
+                    ],
+                    [
+                      108.5,
+                      -40.01
+                    ],
+                    [
+                      109.5,
+                      -39.66
+                    ],
+                    [
+                      110.5,
+                      -38.97
+                    ],
+                    [
+                      111.5,
+                      -41.47
+                    ],
+                    [
+                      112.5,
+                      -40.52
+                    ],
+                    [
+                      113.5,
+                      -39.49
+                    ],
+                    [
+                      114.5,
+                      -40.41
+                    ],
+                    [
+                      115.5,
+                      -41.44
+                    ],
+                    [
+                      116.5,
+                      -40.8
+                    ],
+                    [
+                      117.5,
+                      -39.83
+                    ],
+                    [
+                      118.5,
+                      -40.4
+                    ],
+                    [
+                      119.5,
+                      -40.1
+                    ],
+                    [
+                      120.5,
+                      -39.96
+                    ],
+                    [
+                      121.5,
+                      -40.9
+                    ],
+                    [
+                      122.5,
+                      -38.65
+                    ],
+                    [
+                      123.5,
+                      -40.65
+                    ],
+                    [
+                      124.5,
+                      -39.47
+                    ],
+                    [
+                      125.5,
+                      -38.89
+                    ],
+                    [
+                      126.5,
+                      -39.93
+                    ],
+                    [
+                      127.5,
+                      -39.95
+                    ],
+                    [
+                      128.5,
+                      -40.27
+                    ],
+                    [
+                      129.5,
+                      -39.01
+                    ],
+                    [
+                      130.5,
+                      -38.75
+                    ],
+                    [
+                      131.5,
+                      -40.41
+                    ],
+                    [
+                      132.5,
+                      -41.21
+                    ],
+                    [
+                      133.5,
+                      -39.99
+                    ],
+                    [
+                      134.5,
+                      -40.85
+                    ],
+                    [
+                      135.5,
+                      -39.57
+                    ],
+                    [
+                      136.5,
+                      -41.61
+                    ],
+                    [
+                      137.5,
+                      -39.64
+                    ],
+                    [
+                      138.5,
+                      -39.68
+                    ],
+                    [
+                      139.5,
+                      -42.17
+                    ],
+                    [
+                      140.5,
+                      -39.63
+                    ],
+                    [
+                      141.5,
+                      -40.23
+                    ],
+                    [
+                      142.5,
+                      -40.25
+                    ],
+                    [
+                      143.5,
+                      -39.57
+                    ],
+                    [
+                      144.5,
+                      -40.12
+                    ],
+                    [
+                      145.5,
+                      -39.08
+                    ],
+                    [
+                      146.5,
+                      -40.55
+                    ],
+                    [
+                      147.5,
+                      -40.68
+                    ],
+                    [
+                      148.5,
+                      -41.12
+                    ],
+                    [
+                      149.5,
+                      -42.08
+                    ],
+                    [
+                      150.5,
+                      -40.88
+                    ],
+                    [
+                      151.5,
+                      -40.07
+                    ],
+                    [
+                      152.5,
+                      -39.61
+                    ],
+                    [
+                      153.5,
+                      -40.82
+                    ],
+                    [
+                      154.5,
+                      -41.12
+                    ],
+                    [
+                      155.5,
+                      -40.58
+                    ],
+                    [
+                      156.5,
+                      -42.83
+                    ],
+                    [
+                      157.5,
+                      -40.69
+                    ],
+                    [
+                      158.5,
+                      -40.53
+                    ],
+                    [
+                      159.5,
+                      -39.88
+                    ],
+                    [
+                      160.5,
+                      -40.07
+                    ],
+                    [
+                      161.5,
+                      -40.82
+                    ],
+                    [
+                      162.5,
+                      -41.86
+                    ],
+                    [
+                      163.5,
+                      -40.26
+                    ],
+                    [
+                      164.5,
+                      -40.57
+                    ],
+                    [
+                      165.5,
+                      -41.29
+                    ],
+                    [
+                      166.5,
+                      -39.87
+                    ],
+                    [
+                      167.5,
+                      -39.6
+                    ],
+                    [
+                      168.5,
+                      -40.1
+                    ],
+                    [
+                      169.5,
+                      -39.99
+                    ],
+                    [
+                      170.5,
+                      -40.36
+                    ],
+                    [
+                      171.5,
+                      -39.17
+                    ],
+                    [
+                      172.5,
+                      -39.02
+                    ],
+                    [
+                      173.5,
+                      -39.44
+                    ],
+                    [
+                      174.5,
+                      -38.91
+                    ],
+                    [
+                      175.5,
+                      -40.1
+                    ],
+                    [
+                      176.5,
+                      -41.56
+                    ],
+                    [
+                      177.5,
+                      -40.06
+                    ],
+                    [
+                      178.5,
+                      -38.99
+                    ],
+                    [
+                      179.5,
+                      -40.15
+                    ],
+                    [
+                      180.5,
+                      -39.92
+                    ],
+                    [
+                      181.5,
+                      -39.75
+                    ],
+                    [
+                      182.5,
+                      -39.11
+                    ],
+                    [
+                      183.5,
+                      -39.36
+                    ],
+                    [
+                      184.5,
+                      -39.32
+                    ],
+                    [
+                      185.5,
+                      -40.78
+                    ],
+                    [
+                      186.5,
+                      -39.9
+                    ],
+                    [
+                      187.5,
+                      -42.9
+                    ],
+                    [
+                      188.5,
+                      -40.21
+                    ],
+                    [
+                      189.5,
+                      -39.22
+                    ],
+                    [
+                      190.5,
+                      -40.41
+                    ],
+                    [
+                      191.5,
+                      -39.97
+                    ],
+                    [
+                      192.5,
+                      -41.44
+                    ],
+                    [
+                      193.5,
+                      -41.33
+                    ],
+                    [
+                      194.5,
+                      -39.62
+                    ],
+                    [
+                      195.5,
+                      -38.4
+                    ],
+                    [
+                      196.5,
+                      -41.25
+                    ],
+                    [
+                      197.5,
+                      -40.91
+                    ],
+                    [
+                      198.5,
+                      -40.69
+                    ],
+                    [
+                      199.5,
+                      -42.22
+                    ]
+                  ],
+                  "selection": "complete_fixed_one_Hz_cells_no_peak_selection",
+                  "last_cell_includes_200Hz_endpoint": true,
+                  "numeric_device": "cuda:0"
+                }
+              }
+            }
+          ],
+          "parsed": {
+            "events": [
+              [
+                14.5,
+                15.5,
+                34.5,
+                34.5,
+                "modulation"
+              ]
+            ]
+          },
+          "parse_error": null
+        },
+        "prompt": "Inspect the supplied envelope-modulation evidence.\nTime is horizontal in seconds in the spectrogram, from 0 to 45; frequency is vertical in Hz.\nFind localized structure distinct from the speckled background. A whole plotting rectangle is not an event.\nOne continuous line is one event over its full visible duration; do not divide it into adjacent pieces.\nReturn ONLY a JSON object with key events. Its value is a list of at most eight arrays.\nEach array contains four measured numbers followed by a type string: starting time, ending time,\nstarting frequency, ending frequency, type. Return an empty list if no localized structure is supported.\nDo not identify vessels, machinery, blades, source power, range, or absolute acoustic SPL.\nType is modulation. Carrier-band numbers in the title are NOT modulation frequencies. Use the time plot for duration and the mean spectrum for frequency. Periodic ridges are events, but slow onset/offset leakage alone is not a periodic component.\nComplete fixed one-Hz raw mean-PSD grid (all cells, no selected peaks): {\"columns\":[\"modulation_frequency_hz\",\"mean_PSD_dB_re_digital_amplitude_squared_per_Hz\"],\"cells\":[[0.5,-75.99],[1.5,-81.31],[2.5,-82.91],[3.5,-84.67],[4.5,-87.14],[5.5,-84.22],[6.5,-88.28],[7.5,-89.39],[8.5,-88.09],[9.5,-88.25],[10.5,-89.36],[11.5,-82.37],[12.5,-88.22],[13.5,-88.2],[14.5,-87.8],[15.5,-89.27],[16.5,-90.11],[17.5,-88.7],[18.5,-88.44],[19.5,-89.43],[20.5,-89.59],[21.5,-90.57],[22.5,-85.55],[23.5,-88.68],[24.5,-88.68],[25.5,-87.94],[26.5,-88.88],[27.5,-90.19],[28.5,-88.9],[29.5,-90.17],[30.5,-89.48],[31.5,-88.94],[32.5,-89.78],[33.5,-89.04],[34.5,-85.35],[35.5,-89.59],[36.5,-90.23],[37.5,-89.38],[38.5,-90.46],[39.5,-89.5],[40.5,-89.15],[41.5,-88.33],[42.5,-90.12],[43.5,-89.71],[44.5,-90.28],[45.5,-85.98],[46.5,-89.72],[47.5,-89.82],[48.5,-89.13],[49.5,-90.41],[50.5,-89.59],[51.5,-88.16],[52.5,-90.03],[53.5,-89.7],[54.5,-89.51],[55.5,-89.75],[56.5,-89.28],[57.5,-87.58],[58.5,-90.16],[59.5,-88.73],[60.5,-89.37],[61.5,-89.68],[62.5,-89.95],[63.5,-90.88],[64.5,-90.09],[65.5,-88.94],[66.5,-89.14],[67.5,-90.29],[68.5,-87.72],[69.5,-90.11],[70.5,-90.78],[71.5,-88.76],[72.5,-89.82],[73.5,-90.63],[74.5,-89.09],[75.5,-90.35],[76.5,-89.66],[77.5,-88.42],[78.5,-88.67],[79.5,-88.31],[80.5,-90.12],[81.5,-90.0],[82.5,-90.67],[83.5,-91.53],[84.5,-88.38],[85.5,-90.46],[86.5,-88.78],[87.5,-89.86],[88.5,-90.56],[89.5,-91.37],[90.5,-89.76],[91.5,-88.51],[92.5,-90.54],[93.5,-88.85],[94.5,-91.62],[95.5,-89.98],[96.5,-89.94],[97.5,-90.96],[98.5,-90.35],[99.5,-90.69],[100.5,-90.38],[101.5,-89.91],[102.5,-90.47],[103.5,-90.23],[104.5,-90.17],[105.5,-90.25],[106.5,-88.6],[107.5,-89.98],[108.5,-89.29],[109.5,-90.27],[110.5,-90.25],[111.5,-88.87],[112.5,-90.18],[113.5,-88.58],[114.5,-89.68],[115.5,-91.3],[116.5,-89.42],[117.5,-90.04],[118.5,-89.4],[119.5,-90.95],[120.5,-91.58],[121.5,-90.68],[122.5,-89.66],[123.5,-90.41],[124.5,-89.96],[125.5,-89.38],[126.5,-90.66],[127.5,-90.74],[128.5,-91.51],[129.5,-89.88],[130.5,-90.22],[131.5,-89.98],[132.5,-89.63],[133.5,-88.76],[134.5,-89.56],[135.5,-90.75],[136.5,-88.34],[137.5,-90.53],[138.5,-89.45],[139.5,-89.56],[140.5,-89.23],[141.5,-89.89],[142.5,-90.59],[143.5,-90.33],[144.5,-90.69],[145.5,-90.98],[146.5,-90.05],[147.5,-91.46],[148.5,-90.98],[149.5,-89.79],[150.5,-91.57],[151.5,-90.26],[152.5,-90.3],[153.5,-89.07],[154.5,-89.73],[155.5,-90.33],[156.5,-90.97],[157.5,-90.07],[158.5,-90.92],[159.5,-90.53],[160.5,-91.04],[161.5,-90.46],[162.5,-91.14],[163.5,-90.94],[164.5,-90.46],[165.5,-89.49],[166.5,-90.7],[167.5,-92.22],[168.5,-90.65],[169.5,-89.82],[170.5,-90.74],[171.5,-89.74],[172.5,-90.74],[173.5,-90.91],[174.5,-90.34],[175.5,-90.96],[176.5,-91.61],[177.5,-90.3],[178.5,-92.0],[179.5,-90.07],[180.5,-89.4],[181.5,-91.41],[182.5,-91.28],[183.5,-90.13],[184.5,-90.65],[185.5,-90.82],[186.5,-90.48],[187.5,-91.67],[188.5,-90.79],[189.5,-91.15],[190.5,-89.99],[191.5,-90.76],[192.5,-89.42],[193.5,-89.84],[194.5,-90.09],[195.5,-89.79],[196.5,-89.78],[197.5,-91.48],[198.5,-91.49],[199.5,-92.05]],\"selection\":\"complete_fixed_one_Hz_cells_no_peak_selection\",\"last_cell_includes_200Hz_endpoint\":true,\"numeric_device\":\"cuda:0\"}\n",
+        "image": "results/ai_annotations/views/mix_7815d23ac3fa8118/demon_2000_5000.png",
+        "image_sha256": "591bef4f8130d3ee68f781681d1d6ef15979990a710f3e05a5e7d2208525d6f1",
+        "raw_grid": {
+          "columns": [
+            "modulation_frequency_hz",
+            "mean_PSD_dB_re_digital_amplitude_squared_per_Hz"
+          ],
+          "cells": [
+            [
+              0.5,
+              -75.99
+            ],
+            [
+              1.5,
+              -81.31
+            ],
+            [
+              2.5,
+              -82.91
+            ],
+            [
+              3.5,
+              -84.67
+            ],
+            [
+              4.5,
+              -87.14
+            ],
+            [
+              5.5,
+              -84.22
+            ],
+            [
+              6.5,
+              -88.28
+            ],
+            [
+              7.5,
+              -89.39
+            ],
+            [
+              8.5,
+              -88.09
+            ],
+            [
+              9.5,
+              -88.25
+            ],
+            [
+              10.5,
+              -89.36
+            ],
+            [
+              11.5,
+              -82.37
+            ],
+            [
+              12.5,
+              -88.22
+            ],
+            [
+              13.5,
+              -88.2
+            ],
+            [
+              14.5,
+              -87.8
+            ],
+            [
+              15.5,
+              -89.27
+            ],
+            [
+              16.5,
+              -90.11
+            ],
+            [
+              17.5,
+              -88.7
+            ],
+            [
+              18.5,
+              -88.44
+            ],
+            [
+              19.5,
+              -89.43
+            ],
+            [
+              20.5,
+              -89.59
+            ],
+            [
+              21.5,
+              -90.57
+            ],
+            [
+              22.5,
+              -85.55
+            ],
+            [
+              23.5,
+              -88.68
+            ],
+            [
+              24.5,
+              -88.68
+            ],
+            [
+              25.5,
+              -87.94
+            ],
+            [
+              26.5,
+              -88.88
+            ],
+            [
+              27.5,
+              -90.19
+            ],
+            [
+              28.5,
+              -88.9
+            ],
+            [
+              29.5,
+              -90.17
+            ],
+            [
+              30.5,
+              -89.48
+            ],
+            [
+              31.5,
+              -88.94
+            ],
+            [
+              32.5,
+              -89.78
+            ],
+            [
+              33.5,
+              -89.04
+            ],
+            [
+              34.5,
+              -85.35
+            ],
+            [
+              35.5,
+              -89.59
+            ],
+            [
+              36.5,
+              -90.23
+            ],
+            [
+              37.5,
+              -89.38
+            ],
+            [
+              38.5,
+              -90.46
+            ],
+            [
+              39.5,
+              -89.5
+            ],
+            [
+              40.5,
+              -89.15
+            ],
+            [
+              41.5,
+              -88.33
+            ],
+            [
+              42.5,
+              -90.12
+            ],
+            [
+              43.5,
+              -89.71
+            ],
+            [
+              44.5,
+              -90.28
+            ],
+            [
+              45.5,
+              -85.98
+            ],
+            [
+              46.5,
+              -89.72
+            ],
+            [
+              47.5,
+              -89.82
+            ],
+            [
+              48.5,
+              -89.13
+            ],
+            [
+              49.5,
+              -90.41
+            ],
+            [
+              50.5,
+              -89.59
+            ],
+            [
+              51.5,
+              -88.16
+            ],
+            [
+              52.5,
+              -90.03
+            ],
+            [
+              53.5,
+              -89.7
+            ],
+            [
+              54.5,
+              -89.51
+            ],
+            [
+              55.5,
+              -89.75
+            ],
+            [
+              56.5,
+              -89.28
+            ],
+            [
+              57.5,
+              -87.58
+            ],
+            [
+              58.5,
+              -90.16
+            ],
+            [
+              59.5,
+              -88.73
+            ],
+            [
+              60.5,
+              -89.37
+            ],
+            [
+              61.5,
+              -89.68
+            ],
+            [
+              62.5,
+              -89.95
+            ],
+            [
+              63.5,
+              -90.88
+            ],
+            [
+              64.5,
+              -90.09
+            ],
+            [
+              65.5,
+              -88.94
+            ],
+            [
+              66.5,
+              -89.14
+            ],
+            [
+              67.5,
+              -90.29
+            ],
+            [
+              68.5,
+              -87.72
+            ],
+            [
+              69.5,
+              -90.11
+            ],
+            [
+              70.5,
+              -90.78
+            ],
+            [
+              71.5,
+              -88.76
+            ],
+            [
+              72.5,
+              -89.82
+            ],
+            [
+              73.5,
+              -90.63
+            ],
+            [
+              74.5,
+              -89.09
+            ],
+            [
+              75.5,
+              -90.35
+            ],
+            [
+              76.5,
+              -89.66
+            ],
+            [
+              77.5,
+              -88.42
+            ],
+            [
+              78.5,
+              -88.67
+            ],
+            [
+              79.5,
+              -88.31
+            ],
+            [
+              80.5,
+              -90.12
+            ],
+            [
+              81.5,
+              -90.0
+            ],
+            [
+              82.5,
+              -90.67
+            ],
+            [
+              83.5,
+              -91.53
+            ],
+            [
+              84.5,
+              -88.38
+            ],
+            [
+              85.5,
+              -90.46
+            ],
+            [
+              86.5,
+              -88.78
+            ],
+            [
+              87.5,
+              -89.86
+            ],
+            [
+              88.5,
+              -90.56
+            ],
+            [
+              89.5,
+              -91.37
+            ],
+            [
+              90.5,
+              -89.76
+            ],
+            [
+              91.5,
+              -88.51
+            ],
+            [
+              92.5,
+              -90.54
+            ],
+            [
+              93.5,
+              -88.85
+            ],
+            [
+              94.5,
+              -91.62
+            ],
+            [
+              95.5,
+              -89.98
+            ],
+            [
+              96.5,
+              -89.94
+            ],
+            [
+              97.5,
+              -90.96
+            ],
+            [
+              98.5,
+              -90.35
+            ],
+            [
+              99.5,
+              -90.69
+            ],
+            [
+              100.5,
+              -90.38
+            ],
+            [
+              101.5,
+              -89.91
+            ],
+            [
+              102.5,
+              -90.47
+            ],
+            [
+              103.5,
+              -90.23
+            ],
+            [
+              104.5,
+              -90.17
+            ],
+            [
+              105.5,
+              -90.25
+            ],
+            [
+              106.5,
+              -88.6
+            ],
+            [
+              107.5,
+              -89.98
+            ],
+            [
+              108.5,
+              -89.29
+            ],
+            [
+              109.5,
+              -90.27
+            ],
+            [
+              110.5,
+              -90.25
+            ],
+            [
+              111.5,
+              -88.87
+            ],
+            [
+              112.5,
+              -90.18
+            ],
+            [
+              113.5,
+              -88.58
+            ],
+            [
+              114.5,
+              -89.68
+            ],
+            [
+              115.5,
+              -91.3
+            ],
+            [
+              116.5,
+              -89.42
+            ],
+            [
+              117.5,
+              -90.04
+            ],
+            [
+              118.5,
+              -89.4
+            ],
+            [
+              119.5,
+              -90.95
+            ],
+            [
+              120.5,
+              -91.58
+            ],
+            [
+              121.5,
+              -90.68
+            ],
+            [
+              122.5,
+              -89.66
+            ],
+            [
+              123.5,
+              -90.41
+            ],
+            [
+              124.5,
+              -89.96
+            ],
+            [
+              125.5,
+              -89.38
+            ],
+            [
+              126.5,
+              -90.66
+            ],
+            [
+              127.5,
+              -90.74
+            ],
+            [
+              128.5,
+              -91.51
+            ],
+            [
+              129.5,
+              -89.88
+            ],
+            [
+              130.5,
+              -90.22
+            ],
+            [
+              131.5,
+              -89.98
+            ],
+            [
+              132.5,
+              -89.63
+            ],
+            [
+              133.5,
+              -88.76
+            ],
+            [
+              134.5,
+              -89.56
+            ],
+            [
+              135.5,
+              -90.75
+            ],
+            [
+              136.5,
+              -88.34
+            ],
+            [
+              137.5,
+              -90.53
+            ],
+            [
+              138.5,
+              -89.45
+            ],
+            [
+              139.5,
+              -89.56
+            ],
+            [
+              140.5,
+              -89.23
+            ],
+            [
+              141.5,
+              -89.89
+            ],
+            [
+              142.5,
+              -90.59
+            ],
+            [
+              143.5,
+              -90.33
+            ],
+            [
+              144.5,
+              -90.69
+            ],
+            [
+              145.5,
+              -90.98
+            ],
+            [
+              146.5,
+              -90.05
+            ],
+            [
+              147.5,
+              -91.46
+            ],
+            [
+              148.5,
+              -90.98
+            ],
+            [
+              149.5,
+              -89.79
+            ],
+            [
+              150.5,
+              -91.57
+            ],
+            [
+              151.5,
+              -90.26
+            ],
+            [
+              152.5,
+              -90.3
+            ],
+            [
+              153.5,
+              -89.07
+            ],
+            [
+              154.5,
+              -89.73
+            ],
+            [
+              155.5,
+              -90.33
+            ],
+            [
+              156.5,
+              -90.97
+            ],
+            [
+              157.5,
+              -90.07
+            ],
+            [
+              158.5,
+              -90.92
+            ],
+            [
+              159.5,
+              -90.53
+            ],
+            [
+              160.5,
+              -91.04
+            ],
+            [
+              161.5,
+              -90.46
+            ],
+            [
+              162.5,
+              -91.14
+            ],
+            [
+              163.5,
+              -90.94
+            ],
+            [
+              164.5,
+              -90.46
+            ],
+            [
+              165.5,
+              -89.49
+            ],
+            [
+              166.5,
+              -90.7
+            ],
+            [
+              167.5,
+              -92.22
+            ],
+            [
+              168.5,
+              -90.65
+            ],
+            [
+              169.5,
+              -89.82
+            ],
+            [
+              170.5,
+              -90.74
+            ],
+            [
+              171.5,
+              -89.74
+            ],
+            [
+              172.5,
+              -90.74
+            ],
+            [
+              173.5,
+              -90.91
+            ],
+            [
+              174.5,
+              -90.34
+            ],
+            [
+              175.5,
+              -90.96
+            ],
+            [
+              176.5,
+              -91.61
+            ],
+            [
+              177.5,
+              -90.3
+            ],
+            [
+              178.5,
+              -92.0
+            ],
+            [
+              179.5,
+              -90.07
+            ],
+            [
+              180.5,
+              -89.4
+            ],
+            [
+              181.5,
+              -91.41
+            ],
+            [
+              182.5,
+              -91.28
+            ],
+            [
+              183.5,
+              -90.13
+            ],
+            [
+              184.5,
+              -90.65
+            ],
+            [
+              185.5,
+              -90.82
+            ],
+            [
+              186.5,
+              -90.48
+            ],
+            [
+              187.5,
+              -91.67
+            ],
+            [
+              188.5,
+              -90.79
+            ],
+            [
+              189.5,
+              -91.15
+            ],
+            [
+              190.5,
+              -89.99
+            ],
+            [
+              191.5,
+              -90.76
+            ],
+            [
+              192.5,
+              -89.42
+            ],
+            [
+              193.5,
+              -89.84
+            ],
+            [
+              194.5,
+              -90.09
+            ],
+            [
+              195.5,
+              -89.79
+            ],
+            [
+              196.5,
+              -89.78
+            ],
+            [
+              197.5,
+              -91.48
+            ],
+            [
+              198.5,
+              -91.49
+            ],
+            [
+              199.5,
+              -92.05
+            ]
+          ],
+          "selection": "complete_fixed_one_Hz_cells_no_peak_selection",
+          "last_cell_includes_200Hz_endpoint": true,
+          "numeric_device": "cuda:0"
+        },
+        "display_scale": {
+          "policy": "peak_60db_with_fixed_raw_mean_psd",
+          "vmin_db": -120.48280334472656,
+          "vmax_db": -60.48280334472656,
+          "display_frequency_bin_width_hz": 0.5548611111111111,
+          "display_aggregation": "GPU_frequency_max_pool",
+          "candidate_peaks_supplied": false,
+          "mean_psd_numeric_device": "cuda:0",
+          "raw_psd_unchanged": true
+        },
+        "syntax_validation": {
+          "raw_json_valid": true,
+          "syntax_repair_applied": false,
+          "numeric_values_changed": false
+        },
+        "events": [
+          {
+            "id": "demon_2000_5000:0",
+            "type": "modulation",
+            "frequency_domain": "modulation",
+            "time_s": [
+              14.5,
+              15.5
+            ],
+            "frequency_hz": [
+              34.5,
+              34.5
+            ],
+            "bin_spacing_hz": 0.5548611111111111,
+            "frequency_uncertainty_hz": 0.5548611111111111,
+            "display_frequency_bin_width_hz": 0.5548611111111111,
+            "boundary_uncertainty_s": 2.0,
+            "annotation_origin": "measurement_assisted_AI_reference",
+            "independent_ground_truth": false,
+            "source_view": "demon_2000_5000",
+            "frequency_track": [
+              [
+                14.5,
+                34.5
+              ],
+              [
+                15.5,
+                34.5
+              ]
+            ],
+            "carrier_band_hz": [
+              2000.0,
+              5000.0
+            ]
+          }
+        ],
+        "errors": [],
+        "original_coordinate_offset_s": 0.0,
+        "display_coordinate_system": "scene-local"
+      }
+    ],
+    "gpu_seconds": 4.087143676757813,
+    "output_tokens": 70,
+    "wall_seconds": 5.077692090999335,
+    "wall_seconds_scope": "scene_decode_fixed_views_rendering_and_inference",
+    "inference_request_sojourn_seconds_sum": 8.915755558000455,
+    "gpu_seconds_scope": "model_generation_only; equal_shares_sum_once_for_batched_requests",
+    "syntax_repairs": 0
+  },
+  "scene_interval_s": [
+    0.0,
+    45.0
+  ],
+  "annotation_origin": "measurement_assisted_AI_reference",
+  "source_labels_supplied": false,
+  "controller_candidates_supplied": false,
+  "target_simulator_truth_supplied": false,
+  "resolution_duplicate_matching": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": null,
+    "recall": null,
+    "f1": 0.0,
+    "matches": [],
+    "matching_algorithm": "greedy_descending_quality",
+    "exhaustive": true
+  },
+  "independent_ground_truth": false,
+  "eligibility_protocol_sha256": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e",
+  "protocol_identity": {
+    "source_hashes": {
+      "scripts/run_reference_labels.py": "285f2cf05a18a5b2ed3aac601d941a59107335b3dcf8928df747d5e57d7735db",
+      "scripts/select_ai_references.py": "a0c45073c9c8947135de9ca04cd9833600fa0acf6a51e9ebec099d46cb961692",
+      "src/sonar/annotators.py": "a13a9e7e90b206f2771943265be1d7c8b4c1b5040e877da646504e2f9bff5f00",
+      "src/sonar/reference_protocol.py": "d32c8a034f344435c62853cdec7101fc2711ea3c811585ec5ab05e945639c3b5",
+      "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+      "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+      "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+      "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+      "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+      "src/sonar/annotation_batching.py": "070ada4977d96f1943b33ec8af8f4b6291653db4eb9b8d1c901fe490f62e8acb",
+      "configs/ai_reference_execution.json": "894d2c4fc3ea826a32f88cf350cabd2ec6878c5f755d5eaf207fb9f0eda654f2",
+      "configs/ai_annotations.json": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+      "configs/ai_annotations_internvl8b_pilot.json": "781eec16e1fa341779ef15128e9e07a5e05e5701002d84e5a80e555a9660cf56",
+      "configs/ai_reference_eligibility.json": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+    },
+    "config_path": "configs/ai_annotations.json",
+    "config_sha256": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+    "eligibility_protocol_sha256": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+  },
+  "input_record_sha256": "37a931738f886869671d55440fc60fd0ede495845134863f980575734c6ad5fe",
+  "training_demonstrations_sha256": "85c8a3550c6f74c10033aa4ed4707feb04ad67e2bcf60b4c53f54226c36683a3",
+  "frozen_protocol_sha256": "09771ec4332e82764bfe52fdbdc9b07ae2774d3c8a90213437829219f2173fcb",
+  "batch_size": 2,
+  "execution_config_sha256": "894d2c4fc3ea826a32f88cf350cabd2ec6878c5f755d5eaf207fb9f0eda654f2",
+  "runner_sha256": "285f2cf05a18a5b2ed3aac601d941a59107335b3dcf8928df747d5e57d7735db"
+}

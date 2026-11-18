@@ -1,0 +1,208 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-11-17T15:09:06.281921+00:00",
+  "scope": "Presentation-only development proof. Actual saved episode flags are replayed; no scientific metrics, plots, annotations, inference, or case-selection protocol were computed or changed.",
+  "change_summary": [
+    "Builder copies recorded schema_valid and schema_errors exactly, using null for unavailable fields.",
+    "Visible report-status card distinguishes whole-report schema rejection from measurement-audit withholding.",
+    "All-records includes schema_valid, schema_errors, verification_audit, raw_report and final_report.",
+    "Neutral Final report label avoids implying numeric filtering was applied for G1/no_verifier.",
+    "Legacy absent/null fields remain unknown; schema status is not inferred from empty reports or audit entries.",
+    "Reference layer starts off and resets on every case load: only an explicit nonempty eligible_types list enables it. Missing/null legacy eligibility is unqualified; empty types are labelled no eligible types. Explicit current-case opt-in remains possible."
+  ],
+  "changed_files_sha256": {
+    "scripts/build_interactive_viewer.py": "f5629e9aa49467e6a74a44cfff417cb982d78526371abc99bf5677f88df21144",
+    "scripts/viewer_assets/app.js": "dcb3eac6ccba2243b56863f64dde843e9986527ca31ec0dc256946badcc30242",
+    "scripts/viewer_assets/index.html": "70f04021b6fda86bb3ee08ab10871a8a561dcc99e7841f7e3e1dedd9f6562b4e",
+    "scripts/viewer_assets/style.css": "4530ea28ef0e528e95cf6d52fbb90badb27bca2bdc07c7ca3e73372221c11f65"
+  },
+  "frozen_source_integrity": {
+    "manifest": "configs/final_protocol_freeze.json",
+    "manifest_sha256": "a0c20ae3fdacb7ba127b72749e01a6622911c8170d36e3e5187b49b05a51164a",
+    "entries_checked": 56,
+    "mismatches": [],
+    "changed_files_in_frozen_manifest": []
+  },
+  "actual_saved_episode_fixtures": [
+    {
+      "path": "results/main/syn_7be4eec1301f7a3c/F/episode.json",
+      "sha256": "07058c425b0f0b4cfb0761ee11662a86e5650b0e39b7d29d5cdf626c4bb5fb8b",
+      "scene_id": "syn_7be4eec1301f7a3c",
+      "schema_valid": false,
+      "schema_errors": [
+        "components[3]_frequency_track_not_ordered",
+        "components[4]_frequency_track_not_ordered"
+      ],
+      "preserved_fields": [
+        "schema_valid",
+        "schema_errors",
+        "raw_report",
+        "report",
+        "verification_audit"
+      ]
+    },
+    {
+      "path": "results/main/ds_c58c39ce3b7c3d64/F/episode.json",
+      "sha256": "58294390588342d37e7ec30eb6b13f9b83a1fd57347afc076b3ed55b2a37f4bc",
+      "scene_id": "ds_c58c39ce3b7c3d64",
+      "schema_valid": true,
+      "schema_errors": [],
+      "preserved_fields": [
+        "schema_valid",
+        "schema_errors",
+        "raw_report",
+        "report",
+        "verification_audit"
+      ]
+    }
+  ],
+  "fixture_selection": "Two deliberately selected software cases exercise schema-false and schema-true-with-withheld UI branches. They are excluded from scientific case selection and replace no final viewer.",
+  "builder_legacy_missing_fields": {
+    "status": "passed",
+    "execution": "Isolated temporary /tmp project with missing episode fields; both bundled values were null. Temporary fixture was removed."
+  },
+  "builder_actual_fields_preservation": {
+    "status": "passed",
+    "fields": [
+      "schema_valid",
+      "schema_errors",
+      "raw_report",
+      "report",
+      "verification_audit"
+    ]
+  },
+  "python_syntax": "passed via ast.parse; builder also executed successfully",
+  "javascript_syntax": "passed via node --check scripts/viewer_assets/app.js",
+  "browser_regression": {
+    "status": "passed",
+    "checks": [
+      "shared cursor control",
+      "actual recorded action selector"
+    ],
+    "audioSeconds": null,
+    "sourceScene": "syn_7be4eec1301f7a3c",
+    "panels": 0,
+    "offlineControlsIndependentOfGPU": true,
+    "coordinateMapping": "not_yet_exported",
+    "runtimeExceptions": 0,
+    "script": "check_viewer_browser.mjs"
+  },
+  "focused_browser_checks": {
+    "status": "passed",
+    "runtime_exceptions": 0,
+    "checks": [
+      "actual saved false flag remains false in bundle and all-records",
+      "actual whole-report rejection is visibly identified",
+      "actual recorded errors remain exact in JSON and visible in the status card",
+      "track-order error has a plain-language explanation",
+      "schema-invalid measurement audit is retained separately",
+      "whole-report gate is distinguished from component filtering",
+      "final-report JSON and neutral layer label do not imply filtering for bypass methods",
+      "actual saved passing flag remains true",
+      "numeric withholding is identified without claiming whole-report rejection",
+      "passing empty schema-errors and complete audit are preserved",
+      "passing-case components remain available",
+      "component selection and evidence work after adding status",
+      "separate correction leaves recorded report unchanged",
+      "legacy bundle missing fields shows unknown even with an empty report and schema-invalid audit",
+      "legacy all-records preserves unavailable values as null rather than false or empty errors",
+      "G1 audit entries do not imply measurement filtering was applied",
+      "no_verifier audit entries do not imply measurement filtering was applied",
+      "explicit null remains unknown",
+      "non-boolean flag is not silently coerced",
+      "missing reference is off by default and labelled as absent",
+      "absent eligibility keeps a legacy reference hidden by default",
+      "explicit opt-in displays the unqualified current-case reference",
+      "unqualified opt-in is reset after switching cases",
+      "empty eligible types remain off and do not imply eligible labels exist",
+      "explicit nonempty eligible types enable the qualified layer and synchronize checkbox",
+      "user can turn off an eligible current-case layer",
+      "each case load restores its recorded nonempty eligibility default",
+      "switching from eligible to empty eligibility clears enabled state and checkbox",
+      "switching from eligible to absent eligibility clears enabled state and checkbox",
+      "switching from eligible to missing reference clears enabled state and checkbox",
+      "nested annotation eligibility uses the same case default",
+      "null eligibility is unqualified and off by default",
+      "all original bundled episode records are unchanged",
+      "development replay uses no server, GPU service or new coordinate plots"
+    ],
+    "snapshots": [
+      {
+        "scene_id": "syn_7be4eec1301f7a3c",
+        "status": "rejected",
+        "report_status": "Whole report rejected: it did not satisfy the required report schema. This is separate from filtering individual components against measurements.",
+        "measurement_status": "The schema gate rejected the whole report before component filtering. The recorded audit remains available in the reports and validation records below.",
+        "errors": [
+          "Frequency-track times are not in increasing order (components[3]_frequency_track_not_ordered).",
+          "Frequency-track times are not in increasing order (components[4]_frequency_track_not_ordered)."
+        ],
+        "schema_valid": false,
+        "schema_errors": [
+          "components[3]_frequency_track_not_ordered",
+          "components[4]_frequency_track_not_ordered"
+        ]
+      },
+      {
+        "scene_id": "ds_c58c39ce3b7c3d64",
+        "status": "accepted",
+        "report_status": "Report passed the required schema checks. This does not establish physical correctness.",
+        "measurement_status": "The separate measurement-consistency audit marked one or more components for withholding. See the final report and recorded audit below.",
+        "errors": [],
+        "schema_valid": true,
+        "schema_errors": []
+      },
+      {
+        "scene_id": "syn_7be4eec1301f7a3c",
+        "status": "unknown",
+        "report_status": "Schema validation status is unavailable in this bundle. An empty report alone does not show whether the report was rejected.",
+        "measurement_status": "The measurement-consistency audit is recorded separately below. Schema validity and measurement consistency are different checks.",
+        "errors": [],
+        "schema_valid": null,
+        "schema_errors": null
+      }
+    ],
+    "compatibility_fixtures": "Missing/null/nonboolean fields and bypass method names changed only in isolated browser memory; not saved research records.",
+    "scientific_calculations": false
+  },
+  "focused_browser_test_program": "import {spawn} from 'node:child_process';\nimport {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';\nimport {tmpdir} from 'node:os';\nimport {join,resolve} from 'node:path';\nimport {pathToFileURL} from 'node:url';\nconst viewer=resolve(process.argv[2]),output=resolve(process.argv[3]);\nconst profile=await mkdtemp(join(tmpdir(),'sonar-schema-ui-'));\nconst browser=spawn('google-chrome',['--headless','--no-sandbox','--disable-gpu','--disable-background-networking','--remote-debugging-address=127.0.0.1','--remote-debugging-port=0',`--user-data-dir=${profile}`,'--window-size=1440,1100',pathToFileURL(join(viewer,'index.html')).href],{stdio:['ignore','ignore','pipe']});\nconst sleep=ms=>new Promise(done=>setTimeout(done,ms));let socket,logs='';browser.stderr.on('data',value=>logs=(logs+value).slice(-4000));\ntry{\n let port;for(let attempt=0;attempt<60;attempt++){try{port=(await readFile(join(profile,'DevToolsActivePort'),'utf8')).split('\\n')[0];break;}catch(_){await sleep(100);}}\n if(!port)throw new Error(logs);\n const targets=await(await fetch(`http://127.0.0.1:${port}/json/list`)).json();socket=new WebSocket(targets.find(t=>t.type==='page').webSocketDebuggerUrl);\n await new Promise((done,reject)=>{socket.addEventListener('open',done,{once:true});socket.addEventListener('error',reject,{once:true});});\n let id=0;const pending=new Map(),exceptions=[];\n socket.addEventListener('message',event=>{const r=JSON.parse(event.data);if(r.id){const p=pending.get(r.id);pending.delete(r.id);r.error?p.reject(new Error(r.error.message)):p.resolve(r.result);}else if(r.method==='Runtime.exceptionThrown')exceptions.push(r.params.exceptionDetails);});\n const call=(method,params={})=>new Promise((resolve,reject)=>{const key=++id;pending.set(key,{resolve,reject});socket.send(JSON.stringify({id:key,method,params}));});\n const evaluate=async expression=>{const r=await call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw new Error(JSON.stringify(r.exceptionDetails));return r.result.value;};\n await call('Runtime.enable');await call('Page.enable');\n for(let i=0;i<60;i++){if(await evaluate(\"document.readyState==='complete' && document.querySelector('#case-select').options.length===2\"))break;await sleep(100);}\n const results=await evaluate(`(()=>{\n  const checks=[],snapshots=[];\n  const assert=(ok,name)=>{if(!ok)throw new Error(name);checks.push(name);};\n  const snapshot=()=>({scene_id:current.scene_id,status:el('report-status-card').dataset.schema,report_status:el('report-status').textContent,measurement_status:el('measurement-status').textContent,errors:Array.from(el('schema-errors').children).map(n=>n.textContent),schema_valid:JSON.parse(el('all-records').textContent).schema_valid,schema_errors:JSON.parse(el('all-records').textContent).schema_errors});\n  const originals=bundle.cases.map(c=>JSON.stringify(c));\n  loadCase(0);let records=JSON.parse(el('all-records').textContent);\n  assert(current.schema_valid===false&&records.schema_valid===false,'actual saved false flag remains false in bundle and all-records');\n  assert(el('report-status-card').dataset.schema==='rejected'&&el('report-status').textContent.includes('Whole report rejected'),'actual whole-report rejection is visibly identified');\n  assert(JSON.stringify(records.schema_errors)===JSON.stringify(current.schema_errors)&&el('schema-errors').children.length===2&&!el('schema-errors').hidden,'actual recorded errors remain exact in JSON and visible in the status card');\n  assert(el('schema-errors').textContent.includes('Frequency-track times are not in increasing order'),'track-order error has a plain-language explanation');\n  assert(JSON.stringify(records.verification_audit)===JSON.stringify(current.verification_audit),'schema-invalid measurement audit is retained separately');\n  assert(el('measurement-status').textContent.includes('before component filtering'),'whole-report gate is distinguished from component filtering');\n  assert(JSON.stringify(records.final_report)===JSON.stringify(current.report)&&sources.verified.label==='Final report'&&!Object.hasOwn(records,'filtered_report'),'final-report JSON and neutral layer label do not imply filtering for bypass methods');snapshots.push(snapshot());\n  loadCase(1);records=JSON.parse(el('all-records').textContent);\n  assert(current.schema_valid===true&&records.schema_valid===true&&el('report-status-card').dataset.schema==='accepted','actual saved passing flag remains true');\n  assert(el('measurement-status').textContent.includes('marked one or more components for withholding')&&!el('report-status').textContent.includes('Whole report rejected'),'numeric withholding is identified without claiming whole-report rejection');\n  assert(JSON.stringify(records.verification_audit)===JSON.stringify(current.verification_audit)&&JSON.stringify(records.schema_errors)==='[]'&&el('schema-errors').hidden,'passing empty schema-errors and complete audit are preserved');snapshots.push(snapshot());\n  const first=document.querySelector('.component');assert(Boolean(first),'passing-case components remain available');first.click();\n  assert(Boolean(selected)&&el('selected-json').textContent.length>0&&el('evidence').textContent.length>0,'component selection and evidence work after adding status');\n  const prior=notes.length,report=JSON.stringify(current.report);el('correction-reason').value='Development-only UI smoke; excluded from benchmark';el('save-correction').click();\n  assert(notes.length===prior+1&&JSON.stringify(current.report)===report,'separate correction leaves recorded report unchanged');\n  const legacy=structuredClone(bundle.cases[0]);delete legacy.schema_valid;delete legacy.schema_errors;bundle.cases.push(legacy);loadCase(2);records=JSON.parse(el('all-records').textContent);\n  assert(el('report-status-card').dataset.schema==='unknown'&&el('report-status').textContent.includes('unavailable'),'legacy bundle missing fields shows unknown even with an empty report and schema-invalid audit');\n  assert(records.schema_valid===null&&records.schema_errors===null&&el('schema-errors').hidden,'legacy all-records preserves unavailable values as null rather than false or empty errors');snapshots.push(snapshot());\n  const bypass=structuredClone(bundle.cases[1]);bypass.method='G1';bundle.cases.push(bypass);loadCase(3);\n  assert(el('measurement-status').textContent.includes('without applying the measurement filter'),'G1 audit entries do not imply measurement filtering was applied');\n  bypass.method='no_verifier';loadCase(3);assert(el('measurement-status').textContent.includes('without applying the measurement filter'),'no_verifier audit entries do not imply measurement filtering was applied');\n  const nullFields=structuredClone(bundle.cases[0]);nullFields.schema_valid=null;nullFields.schema_errors=null;bundle.cases.push(nullFields);loadCase(4);\n  assert(el('report-status-card').dataset.schema==='unknown'&&JSON.parse(el('all-records').textContent).schema_valid===null,'explicit null remains unknown');\n  const untyped=structuredClone(bundle.cases[0]);untyped.schema_valid='false';bundle.cases.push(untyped);loadCase(5);\n  assert(el('report-status-card').dataset.schema==='unknown','non-boolean flag is not silently coerced');\n  const referenceBox=()=>document.querySelector('[data-layer=\"reference\"] input');\n  loadCase(0);\n  assert(!sources.reference.enabled&&!referenceBox().checked&&sources.reference.label==='No AI reference supplied','missing reference is off by default and labelled as absent');\n  const example=structuredClone(bundle.cases[1].report.components[0]);\n  const fixture=reference=>{const c=structuredClone(bundle.cases[1]);c.reference=reference;bundle.cases.push(c);return bundle.cases.length-1;};\n  const legacyReferenceIndex=fixture({events:[example]});loadCase(legacyReferenceIndex);\n  assert(!sources.reference.enabled&&!referenceBox().checked&&sources.reference.label==='Legacy AI: unqualified'&&!visibleComponents().some(c=>c.source==='reference'),'absent eligibility keeps a legacy reference hidden by default');\n  referenceBox().checked=true;referenceBox().dispatchEvent(new Event('change',{bubbles:true}));\n  assert(sources.reference.enabled&&visibleComponents().some(c=>c.source==='reference'),'explicit opt-in displays the unqualified current-case reference');\n  loadCase(1);loadCase(legacyReferenceIndex);\n  assert(!sources.reference.enabled&&!referenceBox().checked,'unqualified opt-in is reset after switching cases');\n  const emptyReferenceIndex=fixture({eligible_types:[],events:[example]});loadCase(emptyReferenceIndex);\n  assert(!sources.reference.enabled&&!referenceBox().checked&&sources.reference.label==='AI reference: no eligible types'&&!visibleComponents().some(c=>c.source==='reference'),'empty eligible types remain off and do not imply eligible labels exist');\n  const eligibleReferenceIndex=fixture({eligible_types:[example.type],events:[example]});loadCase(eligibleReferenceIndex);\n  assert(sources.reference.enabled&&referenceBox().checked&&sources.reference.label==='Eligible AI reference'&&visibleComponents().some(c=>c.source==='reference'),'explicit nonempty eligible types enable the qualified layer and synchronize checkbox');\n  referenceBox().checked=false;referenceBox().dispatchEvent(new Event('change',{bubbles:true}));\n  assert(!sources.reference.enabled&&!visibleComponents().some(c=>c.source==='reference'),'user can turn off an eligible current-case layer');\n  loadCase(eligibleReferenceIndex);\n  assert(sources.reference.enabled&&referenceBox().checked,'each case load restores its recorded nonempty eligibility default');\n  loadCase(emptyReferenceIndex);\n  assert(!sources.reference.enabled&&!referenceBox().checked,'switching from eligible to empty eligibility clears enabled state and checkbox');\n  loadCase(eligibleReferenceIndex);loadCase(legacyReferenceIndex);\n  assert(!sources.reference.enabled&&!referenceBox().checked,'switching from eligible to absent eligibility clears enabled state and checkbox');\n  loadCase(eligibleReferenceIndex);loadCase(0);\n  assert(!sources.reference.enabled&&!referenceBox().checked,'switching from eligible to missing reference clears enabled state and checkbox');\n  const wrappedReferenceIndex=fixture({annotation:{eligible_types:[example.type],events:[example]}});loadCase(wrappedReferenceIndex);\n  assert(sources.reference.enabled&&referenceBox().checked,'nested annotation eligibility uses the same case default');\n  const nullEligibilityIndex=fixture({eligible_types:null,events:[example]});loadCase(nullEligibilityIndex);\n  assert(!sources.reference.enabled&&!referenceBox().checked&&sources.reference.label==='Legacy AI: unqualified','null eligibility is unqualified and off by default');\n  assert(bundle.cases.slice(0,2).every((c,i)=>JSON.stringify(c)===originals[i]),'all original bundled episode records are unchanged');\n  bundle.cases.splice(2);loadCase(0);\n  assert(location.protocol==='file:'&&el('reinspect').disabled&&panels.length===0,'development replay uses no server, GPU service or new coordinate plots');\n  return {checks,snapshots,compatibility_fixtures:'Missing/null/nonboolean fields and bypass method names changed only in isolated browser memory; not saved research records.',scientific_calculations:false};\n })()`);\n if(exceptions.length)throw new Error(JSON.stringify(exceptions));\n const screenshot=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});\n await writeFile('/tmp/sonar_viewer_schema_status.png',Buffer.from(screenshot.data,'base64'));\n await writeFile(output,JSON.stringify({status:'passed',runtime_exceptions:exceptions.length,...results},null,2)+'\\n');\n console.log(JSON.stringify({status:'passed',checks:results.checks.length,scenes:results.snapshots.map(x=>x.scene_id),runtime_exceptions:exceptions.length}));\n}finally{socket?.close();browser.kill('SIGTERM');await sleep(300);await rm(profile,{recursive:true,force:true});}\n",
+  "focused_browser_test_sha256": "d9256a0fe9beaf8dd986f4447a0e1ee21c038b349ebba3f27b669062e65a21da",
+  "development_artifacts": {
+    "reports/viewer_schema_ui_development/index.html": "79b82190e01afd94b32ab4e55ed242dc8d570f73497d3d956af59000847579d8",
+    "reports/viewer_schema_ui_development/viewer_bundle.json": "bfe0e21a5438b37d137a206b975b9f662c94e24a4fb96d4aea1280315c0315ef",
+    "reports/viewer_schema_ui_development/case_manifest.json": "c599e6e71e6f5036a4a184a4278b178553667d929b6e23ebcc2bd0fb500181d4",
+    "reports/viewer_schema_ui_development/browser_check.json": "fbf93e145159413a4760165be7ecd530bf9631c4ff40671475d6a68bc810883c",
+    "reports/viewer_schema_ui_development/browser_check.png": "30ad475bdcfa591435e3adbb6521f5ea86504046339af218e47aba73f75163f7"
+  },
+  "development_bundle_inventory": {
+    "status": "passed",
+    "file_count": 21,
+    "all_file_hashes_match": true
+  },
+  "limitations": [
+    "Coordinate overlays were not exercised because this test replayed existing PNGs without CUDA export.",
+    "Compatibility/bypass branch fixtures were modified only in isolated browser memory, not in saved experiment artifacts.",
+    "No new acoustic or scoring calculations were performed."
+  ],
+  "operations": {
+    "gpu_jobs": false,
+    "remote_reads_or_writes": false,
+    "uploads": false,
+    "frozen_source_or_record_edits": false,
+    "final_viewer_overwrite": false
+  },
+  "review": {
+    "independent_read_only_reviewer": "gpu_signal_core/batch_review",
+    "finding_resolved": "Neutral Final report replaces misleading Filtered report labels for unfiltered G1/no_verifier outputs."
+  },
+  "updated_at_utc": "2026-11-17T15:14:05.466836+00:00",
+  "reference_default_amendment": {
+    "requested_by": "root presentation review",
+    "previous_validation_report_sha256": "ac17bfbebcdb3ed74e252ef4320dbf5d1d61eac1e240dac884a06f4347716136",
+    "previous_app_sha256": "2962dad110f2c81791fa552e02b4efa5629182a2ba6c24fcfd40759e6756caa8",
+    "changed_source_only": "scripts/viewer_assets/app.js",
+    "other_three_source_hashes_unchanged": true,
+    "targeted_browser_checks_added": 13,
+    "fixture_scope": "Reference missing/legacy/null/empty/nonempty/wrapped eligibility and case-switch controls were exercised only on clones in isolated browser memory. No saved references or selection files were changed.",
+    "recorded_values_and_metrics_unchanged": true
+  }
+}

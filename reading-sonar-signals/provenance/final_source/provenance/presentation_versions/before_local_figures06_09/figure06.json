@@ -1,0 +1,774 @@
+{
+  "unavailable_strata": [],
+  "unavailable_rule": "No defined eligible-reference score is plotted or replaced by zero.",
+  "real": {
+    "primary_agreement": null,
+    "operation_diagnostics": [
+      {
+        "method": "G1",
+        "report_emission": 0.8444444537162781,
+        "schema_valid_fraction": 1.0,
+        "expected_episodes": 90,
+        "schema_failures": 0
+      },
+      {
+        "method": "G2",
+        "report_emission": 0.5222222208976746,
+        "schema_valid_fraction": 1.0,
+        "expected_episodes": 90,
+        "schema_failures": 0
+      },
+      {
+        "method": "G3",
+        "report_emission": 0.48888885974884033,
+        "schema_valid_fraction": 0.9777777777777777,
+        "expected_episodes": 90,
+        "schema_failures": 2
+      },
+      {
+        "method": "G4",
+        "report_emission": 0.5333333015441895,
+        "schema_valid_fraction": 0.9777777777777777,
+        "expected_episodes": 90,
+        "schema_failures": 2
+      },
+      {
+        "method": "F",
+        "report_emission": 0.5666666626930237,
+        "schema_valid_fraction": 1.0,
+        "expected_episodes": 90,
+        "schema_failures": 0
+      }
+    ]
+  },
+  "reference_qualification": {
+    "frozen_at_utc": "2026-11-17T05:58:25.285271+00:00",
+    "reference_kind": "ai_selected_checkpoint_agreement_proxy",
+    "eligible_types": [],
+    "eligible_frequency_domains": [],
+    "selected_models_by_type": {},
+    "all_calibration_summaries": {
+      "internvl4b": {
+        "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+        "revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+        "scenes": 12,
+        "complete_schema_scenes": 10,
+        "per_type_exact_control_metrics": {
+          "tone": {
+            "tp": 2,
+            "fp": 12,
+            "fn": 13,
+            "precision": 0.1428571492433548,
+            "recall": 0.13333334028720856,
+            "f1": 0.13793103396892548,
+            "scenes": 12,
+            "valid_relevant_views": 22,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9166666666666666,
+            "rejected_typed_rows": 2,
+            "eligible": false
+          },
+          "chirp": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 4,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12,
+            "valid_relevant_views": 22,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9166666666666666,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "transient": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12,
+            "valid_relevant_views": 22,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9166666666666666,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "broadband": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": 0.0,
+            "scenes": 12,
+            "valid_relevant_views": 22,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9166666666666666,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "modulation": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 5,
+            "valid_relevant_views": 10,
+            "relevant_views": 10,
+            "valid_relevant_view_fraction": 1.0,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          }
+        },
+        "gpu_seconds": 45.88302648925781,
+        "gpu_seconds_scope": "cumulative_recorded_model_generation_seconds_including_cached_records",
+        "run_wall_seconds": 63.90700277999986,
+        "syntax_repairs": 1,
+        "annotation_origin": "AI_reference_not_physical_ground_truth",
+        "calibration_only": true,
+        "control_role": "annotation_calibration",
+        "control_seeds": [
+          910000,
+          910001,
+          910002,
+          910003,
+          910004,
+          910005,
+          910006,
+          910007,
+          910008,
+          910009,
+          910010,
+          910011
+        ],
+        "control_scene_ids": [
+          "ac_4b6654dc34256bcc",
+          "ac_b17186d4938aab2b",
+          "ac_dc355c30ea7da111",
+          "ac_7e415202f3c872d9",
+          "ac_336a5c163cecc8fe",
+          "ac_6db42e755621b188",
+          "ac_e5a1f5488caded5a",
+          "ac_21fec10936227615",
+          "ac_c2928e714fb318de",
+          "ac_ba3de81f97f6b2bb",
+          "ac_268c3a0d3b1ea26a",
+          "ac_13207db4e399bad3"
+        ],
+        "control_records_sha256": "c826523449d849f1b35c6d5f59eea0f8800dfc31b0cad500b182ce7256850438",
+        "protocol_identity": {
+          "source_hashes": {
+            "scripts/run_reference_labels.py": "285f2cf05a18a5b2ed3aac601d941a59107335b3dcf8928df747d5e57d7735db",
+            "scripts/select_ai_references.py": "a0c45073c9c8947135de9ca04cd9833600fa0acf6a51e9ebec099d46cb961692",
+            "src/sonar/annotators.py": "a13a9e7e90b206f2771943265be1d7c8b4c1b5040e877da646504e2f9bff5f00",
+            "src/sonar/reference_protocol.py": "d32c8a034f344435c62853cdec7101fc2711ea3c811585ec5ab05e945639c3b5",
+            "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+            "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+            "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+            "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+            "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+            "src/sonar/annotation_batching.py": "070ada4977d96f1943b33ec8af8f4b6291653db4eb9b8d1c901fe490f62e8acb",
+            "configs/ai_reference_execution.json": "894d2c4fc3ea826a32f88cf350cabd2ec6878c5f755d5eaf207fb9f0eda654f2",
+            "configs/ai_annotations.json": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+            "configs/ai_annotations_internvl8b_pilot.json": "781eec16e1fa341779ef15128e9e07a5e05e5701002d84e5a80e555a9660cf56",
+            "configs/ai_reference_eligibility.json": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+          },
+          "config_path": "configs/ai_annotations.json",
+          "config_sha256": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+          "eligibility_protocol_sha256": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+        },
+        "training_demonstrations_sha256": "85c8a3550c6f74c10033aa4ed4707feb04ad67e2bcf60b4c53f54226c36683a3",
+        "frozen_protocol_sha256": null
+      },
+      "internvl8b": {
+        "model_id": "OpenGVLab/InternVL3_5-8B-HF",
+        "revision": "741a7d03020411e666c6109218ab71e08151ef86",
+        "scenes": 12,
+        "complete_schema_scenes": 9,
+        "per_type_exact_control_metrics": {
+          "tone": {
+            "tp": 2,
+            "fp": 9,
+            "fn": 13,
+            "precision": 0.1818181872367859,
+            "recall": 0.13333334028720856,
+            "f1": 0.1538461595773697,
+            "scenes": 12,
+            "valid_relevant_views": 23,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9583333333333334,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "chirp": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12,
+            "valid_relevant_views": 23,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9583333333333334,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "transient": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 12,
+            "valid_relevant_views": 23,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9583333333333334,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "broadband": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": 0.0,
+            "scenes": 12,
+            "valid_relevant_views": 23,
+            "relevant_views": 24,
+            "valid_relevant_view_fraction": 0.9583333333333334,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          },
+          "modulation": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 3,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "scenes": 5,
+            "valid_relevant_views": 9,
+            "relevant_views": 10,
+            "valid_relevant_view_fraction": 0.9,
+            "rejected_typed_rows": 0,
+            "eligible": false
+          }
+        },
+        "gpu_seconds": 58.27122546386719,
+        "gpu_seconds_scope": "cumulative_recorded_model_generation_seconds_including_cached_records",
+        "run_wall_seconds": 77.03998067999964,
+        "syntax_repairs": 1,
+        "annotation_origin": "AI_reference_not_physical_ground_truth",
+        "calibration_only": true,
+        "control_role": "annotation_calibration",
+        "control_seeds": [
+          910000,
+          910001,
+          910002,
+          910003,
+          910004,
+          910005,
+          910006,
+          910007,
+          910008,
+          910009,
+          910010,
+          910011
+        ],
+        "control_scene_ids": [
+          "ac_4b6654dc34256bcc",
+          "ac_b17186d4938aab2b",
+          "ac_dc355c30ea7da111",
+          "ac_7e415202f3c872d9",
+          "ac_336a5c163cecc8fe",
+          "ac_6db42e755621b188",
+          "ac_e5a1f5488caded5a",
+          "ac_21fec10936227615",
+          "ac_c2928e714fb318de",
+          "ac_ba3de81f97f6b2bb",
+          "ac_268c3a0d3b1ea26a",
+          "ac_13207db4e399bad3"
+        ],
+        "control_records_sha256": "c826523449d849f1b35c6d5f59eea0f8800dfc31b0cad500b182ce7256850438",
+        "protocol_identity": {
+          "source_hashes": {
+            "scripts/run_reference_labels.py": "285f2cf05a18a5b2ed3aac601d941a59107335b3dcf8928df747d5e57d7735db",
+            "scripts/select_ai_references.py": "a0c45073c9c8947135de9ca04cd9833600fa0acf6a51e9ebec099d46cb961692",
+            "src/sonar/annotators.py": "a13a9e7e90b206f2771943265be1d7c8b4c1b5040e877da646504e2f9bff5f00",
+            "src/sonar/reference_protocol.py": "d32c8a034f344435c62853cdec7101fc2711ea3c811585ec5ab05e945639c3b5",
+            "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+            "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+            "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+            "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+            "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+            "src/sonar/annotation_batching.py": "070ada4977d96f1943b33ec8af8f4b6291653db4eb9b8d1c901fe490f62e8acb",
+            "configs/ai_reference_execution.json": "894d2c4fc3ea826a32f88cf350cabd2ec6878c5f755d5eaf207fb9f0eda654f2",
+            "configs/ai_annotations.json": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+            "configs/ai_annotations_internvl8b_pilot.json": "781eec16e1fa341779ef15128e9e07a5e05e5701002d84e5a80e555a9660cf56",
+            "configs/ai_reference_eligibility.json": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+          },
+          "config_path": "configs/ai_annotations_internvl8b_pilot.json",
+          "config_sha256": "781eec16e1fa341779ef15128e9e07a5e05e5701002d84e5a80e555a9660cf56",
+          "eligibility_protocol_sha256": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+        },
+        "training_demonstrations_sha256": "85c8a3550c6f74c10033aa4ed4707feb04ad67e2bcf60b4c53f54226c36683a3",
+        "frozen_protocol_sha256": null
+      }
+    },
+    "eligible_carrier_bands_hz": [],
+    "observed_view_scope": {
+      "acoustic_frequency_hz": [
+        0,
+        1800
+      ],
+      "acoustic_windows_s": [
+        1,
+        4
+      ],
+      "modulation_frequency_hz": [
+        0,
+        200
+      ],
+      "modulation_window_s": 4,
+      "carrier_bands_hz": [
+        [
+          500,
+          2000
+        ],
+        [
+          2000,
+          5000
+        ]
+      ],
+      "time_scope": "full supplied scene"
+    },
+    "eligibility_protocol_sha256": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e",
+    "source_hashes": {
+      "scripts/run_reference_labels.py": "285f2cf05a18a5b2ed3aac601d941a59107335b3dcf8928df747d5e57d7735db",
+      "scripts/select_ai_references.py": "a0c45073c9c8947135de9ca04cd9833600fa0acf6a51e9ebec099d46cb961692",
+      "src/sonar/annotators.py": "a13a9e7e90b206f2771943265be1d7c8b4c1b5040e877da646504e2f9bff5f00",
+      "src/sonar/reference_protocol.py": "d32c8a034f344435c62853cdec7101fc2711ea3c811585ec5ab05e945639c3b5",
+      "src/sonar/signal.py": "f2d106718c9bd37202efbd9ab0ab00103cd459122c47713c21419921c807978d",
+      "src/sonar/metrics.py": "b1c00a185a48d1056740a05a5106a09d4f622d3de233463c4cc5ac794ccd6910",
+      "src/sonar/synthetic.py": "334bece3fea285421bd98da4d26861e3c9cc24a3080a0bef69b9cefa50025d41",
+      "src/sonar/data.py": "d44219dc4c5e917fe9a8eded3f78a875b9e2605f6744b0125786bb301504a5d4",
+      "src/sonar/json_protocol.py": "1fc456107fbbc4c254e37fc50141b882f8ff3dc56c28f31d1a367c2dcc5d34e6",
+      "src/sonar/annotation_batching.py": "070ada4977d96f1943b33ec8af8f4b6291653db4eb9b8d1c901fe490f62e8acb",
+      "configs/ai_reference_execution.json": "894d2c4fc3ea826a32f88cf350cabd2ec6878c5f755d5eaf207fb9f0eda654f2",
+      "configs/ai_annotations.json": "119f7d4f1e5f8f111c487f9bdd43ee629dfcbf99dfaa3e06a3e7ca9f63a895ab",
+      "configs/ai_annotations_internvl8b_pilot.json": "781eec16e1fa341779ef15128e9e07a5e05e5701002d84e5a80e555a9660cf56",
+      "configs/ai_reference_eligibility.json": "ba19c2641cd4ce565e90844d7c65ad064599f2040b889bedfe890a91bc7fc27e"
+    },
+    "expected_input_manifest_sha256": {
+      "data/manifests/real_scenes.jsonl": "611c242772f0225a024bc93e686681b2313b7ec500359103aeb748e0649e2bad",
+      "data/manifests/mixture_scenes.jsonl": "5dffd0abaa77d8a2413dd30f56877cf746a7b88199a289150975bcc85e0e4461",
+      "data/manifests/annotation_controls.jsonl": "04d4d969f75c1bba771810318144528005a6c1ecea60551f5b76db54a067cc4e"
+    },
+    "model_dependence": "InternVL4B and8B share multimodal-model ancestry and Qwen3 text-decoder family",
+    "independently_verified_ground_truth": false,
+    "exhaustive_negative_regions_verified": false,
+    "held_out_audit_status": "not used for selection; run once after this freeze",
+    "no_eligible_scope": true,
+    "interpretation": "Agreement with admitted AI reference classes, not proof of real physical correctness"
+  },
+  "real_reference_scopes": {
+    "G1": [
+      {
+        "eligible_carrier_bands_hz": [],
+        "eligible_frequency_domains": [],
+        "eligible_types": []
+      }
+    ],
+    "G2": [
+      {
+        "eligible_carrier_bands_hz": [],
+        "eligible_frequency_domains": [],
+        "eligible_types": []
+      }
+    ],
+    "G3": [
+      {
+        "eligible_carrier_bands_hz": [],
+        "eligible_frequency_domains": [],
+        "eligible_types": []
+      }
+    ],
+    "G4": [
+      {
+        "eligible_carrier_bands_hz": [],
+        "eligible_frequency_domains": [],
+        "eligible_types": []
+      }
+    ],
+    "F": [
+      {
+        "eligible_carrier_bands_hz": [],
+        "eligible_frequency_domains": [],
+        "eligible_types": []
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "method": "G1",
+      "f1": 0.02380952425301075,
+      "ci95": [
+        0.0,
+        0.0759493670886076
+      ],
+      "episodes": 12,
+      "groups": 12
+    },
+    {
+      "method": "G2",
+      "f1": 0.529411792755127,
+      "ci95": [
+        0.18181818181818182,
+        0.7659574468085106
+      ],
+      "episodes": 12,
+      "groups": 12
+    },
+    {
+      "method": "G3",
+      "f1": 0.47826087474823,
+      "ci95": [
+        0.2857142857142857,
+        0.6129652605459054
+      ],
+      "episodes": 12,
+      "groups": 12
+    },
+    {
+      "method": "G4",
+      "f1": 0.6415094137191772,
+      "ci95": [
+        0.4614754098360656,
+        0.7942647058823521
+      ],
+      "episodes": 12,
+      "groups": 12
+    },
+    {
+      "method": "F",
+      "f1": 0.5106382966041565,
+      "ci95": [
+        0.2857142857142857,
+        0.7
+      ],
+      "episodes": 12,
+      "groups": 12
+    }
+  ],
+  "synthetic_reference_scopes": {
+    "G1": [
+      {
+        "eligible_carrier_bands_hz": null,
+        "eligible_frequency_domains": null,
+        "eligible_types": null
+      }
+    ],
+    "G2": [
+      {
+        "eligible_carrier_bands_hz": null,
+        "eligible_frequency_domains": null,
+        "eligible_types": null
+      }
+    ],
+    "G3": [
+      {
+        "eligible_carrier_bands_hz": null,
+        "eligible_frequency_domains": null,
+        "eligible_types": null
+      }
+    ],
+    "G4": [
+      {
+        "eligible_carrier_bands_hz": null,
+        "eligible_frequency_domains": null,
+        "eligible_types": null
+      }
+    ],
+    "F": [
+      {
+        "eligible_carrier_bands_hz": null,
+        "eligible_frequency_domains": null,
+        "eligible_types": null
+      }
+    ]
+  },
+  "localization": {
+    "values": [
+      {
+        "method": "P1_localizer",
+        "mean": 0.15678457915782928,
+        "sample_sd": 0.012099461268457597,
+        "seeds": [
+          {
+            "method": "P1_localizer_seed17",
+            "f1": 0.1428571492433548,
+            "episodes": 12,
+            "groups": 12
+          },
+          {
+            "method": "P1_localizer_seed29",
+            "f1": 0.16470588743686676,
+            "episodes": 12,
+            "groups": 12
+          },
+          {
+            "method": "P1_localizer_seed43",
+            "f1": 0.1627907007932663,
+            "episodes": 12,
+            "groups": 12
+          }
+        ]
+      },
+      {
+        "method": "P2_localizer",
+        "mean": 0.18138893942038217,
+        "sample_sd": 0.01776411098831647,
+        "seeds": [
+          {
+            "method": "P2_localizer_seed17",
+            "f1": 0.16091954708099365,
+            "episodes": 12,
+            "groups": 12
+          },
+          {
+            "method": "P2_localizer_seed29",
+            "f1": 0.1927710771560669,
+            "episodes": 12,
+            "groups": 12
+          },
+          {
+            "method": "P2_localizer_seed43",
+            "f1": 0.190476194024086,
+            "episodes": 12,
+            "groups": 12
+          }
+        ]
+      }
+    ],
+    "scope": "Common exact synthetic evaluator; seed variation is conditional on the shared test scenes, not independent data replication."
+  },
+  "perception": {
+    "values": [
+      {
+        "method": "P1",
+        "values": [
+          0.5785505175590515,
+          0.1666666716337204,
+          0.30383554100990295
+        ],
+        "mean": 0.3496842384338379,
+        "sample_sd": 0.2097347229719162
+      },
+      {
+        "method": "P2",
+        "values": [
+          0.23730824887752533,
+          0.2495126724243164,
+          0.2495126724243164
+        ],
+        "mean": 0.24544453620910645,
+        "sample_sd": 0.007046225015074015
+      }
+    ],
+    "test_class_support": {
+      "Cargo": 10,
+      "Passengership": 16,
+      "Tanker": 4,
+      "Tug": 0
+    },
+    "scope": "No localization score; no generalization claim for test-absent classes."
+  },
+  "artifact": "figure06",
+  "caption": "Controller and auxiliary-trained localizer exact synthetic outcomes, weak-label classification, and real report production are separate quantities. When AI qualification fails, primary real agreement stays unavailable; seed SD is not a confidence interval over independent recordings.",
+  "numeric_device": "cuda",
+  "rendering": "Matplotlib on host",
+  "paper_typography": {
+    "paper_width_in": 4.8,
+    "export_width_in": 6.51666,
+    "minimum_external_source_font_pt": 10.0,
+    "minimum_external_printed_font_pt": 7.365736435535996,
+    "embedded_action_raster_text": "Preserved unchanged; readable external coordinates/evidence labels supplied"
+  },
+  "overview_display_scales": {
+    "ds_0c5c23f3aefbdcae:lofar": {
+      "log_PSD_limits_db": [
+        -105.38453674316406,
+        -70.11154174804688
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/ds_0c5c23f3aefbdcae_lofar_paper_display.pt",
+        "sha256": "8ca6f492b47e177edd9d7c22bb2669cceef4dd3b82255b63b99d54b23968fa78"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "ds_0c5c23f3aefbdcae:demon_low": {
+      "log_PSD_limits_db": [
+        -101.43046569824219,
+        -80.92411041259766
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/ds_0c5c23f3aefbdcae_demon_low_paper_display.pt",
+        "sha256": "13c00e8a7af24570bf044a7f34995a01f3c18f315b3e81728047030ae1c3f574"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "ds_0c5c23f3aefbdcae:demon_high": {
+      "log_PSD_limits_db": [
+        -111.98371124267578,
+        -86.706787109375
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/ds_0c5c23f3aefbdcae_demon_high_paper_display.pt",
+        "sha256": "803773c939e5de1bd4cfd04cf4b1d4852f020a63831b24e43bcdedc8f065dcd6"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "mb_020dc567758f45b0:lofar": {
+      "log_PSD_limits_db": [
+        -142.04307556152344,
+        -107.15520477294922
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/mb_020dc567758f45b0_lofar_paper_display.pt",
+        "sha256": "23a867100c749dd9e81d9f58de506aca432b691d6c5a23390c4599416472fb72"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "mb_020dc567758f45b0:demon_low": {
+      "log_PSD_limits_db": [
+        -141.2874298095703,
+        -121.0987777709961
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/mb_020dc567758f45b0_demon_low_paper_display.pt",
+        "sha256": "d1d732e6e47dd4aa5406e373a14652d85e683135a3f7deac3c16bd789d177a02"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "mb_020dc567758f45b0:demon_high": {
+      "log_PSD_limits_db": [
+        -149.22335815429688,
+        -128.43243408203125
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/mb_020dc567758f45b0_demon_high_paper_display.pt",
+        "sha256": "2eca37cf7fd754bf4fbfeaebe8de3af9f63f09d5cf77830c80cbc02e67e781c0"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "ds_170b373ce769810a:lofar": {
+      "log_PSD_limits_db": [
+        -100.57897186279297,
+        -68.44158935546875
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/ds_170b373ce769810a_lofar_paper_display.pt",
+        "sha256": "b53c2d3e0dcfeb63a07eb835051b8855ee65fd97b72e9473d7076b1eb4584d58"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "ds_88a3a626b0205c7f:lofar": {
+      "log_PSD_limits_db": [
+        -97.9911880493164,
+        -63.007389068603516
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/ds_88a3a626b0205c7f_lofar_paper_display.pt",
+        "sha256": "da7f12431ac25f1f8bcb6b29e8f8ed1a5bb195dda0d37787246aef419cf36fca"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    },
+    "ds_88a3a626b0205c7f:demon_low": {
+      "log_PSD_limits_db": [
+        -94.48326873779297,
+        -63.59119415283203
+      ],
+      "percentiles": [
+        5,
+        99.5
+      ],
+      "display_tensor": {
+        "path": "figures/inputs/ds_88a3a626b0205c7f_demon_low_paper_display.pt",
+        "sha256": "2f2a0cd9b0d139202306cd20165aed7446680bc7346e44d08132becf8c30f869"
+      },
+      "meaning": "Redrawn paper overview contrast; not identical to the recorded tool/model-input raster display",
+      "numeric_device": "cuda"
+    }
+  },
+  "source_files": {
+    "data/manifests/main_test.jsonl": "3c0d0527a0aec2fcff1b2197bbcec7a30693c4f19c06b3ba0f2657f4e4128bc2",
+    "results/ai_annotations/primary_reference.jsonl": "b49a33de4859e199251fe04ed908bd42e972c3971b867b576ec67a7b82b631fa",
+    "figures/case_selection_policy.json": "4450188fdc0e74ee673a720f2ea84e8820f70cb4e0caf7a039f7e1a24fb563d5",
+    "figures/case_selection_freeze.json": "9f43b2512b7885f92bf24e940e02da05d60419e3821c1826117e994306180293",
+    "results/main/run.json": "5337ee3f284af9226de8b5184099b5e58fbc384da35b07e3d98c0854f88b9edc",
+    "results/main/evaluation/per_episode.jsonl": "f22140ebb9e5c2165f170b602d4ba6cc43db37bf240615752e4077cb7053cef9",
+    "results/main/ds_170b373ce769810a/F/episode.json": "edb9c74e114232e36ded9cee6ec7dcb31b23e52410d75f433b95cee6f1ef18e7",
+    "data/raw/scenes/ds_0c5c23f3aefbdcae.wav": "568789a8f33efc7a6699e70c7f1ba446191b31f2deb19c104ff6043fd20a4b51",
+    "results/main/ds_0c5c23f3aefbdcae/F/episode.json": "4cba2d01a79a5fee6805644726982c424d18cda2a9b354794986b36909b4bb39",
+    "data/raw/scenes/mb_020dc567758f45b0.wav": "ea8f0bb33de8633a4f5d5d01e0de404a7d377c1e9ae9867b2cd2ace209886225",
+    "results/main/mb_020dc567758f45b0/F/episode.json": "421af4b43dcc93d9ed10b7a751a1b523e55066f15548f004ccd983b5051a2678",
+    "data/raw/scenes/ds_170b373ce769810a.wav": "8f7fafd3653ec326b6517c3f436fb0bd18f3739e13698a785752e9954e50eda2",
+    "results/main/ds_170b373ce769810a/F/action_0_E0002.png": "e5c27b0ceb8e9411d47fe897837d85646a21d2a0667c4de8b0fd810d375eb6cf",
+    "results/main/ds_170b373ce769810a/F/action_1_E0003.png": "35053497839d182c5026096373d45f650a3b65d86f011af5c133003ab593d469",
+    "results/main/ds_170b373ce769810a/G3/episode.json": "c924c1033aced1ada4f2c9323432f8c4b602f58e165c6802ce64ac26d20b993a",
+    "data/raw/scenes/ds_88a3a626b0205c7f.wav": "87624d9ccc17485a93b08e175dabbbfc37f98901ccc1ca97faaf0f27b4de3c09",
+    "results/main/ds_88a3a626b0205c7f/F/episode.json": "4ec26e1138c970b9715765baada39a1e25573acfe80365c08498943165d158ed",
+    "results/main/evaluation/summary.json": "7f0174a7bbb25f744eb1471bd06e390d160454500db58e22172081251ec82fdf",
+    "configs/ai_reference_freeze.json": "09771ec4332e82764bfe52fdbdc9b07ae2774d3c8a90213437829219f2173fcb",
+    "results/localization/predictions/evaluation/summary.json": "8751c7252b66821f11268cacae487d9949546ec94726d6faf173b32c66887662",
+    "results/perception/summary.json": "adc142937d7371fbdaf0d1e534f81a210b99dabbe116ffffbeac1299c4ae5590"
+  }
+}

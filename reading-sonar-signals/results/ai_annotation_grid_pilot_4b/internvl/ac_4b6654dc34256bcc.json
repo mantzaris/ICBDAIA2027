@@ -1,0 +1,188 @@
+{
+  "scene_id": "ac_4b6654dc34256bcc",
+  "prompt": "Inspect this acoustic spectrogram. Time is horizontal in seconds; acoustic frequency is vertical in Hz.\n\nFind bright thin horizontal or diagonal lines, distinct from the speckled background.\nIgnore the speckled background and do not label the whole image as an event.\nRead the visible axes to estimate each line's starting/ending time and frequency.\nEach event extends over its whole visible continuous line. Do not split one continuous line into adjacent short segments.\nReturn ONLY a JSON object with one key named events. Its value is a list of at most six arrays.\nEach array contains four measured numbers followed by one type string, in this order:\nstarting time, ending time, starting frequency, ending frequency, type.\nReturn an empty list when no bright persistent line is visible. Do not discuss sources.\nThe type string is tone for a horizontal line, or chirp for a sloping line.\n",
+  "generation": {
+    "raw_text": "{\"events\":[[2.0,28.0,200.0,200.0,\"tone\"],[7.0,23.0,300.0,300.0,\"tone\"]]}",
+    "input_tokens": 1967,
+    "output_tokens": 53,
+    "gpu_seconds": 1.491543212890625,
+    "wall_seconds": 1.542312382000091,
+    "peak_allocated_bytes": 9972025856,
+    "max_new_tokens": 512,
+    "at_generation_limit": false,
+    "decode": "greedy",
+    "model_id": "OpenGVLab/InternVL3_5-4B-HF",
+    "model_revision": "6bd4487402110ef9889ba50eb7aefeb302526fed",
+    "device_audit": {
+      "all_parameters_cuda": true,
+      "all_buffers_cuda": true,
+      "dtype": "bfloat16",
+      "hf_device_map": {
+        "": "cuda:0"
+      },
+      "parameter_count": 4732489216
+    },
+    "input_tensor_shapes": {
+      "input_ids": [
+        1,
+        1967
+      ],
+      "attention_mask": [
+        1,
+        1967
+      ],
+      "pixel_values": [
+        6,
+        3,
+        448,
+        448
+      ]
+    },
+    "training_examples": [
+      {
+        "image": "results/ai_annotation_grid_pilot_4b/internvl/training_demo_acoustic.png",
+        "image_sha256": "45cf3662908e8163596f9b2216bd3de44842588689b424ac548e0829873ec1bf",
+        "answer": {
+          "events": [
+            [
+              2.0,
+              28.0,
+              120.0,
+              120.0,
+              "tone"
+            ],
+            [
+              10.0,
+              20.0,
+              440.0,
+              440.0,
+              "tone"
+            ]
+          ]
+        },
+        "prompt": "Inspect this acoustic spectrogram. Time is horizontal in seconds; acoustic frequency is vertical in Hz.\n\nFind bright thin horizontal or diagonal lines, distinct from the speckled background.\nIgnore the speckled background and do not label the whole image as an event.\nRead the visible axes to estimate each line's starting/ending time and frequency.\nEach event extends over its whole visible continuous line. Do not split one continuous line into adjacent short segments.\nReturn ONLY a JSON object with one key named events. Its value is a list of at most six arrays.\nEach array contains four measured numbers followed by one type string, in this order:\nstarting time, ending time, starting frequency, ending frequency, type.\nReturn an empty list when no bright persistent line is visible. Do not discuss sources.\nThe type string is tone for a horizontal line, or chirp for a sloping line.\n",
+        "provenance": {
+          "role": "separate_exact_training_demonstration",
+          "seed": 920000,
+          "target_truth_used": false
+        }
+      }
+    ],
+    "parsed": {
+      "events": [
+        [
+          2.0,
+          28.0,
+          200.0,
+          200.0,
+          "tone"
+        ],
+        [
+          7.0,
+          23.0,
+          300.0,
+          300.0,
+          "tone"
+        ]
+      ]
+    },
+    "parse_error": null,
+    "syntax_validation": {
+      "raw_json_valid": true,
+      "syntax_repair_applied": false,
+      "numeric_values_changed": false
+    }
+  },
+  "events": [
+    {
+      "id": "0",
+      "type": "tone",
+      "frequency_domain": "acoustic",
+      "time_s": [
+        2.0,
+        28.0
+      ],
+      "frequency_hz": [
+        200.0,
+        200.0
+      ],
+      "frequency_track": [
+        [
+          2.0,
+          200.0
+        ],
+        [
+          28.0,
+          200.0
+        ]
+      ],
+      "bin_spacing_hz": 5.002777777777778
+    },
+    {
+      "id": "1",
+      "type": "tone",
+      "frequency_domain": "acoustic",
+      "time_s": [
+        7.0,
+        23.0
+      ],
+      "frequency_hz": [
+        300.0,
+        300.0
+      ],
+      "frequency_track": [
+        [
+          7.0,
+          300.0
+        ],
+        [
+          23.0,
+          300.0
+        ]
+      ],
+      "bin_spacing_hz": 5.002777777777778
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matches": [
+      {
+        "prediction_index": 0,
+        "gold_index": 0,
+        "quality": 1.0071983337402344,
+        "time_iou": 0.9230769276618958,
+        "frequency_error_hz": 1.5887451171875
+      },
+      {
+        "prediction_index": 1,
+        "gold_index": 1,
+        "quality": 1.0034064054489136,
+        "time_iou": 0.9375,
+        "frequency_error_hz": 3.4112548828125
+      }
+    ],
+    "matching_algorithm": "greedy_descending_quality",
+    "exhaustive": true,
+    "time_iou_threshold": 0.3,
+    "box_iou_threshold": 0.3,
+    "minimum_frequency_tolerance_hz": 4.0
+  },
+  "display_scale": {
+    "policy": "peak_60db",
+    "vmin_db": -75.19736671447754,
+    "vmax_db": -15.197366714477539,
+    "constant_view": false,
+    "raw_psd_unchanged": true,
+    "scale_numeric_device": "cuda:0",
+    "display_frequency_bin_width_hz": 5.002777777777778,
+    "display_aggregation": "GPU_frequency_max_pool"
+  },
+  "scope": "training calibration only; no real/test labels",
+  "localization_tolerance": "max(4 Hz, two displayed frequency bins); exact errors retained in matches"
+}

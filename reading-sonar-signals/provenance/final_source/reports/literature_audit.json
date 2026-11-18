@@ -1,0 +1,123 @@
+{
+  "review_date_local": "2026-11-17",
+  "review_scope": "Primary papers and official model/provider sources relevant to the supplied research plan; not an exhaustive first-in-literature search.",
+  "source_retrieval_manifest": "provenance/literature/retrieval.json",
+  "entries": [
+    {
+      "plan_id": "R1",
+      "citation_key": "li2022lofar",
+      "title": "Combined LOFAR and DEMON Spectrums for Simultaneous Underwater Acoustic Object Counting and F0 Estimation",
+      "authors": [
+        "Liming Li",
+        "Sanming Song",
+        "Xisheng Feng"
+      ],
+      "year": 2022,
+      "doi": "10.3390/jmse10101565",
+      "primary_url": "https://www.mdpi.com/2077-1312/10/10/1565",
+      "access": "Primary full text read through web tool; direct HTTP archival request returned 403.",
+      "verified_scope": "Combines LOFAR and DEMON using a CRNN for simultaneous object counting and fundamental-frequency estimation.",
+      "consequence": "Dual-view feature fusion, counting, and frequency estimation are established. A conventional learned dual-view baseline is essential."
+    },
+    {
+      "plan_id": "R2",
+      "citation_key": "najamuddin2026fusion",
+      "title": "Marine vessels acoustic classification with enhanced machinery and propeller feature extraction, using convolutional neural network",
+      "authors": [
+        "Najamuddin",
+        "Usman Ullah Sheikh",
+        "Ahmad Zuri Sha\u2019ameri"
+      ],
+      "year": 2026,
+      "journal": "Measurement",
+      "volume": "257",
+      "article_number": "118494",
+      "doi": "10.1016/j.measurement.2025.118494",
+      "primary_url": "https://www.sciencedirect.com/science/article/pii/S0263224125018536",
+      "metadata_url": "https://api.crossref.org/works/10.1016/j.measurement.2025.118494",
+      "access": "Publisher-indexed abstract/section snippets reviewed; complete publisher page returned 403. Crossref publisher-deposited bibliographic metadata archived.",
+      "verified_scope": "Enhanced machinery features using CAPSE and propeller modulation features from cyclostationary analysis are fused in LOFAR/DEMON representations for CNN vessel classification, including DeepShip and ShipsEar.",
+      "consequence": "An ordinary dual-view classifier is a relevant strong baseline. Full methodological replication cannot be claimed from snippets."
+    },
+    {
+      "plan_id": "R3",
+      "citation_key": "nihal2025knowledge",
+      "primary_url": "https://arxiv.org/html/2509.05703v1",
+      "version": "v1, 2025-09-06",
+      "access": "Primary full text retrieved and reviewed.",
+      "verified_scope": "VLM descriptions and LLM-based validation support knowledge augmentation for marine-mammal spectrogram interpretation and classification.",
+      "consequence": "Generic spectrogram description and adding external knowledge are not sufficient novelty; this study must evaluate localized numeric support and adaptive inspection."
+    },
+    {
+      "plan_id": "R4",
+      "citation_key": "zhang2026evidence1",
+      "primary_url": "https://arxiv.org/html/2610.22064v1",
+      "version": "v1, 2026-10-15",
+      "access": "Primary full text retrieved and reviewed, including framework, encoding, data construction, experiments, and discussion.",
+      "verified_scope": "A physics-aware acoustic encoder aligns log-Mel, line-spectrum, and DEMON representations with Qwen3-4B and LoRA. It learns physical attributes and emits structured numerical descriptions. Experiments use simulated four-vessel source signals with modeled propagation and recorded background noise. Evaluation checks individual physical attributes.",
+      "code_audit": "No project implementation link was found in the retrieved primary paper; its GitHub links concern arXiv rendering. This does not establish that no implementation exists elsewhere.",
+      "consequence": "Evidence-grounded descriptions, numeric attributes, representation-specific tokens, and complementary acoustic views are close precedents. This study evaluates bounded reinspection and unresolved component relations; the amended AI-reference gate failed, so independent real accuracy and real-data superiority cannot be claimed."
+    },
+    {
+      "plan_id": "R5",
+      "citation_key": "li2026evidence2",
+      "primary_url": "https://arxiv.org/html/2610.31346v1",
+      "version": "v1, 2026-10-22",
+      "access": "Primary full text retrieved and reviewed, including framework, multichannel encoding, experiment protocol, and limitations.",
+      "verified_scope": "Direction-guided multichannel encoding combines MVDR, time-frequency and fine-frequency features with Qwen3-4B-Instruct-2507. Structured outputs cover target presence, bearing, frequencies, SNR, range and support scores. Experiments use simulated targets with white or mixed backgrounds; the paper states its test partition was inspected during development and identifies field-recording validation as future work.",
+      "code_audit": "No project implementation link was found in the retrieved primary paper; no claim of universal code unavailability is made.",
+      "consequence": "Structured acoustic reporting, field-specific metrics and physical front ends are established. The present mono inspection task differs in available spatial evidence and must avoid unsupported bearing/range claims. A reproducible matched controller comparison is more defensible than a broad novelty assertion."
+    },
+    {
+      "plan_id": "R6",
+      "citation_key": "sun2026uabench",
+      "primary_url": "https://arxiv.org/abs/2610.16942",
+      "repository_url": "https://github.com/sunzhe12/ua-bench",
+      "version": "v1, 2026-10-12",
+      "access": "Primary abstract and author repository reviewed.",
+      "verified_scope": "Synthetic underwater acoustic recognition benchmark with 375051 records, hierarchical labels and paired silent-audio controls.",
+      "consequence": "Evidence-use interventions are warranted. Synthetic recognition data cannot substitute for real temporal component annotations."
+    },
+    {
+      "plan_id": "R7",
+      "citation_key": "yao2023react",
+      "primary_url": "https://arxiv.org/abs/2210.03629",
+      "conference_url": "https://openreview.net/forum?id=WE_vluYUL-X",
+      "version": "arXiv v3, 2023-03-10; ICLR 2023",
+      "access": "Primary arXiv record and author repository indexed record reviewed. OpenReview forum requested browser verification.",
+      "verified_scope": "Interleaves language-model reasoning and external actions to gather information and update decisions.",
+      "consequence": "The general reasoning/action pattern is prior work; acoustic formulation and measured utility are the possible contribution."
+    },
+    {
+      "plan_id": "R17",
+      "citation_key": "qwen3vl",
+      "primary_url": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct",
+      "api_url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-8B-Instruct",
+      "revision_at_audit": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "license": "Apache-2.0",
+      "access": "Official model card and model API retrieved.",
+      "verified_scope": "Open-weight image-text model with tool/visual interaction capabilities described by the publisher; acoustic domain competence is not established by its generic card.",
+      "consequence": "Pin the actual downloaded revision and record GPU placement, precision, token/image budgets and software versions."
+    },
+    {
+      "citation_key": "wang2025internvl35",
+      "primary_url": "https://arxiv.org/abs/2508.18265",
+      "model_card_urls": [
+        "https://huggingface.co/OpenGVLab/InternVL3_5-4B-HF",
+        "https://huggingface.co/OpenGVLab/InternVL3_5-8B-HF"
+      ],
+      "version": "arXiv v2, 2025-08-27",
+      "access": "Primary arXiv bibliographic record and official checkpoint cards reviewed through web tool on 2026-11-17.",
+      "verified_scope": "InternVL 3.5 multimodal checkpoints. Official cards identify pretrained Qwen3 components; the actual pinned experiment configurations and revisions are recorded in the annotation freeze.",
+      "consequence": "Checkpoint diversity does not imply independent annotation errors. Generic model capability does not establish acoustic numeric localization or qualification."
+    }
+  ],
+  "novelty_position": "A candidate study of budgeted waveform reinspection and overlap-preserving evidence relations. Real-data advantage and the usefulness of generative action selection remain experimental questions.",
+  "prohibited_overclaims": [
+    "First LOFAR/DEMON fusion system",
+    "First underwater acoustic language model or physical-evidence report generator",
+    "Independent correctness inferred from the verifier's own pass rate",
+    "Real-data superiority inferred from synthetic-only results",
+    "Exact prior-work reproduction without the corresponding implementation and protocol"
+  ]
+}

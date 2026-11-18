@@ -1,0 +1,62 @@
+{
+  "version": "fixed-reference-execution-v1",
+  "batch_size": 2,
+  "selection_status": "fixed_before_full_calibration",
+  "selection_rule": "Training-only software/runtime comparison chose fixed batch2 grouping consecutive acoustic views then consecutive modulation views. Both checkpoints preserved native outputs exactly on this fixture and reduced model CUDA time. Use identical execution in calibration, heldout audit, and all final annotations. No acoustic-score-based choice.",
+  "calibration_final_execution_must_match": true,
+  "semantic_prompts_views_demos_unchanged": true,
+  "fixed_at_utc": "2026-11-17T05:55:18.194285+00:00",
+  "max_wait_ms": 80,
+  "groups": [
+    [
+      "lofar_1s",
+      "lofar_4s"
+    ],
+    [
+      "demon_500_2000",
+      "demon_2000_5000"
+    ]
+  ],
+  "limited_equivalence_claim": "Exact on the four training-fixture requests for each checkpoint; this does not prove equality on unseen requests. All qualification and final inference use the same batch2 mode.",
+  "smoke_key_convention": "In batch2 smoke files, legacy keys prefixed batch4 denote the compared batch; compared_batch_size=2 is authoritative.",
+  "smoke_reports": {
+    "results/ai_reference_training_execution_smoke/internvl4b/smoke.json": "610149dcf436f34f2c7fb9aacc3c2e075ff2cd5f70ad9317a528b6a849f8108b",
+    "results/ai_reference_training_execution_smoke/internvl8b/smoke.json": "daf6067a14e5bc3c94d45c1684c708af8592690be28e6bb5183c2d26c6799946",
+    "results/ai_reference_training_execution_smoke/internvl4b_batch2/smoke.json": "1d7c0d9666b3c959c384e2089fe3636b9d7b9b7190a4bc72b434bd2e20e32b5b",
+    "results/ai_reference_training_execution_smoke/internvl8b_batch2/smoke.json": "6e753399428ec688fa28d03543173246453d1e259a7b2c2b21c6e99dcfa71900"
+  },
+  "timing": {
+    "internvl4b": {
+      "batch1_exact": true,
+      "batch4_runtime_success": true,
+      "batch4_exact": true,
+      "compared_batch_size": null,
+      "native_gpu_seconds": 6.681515380859375,
+      "batch4_gpu_seconds": 9.6486416015625
+    },
+    "internvl8b": {
+      "batch1_exact": true,
+      "batch4_runtime_success": true,
+      "batch4_exact": false,
+      "compared_batch_size": null,
+      "native_gpu_seconds": 8.1309345703125,
+      "batch4_gpu_seconds": 11.943001953125
+    },
+    "internvl4b_batch2": {
+      "batch1_exact": true,
+      "batch4_runtime_success": true,
+      "batch4_exact": true,
+      "compared_batch_size": 2,
+      "native_gpu_seconds": 6.456069458007812,
+      "batch4_gpu_seconds": 5.4465087890625
+    },
+    "internvl8b_batch2": {
+      "batch1_exact": true,
+      "batch4_runtime_success": true,
+      "batch4_exact": true,
+      "compared_batch_size": 2,
+      "native_gpu_seconds": 8.204248291015626,
+      "batch4_gpu_seconds": 7.48714697265625
+    }
+  }
+}
