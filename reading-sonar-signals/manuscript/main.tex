@@ -15,15 +15,15 @@
   \else\textbf{[Pending: #1]}\fi}
 \newif\iffinalresults
 \finalresultstrue
-\newcommand{\researchfigure}[3]{%
-  \IfFileExists{#1}{%
+\newcommand{\researchfigure}[4][]{%
+  \IfFileExists{#2}{%
     \begin{figure}[tbp]\centering
-    \includegraphics[width=\linewidth]{#1}
-    \caption{#2}\label{#3}\end{figure}}{%
+    \includegraphics[width=\linewidth,#1]{#2}
+    \caption{#3}\label{#4}\end{figure}}{%
     \iffinalresults
-      \PackageError{research-results}{Required recorded-output figure #1 missing}{Generate the actual artifact before submission.}%
+      \PackageError{research-results}{Required recorded-output figure #2 missing}{Generate the actual artifact before submission.}%
     \else
-      \PackageWarning{research-results}{Recorded-output figure #1 omitted from incomplete draft}%
+      \PackageWarning{research-results}{Recorded-output figure #2 omitted from incomplete draft}%
     \fi}}
 \newcommand{\requiredartifact}[1]{%
   \IfFileExists{#1}{}{%
@@ -32,7 +32,7 @@
     \else
       \PackageWarning{research-results}{Standalone artifact #1 pending}%
     \fi}}
-\hypersetup{pdfauthor={Alexander V. Mantzaris and James H. Korris},pdftitle={Bounded Inspection of Underwater Acoustic Spectrograms: A Feasibility Study},pdfsubject={Acoustic inspection with AI-reference agreement and separate exact synthetic evaluation}}
+\hypersetup{pdfauthor={Alexander V. Mantzaris and James H. Korris},pdftitle={Agentic Reasoning for Underwater Acoustic Interpretation: A Feasibility Study},pdfsubject={Agentic AI for bounded acoustic inspection with separate exact synthetic evaluation}}
 
 \begin{document}
 \raggedbottom
@@ -42,8 +42,8 @@
 \renewcommand{\bottomfraction}{0.9}
 \renewcommand{\textfraction}{0.05}
 \renewcommand{\floatpagefraction}{0.85}
-\title{Bounded Inspection of Underwater Acoustic Spectrograms: A Feasibility Study}
-\titlerunning{Bounded Inspection of Acoustic Spectrograms}
+\title{Agentic Reasoning for Underwater Acoustic Interpretation: A Feasibility Study}
+\titlerunning{Agentic Reasoning for Acoustic Interpretation}
 \author{Alexander V. Mantzaris\inst{1} \and James H. Korris\inst{2}}
 \authorrunning{A. V. Mantzaris and J. H. Korris}
 \institute{Dr. Yvette Kanouff School of Data,\\
@@ -56,40 +56,59 @@ Creative Technologies Inc.\\
 \maketitle
 
 \begin{abstract}
-We test bounded reinspection of underwater acoustic waveforms using linked spectrograms, numerical proposals, component memory, and a vision-language controller. Five policies share one backbone; classification and localization provide separate comparisons. The inventory contains 210 real, 35 mixed, and 35 synthetic scenes. Both AI annotation checkpoints failed morphology qualification, making primary real agreement unavailable. On twelve exact synthetic test cases, adaptive F achieved event F1 0.511 versus fixed G3's 0.478 and heuristic G4's 0.642. All 570 main episodes executed, but schema-invalid and empty reports remained. Larger inspection budgets did not consistently improve recovery. These controls do not establish adaptive benefit or real physical accuracy.
-\keywords{Underwater acoustics \and Spectrogram interpretation \and Tool-using agents}
+Interpreting underwater sound requires identifying overlapping patterns and linking observations to evidence. We present an agentic AI application that combines generative inspection decisions, acoustic analysis tools, and traceable component records. Its controlled evaluation separates the effects of inspection strategy and evidence checking. Five policies sharing one vision-language model completed 570 episodes across 114 real, mixed, and synthetic recordings. On twelve synthetic controls, measurement checking reduced false detections from 27 to 11 while preserving twelve correct detections in reports meeting the required format. Reusing identical reports isolates this benefit. A heuristic policy achieved the highest recovery, guiding future agent design. Real-data accuracy remains unverified because automatic reference labels failed reliability checks. The application and evaluation framework provide a practical foundation for acoustic AI that supports human review and systematic improvement.
+\keywords{Underwater acoustics \and Spectrogram interpretation \and Agentic AI \and Generative AI}
 \end{abstract}
 
-\section{Question and approach}
-LOFAR/DEMON fusion supports frequency estimation~\cite{li2022lofar} and classification~\cite{najamuddin2026fusion}; vision-language models interpret marine-mammal spectrograms~\cite{nihal2025knowledge}. \emph{From Signals to Evidence} produces simulated-vessel descriptions~\cite{zhang2026evidence1} and multichannel detections~\cite{li2026evidence2}. We test bounded reinspection using ReAct's decision/action pattern~\cite{yao2023react} and synthetic/silent controls motivated by UA-Bench~\cite{sun2026uabench}.
+\section{Introduction and approach}
+Passive underwater recordings combine overlapping tones, changing frequencies, brief events, and background noise. Interpreting these patterns requires locating them in time and frequency and judging ambiguity; a scene label alone cannot explain what is present. Individual components also do not establish physical source identities.
+
+An uncertain pattern may require another time window, frequency resolution, or modulation view. Generative AI must therefore decide what to inspect next and connect its descriptions to measurable evidence; fluent explanations alone cannot establish support.
+
+Prior work combines LOFAR/DEMON views for frequency estimation~\cite{li2022lofar} and classification~\cite{najamuddin2026fusion}, applies vision-language models to bioacoustic spectrograms~\cite{nihal2025knowledge}, and generates vessel descriptions and detection reports~\cite{zhang2026evidence1,li2026evidence2}. We ask: \emph{does generative selection of additional acoustic inspections improve component recovery over fixed or heuristic inspection policies?}
+
+We study an agentic AI system in which a vision-language model chooses measurements from a finite menu, retains component evidence, and produces a structured report. Following ReAct~\cite{yao2023react}, agentic reasoning denotes this bounded decision/action process. Real recordings and separate synthetic/silent controls~\cite{sun2026uabench} test its outputs; free-text reasoning correctness is not directly scored.
 
 \textbf{Measurements.} LOFAR (low-frequency analysis and recording) uses a Hann, one-sided, power-normalized STFT in uncalibrated digital power/Hz. Global windows/hops are 1/0.25\,s over 0--1800\,Hz after anti-aliased resampling to at most 4\,kHz; inspections offer 0.25/1/4\,s windows. DEMON (detection of envelope modulation on noise) analyzes the filtered analytic envelope with 4/0.5\,s windows/hops over 0.5--200\,Hz. Carriers are 500--2000\,Hz, plus 2000--5000/5000--8000\,Hz when available. Views retain original time, without source identification.
 
 CUDA measurements propose tones, chirps, transients, broadband regions, and modulation. Graph memory retains trajectories, resolution, carriers, evidence IDs, temporal overlap, and unresolved associations; intersecting boxes alone do not merge ridges. Checks require cited measurements, matching morphology/domain/carrier, endpoints within two native bins, time boundaries, and ordered tracks. Retention means measurement consistency; prose is not semantically verified. Raw reports/rejections survive.
 
-\researchfigure{figure01.pdf}{Computation and first three recorded F attempts; complete traces remain in the artifact.}{fig:method}
+% Join the original diagram and trace table after trimming only internal blank bands.
+\begin{figure}[tbp]\centering
+\vbox{\offinterlineskip
+\hbox{\includegraphics[width=\linewidth,trim=0 305.19952bp 0 0,clip]{figure01.pdf}}%
+\hbox{\includegraphics[width=\linewidth,trim=0 165.19952bp 0 40bp,clip]{figure01.pdf}}%
+\hbox{\includegraphics[width=\linewidth,trim=0 0 0 180bp,clip]{figure01.pdf}}}
+\caption{Computation and first three recorded F attempts; complete traces remain in the artifact.}\label{fig:method}
+\end{figure}
 
 \textbf{Policies and comparisons.}\label{sec:controllers}
 Pinned Qwen3-VL-8B-Instruct~\cite{qwen3vl} uses bfloat16 and greedy decoding: 160 selection tokens, 2048 report tokens, and six components. JSON grammar constrains syntax, not correctness. G1 reads global LOFAR; G2 reads paired views and measurements; G3 orders inspections; G4 prioritizes unseen tools/carriers and unresolved relations; F selects from the valid menu. G2--G4/F share proposals/checking. Labels/simulator parameters are hidden. Six slots count invalid/unavailable calls and finalization.
 
-Ablations remove DEMON, tables, graph, LOFAR-resolution adaptation, or numerical filtering, enforce exclusivity, or randomize actions. Removing tables retains graph values/axes; DEMON remains 4\,s. Removing numerical filtering retains schema checks. Separate P1/P2 LOFAR/dual-view CNNs train on weak labels. Localizers use 192/48 exact synthetic training/validation scenes, including broadband bursts, and validation thresholds under six components. Both use three seeds. Models are not parameter-matched; P1's shared preparation computes unconsumed DEMON. The package records training details.
+Ablations remove DEMON, tables, graph, LOFAR-resolution adaptation, or numerical filtering, enforce exclusivity, or randomize actions. Removing tables retains graph values/axes; DEMON remains 4\,s. Removing numerical filtering retains schema checks. Separate P1/P2 LOFAR/dual-view CNNs train on weak labels. Localizers use 192/48 exact synthetic training/validation scenes, including broadband bursts, and validation thresholds under six components. Both use three seeds. Models are not parameter-matched; P1's shared preparation computes unconsumed DEMON. The local study package retains implementation code, experiment artifacts, and training details.
 
-\section{Data and reference feasibility}
-The 210 intact 30\,s excerpts comprise 150 DeepShip~\cite{deepshipdata} (90/30/30 train/validation/test) and 60 test-only MBARI days~\cite{mbari}, with offsets/hashes. Real splits contain 26/9/69 recording/day groups. Missing vessel/session IDs preclude vessel-disjoint claims; MBARI lacks class truth. Accessible QiandaoEar22 clips lacked proven continuity~\cite{du2024qiandao}. A bounded 13,500-pair similarity screen found no cross-split candidates, without ruling out shared sources.
+\section{Data and reference labels}
+Real recordings test the agent's behavior on underwater sound; synthetic signals test recovery of known components. Recording origin and vessel labels alone cannot identify the individual sound patterns needed to score interpretation.
 
-\researchfigure{figure02.pdf}{Real recording and model proposals; qualified tonal labels are unavailable. Overview log-PSD limits use per-view 5th/99.5th percentiles.}{fig:tonal}
+\textbf{Recordings and study splits.}
+The inventory comprises 280 scenes (recording excerpts or constructed signals). Its 210 intact 30\,s excerpts include 150 from DeepShip~\cite{deepshipdata} and 60 from separate MBARI days~\cite{mbari}. DeepShip contributes 90 training, 30 validation, and 30 test scenes; MBARI is reserved for external testing. Training and validation support baseline fitting and method development; test scenes assess the frozen methods. Recording/day groups (26 training, nine validation, 69 test) keep related excerpts together. Vessel separation cannot be confirmed, and MBARI lacks vessel-class labels. A 13,500-pair screen found no candidate cross-split duplicates, without excluding shared sources. The classification test covers nine DeepShip recordings without Tug examples; offsets and hashes preserve input identity.
 
-Another 35 real mixtures and 35 synthetic scenes each split 17/6/12; thus the main cohort has 90 real, twelve mixed, and twelve synthetic cases. Intact recordings are 75\% of inventory. Mixtures span 30--60\,s, five overlap fractions (0--100\%), and $-10/0/+10$\,dB power ratios. Test mixtures form one connected provenance group; sparse cells do not support replicated-factorial inference. Parent timing is not component truth.
+\researchfigure[trim=0 98bp 0 0,clip]{figure02.pdf}{DeepShip recording and reported tonal components M1--M6; full component/measurement links remain in the artifact. Qualified tonal labels are unavailable. Overview log-PSD limits use per-view 5th/99.5th percentiles.}{fig:tonal}
 
-\researchfigure{figure03.pdf}{MBARI recording with no retained F components. Qualified overlap labels are unavailable; this case supplies no multisource conclusion.}{fig:overlap}
+\textbf{Controlled overlap and known components.}
+The remaining scenes comprise 35 mixtures and 35 synthetic signals, each split into 17 training, six validation, and twelve test cases. The 114 main-test scenes thus comprise 90 real, twelve mixed, and twelve synthetic inputs. Mixtures span five overlap fractions (0--100\%) and relative powers of $-10$, 0, and $+10$\,dB, producing 30--60\,s inputs. They test responses to overlap; synthetic components support exact recovery scores. Shared parents link the twelve test mixtures into one provenance group, precluding independent replication.
 
-\textbf{AI reference protocol.}\label{sec:references}
-A pre-test amendment replaced human annotation with blinded InternVL 3.5 4B/8B~\cite{wang2025internvl35}. Four fixed views are prompted separately, with disjoint training demonstrations and a full 1\,Hz DEMON mean-PSD grid. Method outputs/labels are hidden; shared InternVL/Qwen ancestry permits correlated errors. Qualification requires at least three gold events and matches per morphology/domain, precision/recall $\geq0.5$, and $\geq80\%$ valid relevant views. Fixed 4\,Hz matching cannot be relaxed by model bins; rejected typed rows count against precision.
+\researchfigure[trim=0 72bp 0 0,clip]{figure03.pdf}{MBARI recording with no components retained by the generative agent (F). Qualified overlap labels are unavailable; this case supplies no multisource conclusion.}{fig:overlap}
 
-Pilots exposed all twelve calibration controls; later interface trials reused two, and the final prompt added demonstrations. Calibration is development evidence. Twelve separate controls audit the frozen protocol without retuning. Neither checkpoint recovered chirps/modulation in calibration or audit; transient/broadband had only two/zero gold events and could not qualify. The freeze admits no morphology (Table~\ref{tab:annotation}).
+\textbf{Reference labels for real recordings.}\label{sec:references}
+Real component scoring requires reliable labels for each pattern's type and location. A pre-test amendment replaced human annotation with InternVL 3.5's four- and eight-billion-parameter versions (4B/8B)~\cite{wang2025internvl35}. Each model received four fixed views separately, disjoint training demonstrations, and a 1\,Hz DEMON power grid, without method outputs or hidden labels. Shared model ancestry permits correlated errors.
+
+Qualification by pattern type and frequency domain required at least three control events and three matches, precision and recall of at least 0.5, and valid outputs for at least 80\% of relevant views. A fixed 4\,Hz tolerance applied; identifiable rejected labels counted against precision.
+
+All twelve calibration controls were exposed during development; interface trials reused two, and the final prompt added demonstrations. Twelve separate controls audited the frozen procedure without retuning. Neither model recovered chirps or modulation; transients and broadband had only two and zero positives. No pattern type qualified (Table~\ref{tab:annotation}).
 
 \begin{table}[tb]
-\caption{Tonal controls (4\,Hz rule) and final schema completion; neither is real accuracy.}
+\caption{Reference-label checks on tonal controls. TP denotes correct matches, FP unmatched or invalid labels, and FN missed known events. Complete records meet the required output format; completion is not real-data accuracy.}
 \label{tab:annotation}\centering\small
 \begin{tabular}{@{}lrrr@{}}\toprule
 Checkpoint & \shortstack{Calibration\\TP/FP/FN} & \shortstack{Audit\\TP/FP/FN} & \shortstack{Complete\\records/257} \\\midrule
@@ -98,47 +117,71 @@ InternVL 8B & 2/9/13 & 2/4/13 & 231 \\\bottomrule
 \end{tabular}
 \end{table}
 
-All 514 raw records survive. Across 245 real/mixture scenes, 4B retained 113 events and 8B none. Empty consensus is disagreement, not 113 physical errors; missing labels are not negatives.
+Each model produced 257 records: 245 real/mixture scenes and twelve audit controls. On real/mixture scenes, 4B retained 113 events and 8B none. This disagreement establishes neither correctness nor absence of sound. Real recordings therefore support reporting-behavior analysis; component-accuracy claims remain restricted to synthetic controls.
 
-\researchfigure{figure04.pdf}{Recorded F inspections; G3 and F both retained empty reports. Overview uses percentile limits; thumbnails preserve original tool rasters, coordinates, and evidence IDs.}{fig:adaptive}
+\researchfigure[trim=0 170bp 0 0,clip]{figure04.pdf}{Recorded inspections by F. F and fixed policy G3 each made six attempts, retained no components, and recorded no unresolved text; full reports remain in the artifact. Overview uses percentile limits; thumbnails preserve original rasters, coordinates, and evidence IDs.}{fig:adaptive}
 
-\section{Evaluation and execution}
-Primary real AI-reference agreement and H1 (F versus validation-selected G3/G4) and H4 (raw-to-filtered agreement/coverage) are unavailable; no comparator is selected. Exact synthetic recovery is separate. Greedy one-to-one matching requires morphology/domain agreement, temporal IoU $\geq0.3$, and track error within 2\,Hz; regions require time--frequency IoU $\geq0.3$ and modulation requires compatible carriers. Duplicates stay unmatched. Modulation truth is exhaustive only for amplitude-modulated noise, beating, mixed, and noise/silence cases; compatible higher beat harmonics are optional. Training/test seeds are disjoint. Secondary relation scores distinguish emitted temporal-overlap edges from geometry-induced time--frequency intersections using 2\,Hz narrowband tubes.
+\section{Evaluation design}\label{sec:evaluation}
+Evaluation tests whether inspection choices and measurement checks improve component recovery. An episode is one policy applied to one scene. Completion, valid formatting, and correct recovery are separate outcomes; an empty or correctly formatted report does not establish accuracy.
 
-Bootstrap units are recording/day, connected-mixture, or generator-case groups. Planned H1/H4 use Holm correction. A user runtime cap during ablations after main scoring reduced 80 real scenes to the first 33 frozen scenes (30 DeepShip, three MBARI; twelve groups): 198 episodes across six variants, without execution failures. This change was not preregistered and is domain-imbalanced. All 72 new synthetic-variant episodes were omitted; F/G4/F without numerical filtering reuse main generations. Budgets pair six real and twelve synthetic cases. Secondary tests comprise 54 interventions and thirty sensitivity probes. Waveform edits regenerate views; image mismatch retains target numerical evidence. Blank success requires valid empty reports; contrast ranking is uncalibrated.
+\textbf{Comparisons and available evidence.}
+F chooses inspections generatively; G3 uses a fixed order and G4 a heuristic. H1 would compare F with whichever of G3 or G4 performed best on qualified real validation labels. H4 would test whether filtering improved agreement with those labels while preserving event coverage. Neither primary test was possible because no reference type qualified. Synthetic recovery is assessed separately. Precision measures the fraction of predictions matching reference events, recall the fraction of events recovered, and F1 their harmonic mean.
 
-DSP, synthesis, model forward/backpropagation, and metrics use a 48\,GB RTX 6000 Ada. Pinned image preprocessing runs on CPU, contrary to plan. Shared batches divide CUDA spans equally; verification shares the lock but lacks a timer. These incomplete, schedule-dependent spans do not measure standalone latency or marginal/billable cost. Wall time includes preparation/verification/waiting. Failures remain in denominators; defective pilots supply historical timing only.
+\textbf{Defining component recovery.}
+Predictions must match pattern type and acoustic or modulation domain. Narrowband tracks require mean frequency error within 2\,Hz and temporal intersection-over-union (IoU) of at least 0.3. IoU divides shared duration by the union of predicted and reference intervals. Transient or broadband regions use time--frequency area IoU of at least 0.3; modulation requires compatible carrier bands. Greedy matching assigns the highest-quality pairs first, using each prediction and reference once and leaving duplicates unmatched.
 
-\researchfigure{figure05.pdf}{Recorded schema-valid empty F report. No raw components were emitted or numerically withheld; qualified references remain unavailable.}{fig:failure}
+Modulation is scored only where labels are exhaustive: amplitude-modulated noise, beating, mixed, and noise/silence cases; compatible higher beat harmonics are optional. Training and test generator seeds are disjoint. Relationship scores assess reported temporal overlap and geometric time--frequency overlap, representing each narrowband track as a strip 2\,Hz wide around its trajectory.
 
-\section{Results and limitations}
-All 570 main episodes executed without execution failures. Exact-synthetic F1 for G1/G2/G3/G4/F was 0.024/0.529/0.478/0.642/0.511; F's 95\% generator-case interval was [0.286,0.700]. These descriptive results establish neither adaptive benefit nor equivalence. Synthetic G2/F had two/one schema failures; real G3/G4 had two each. Real empty reports numbered 14/43/46/42/39; F returned 14/30 DeepShip and 25/60 MBARI empty. Emission is not calibrated abstention or accuracy.
+\textbf{Uncertainty and supplementary comparisons.}
+Grouped bootstrap intervals resample recording/day groups, connected mixture groups, or synthetic cases, keeping dependent observations together. Holm correction was planned for H1/H4 but could not be applied without qualified references.
 
-F's synthetic TP/FP/FN changed from raw 13/32/11 to retained 12/11/12. The lost match came from an entire schema-invalid report: this combines schema gating and numerical filtering. On the matched six-real-scene subset at six slots, mean recorded spans were F/G3/G4 113.0/22.9/32.0\,s, under the accounting limits above.
+Ablations test individual components' roles. A runtime cap after main scoring reduced the planned 80 real scenes to the first 33 in frozen order: 30 DeepShip and three MBARI scenes from twelve groups. Six variants completed 198 episodes without execution failures. This reduction was not preregistered and favors DeepShip. The 72 new synthetic-variant episodes were omitted; synthetic comparisons reuse F, G4, and F without numerical filtering, all with format checks. Real ablations therefore measure report production.
 
-\researchfigure{figure06.pdf}{Real report production (A), exact synthetic recovery (B/C), and weak-label classification (D). Small dots in B/C show ten positive-gold cases; pooled diamonds include all twelve controls and their false positives. B bars are 95\% case-bootstrap intervals. C repeats shared cases across seeds; D shows three seeds and mean$\pm$SD. Real accuracy is unavailable.}{fig:quantitative}
+Matched budget tests use six real and twelve synthetic cases at two, four, and six slots to assess additional inspection opportunities. Slots include invalid or unavailable actions and finalization. Another 54 intervention cases and thirty sensitivity probes test changed inputs. Waveform edits regenerate displays; image mismatch retains numerical evidence and cannot isolate visual use. Blank input requires a valid empty report; contrast-based ranking does not provide calibrated probabilities.
 
-P1/P2 present-class macro F1 was $0.350\pm0.210$/$0.245\pm0.007$ (three-seed mean$\pm$SD); four-label F1 was 0.262/0.184. Paired four-label P2-minus-P1 was $-0.078$ (recording-group 95\% interval $[-0.135,0.052]$, conditional on seeds). Nine test recordings, with no Tug, establish neither dual-view superiority nor four-class generalization. Synthetic localizer F1 was $0.157\pm0.012$/$0.181\pm0.018$ (seeds 17/29/43); malformed P1 seed-43 track output was rejected.
+\textbf{Execution and interpretation of cost.}
+Signal processing, synthesis, inference, and scoring ran on a 48\,GB RTX 6000 Ada GPU; image preprocessing ran on CPU contrary to the plan. GPU spans divide shared batch times equally without separately timing verification. They are incomplete and schedule-dependent, not standalone latency or marginal or billable cost. Wall time includes preparation, verification, and waiting. Failures remain in score denominators; defective pilots contribute historical timing only.
 
-\researchfigure{figure07.pdf}{Post-main user cap: real variants and a separate three-policy synthetic reuse comparison. No new synthetic variants ran; F without numerical filtering retains schema checks.}{fig:ablation}
+\section{Results}
+All 570 main episodes completed without execution failures. Figures~\ref{fig:quantitative} and~\ref{fig:ablation} summarize recovery and report production.
 
-Graph/table removal yielded 33/33 empty retained real reports versus F's 16/33. Emptiness includes rejection; real accuracy remains unavailable. On twelve reused synthetic cases, F without numerical filtering had TP/FP/FN 12/27/12 (F1 0.381), versus F's 12/11/12 (0.511), with the same schema gate and generations.
+\textbf{Measurement checking improves synthetic reports.}
+On twelve synthetic controls, reusing identical F reports with common format checks isolated numerical filtering: false detections fell from 27 to eleven while twelve correct detections were preserved, raising F1 from 0.381 to 0.511.
 
-Budget F1 (2/4/6 slots) on the same twelve controls was F 0.613/0.613/0.511, G3 0.613/0.586/0.478, and G4 0.556/0.455/0.642: no consistent gain, with schema failures included.
+Including format rejection, raw-to-retained TP/FP/FN changed from 13/32/11 to 12/11/12; the lost match came from an entirely rejected report.
 
-Across 54 interventions/six base cases, pooled F1 was F/G4 0.489/0.534; the different main cohort precludes pooled degradation estimates. Repeated blank waveforms yielded valid empty reports, without independent success estimates. Nonblank zero-support recovery and real risk--coverage remain unavailable.
+\textbf{Recovery across inspection policies.}
+Heuristic G4 achieved the highest event F1 (0.642), followed by G2 (0.529), F (0.511), G3 (0.478), and G1 (0.024). F's 95\% generator-case bootstrap interval was [0.286,0.700].
 
-F's tone/chirp/transient/modulation F1 was 0.485/0.400/0.667/0.800 on 15/4/2/3 gold events; broadband had no positives. Emitted temporal-edge F1 was F/G4 0.077/0.375; both missed the only gold time--frequency-overlap edge. Free-text reasoning was unscored.
+F scored 0.485 for tones, 0.400 for chirps, 0.667 for transients, and 0.800 for modulation (15, four, two, and three required events, respectively). Broadband had no positives. Temporal-overlap F1 was 0.077 for F and 0.375 for G4; both missed the single time--frequency-overlap relation.
 
-View-mismatch report agreement was F/G4 0.947/1.000 (five scored pairs each; one both-empty pair omitted). This measures stability, not correctness or visual use. Real attenuation/removal probes lack component truth.
+\researchfigure{figure06.pdf}{Real report production (A), exact synthetic recovery (B/C), and weak-label classification (D). Small dots in B/C show ten positive-gold cases; pooled diamonds include all twelve controls and their false positives. B bars are 95\% case-bootstrap intervals. C repeats shared cases across seeds; D shows three seeds and mean$\pm$SD.}{fig:quantitative}
+
+\textbf{Evidence representation and real report production.}
+Removing graph memory or component/measurement tables left all 33 real ablation reports empty, versus sixteen for F. Across 90 real test scenes, empty-report counts were G1: fourteen, G2: 43, G3: 46, G4: 42, and F: 39 (14/30 DeepShip; 25/60 MBARI). A separate empty-report case check found no generated components or numerical rejections. Format failures numbered two for G2 and one for F on synthetic cases, and two each for G3/G4 on real cases.
+
+\researchfigure{figure07.pdf}{Real report-production comparison on 33 scenes and a separate three-policy synthetic comparison reusing twelve main-test cases. F without numerical filtering retains the common report-format checks.}{fig:ablation}
+
+\textbf{Inspection budgets and input changes.}
+On twelve synthetic controls at two/four/six slots, F1 was 0.613/0.613/0.511 for F, 0.613/0.586/0.478 for G3, and 0.556/0.455/0.642 for G4, including format failures. On six matched real scenes at six slots, recorded GPU spans averaged 113.0\,s for F, 22.9\,s for G3, and 32.0\,s for G4.
+
+Across 54 interventions from six signals, pooled F1 was 0.489 for F and 0.534 for G4. Blank waveforms yielded valid empty reports. Mismatched modulation images produced agreement of 0.947 for F and 1.000 for G4 over five pairs each, excluding one both-empty pair per policy.
+
+\textbf{Separate learned baselines.}
+Across three seeds, LOFAR-only P1 and dual-view P2 classification yielded present-class macro F1 $0.350\pm0.210$ and $0.245\pm0.007$; four-label scores were 0.262 and 0.184. The paired P2-minus-P1 difference was $-0.078$ (recording-group 95\% interval $[-0.135,0.052]$, conditional on trained seeds). Synthetic-trained localizers scored $0.157\pm0.012$ and $0.181\pm0.018$ for P1/P2 (seeds 17, 29, 43); malformed P1 seed-43 tracks were rejected.
 
 \requiredartifact{figure08.pdf}
 \requiredartifact{figure09.pdf}
-The failed reference gate limits this development-exposed protocol. Mono ambiguity, weak labels, domain shift, and one backbone limit generalization. Disjoint parameter seeds are not unseen generator families; recording/day checks cannot exclude pretrained-corpus overlap. Real physical accuracy remains unestablished.
 
-\paragraph{Availability.} The local package retains protocols, comparisons, manifests/hashes, trained checkpoints, pinned model revisions, raw outputs/scores, all nine figures, case-selection rules, and the linked evidence/action viewer. Audio rights remain with providers.
+\section{Discussion}
+The distinctive contribution is a measurable inspection loop: generative decisions, memory for overlapping components, and numerical checks extend paired-view acoustic analysis~\cite{li2022lofar}. Component records let analysts trace observations to waveform evidence. On identical synthetic reports, checking reduced false detections from 27 to 11 while preserving twelve correct detections, demonstrating an advantage over generation without numerical filtering.
 
-\paragraph{AI Use Declaration.} OpenAI Codex wrote/revised code/text, orchestrated experiments, checked sources, and prepared figure code in November 2026. Local-model use appears in Sects.~\ref{sec:controllers} and~\ref{sec:references}; no human component labels were collected. Authors remain responsible for review before submission.
+This design could support analyst review of complex recordings. G4's stronger recovery motivates hybrid policies combining heuristic guidance with generative flexibility. The shared evaluation framework makes these designs testable across new backbones and signal families, with validated real labels supporting future operational assessment.
+
+\section{Conclusion}
+This study presents a practical way to use agentic AI for interpreting underwater sound while keeping its findings open to human review. Controlled tests show that checking the evidence behind generated reports can improve their quality. By connecting AI decisions with observations that analysts can examine, the approach provides a foundation for more transparent acoustic analysis. Future development could turn this foundation into useful tools for investigating complex underwater recordings.
+
+\paragraph{AI Use Declaration.} Codex from OpenAI was used to assist in the coding, organizing of simulations, running experiments and editing the paper draft.
 
 \bibliographystyle{splncs04}
 \bibliography{references}
